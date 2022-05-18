@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Home Page</title>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main-container">
+            <div class="main-content">
+                <h1>HAKKAKU RAMEN</h1>
+                <h3>Phone Handy System</h3>
+                <p>Only employees of Hakkaku Ramen Restaurant are allowed to 
+                    login and activate this system. 
+                </p>
+                
+                <button class="user-btn"><div>User</div></button>
+
+                <button class="admin-btn"><div>Admin</div></button>
+
+                <br><br><br>{{message}}<br>
+            </div>
+
+            <div class="main-img-container">
+                <img src="/images/pic-1.svg" id="main-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop up menu for Log in -->
+    <div class="modal" id='user-modal'>
+
+        <!-- This is a class for all of this modal functions -->
+        <div class="modal-content">
+
+            <!-- This is to close the SignUp page by clicking anywhere on the main page -->
+            <span class="close-btn">&times;</span>
+
+            <div class="modal-content-left">
+                <img id="modal-img" src="/images/pic-3.svg">
+            </div>
+
+            <div class="modal-content-right">
+                <form action="/auth/user" method="POST" class="modal-form">
+                    <h1>Enter your username and password</h1>
+                    
+                    <!-- Get an input from the user -->
+                    <div class="form-validation">
+                        <input type="text" class="modal-input" id="name" name="name" placeholder="Enter your username">
+                    </div>
+
+                    <div class="form-validation">
+                        <input type="password" class="modal-input" id="password" name="password" placeholder="Enter your password">
+                    </div>
+
+                    {{!-- <input type="submit" name="user-submit" class="modal-input-btn" value="Login"> --}}
+                    <button type="submit" name="user-submit" class="modal-input-btn">Login</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop up menu for Log in -->
+    <div class="modal" id='admin-modal'>
+
+        <!-- This is a class for all of this modal functions -->
+        <div class="modal-content">
+
+            <!-- This is to close the SignUp page by clicking anywhere on the main page -->
+            <span class="close-btn-admin">&times;</span>
+
+            <div class="modal-content-left">
+                <img id="modal-img" src="/images/pic-4.svg">
+            </div>
+
+            <div class="modal-content-right">
+                <form action="/auth/admin" method="POST" class="modal-form">
+                    <h1>Enter your username and password</h1>
+                    
+                    <!-- Get an input from the user -->
+                    <div class="form-validation">
+                        <input type="text" class="modal-input" id="name" name="name" placeholder="Enter your username">
+                    </div>
+
+                    <div class="form-validation">
+                        <input type="password" class="modal-input" id="password" name="password" placeholder="Enter your password">
+                    </div>
+
+                    {{!-- <input type="submit" name="admin-submit" class="modal-input-btn" value="Login"> --}}
+                    <button type="submit" name="admin-submit" class="modal-input-btn">Login</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/js/index.js"></script>
+
+</body>
+</html>

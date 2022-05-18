@@ -1,0 +1,58 @@
+.title_box {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.table_one {
+    height: 150px;
+    width: 250px;
+    background-color: lightblue;
+}
+
+.table_one p {
+    /* padding: 50px 0 0 100px; */
+    text-align: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-top: -0.01rem;
+}
+
+.table_one h4{
+    text-align: center;
+    align-items: center;
+}
+
+.table_two {
+    height: 150px;
+    width: 250px;
+    background-color: lightblue;
+}
+
+.table_two p {
+    /* padding: 50px 0 0 100px; */
+    text-align: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-top: -0.01rem;
+}
+
+.table_two h4 {
+    text-align: center;
+    align-items: center;
+}
+.btn_container {
+    display: flex;
+    justify-content: center;
+}
+
+.add_btn {
+    padding-right: 2px;
+}
+
+.view_btn {
+    padding-left: 2px;
+}

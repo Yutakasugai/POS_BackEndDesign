@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add Page</h1>
+    <h2>User Name: {{name}}</h2>
+
+    <div id="add-item">
+        <form action="/auth/user/{{table_key}}/addItem" method="POST">       
+            {{#each items}}
+                <div class="item_container">
+                    <input type="checkbox" value="{{item}},{{price}}" id="item_{{id}}" name="select_item">
+                    <label for="{{id}}">{{item}}</label>
+                </div>
+            {{/each}}
+            
+            <input type="hidden" name="userName" value="{{name}}">
+            <button value="{{table_key}}" name="table_key">Send</button>
+        </form>
+    </div>
+
+    {{#if errorMsg}}
+        <h4>{{errorMsg}}</h4>
+    {{/if}}
+
+</body>
+</html>

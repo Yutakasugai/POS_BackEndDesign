@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Page</h1>
+    <h2>User Name: {{name}}</h2>
+
+    <div id="edit-item">
+        <form action="/auth/user/{{table_key}}/removeItem" method="POST">       
+            {{#each items}}
+                <div class="item_container">
+                    <input type="checkbox" value="{{ID}}" id="item_{{ID}}" name="remove_id">
+                    <label for="{{ID}}">{{item_name}}</label>
+                </div>
+            {{/each}}
+            
+            <input type="hidden" name="userName" value="{{name}}">
+            <button value="{{table_key}}" name="table_key">Remove</button>
+        </form>
+    </div>
+
+    {{#if errorMsg}}
+        <h4>{{errorMsg}}</h4>
+    {{/if}}
+
+</body>
+</html>

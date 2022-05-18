@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/server.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="title_box">
+        <h1>Table Conditions</h1>
+        <h2>User Name: {{name}}</h2>
+    </div>
+
+    <div class="container">
+        <div class="table_one">
+            <p>Table-1</p>
+            
+            <div class="btn_container">
+                <form action="/auth/user/update_1" method="POST" class="add_btn">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <button type="submit" name="update_1" value="update_1">Add</button>
+                </form>
+
+                <form action="/auth/user/view_1" method="POST" class="view_btn">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <button type="submit" name="view_1" value="view_1">View</button>
+                </form>
+            </div>
+
+            {{#if check_1}}
+                <h4>{{check_1}}</h4>
+            {{else}}
+                <h4>Empty...</h4>
+            {{/if}}
+        </div>
+
+        <div class="table_two">
+            <p>Table-2</p>
+
+            <div class="btn_container">
+                <form action="/auth/user/update_2" method="POST" class="add_btn">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <button type="submit" name="update_2" value="update_2">Add</button>
+                </form>
+
+                <form action="/auth/user/view_2" method="POST" class="view_btn">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <button type="submit" name="view_2" value="view_2">View</button>
+                </form>
+            </div>
+            
+            {{#if check_2}}
+                <h4>{{check_2}}</h4>
+            {{else}}
+                <h4>Empty...</h4>
+            {{/if}}
+        </div>
+    </div>
+
+</body>
+</html>
