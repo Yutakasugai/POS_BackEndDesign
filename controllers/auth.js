@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const url = require("url");
 
 const { resolveSoa } = require("dns");
+const { count } = require("console");
 
 // Create connection to database 
 const db = mysql.createConnection({
@@ -281,15 +282,29 @@ exports.viewItem_1 = (req, res) => {
 
     const {view_1, userName} = req.body;
 
+    // console.log("Here is view: " + test)
+
     db.query('SELECT * FROM table_1', (error, table_results) => {
         if(error){
             console.log(error)
         } 
-        res.render('edit', {
-            name: userName, 
-            table_key: view_1,
-            items: table_results
-        })
+
+        noItem_msg = "No items found on this order list..."
+
+        if(table_results.length === 0){
+            res.render('edit', {
+                name: userName, 
+                table_key: view_1,
+                items: table_results,
+                noItem_msg: noItem_msg
+            })
+        } else {
+            res.render('edit', {
+                name: userName, 
+                table_key: view_1,
+                items: table_results
+            })
+        }
     })
 }
 
@@ -302,19 +317,30 @@ exports.viewItem_2 = (req, res) => {
         if(error){
             console.log(error)
         } 
-        res.render('edit', {
-            name: userName, 
-            table_key: view_2,
-            items: table_results
-        })
+
+        noItem_msg = "No items found on this order list..."
+
+        if(table_results.length === 0){
+            res.render('edit', {
+                name: userName, 
+                table_key: view_2,
+                items: table_results,
+                noItem_msg: noItem_msg
+            })
+        } else{
+            res.render('edit', {
+                name: userName, 
+                table_key: view_2,
+                items: table_results
+            })
+        }
     })
 }
 
 // Remove function - by clicking remove button in the view page, this will enable to remove items into table-1 database
 // After deleting items from database, user will stay at this same page
 exports.removeItem_1 = (req, res) => {
-    const {remove_id, userName, table_key} = req.body;
-
+    const {remove_id, userName, table_key, resend_key} = req.body;
 
     if(typeof(remove_id) === 'string'){
 
@@ -330,10 +356,16 @@ exports.removeItem_1 = (req, res) => {
             if(error){
                 console.log(error)
             } 
+
+            resendMsg = "Please resned this list to confirm your change";
+
             res.render('edit', {
+                resendMsg: resendMsg,
+                resend_key: "Removed",
                 name: userName, 
                 table_key: table_key,
-                items: table_results
+                items: table_results,
+                removed_key: "Pass"
             })
         })
 
@@ -357,36 +389,63 @@ exports.removeItem_1 = (req, res) => {
             if(error){
                 console.log(error)
             } 
+
+            resendMsg = "Please resned this list to confirm your change";
+
             res.render('edit', {
+                resendMsg: resendMsg,
+                resend_key: "Removed",
                 name: userName, 
                 table_key: table_key,
-                items: table_results
+                items: table_results,
+                removed_key: "Pass"
             })
         })
 
     } else {
-        db.query('SELECT * FROM table_1', (error, table_results) => {
-            if(error){
-                console.log(error)
-            } 
 
-            errorMsg = "No items selected"
-
-            res.render('edit', {
-                name: userName, 
-                table_key: table_key,
-                items: table_results,
-                errorMsg: errorMsg
+        if (resend_key === "Removed"){
+            
+            db.query('SELECT * FROM table_1', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                } 
+    
+                errorMsg = "No items selected"
+    
+                res.render('edit', {
+                    resend_key: "Removed",
+                    name: userName, 
+                    table_key: table_key,
+                    items: table_results,
+                    errorMsg: errorMsg,
+                    removed_key2: "Pass"
+                })
             })
-        })
-    }
+        } else {
 
+            db.query('SELECT * FROM table_1', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                } 
+    
+                nonremoved_msg = "No items selected"
+    
+                res.render('edit', {
+                    name: userName, 
+                    table_key: table_key,
+                    items: table_results,
+                    nonremoved_msg: nonremoved_msg
+                })
+            })
+        }
+    }
 }
 
 // Remove function - by clicking remove button in the view page, this will enable to remove items into table-2 database
 // After deleting items from database, user will stay at this same page
 exports.removeItem_2 = (req, res) => {
-    const {remove_id, userName, table_key} = req.body;
+    const {remove_id, userName, table_key, resend_key_2} = req.body;
 
     if(typeof(remove_id) === 'string'){
 
@@ -402,10 +461,16 @@ exports.removeItem_2 = (req, res) => {
             if(error){
                 console.log(error)
             } 
+
+            resendMsg = "Please resned this list to confirm your change";
+
             res.render('edit', {
+                resendMsg: resendMsg, 
+                resend_key_2: "Removed",
                 name: userName, 
                 table_key: table_key,
-                items: table_results
+                items: table_results,
+                removed_key: "Pass"
             })
         })
 
@@ -429,29 +494,111 @@ exports.removeItem_2 = (req, res) => {
             if(error){
                 console.log(error)
             } 
+
+            resendMsg = "Please resned this list to confirm your change";
+
             res.render('edit', {
+                resendMsg: resendMsg,
+                resend_key_2: "Removed",
                 name: userName, 
                 table_key: table_key,
-                items: table_results
+                items: table_results,
+                removed_key: "Pass"
             })
         })
 
     } else {
-        db.query('SELECT * FROM table_2', (error, table_results) => {
-            if(error){
-                console.log(error)
-            } 
 
-            errorMsg = "No items selected"
-
-            res.render('edit', {
-                name: userName, 
-                table_key: table_key,
-                items: table_results,
-                errorMsg: errorMsg
+        if (resend_key_2 === "Removed"){
+            
+            db.query('SELECT * FROM table_2', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                } 
+    
+                errorMsg = "No items selected"
+    
+                res.render('edit', {
+                    resend_key_2: "Removed",
+                    name: userName, 
+                    table_key: table_key,
+                    items: table_results,
+                    errorMsg: errorMsg,
+                    removed_key2: "Pass"
+                })
             })
-        })
+        } else {
+
+            db.query('SELECT * FROM table_2', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                } 
+    
+                nonremoved_msg = "No items selected"
+    
+                res.render('edit', {
+                    name: userName, 
+                    table_key: table_key,
+                    items: table_results,
+                    nonremoved_msg: nonremoved_msg
+                })
+            })
+        }
     }
 
 }
 
+// Resend function to push any changes on the table1 orders in the kitchen 
+exports.resendItem_1 = (req, res) => {
+
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+}
+
+// Resend function to push any changes on the table2 orders in the kitchen
+exports.resendItem_2 = (req, res) => {
+
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+
+}
+
+// Back button to function leading users to back to the main page 
+exports.backBtn_1 = (req, res) => {
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+}
+
+// Back button to function leading users to back to the main page
+exports.backBtn_2 = (req, res) => {
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+}

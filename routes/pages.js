@@ -75,7 +75,7 @@ router.get('/auth/user/home', userCheck, (req, res) => {
 // Create a midddleware to secure the URL which prevents anyone from having an easy access to the page 
 function userCheck(req, res, next) {
 
-    console.log(req.originalUrl)
+    // console.log(req.originalUrl)
 
     const name_key = req.query.user; 
 
