@@ -18,4 +18,10 @@ router.post('/user/view_2', authController.viewItem_2);
 router.post('/user/view_1/removeItem', authController.removeItem_1);
 router.post('/user/view_2/removeItem', authController.removeItem_2);
 
+router.post('/user/view_1/resendItem', authController.resendItem_1);
+router.post('/user/view_2/resendItem', authController.resendItem_2);
+
+router.post('/user/view_1/back', authController.backBtn_1);
+router.post('/user/view_2/back', authController.backBtn_2);
+
 module.exports = router; 

@@ -18,15 +18,53 @@
                     <label for="{{ID}}">{{item_name}}</label>
                 </div>
             {{/each}}
+
+            {{#if noItem_msg}}
+                <h4>{{noItem_msg}}</h4>
+            {{else}}
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="resend_key" value="{{resend_key}}">
+                <input type="hidden" name="resend_key_2" value="{{resend_key_2}}">
+                <button value="{{table_key}}" name="table_key">Remove</button>
+            {{/if}}
             
-            <input type="hidden" name="userName" value="{{name}}">
-            <button value="{{table_key}}" name="table_key">Remove</button>
         </form>
+
+        {{!-- This form action works only when user delete items from the order list --}}
+        {{#if removed_key}}
+            <form action="/auth/user/{{table_key}}/resendItem" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                {{!-- <input type="hidden" name="items_len" value="{{items_len}}"> --}}
+                <button value="{{table_key}}" name="table_key">Resend</button>
+            </form>
+
+            <h4>{{resendMsg}}</h4>
+        {{/if}}
+
+        {{!-- This form action only works after some items are deleted, but user fail to delete --}}
+        {{#if removed_key2}}
+            <form action="/auth/user/{{table_key}}/resendItem" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="items_len" value="{{items_len}}">
+                <button value="{{table_key}}" name="table_key">Resend</button>
+            </form>
+
+            <h4>{{errorMsg}}</h4>
+        {{/if}}
+
+        {{!-- This works when the item numbers is not changed as it was, so 
+        the resend button does not fucntion cause of no change in the order list --}}
+        {{#if nonremoved_msg}}
+            <h4>{{nonremoved_msg}}</h4>
+        {{/if}}
+
     </div>
 
-    {{#if errorMsg}}
-        <h4>{{errorMsg}}</h4>
-    {{/if}}
+    <br><br>
+    <form action="/auth/user/{{table_key}}/back" method="POST">
+        <input type="hidden" name="userName" value="{{name}}">
+        <button>Back</button>
+    </form>
 
 </body>
 </html>
