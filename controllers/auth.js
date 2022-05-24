@@ -152,12 +152,10 @@ exports.addItem_1 = (req, res) => {
 
     var temp_list = select_item;
 
-    var check_counter = 0; 
-
     if(typeof(temp_list) === 'string'){
         let test_val = Object(temp_list).split(",")
 
-        console.log(test_val[0], test_val[1])
+        // console.log(test_val[0], test_val[1])
 
         db.query('INSERT INTO table_1(item_name, item_price) VALUES (?, ?)', [test_val[0], test_val[1]], (error, results) => {
             if(error){
@@ -166,7 +164,14 @@ exports.addItem_1 = (req, res) => {
             console.log("Added sucessfully")
         })
 
-        check_counter = 1
+        res.redirect(url.format({
+            pathname: '/auth/user/update_1',
+            query: {
+                "page": "added items on the data",
+                "user": userName,
+                "table_id": table_key
+            }
+        }))
         
     } else if (typeof(temp_list) === 'object'){
         for (let x = 0; x < (temp_list.length); x++){
@@ -181,33 +186,52 @@ exports.addItem_1 = (req, res) => {
             })
         }
 
-        check_counter = 1
+        res.redirect(url.format({
+            pathname: '/auth/user/update_1',
+            query: {
+                "page": "added items on the data",
+                "user": userName,
+                "table_id": table_key
+            }
+        }))
 
     } else {
-        db.query('SELECT * FROM menu_list', (error, results) => {
+
+        db.query('SELECT * FROM menu_list', (error, menu_results) => {
             if(error){
                 console.log(error)
             } 
 
             errorMsg = "No items selected"
 
-            res.render('home', {
-                name: userName,
-                table_key: table_key,
-                items: results,
-                errorMsg: errorMsg
+            db.query('SELECT * FROM table_1', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                }
+
+                if(table_results.length === 0){
+
+                    check_msg = "No items added yet..."
+
+                    res.render('home', {
+                        name: userName,
+                        table_key: table_key,
+                        items: menu_results,
+                        check_msg: check_msg,
+                        errorMsg: errorMsg
+                    })
+                } else {
+
+                    res.render('home', {
+                        name: userName,
+                        table_key: table_key,
+                        items: menu_results,
+                        check_items: table_results,
+                        errorMsg: errorMsg
+                    })
+                }
             })
         })
-    }
-
-    if(check_counter !== 0) {
-        res.redirect(url.format({
-            pathname: '/auth/user/home',
-            query: {
-                "page": "server's main page",
-                "user": userName
-            }
-        }))
     }
 }
 
@@ -217,8 +241,6 @@ exports.addItem_2 = (req, res) => {
     const {select_item, table_key, userName} = req.body; 
 
     var temp_list = select_item
-
-    var check_counter = 0
 
     if(typeof(temp_list) === 'string'){
         let test_val = Object(temp_list).split(",")
@@ -232,7 +254,14 @@ exports.addItem_2 = (req, res) => {
             console.log("Added sucessfully")
         })
 
-        check_counter = 1
+        res.redirect(url.format({
+            pathname: '/auth/user/update_2',
+            query: {
+                "page": "added items on the data",
+                "user": userName,
+                "table_id": table_key
+            }
+        }))
         
     } else if (typeof(temp_list) === 'object'){
         for (let x = 0; x < (temp_list.length); x++){
@@ -247,34 +276,80 @@ exports.addItem_2 = (req, res) => {
             })
         }
 
-        check_counter = 1
+        res.redirect(url.format({
+            pathname: '/auth/user/update_2',
+            query: {
+                "page": "added items on the data",
+                "user": userName,
+                "table_id": table_key
+            }
+        }))
 
     } else {
-        db.query('SELECT * FROM menu_list', (error, results) => {
+
+        db.query('SELECT * FROM menu_list', (error, menu_results) => {
             if(error){
                 console.log(error)
             } 
 
             errorMsg = "No items selected"
 
-            res.render('home', {
-                name: userName, 
-                table_key: table_key, 
-                items: results,
-                errorMsg: errorMsg
+            db.query('SELECT * FROM table_2', (error, table_results) => {
+                if(error){
+                    console.log(error)
+                }
+
+                if(table_results.length === 0){
+
+                    check_msg = "No items added yet..."
+
+                    res.render('home', {
+                        name: userName,
+                        table_key: table_key,
+                        items: menu_results,
+                        check_msg: check_msg,
+                        errorMsg: errorMsg
+                    })
+                } else {
+
+                    res.render('home', {
+                        name: userName,
+                        table_key: table_key,
+                        items: menu_results,
+                        check_items: table_results,
+                        errorMsg: errorMsg
+                    })
+                }
             })
         })
     }
+}
 
-    if(check_counter !== 0) {
-        res.redirect(url.format({
-            pathname: '/auth/user/home',
-            query: {
-                "page": "server's main page",
-                "user": userName
-            }
-        }))
-    }
+exports.submit_1 = (req, res) => {
+
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+}
+
+exports.submit_2 = (req, res) => {
+
+    const {userName} = req.body; 
+
+    res.redirect(url.format({
+        pathname: '/auth/user/home',
+        query: {
+            "page": "server's main page",
+            "user": userName
+        }
+    }))
+
 }
 
 // If user view the order list for table 1, this exports will take user to view page for table 1

@@ -21,13 +21,45 @@
             {{/each}}
             
             <input type="hidden" name="userName" value="{{name}}">
-            <button value="{{table_key}}" name="table_key">Send</button>
+            <button value="{{table_key}}" name="table_key">Add</button>
         </form>
     </div>
+
+    <button class="check-btn">Check</button>
 
     {{#if errorMsg}}
         <h4>{{errorMsg}}</h4>
     {{/if}}
+
+    <!-- Pop up menu for Log in -->
+    <div class="modal" id='check-modal'>
+
+        <!-- This is a class for all of this modal functions -->
+        <div class="modal-content">
+
+            <!-- This is to close the SignUp page by clicking anywhere on the main page -->
+            <span class="close-btn">&times;</span>
+
+            <div class="check_items">
+                {{#if check_msg}}
+                    <h4>{{check_msg}}</h4>
+                {{else}}
+                    <form action="/auth/user/{{table_key}}/submit" method="POST">
+                        {{#each check_items}}
+                            <div class="items_list">
+                                <input type="checkbox" value="{{item_name}},{{item_price}}" id="item_{{ID}}" name="select_checkItem">
+                                <label for="{{ID}}">{{item_name}}</label>
+                            </div>
+                        {{/each}}
+
+                        <button name="userName" value="{{name}}">Submit</button>
+                    </form>
+                {{/if}}   
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/js/check_modal.js"></script>
 
 </body>
 </html>
