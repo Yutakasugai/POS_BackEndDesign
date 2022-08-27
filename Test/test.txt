@@ -1,0 +1,58 @@
+insert_sql = `insert into table_record(order_from, c_number, created_at) values(?, ?, ?)`; 
+    create_sql = `CREATE TABLE IF NOT EXISTS ${table_key} (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL, item_status TEXT)`; 
+
+    db.query(create_sql, (error) => {
+        if (error){
+            console.log(error)
+        }
+        console.log(`${table_key} table is created to keep items in it`); 
+
+        // insert values of time_key, table_key and c_number in updated_table db 
+        db.query(insert_sql, [table_key, c_number, time_key], (error, result) => {
+            if(error){
+                console.log(error)
+            }
+
+            console.log("The table values are inserted in updated_table!"); 
+
+            // Check if the cerated table already has a value or not 
+            db.query(`select * from ${table_key}`, (error, check_table) => {
+                if(error){
+                    console.log(error)
+                }
+
+                if(check_table.length > 0){
+                    
+                    return res.redirect(url.format({
+                        pathname: '/auth/user/addPage',
+                        query: {
+                            "msg": "addPage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key,
+                            "table_key": table_key, 
+                            "c_number": c_number,
+                            "row_id": result['insertId'],
+                            "status": "Filled"
+                        }
+                    }))
+
+                } else {
+                
+                    return res.redirect(url.format({
+                        pathname: '/auth/user/addPage',
+                        query: {
+                            "msg": "addPage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key,
+                            "table_key": table_key, 
+                            "c_number": c_number,
+                            "row_id": result['insertId'],
+                            "status": "Empty"
+                        }
+                    }))
+                }
+            })
+        })
+    })

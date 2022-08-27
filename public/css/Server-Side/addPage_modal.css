@@ -1,0 +1,866 @@
+/* modal for ramen pref & toppings removal or for side */
+.modal_bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0; /*hide this line*/
+  visibility:  hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+  z-index: 20;
+}
+
+/* modal for shrimp and vege ramen */
+.modal_bg_shrimp {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0; /*hide this line*/
+  visibility:  hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+  z-index: 20;
+}
+
+.bg-active{
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal_content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+/* Modal slide 1 */
+.swiper-slide {
+  height: 100%;
+}
+.pref-section-content {
+  box-sizing: border-box;
+  height: 100%;
+}
+.slide-header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slide-title {
+  padding-left: 0px;
+  font-size: 1.2em;
+  border-radius: 15px;
+  color: rgb(234, 234, 233);
+}
+.close_button {
+  border: none;
+  color: rgb(234, 234, 233);
+  background: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.5em;
+  padding: 0;
+  margin:0;
+}
+.pref-section-body {
+  box-sizing: border-box;
+  height: 90%;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+}
+.slide-item {
+  width: 98%;
+}
+.item-name {
+  color: rgb(103, 103, 103);
+  font-weight: 500;
+  text-align: left;
+  margin-left: 0.4em;
+  font-size: 0.8em;
+}
+.item-preference {
+  height: 100%;
+  text-align: left;
+}
+.checkboxForPref {
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  top: 10px;
+}
+.containerFor3items {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.5fr;
+}
+.ramen_pref_footer {
+}
+.item_multiplied {
+  height: 2em;
+}
+
+/* same code for ramen preference, other side dishes, toppings, drinks, beer */
+.menuItem_multiplied {
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+/* chashu counter button */
+.item_counter {
+  display: flex;
+  justify-content: center;
+}
+.item_count {
+  font-size: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 20px;
+  width: 100px;
+}
+.item_button_wrapper {
+  border: none;
+  height: 100%;
+  width: 500px;
+  border-radius: 10px;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 50px lightgrey;
+  background-color: rgb(240, 240, 240);
+}
+.item_button_wrapper button {
+  border: none;
+  outline: none; 
+  box-shadow: 20px 20px 20px lightgrey;
+  font-weight: bold;
+  font-size: 40px; 
+  color: inherit;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  background-color: rgb(226, 226, 226);
+  box-shadow: 0 5px rgb(119, 119, 119);
+}
+.menu_item_increase:active, 
+.menu_item_decrease:active {
+  box-shadow: none;
+  transform: translateY(5px);
+  opacity: 0.5;
+}
+
+.cancelOrAdd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.cancelButton{
+  background: linear-gradient(rgb(253, 213, 213),rgb(246, 142, 142));
+  padding: 10px 30px;
+  width: 250px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(137, 79, 79);
+}
+
+.addButton {
+  background: linear-gradient(rgb(195, 225, 195), rgb(146, 197, 146));
+  padding: 10px 30px;
+  width: 250px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(79, 107, 79);
+}
+
+.cancelButton:active,
+.addButton:active {
+  box-shadow: none;
+  transform: translateY(5px);
+  opacity: 0.5;
+}
+
+
+/* Modal slide 2 */
+
+.addToppings-section-content{
+  box-sizing: border-box;
+  height: 100%;
+  width: 98%;
+  margin-left: 1%;
+} 
+
+.addToppings-section-body {
+  box-sizing: border-box;
+  height: 80%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.section-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-right: 20px;
+  align-content: center;
+}
+.left-item{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  margin-left: -20px;
+}
+.right-item{
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+}
+.item-name2 {
+  margin-top: 0.5em;
+  margin-right: 25px;
+  font-size: 0.8em;
+  text-align: right;
+  width: 200px;
+}
+
+/* topping counter button */
+.toppingCounter {
+  display: flex;
+  justify-content: center;
+  height: 1.9em;
+  margin-left: -10px;
+}
+.topping_counter {
+  font-size: 1em;
+  padding-bottom: 0.8em;
+}
+.topping_button_wrapper {
+  border: 2px solid;
+  height: 100%;
+  width: 200px;
+  border-radius: 10px;
+  display: flex;
+  gap: 1.7vw;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 50px lightgrey;
+  background-color: rgb(240, 240, 240);
+}
+.topping_button_wrapper button {
+  border: 1px solid;
+  outline: none; 
+  box-shadow: 0px 0px 50px lightgrey;
+  font-weight: 600;
+  color: inherit;
+  border-radius: 50%;
+  height: 6.5vw;
+  width: 6.5vw;
+  cursor: pointer;
+  background-color: rgb(226, 226, 226);
+  box-shadow: 0 5px rgb(119, 119, 119);
+}
+
+.topping_button_decrease,
+.topping_button_increase{
+  font-size: 2.7vw;
+}
+
+.topping_button_decrease:hover,
+.topping_button_increase:hover {
+  background-color: lightgreen;
+}
+.topping_button_decrease:active,
+.topping_button_increase:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+/* Modal slide 3 (Remove toppings section) */
+
+.rToppings-section-content{
+  box-sizing: border-box;
+  height: 100%;
+  width: 98%;
+  margin-left: 1%;
+} 
+
+.rToppings-section-body {
+  box-sizing: border-box;
+  height: 50%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+/* item name is the same code as modal slide 2 */
+
+.r-or-sButton {
+  height: 100%;
+}
+
+.rButton,
+.sButton {
+  height: 8vw;
+  width: 8vw;
+  font-size: 3vw;
+  border: 2px solid;
+  border-radius: 10px;
+  box-shadow: 0px 0px 50px lightgrey;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0 5px rgb(119, 119, 119)
+}
+
+.rButton:active,
+.sButton:active {
+  box-shadow: none;
+  transform: translateY(5px);
+  opacity: 0.5;
+  background-color: aquamarine;
+}
+
+/* Modal for Chashu & Don */ 
+.modal_bg_chashu {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility:  hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+.bg-active-chashu{
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_chashu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.chashu_header {
+  height: 16%;
+  max-height: 200px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  color: rgb(234, 234, 233);
+}
+.section-title-chashu{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 180px;
+  margin-top: 0.4em;
+}
+#close_chashu_modal {
+  position: relative;
+  bottom: 0.2em;
+}
+#chashu_subtitle {
+  font-size: 0.6em;
+  margin-top: -0.5em;
+}
+.chashu_body {
+  height: 75%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1.2fr 1.5fr;
+}
+.chashu_option {
+  margin-top: 1em;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 40px;
+  border-bottom: 2px solid;
+}
+.required_sign {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+.option_choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#chashu_shoulder, 
+#chashu_belly,
+#no_g_onion,
+#no_sesamine,
+#no_sauce {
+  width: 1.3em;
+  height: 1.3em;
+  position: relative;
+  top: 13px;
+  margin-right: 15px;
+}
+.not_req_sign {
+  font-size: 1.3em;
+  font-weight: 500;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+.spec_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 30px;
+}
+#sesamine_option {
+  position: relative;
+  left: 22px;
+}
+.chashu_footer {
+
+}
+
+
+/* Modal for Other Side Dishes */ 
+.modal_bg_dishes {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+.bg-active-dishes{
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_dishes {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.dishes_header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dishes_content {
+  height: 85%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 2.5fr;
+}
+.section-title-dishes {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.side_item {
+}
+.side_footer {
+}
+/* same format for drinks as well */ 
+.section_item {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-bottom: 2px solid;
+  align-items: center;
+}
+.section_item_name {
+  padding-top: 30px;
+  font-weight: 500;
+}
+#matcha_ice {
+  font-size: 45px;
+}
+/* Section item counter button (used for other side dishes)*/
+/* This code is also used for soft drinks and beers */
+.section_item_counter {
+  display: flex;
+  justify-content: center;
+  margin-left: -10px;
+}
+.counter_section_item {
+  font-size: 70px;
+  padding-bottom: 0px;
+  width: 80px;
+}
+.button_wrapper {
+  border: 2px solid;
+  height: 2.3em;
+  width: 350px;
+  border-radius: 10px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 50px lightgrey;
+  background-color: rgb(240, 240, 240);
+}
+.button_wrapper button {
+  outline: none; 
+  box-shadow: 0px 0px 50px lightgrey;
+  font-weight: bold;
+  font-size: 30px; 
+  color: inherit;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+  background-color: rgb(226, 226, 226);
+  box-shadow: 0 5px rgb(119, 119, 119);
+}
+
+.button_decrease:hover,
+.button_increase:hover {
+  background-color: lightgreen;
+}
+.button_decrease:active,
+.button_increase:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+/* modal for topping (directly from top menu) */
+.modal_bg_toppings {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+.bg-active-toppings{
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_toppings {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.toppings_header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toppings-body {
+  box-sizing: border-box;
+  height: 85%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+}
+.topping_footer {
+  margin-top: 10vh;
+}
+
+
+/* modal for drink*/
+.modal_bg_softDrink {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+.bg-active-softDrink{
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_softDrink {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.softDrink_header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.softDrink_body {
+  height: 85%;
+  max-height: 1100px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+.softDrink_footer {
+  margin-top: 60px;
+}
+
+/* Modal for beers */
+.modal_bg_beer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+.bg-active-beer {
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_beer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.beer_header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.section-title-beer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.beer_body {
+  height: 85%;
+  max-height: 1100px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+.beer_footer {
+  margin-top: 60px;
+}
+
+
+
+
+/* Disable right now */
+/* Home Btn Modal */
+.homeBtn-modal {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.modal-content-homeBtn {
+  background: #f4f4f4;
+  margin: 50% auto;
+  width: 90%;
+  height: 30%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.close-btn-homeBtn span{
+  position: relative;
+  font-size: 3rem;
+  z-index: 1;
+}
+.close-btn-homeBtn {
+  display: flex;
+  justify-content: end;
+  margin-right: 2.5rem;
+}
+.close-btn-homeBtn:hover {
+  cursor: pointer;
+  color: var(--brightred);
+  transition: 0.2s ease-out;
+}
+
+/* CloseBtn Modal */
+.table-closeBox {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 10rem 4rem;
+  margin-top: 50px;
+}
+.table-closeBox h1 {
+  font-size: 2.8rem;
+  text-align: center;
+}
+
+/* Yes and No Buttons */
+.close_button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  align-self: center;
+}
+#no-btn {
+  font-size: 2.5rem;
+  padding: 15px 60px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: black;
+  background-color: lightcoral;
+}
+#yes-btn {
+  font-size: 2.5rem;
+  padding: 15px 60px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: black;
+  background-color: lightgreen;
+}

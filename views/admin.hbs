@@ -4,10 +4,115 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Kitchen-Side/admin_home.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Admin page here</h1>
-    <h4>Welcome, admin {{name}}</h4>
+    {{!-- Test Sample satrt --}}
+    <!-- Top Line -->
+    <div class="page-container">
+        <!-- User and Date -->
+        <div class="page-info">
+            <h1>Name: {{name}}</h1>
+            <h2>Date: {{data}}</h2>
+        </div>
+        
+        <!-- Top Buttons -->
+        <div class="top-button">
+            <button id="signout-btn">Sign Out</button>
+        </div>
+    </div>
+
+    <!-- Option Table -->
+    <div class="box-container">
+
+        <!-- Box-1 -->
+        <div class="addUser-box">
+
+            <div class="inside-box">
+                <!-- addUser image -->
+                <img id="addUser-img" src="/images/pic-addUser.svg">
+
+                {{!-- Add User Btn function --}}
+                <form action="/auth/admin/addUser" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="data_key" value="{{data}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="addUser-btn">Add User</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Box-2 -->
+        <div class="data-box">
+
+            <div class="inside-box">
+                <!-- data image -->
+                <img id="viewdata-img" src="/images/pic-record.svg">
+
+                {{!-- Add User Btn function --}}
+                <form action="/auth/admin/viewData" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="data_key" value="{{data}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="viewdata-btn">View Data</button>
+                </form>
+            </div>
+        
+        </div>
+
+        <!-- Box-3 -->
+        <div class="start-box">
+
+            <div class="inside-box" id="key_box" check_id="{{changeBtn}}">
+                <!-- data image -->
+                <img id="startBtn-img" src="/images/pic-startBtn.svg">
+
+                <form action="/auth/admin/start" method="POST" id="form-continueBtn" style="display: none;">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="data_key" value="{{data}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="continue-btn">Continue</button>
+                </form>
+                
+                <button id="start-btn" style="display: none;">Start</button>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <!-- Pop up modal to ask admin if you sure to satrt the system -->
+    <div class="startBtn-modal" id='startBtn-modal'>
+
+        <div class="modal-content">
+
+            <span class="close-btn">&times;</span>
+            
+            <h3>Are you sure to start?</h3>
+
+            <div class="button-container">
+
+                <button id="cancel-btn">No</button>
+
+                <form action="/auth/admin/start" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="data_key" value="{{data}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button>Yes</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    {{!-- Test Sample end --}}
+
+    {{!-- Vanilla Js Controller --}}
+    <script type="text/javascript" src="/js/Kitchen-Side/startBtn.js"></script>
+
 </body>
 </html>

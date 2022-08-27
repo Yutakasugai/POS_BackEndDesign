@@ -1,0 +1,166 @@
+body {
+    background: white;
+    /* I think this can lock the window swipped up and down */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 1.5rem calc((100vw - 1200px) / 2);
+    background-color: lightsteelblue;
+}
+
+.page-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* User name and Date */
+.page-info {
+    padding-left: 30px;
+}
+.page-info h1 {
+    font-size: 1.6rem;
+}
+.page-info h2 {
+    font-size: 1.4rem;
+}
+
+/* Top Buttons */
+.top-button {
+    align-self: center;
+    text-align: end;
+    padding-right: 4rem;
+}
+#signout-btn {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgray;
+}
+
+/* Add User Box */
+.box-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 27rem;
+    justify-items: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+.addUser-box, 
+.data-box,
+.start-box{
+    width: 90%; 
+    background-color: white;
+    border-radius: 10px;
+}
+
+/* inside box */
+.inside-box {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 21.5rem 3.5rem;
+    align-self: center;
+    justify-items: center;
+}
+
+/* addUser box inside */
+#addUser-img {
+    width: 17rem;
+    height: 22rem;
+}
+#addUser-btn {
+    font-size: 1rem;
+    padding: 15px 25px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
+/* view data box inside */
+#viewdata-img {
+    width: 17rem;
+    height: 22rem;
+}
+#viewdata-btn {
+    font-size: 1rem;
+    padding: 15px 25px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
+/* Start btn box inside */
+#startBtn-img {
+    width: 17rem;
+    height: 22rem;
+}
+#start-btn, 
+#continue-btn {
+    font-size: 1rem;
+    padding: 15px 40px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
+/* Modal Box CSS */
+/* Start Btn Modal */
+.startBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content {
+    background: #f4f4f4;
+    margin: 10% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    min-height: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.close-btn {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.close-btn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+/* Squezed the screen and no need to display the image */
+    .modal-content {
+        grid-template-columns: auto;
+        margin: 15% auto;
+        width: 70%;
+        height: 75%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .modal-content {
+        margin: 20% auto;
+        width: 90%;
+        height: 80%;
+    }
+}

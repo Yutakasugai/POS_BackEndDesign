@@ -1,0 +1,544 @@
+body {
+    background: white;
+    font-family: "Myriad Pro", 
+    "Helvetica Neue", Helvetica, 
+    Arial, Sans-Serif;
+}
+
+/* User Info & Phone and Take Out buttons */
+.page-container {
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    height: auto;
+}
+.page-container button{
+    margin-top: 4px;
+}
+.page-info h1{
+    font-size: 1rem;
+}
+.page-info h2{
+    font-size: 0.8rem;
+    /* padding: 3px; */
+}
+.page-buttons {
+    align-self: center;
+    text-align: end;
+}
+#phone-button {
+    background-color: lightpink;
+    padding: 8px 35px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+#takeout-button {
+    background-color: lightblue;
+    padding: 8px 28px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+
+/* Table Box*/
+.table-container {
+    margin-top: 10px;
+}
+.table_num {
+    font-size: 17px;
+    font-weight: 500;
+    padding-left: 10px;
+    margin: 5px;
+}
+.table{
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    background-color: rgb(248, 248, 187);
+    height: 90px;
+}
+.add-view{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+}
+.update-button{
+    background-color: lightcoral;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+.add-button{
+    background-color: aqua;
+    padding: 10px 21px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+/* This add btn appeared only when the table has orders taken */
+/* .second-addBtn {
+    background-color: aqua;
+    padding: 10px 21px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+} */
+
+/* Tabel-1 and Table-2 */
+
+.table1and2 {
+    display: flex;
+    flex-direction: row;
+}
+#table2 {
+    margin-left: 10px;
+}
+
+/* Table-3 and Table-4 */
+.table3and4 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+#table4 {
+    margin-left: 10px;
+}
+
+/* Table-5 and Table-6 */
+.table5and6 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+#table6 {
+    margin-left: 10px;
+}
+
+/* Table-7 and Table-8 */
+.table7and8 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+#table8 {
+    margin-left: 10px;
+}
+
+/* Take Out and Phone Box */
+.done-view{
+    text-align: center;
+    margin-top: 10px;
+}
+.done-button{
+    background-color: lightgreen;
+    padding: 10px 18px;
+    border-radius: 10px;
+}
+.view-button{
+    background-color: lightblue;
+    padding: 10px 18px;
+    border-radius: 10px;
+}
+/* Take Out and Phone Box - 1 row*/
+.togo-phone {
+    width: none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+#colunm-2 {
+    margin-left: 0px;
+    display: none;
+}
+#colunm-1 {
+    display: none;
+}
+
+/* Display: 0; does not do anything else
+width: none; does not do anything as well */
+
+/* Close btn and Sign Out btn */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+    margin-top: 30px;
+}
+#signout-btn{
+    padding: 9px 16px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+#close-btn{
+    padding: 9px 21px;
+    background-color: lightgray;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+/* I gotta consider the different screen size */
+/* UpdateBtn Modal */
+.updateBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-updateBtn {
+    background: #f4f4f4;
+    margin: 40% auto;
+    width: 90%;
+    height: 50%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    
+}
+.close-btn-updateBtn {
+    /* position: relative;
+    display: flex;
+    justify-content: end; */
+    position: relative;
+    margin-left: 19.3rem;
+    top: 5px;
+    height: 1px;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+.close-btn-updateBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* UpdateBtn Modal inside */
+.table-updateBox {
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 3.2rem 5.5rem 3.5rem 4.5rem;
+}
+.table-updateBox h1 {
+    font-size: 1.5rem;
+}
+
+/* updateBtn modal inside */
+.customerCheck {
+    display: flex;
+    justify-content: center;
+}
+.customerCheck h1{
+    font-size: 1rem;   
+    align-self: center;
+}
+#counter {
+    font-size: 1rem;
+}
+#button_wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-left: 15px;
+}
+#button_wrapper button {
+    border: none;
+    outline: none; 
+    background-color: white;
+    box-shadow: 0px 0px 10px lightgrey;
+    font-weight: bold;
+    font-size: 1.3rem; 
+    color: inherit;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+#button_decrease,
+#button_increase {
+    cursor: pointer;
+}
+#button_decrease:hover,
+#button_increase:hover {
+    background-color: lightgreen;
+}
+#button_decrease:active,
+#button_increase:active {
+    transform: scale(0.9);
+}
+
+/* updateBtn modal inside (switch table) */
+.table-switch {
+    display: flex;
+    justify-content: center;
+}
+.table-switch h1{
+    font-size: 1rem;
+    align-self: center;
+}
+#s-counter {
+    font-size: 1rem;
+    margin-left: -8px;
+}
+#s-button_wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-left: 15px;
+}
+#s-button_wrapper button {
+    border: none;
+    outline: none; 
+    background-color: white;
+    box-shadow: 0px 0px 10px lightgrey;
+    font-weight: bold;
+    font-size: 1.3rem; 
+    color: inherit;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    /* cursor: pointer; */
+}
+#s-button_decrease,
+#s-button_increase {
+    cursor: pointer;
+}
+#s-button_decrease:hover,
+#s-button_increase:hover {
+    background-color: lightgreen;
+}
+#s-button_decrease:active,
+#s-button_increase:active {
+    transform: scale(0.9);
+}
+
+/* Cancel & Confirm Button */
+.button-container {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    margin-top: 50px;
+}
+#cancel-btn {
+    font-size: 1rem;
+    padding: 8px 18px;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightcoral;
+}
+#confirm-btn {
+    font-size: 1rem;
+    padding: 8px 18px;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
+
+/* AddBtn Modal */
+.addBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-addBtn {
+    background: #f4f4f4;
+    margin: 40% auto;
+    width: 90%;
+    height: 40%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+.close-btn-addBtn {
+    /* position: relative;
+    display: flex;
+    justify-content: end; */
+    position: relative;
+    margin-left: 19.3rem;
+    top: 5px;
+    height: 1px;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+.close-btn-addBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+
+/* UpdateBtn Modal Box */
+.table-addBox {
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 4rem 5rem 3.5rem;
+}
+.table-addBox h1 {
+    font-size: 1.5rem;
+}
+
+
+/* AddBtn Modal Inside */
+.customerCheck_add {
+    display: flex;
+    justify-content: center;
+}
+.customerCheck_add h1{
+    font-size: 1rem;   
+    align-self: center;
+}
+#add_counter {
+    font-size: 1rem;
+}
+#add_button_wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-left: 15px;
+}
+#add_button_wrapper button {
+    border: none;
+    outline: none; 
+    background-color: white;
+    box-shadow: 0px 0px 10px lightgrey;
+    font-weight: bold;
+    font-size: 1.3rem; 
+    color: inherit;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    /* cursor: pointer; */
+}
+#add_button_decrease,
+#add_button_increase {
+    cursor: pointer;
+}
+#add_button_decrease:hover,
+#add_button_increase:hover {
+    background-color: lightgreen;
+}
+#add_button_decrease:active,
+#add_button_increase:active {
+    transform: scale(0.9);
+}
+
+
+/* Back & Next Button */
+.add_button-container {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    margin-top: 50px;
+}
+#back-btn {
+    font-size: 1rem;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightcoral;
+}
+#next-btn {
+    font-size: 1rem;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
+/* Close btn modal */
+.closeBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-closeBtn {
+    background: #f4f4f4;
+    margin: 50% auto;
+    width: 90%;
+    height: 30%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+.close-btn-closeBtn {
+    /* position: relative;
+    display: flex;
+    justify-content: end; */
+    position: relative;
+    margin-left: 19.3rem;
+    top: 5px;
+    height: 1px;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+.close-btn-closeBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* CloseBtn Modal */
+.table-closeBox {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 4.5rem 2rem;
+    margin-top: 20px;
+}
+.table-closeBox h1 {
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+/* Yes and No Buttons */
+.close_button-container {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    align-self: center;
+}
+#no-btn {
+    font-size: 1rem;
+    padding: 7px 25px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: black;
+    background-color: lightcoral;
+}
+#yes-btn {
+    font-size: 1rem;
+    padding: 7px 25px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: black;
+    background-color: lightgreen;
+}
+
