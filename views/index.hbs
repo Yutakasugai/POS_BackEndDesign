@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/Top-Page/style.css">
     <title>Home Page</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
 
                 <button class="admin-btn"><div>Admin</div></button>
 
-                <br><br><br>{{message}}<br>
+                <br><br>{{errMsg}}<br><br>
             </div>
 
             <div class="main-img-container">
@@ -46,22 +46,25 @@
             </div>
 
             <div class="modal-content-right">
-                <form action="/auth/user" method="POST" class="modal-form">
+                <form id="wait_permit" action="/auth/user" method="POST" class="modal-form">
                     <h1>Enter your username and password</h1>
                     
                     <!-- Get an input from the user -->
                     <div class="form-validation">
-                        <input type="text" class="modal-input" id="name" name="name" placeholder="Enter your username">
+                        <input type="text" class="modal-input" id="user_name" name="user_name" placeholder="Enter your username">
                     </div>
 
                     <div class="form-validation">
-                        <input type="password" class="modal-input" id="password" name="password" placeholder="Enter your password">
+                        <input type="password" class="modal-input" id="user_password" name="user_password" placeholder="Enter your password">
                     </div>
 
-                    {{!-- <input type="submit" name="user-submit" class="modal-input-btn" value="Login"> --}}
-                    <button type="submit" name="user-submit" class="modal-input-btn">Login</button>
-                </form>
+                    {{!-- <button type="submit" class="modal-input-btn" id="login-btn">Login</button> --}}
+                    <input type="submit" class="modal-input-btn" id="login-btn" value="Login">
+                    <input type="hidden" class="modal-input-btn" id="enter-btn" value="Enter">
 
+                    <br><div class="check-msg"></div>
+                    
+                </form>
             </div>
         </div>
     </div>
@@ -85,11 +88,11 @@
                     
                     <!-- Get an input from the user -->
                     <div class="form-validation">
-                        <input type="text" class="modal-input" id="name" name="name" placeholder="Enter your username">
+                        <input type="text" class="modal-input" id="admin_name" name="admin_name" placeholder="Enter your username">
                     </div>
 
                     <div class="form-validation">
-                        <input type="password" class="modal-input" id="password" name="password" placeholder="Enter your password">
+                        <input type="password" class="modal-input" id="admin_password" name="admin_password" placeholder="Enter your password">
                     </div>
 
                     {{!-- <input type="submit" name="admin-submit" class="modal-input-btn" value="Login"> --}}
@@ -100,7 +103,16 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/js/index.js"></script>
+    <input type="hidden" id="userList" name="userList" value="{{nameList}}">
+    <input type="hidden" id="keyMsg" name="keyMsg" value="{{keyMsg}}">
+
+
+    {{!-- Js Command --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/Top-Page/index.js"></script>
+    <script type="text/javascript" src="/ws/login.js"></script>
+    <script src="/js/sw_test.js"></script>
 
 </body>
 </html>
+

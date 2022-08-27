@@ -1,0 +1,596 @@
+body {
+    background: lightgray;
+    /* I think this can lock the window swipped up and down */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 1.5rem calc((100vw - 1200px) / 2);
+}
+
+
+/* User Info */
+.page-container {
+    display: grid;
+    grid-template-columns: 22.5rem auto auto;
+}
+/* .page-info {
+    margin-top: -15px;
+}
+.page-info h1 {
+    font-size: 1.4rem;
+} */
+.page-info h2 {
+    font-size: 1.3rem;
+}
+#page-time {
+    margin-top: -10px;
+}
+
+
+/* Circle buttons */
+.circle-buttons {
+    display: flex;
+    align-self: center;
+    gap: 50px;
+}
+.circle-buttons button {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: black;
+    padding: 18px 25px;
+    border-radius: 40px;
+    border-width: 2.5px;
+    border-color: black;
+}
+#table-btn {
+    width: 5.2rem;
+    background-color: lightyellow;
+}
+#userCheck-btn {
+    background-color: white;
+}
+/* Icon Button Design */
+.user-notice button {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 23px 27px;
+    border-width: 2px;
+    border-color: black;
+    outline: none;
+    border-radius: 50%;
+}
+.icon-button:hover{
+    cursor: pointer;
+    background: #0add0a;
+}
+.num_notice_badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.icon-button i {
+    font-size: 1.5rem;
+}
+
+
+
+/* Square buttons */
+.square-buttons {
+    display: flex;
+    /* justify-content: space-between; */
+    align-self: center;
+    justify-content: end;
+    gap: 45px;
+}
+.square-buttons button{
+    width: 130px;
+    height: 55px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: black;
+    border-width: 2.5px;
+    border-color: black;
+}
+#history-btn {
+    border-radius: 10px;
+    background-color: lightgreen;
+}
+#systemClose-btn {
+    border-radius: 10px;
+    background-color: lightcoral;
+}
+
+
+/* Order Box */
+.box-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 30rem;
+    justify-items: center;
+    margin-top: 10px;
+}
+.order-box {
+    width: 94%; 
+    background-color: white;
+    /* display: grid; */
+    grid-template-columns: auto;
+    grid-template-rows: 2rem 25.5rem 2.5rem;
+    /* border-radius: 10px; */
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: black;
+}
+
+
+/* Box Title */
+.box-title {
+    width: 100%;
+    height: 2.5rem;
+    background-color: black;
+    text-align: center;
+}
+.box-title p {
+    margin: auto;
+    color: white;
+    font-size: 1.6rem;
+    padding-top: 5px;
+}
+
+
+/* Order Items */
+.order-items {
+    font-size: 1.1rem;
+    padding-left: 10px;
+}
+#add-toppings {
+    margin-top: -15px;
+    padding-left: 10px;
+}
+
+/* Done Btn at each boxes */
+.done-button {
+    background: lightgreen;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    color: black;
+    font-weight: 500;
+} 
+
+/* Bottom Line */
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.home-button {
+    padding-left: 5px;
+    align-self: center;
+}
+#home-btn {
+    padding: 12px 30px;
+    border-radius: 10px;
+    background: lightgoldenrodyellow;
+    border-width: 2.5px;
+    border-color: black;
+    font-size: 0.8rem;
+    color: black;
+    font-weight: 500;
+}
+
+/* Two Boxes and Number Plates*/
+.moreOrder-container {
+    display: flex;
+    /* justify-content: end; */
+    padding-right: 30px;
+}
+.two-boxes button{
+    position: relative;
+    display: block;
+    border: 0.1px solid;
+    border-color: black;
+    padding: 15px 15px;
+    margin-left: 15px;
+    background: white;
+}
+.box-1 {
+    margin-top: 10px;
+    /* transform: translate(20%, 20%); */
+    z-index: 10;
+}
+.box-2 {
+    margin-top: -6px;
+    transform: translate(25%, 0%);
+    z-index: -1;
+}
+.num-panel {
+    align-self: center;
+    font-size: 1.3rem;
+}
+
+/* Modal 1 */
+/* Table Modal */
+.table-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-table {
+    background: #f4f4f4;
+    margin: 10% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    min-height: 500px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+}
+.close-btn-tableBtn {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+.close-btn-tableBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* Table Modal Inside */
+.table-container {
+    /* margin-top: rem; */
+    padding-top: 60px;
+}
+.table-box {
+    width: 7rem;
+    height: 7rem;
+    background-color: yellow;
+    border-width: 0.5px;
+    border-style: solid;
+    border-radius: 8px;
+    text-align: center;
+}
+.table-box p {
+    margin-top: 35%;
+    font-size: 1.6rem;
+}
+
+/* Table Position 3,4,5 */
+.table-345 {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Table Position 6,7,8 */
+.table-678 {
+    display: flex;
+    justify-content: end;
+    padding: 30px 5rem;
+}
+.table-box2 {
+    width: 7rem;
+    height: 7rem;
+    margin-right: 25px;
+    background-color: yellow;
+    border-width: 0.5px;
+    border-style: solid;
+    border-radius: 8px;
+    text-align: center;
+}
+.table-box2 p {
+    margin-top: 35%;
+    font-size: 1.6rem;
+}
+
+/* Table 1,2 and front */
+.table-12 {
+    display: flex;
+    justify-content: start;
+    padding: 5px 5rem;
+}
+.table-box3 {
+    width: 7rem;
+    height: 7rem;
+    margin-left: 25px;
+    /* background-color: yellow; */
+    border-width: 0.5px;
+    border-style: solid;
+    border-radius: 8px;
+    text-align: center;
+}
+.table-box3 p {
+    margin-top: 35%;
+    font-size: 1.6rem;
+}
+.front-box {
+    width: 12rem;
+    height: 5rem;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    background-color: lightgrey;
+    border-width: 0.5px;
+    border-style: solid;
+    text-align: center;
+}
+
+/* Modal 2 */
+/* Modal for close btn */
+.closeBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content-closeBtn {
+    background: #f4f4f4;
+    margin: 15% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    min-height: 300px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+}
+
+.close-btn-closeBtn {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.close-btn-closeBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* Modal for Close btn inside */
+.closeText-container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 12rem 3rem;
+}
+.closeText-container p {
+    align-self: center;
+    font-size: 1.7rem;
+}
+.yesno-btn {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+#no-btn {
+    font-size: 1.1rem;
+    padding: 12px 40px;
+    background: lightcoral;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+}
+#yes-btn {
+    font-size: 1.1rem;
+    padding: 12px 35px;
+    background: lightgreen;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+/* Modal 3 */
+/* Icon Button Modal */
+.userLog-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content {
+    background: #f4f4f4;
+    margin: 10% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    min-height: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.close-btn-userlogBtn {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.close-btn-userlogBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* Modal 4 */
+/* Modal for box btn */
+.boxBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content-boxBtn {
+    background: #f4f4f4;
+    margin: 5% auto;
+    width: 85%;
+    height: 85%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    /* min-height: 500px; */
+    overflow-y: hidden;
+    overflow-x: scroll;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+}
+
+.close-btn-boxBtn {
+    position: fixed;
+    left: 63rem;
+    margin-top: 10px;
+    font-size: 2rem;
+    z-index: 1;
+}
+
+.close-btn-boxBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* Box Modal Inside */
+.extraBox_container {
+    display: flex;
+    justify-content: start;
+    gap: 23px;
+    padding: 75px 15px;
+    width: 200%;
+}
+.extraBox {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 2rem 25.5rem 2.5rem;
+    height: 30rem;
+    width: 18.5rem;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+
+/* Modal 5 */
+/* History Btn Modal */
+.historyBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-historyBtn {
+    background: #f4f4f4;
+    margin: 5% auto;
+    width: 65%;
+    height: 85%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    /* min-height: 500px; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.close-btn-historyBtn {
+    position: fixed;
+    left: 56rem;
+    margin-top: 10px;
+    font-size: 2rem;
+    z-index: 30;
+}
+.close-btn-historyBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+/* History Modal Inside */
+.historyBtn-title {
+    position: fixed;
+    text-align: center;
+    background-color: #f4f4f4;
+    width: 65%;
+    font-size: 0.8rem;
+    padding: 20px 0;
+    z-index: 20;
+}
+.historyBtn-title h2 {
+    margin-top: -10px;
+}
+
+/* Histroy Modal Table */
+.review-container table{
+    width: 95%;
+    margin-top: 18%;
+    z-index: 10;
+}
+
+.review-container{
+    display: flex;
+    justify-content: center;
+}
+
+.reviewBox-header {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.reviewBox-container th {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+#tableNum-row{
+    width: 23%;
+}
+
+#togoPerson-row {
+    width: 20%;
+}
+
+.addedInfo-container th{
+    height: 2rem;
+    font-size: 1.1rem;
+    background: lightcoral;
+}
+

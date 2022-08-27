@@ -4,60 +4,366 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/server.css">
+    <link rel="stylesheet" href="/css/Server-Side/server_home.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="title_box">
-        <h1>Table Conditions</h1>
-        <h2>User Name: {{name}}</h2>
-    </div>
+    {{!-- Test Page Sample start --}}
+    <!-- Top Line for user info and some buttons -->
+    <div class="page-container">
 
-    <div class="container">
-        <div class="table_one">
-            <p>Table-1</p>
-            
-            <div class="btn_container">
-                <form action="/auth/user/update_1" method="POST" class="add_btn">
-                    <input type="hidden" name="userName" value="{{name}}">
-                    <button type="submit" name="update_1" value="update_1">Add</button>
-                </form>
-
-                <form action="/auth/user/view_1" method="POST" class="view_btn">
-                    <input type="hidden" name="userName" value="{{name}}">
-                    <button type="submit" name="view_1" value="view_1">View</button>
-                </form>
-            </div>
-
-            {{#if check_1}}
-                <h4>{{check_1}}</h4>
-            {{else}}
-                <h4>Empty...</h4>
-            {{/if}}
+        <div class="page-info">
+            <h1>User Name: {{name}}</h1>
+            <h2>Date: {{Date}}</h2>
+            <h2 id="page-time">Time: {{Time}}</h2>
         </div>
 
-        <div class="table_two">
-            <p>Table-2</p>
+        <div></div>
 
-            <div class="btn_container">
-                <form action="/auth/user/update_2" method="POST" class="add_btn">
-                    <input type="hidden" name="userName" value="{{name}}">
-                    <button type="submit" name="update_2" value="update_2">Add</button>
-                </form>
+        <div class="page-buttons">
+            <button id="phone-button">Phone</button>
+            <button id="takeout-button">Take Out</button>
+        </div>
 
-                <form action="/auth/user/view_2" method="POST" class="view_btn">
-                    <input type="hidden" name="userName" value="{{name}}">
-                    <button type="submit" name="view_2" value="view_2">View</button>
-                </form>
+    </div>
+
+    <!-- Table page content -->
+    <!-- Table-1 and Table-2 -->
+    <div class="table-container">
+
+        <div class="table1and2">
+
+            <div class="table" id="table1">
+                <p class="table_num">T1</p>
+
+                <div class="add-view">
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_1" class="add-button" id="add1_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add1_empty" value="Table_1" style="display: block;">Add</button>
+
+                </div>
             </div>
-            
-            {{#if check_2}}
-                <h4>{{check_2}}</h4>
-            {{else}}
-                <h4>Empty...</h4>
-            {{/if}}
+
+            <div class="table" id="table2">
+                <p class="table_num">T2</p>
+
+                <div class="add-view">
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_2" class="add-button" id="add2_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add2_empty" value="Table_2" style="display: block;">Add</button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Table-3 and Table-4 -->
+        <div class="table3and4">
+
+            <div class="table" id="table3">
+                <p class="table_num">T3</p>
+
+                <div class="add-view">
+
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_3" class="add-button" id="add3_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add3_empty" value="Table_3" style="display: block;">Add</button>
+
+                </div>
+            </div>
+
+            <div class="table" id="table4">
+                <p class="table_num">T4</p>
+
+                <div class="add-view">
+
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_4" class="add-button" id="add4_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add4_empty" value="Table_4" style="display: block;">Add</button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Table-5 and Table-6 -->
+        <div class="table5and6">
+
+            <div class="table" id="table5">
+                <p class="table_num">T5</p>
+
+                <div class="add-view">
+
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_5" class="add-button" id="add5_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add5_empty" value="Table_5" style="display: block;">Add</button>
+                </div>
+
+            </div>
+
+            <div class="table" id="table6">
+                <p class="table_num">T6</p>
+                
+                <div class="add-view">
+
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_6" class="add-button" id="add6_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add6_empty" value="Table_6" style="display: block;">Add</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Table-7 and Table-8 -->
+        <div class="table7and8">
+
+            <div class="table" id="table7">
+                <p class="table_num">T7</p>
+
+                <div class="add-view">
+
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_7" class="add-button" id="add7_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add7_empty" value="Table_7" style="display: block;">Add</button>
+                </div>
+
+            </div>
+
+            <div class="table" id="table8">
+                <p class="table_num">T8</p>
+                
+                <div class="add-view">
+                    <button class="update-button">Update</button>
+
+                    {{!-- Add Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <button name="table_key" value="Table_8" class="add-button" id="add8_filled" style="display: none;">Add</button>
+                    </form>
+
+                    <button name="default-addBtn" class="add-button" id="add8_empty" value="Table_8" style="display: block;">Add</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Take Out and Phone Order Boxes -->
+    <div class="togo-phone">
+
+        <div class="table" id="colunm-1">
+
+            <p class="table_num">Togo</p>
+
+            <div class="done-view">
+                <button class="done-button" id="doneBtn_1">Done</button>
+                <button class="view-button">View</button>
+            </div>
+
+        </div>
+
+        <div class="table" id="colunm-2">
+            <p class="table_num">Phone</p>
+
+            <div class="done-view">
+                <button class="done-button" id="doneBtn_2">Done</button>
+                <button class="view-button">View</button>
+            </div>
+
         </div>
     </div>
+
+    {{!-- Check if I could capture the table condition values from server-login.js --}}
+    <input type="hidden" id="table_con" name="table_con" value={{table_con}}>
+
+    <!-- Sign out Btn and Close Btn -->
+    <div class="btn-container">
+
+        {{!-- Sign Out Btn --}}
+        <form action="/auth/user/signout" method="POST">
+            <input type="hidden" id="userName" name="userName" value="{{name}}">
+            <button type="submit" id="signout-btn">Sign Out</button>
+        </form>
+
+        <button id="close-btn">Close</button>
+    </div>
+
+    <!-- Update Modal -->
+    <div class="updateBtn-modal" id="updateBtn-modal">
+        <div class="modal-content-updateBtn">
+
+            <span class="close-btn-updateBtn">&times;</span>
+
+            <div class="table-updateBox">
+                <!-- Table Panel -->
+                <h1>Table?</h1>
+
+                <!-- Customer Number Panel -->
+                <div class="customerCheck">
+                    <h1>Customer: </h1>
+
+                    <div id="button_wrapper">
+                        <button id="button_decrease">-</button>
+                        <h1 id="counter">0</h1>
+                        <button id="button_increase">+</button>
+                    </div>
+
+                    </div>
+
+                    <!-- Table Switch Panel -->
+                    <div class="table-switch">
+                    <h1>Switch: </h1>
+
+                    <div id="s-button_wrapper">
+                        <button id="s-button_decrease">-</button>
+                        <h4>Table<h1 id="s-counter" style="display: none;">0</h1></h4>
+                        <button id="s-button_increase">+</button>
+                    </div>
+                </div>
+
+                <!-- Cancel and Confirm Button -->
+                <div class="button-container">
+                    <button id="cancel-btn">Cancel</button>
+                    <button id="confirm-btn">Confirm</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- addBtn Modal -->
+    <div class="addBtn-modal" id="addBtn-modal">
+        <div class="modal-content-addBtn">
+
+            <span class="close-btn-addBtn">&times;</span>
+
+            <div class="table-addBox">
+                <!-- Table Panel -->
+                <h1 id="table-number"></h1>
+
+                <!-- Customer Number Panel -->
+                <div class="customerCheck_add">
+                    <h1>Customer: </h1>
+
+                    <div id="add_button_wrapper">
+                        <button id="add_button_decrease">-</button>
+                        <h1 id="add_counter">0</h1>
+                        <button id="add_button_increase">+</button>
+                    </div>
+
+                </div>
+
+                <!-- Cancel and Confirm Button -->
+                <div class="add_button-container">
+                    <button id="back-btn">Back</button>
+                    
+                    {{!-- Next Btn --}}
+                    <form action="/auth/user/addItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" id="c_number" name="c_number">
+                        <button type="submit" id="next-btn" name="table_key">Next</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Close Btn Modal -->
+    <div class="closeBtn-modal" id="closeBtn-modal">
+        <div class="modal-content-closeBtn">
+
+            <span class="close-btn-closeBtn">&times;</span>
+
+            <!-- close modal inside -->
+            <div class="table-closeBox">
+
+                <h1>Are you sure to finish and leave?</h1>
+                
+                <!-- Yes or No Buttons -->
+                <div class="close_button-container">
+                    <button id="no-btn">No</button>
+                    <button id="yes-btn">Yes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{!-- Test Page Sample end --}}
+
+
+    {{!-- View Btn Form --}}
+    {{!-- <form action="/auth/user/view_1" method="POST" class="view-btn">
+        <input type="hidden" name="userName" value="{{name}}">
+        <button type="submit" name="table_key" value="view_1" class="view-btn">View</button>
+    </form> --}}
+
+    {{!-- Js Commnad --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/ws/server.js"></script>
+    <script type="text/javascript" src="/js/Server-Side/server-home.js"></script>
 
 </body>
 </html>
