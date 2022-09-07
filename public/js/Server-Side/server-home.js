@@ -396,3 +396,17 @@ noBtn_close.addEventListener('click', () => {
 }) 
 
 
+// Order Btn Modal 
+const orderBtn = document.getElementById('order-btn');
+const orderBtnModal = document.getElementById('orderBtn-modal'); 
+const orderBtnClose = document.querySelector('.close-btn-orderBtn'); 
+
+// Import jquery function 
+orderBtn.addEventListener('click', () => {
+    orderBtnModal.style.display = 'block'; 
+})
+orderBtnClose.addEventListener('click', () => {
+    orderBtnModal.style.display = 'none'; 
+})
+
+

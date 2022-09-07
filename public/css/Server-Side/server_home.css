@@ -1,16 +1,34 @@
-body {
-    background: white;
-    font-family: "Myriad Pro", 
-    "Helvetica Neue", Helvetica, 
-    Arial, Sans-Serif;
+html, body {
+    background: #585858;
+    font-family: "Kaisei Tokumin", Sans-Serif;
+    position: fixed;
+    overflow-y: scroll;
+    height: 100%;
+    width: auto;
+}
+
+
+.wrapper{
+    height:100%;
+    width: 100%;
+    position: sticky;
+    display: grid;
+    grid-template-rows: 125px auto 90px;
 }
 
 /* User Info & Phone and Take Out buttons */
 .page-container {
+    grid-row: 1;
     display: grid;
     grid-template-columns: 1fr 0.1fr 1fr;
-    height: auto;
+    background-color: #343434;
+    border-radius: 20px;
+    padding: 10px;
+    color: #c3c3c3;
+    align-self: flex-start;
 }
+
+
 .page-container button{
     margin-top: 4px;
 }
@@ -22,35 +40,56 @@ body {
     /* padding: 3px; */
 }
 .page-buttons {
-    align-self: center;
+    align-self: right;
     text-align: end;
+    margin-top: 10px;
 }
 #phone-button {
-    background-color: lightpink;
+    background-color: gold;
     padding: 8px 35px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
 }
+#phone-button:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+
 #takeout-button {
-    background-color: lightblue;
+    background-color: ivory;
     padding: 8px 28px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
 }
 
+#takeout-button:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
 
-/* Table Box*/
-.table-container {
+#scrollable{
+    grid-row:2;
+    flex: 1;
+    overflow:auto;
+    overflow-y: scroll;
+    position:relative;
+    height: 93%;
     margin-top: 10px;
 }
+
+
+/* Table Box*/
 .table_num {
     font-size: 17px;
     font-weight: 500;
     padding-left: 10px;
     margin: 5px;
 }
+
 .table{
     flex: 1;
     border: 1px;
@@ -59,41 +98,40 @@ body {
     height: 90px;
 }
 .add-view{
-    display: flex;
     text-align: center;
-    justify-content: center;
-    gap: 6px;
     margin-top: 10px;
 }
 .update-button{
-    background-color: lightcoral;
+    background-color:lightcoral;
     padding: 10px 12px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
 }
+.update-button:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
 .add-button{
-    background-color: aqua;
+    background-color: lightcyan;
     padding: 10px 21px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
 }
-
-/* This add btn appeared only when the table has orders taken */
-/* .second-addBtn {
-    background-color: aqua;
-    padding: 10px 21px;
-    border-radius: 10px;
-    border-width: 2.5px;
-    border-color: black;
-} */
+.add-button:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
 
 /* Tabel-1 and Table-2 */
-
 .table1and2 {
     display: flex;
     flex-direction: row;
+    overflow-y: scroll;
+    max-height: 100%;
 }
 #table2 {
     margin-left: 10px;
@@ -104,6 +142,8 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    overflow-y: scroll;
+    max-height: 100%;
 }
 #table4 {
     margin-left: 10px;
@@ -114,6 +154,8 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    overflow-y: scroll;
+    max-height: 100%;
 }
 #table6 {
     margin-left: 10px;
@@ -124,6 +166,8 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    overflow-y: scroll;
+    max-height: 100%;
 }
 #table8 {
     margin-left: 10px;
@@ -134,53 +178,205 @@ body {
     text-align: center;
     margin-top: 10px;
 }
-.done-button{
-    background-color: lightgreen;
-    padding: 10px 18px;
-    border-radius: 10px;
-}
-.view-button{
-    background-color: lightblue;
-    padding: 10px 18px;
-    border-radius: 10px;
-}
-/* Take Out and Phone Box - 1 row*/
-.togo-phone {
-    width: none;
-    display: flex;
-    flex-direction: row;
+.update-view{
+    text-align: center;
     margin-top: 10px;
 }
-#colunm-2 {
-    margin-left: 0px;
-    display: none;
+.done-button{
+    background-color: lightgreen;
+    padding: 10px 19px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
 }
-#colunm-1 {
-    display: none;
+.view-button{
+    background-color: lightcyan;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
 }
+.take-update-button{
+    background-color:lightcoral;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+
+/* Take Out and Phone Box - 1 row*/
+.extra_container{
+    margin-top: 10px;
+    display: flex;
+    overflow-y: scroll;
+    max-height: 100%;
+}
+.extra_container2{
+    margin-top: 10px;
+    display: flex;
+    overflow-y: scroll;
+    max-height: 100%;
+} 
+.extra_container3{
+    margin-top: 10px;
+    display: flex;
+    overflow-y: scroll;
+    max-height: 100%;
+} 
+.extra_container4{
+    margin-top: 10px;
+    display: flex;
+    overflow-y: scroll;
+    max-height: 100%;
+} 
+.extra_phone{
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    background-color: gold;
+    height: 90px;
+}
+.extra_takeout{
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    background-color: ivory;
+    height: 90px;
+}
+
+
+/* Tabel-1 and Table-2 */
+.ex1 {
+    display: flex;
+    flex-direction: row;
+    width: 49%;
+}
+.ex2 {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    width: 49%;
+}
+
+/* Table-3 and Table-4 */
+.ex3 {
+    display: flex;
+    flex-direction: row;
+    width: 49%;
+}
+.ex4{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    width: 49%;
+}
+
+/* Table-5 and Table-6 */
+.ex5 {
+    display: flex;
+    flex-direction: row;
+    width: 49%;
+}
+.ex6 {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    width: 49%;
+}
+
+/* Table-7 and Table-8 */
+.ex7 {
+    display: flex;
+    flex-direction: row;
+    width: 49%;
+}
+.ex8 {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    width: 49%;
+}
+
 
 /* Display: 0; does not do anything else
 width: none; does not do anything as well */
 
 /* Close btn and Sign Out btn */
+#footer{
+    grid-row: 3;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    margin-bottom: 20px;
+    align-self: flex-end;
+}
 .btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 10rem;
-    margin-top: 30px;
+    display:grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    background-color: #343434;
+    border-radius: 20px;
+    padding: 10px;
+    color: #c3c3c3;
+    text-align: center;
 }
 #signout-btn{
-    padding: 9px 16px;
+    padding: 20px 0px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
+    background-color: lightskyblue;
+    width: 65.5px;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+}
+#signout-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+#order-btn{
+    padding: 20px 0px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+    width: 65.5px;
+    height: 100%;
+    text-align: center;
+}
+#order-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}  
+#void-btn{
+    padding: 20px 0px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightpink;
+    width: 65.5px;
+    height: 100%;
+}
+#void-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
 }
 #close-btn{
-    padding: 9px 21px;
-    background-color: lightgray;
+    padding: 20px 0px;
+    background-color: rgb(238, 38, 38);
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
+    width: 65.5px;
+    height: 100%;
+}
+#close-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
 }
 
 /* I gotta consider the different screen size */
@@ -203,7 +399,6 @@ width: none; does not do anything as well */
     height: 50%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
     position: relative;
-    
 }
 .close-btn-updateBtn {
     /* position: relative;
@@ -262,9 +457,6 @@ width: none; does not do anything as well */
     border-radius: 50%;
     height: 2rem;
     width: 2rem;
-}
-#button_decrease,
-#button_increase {
     cursor: pointer;
 }
 #button_decrease:hover,
@@ -306,10 +498,6 @@ width: none; does not do anything as well */
     border-radius: 50%;
     height: 2rem;
     width: 2rem;
-    /* cursor: pointer; */
-}
-#s-button_decrease,
-#s-button_increase {
     cursor: pointer;
 }
 #s-button_decrease:hover,
@@ -427,10 +615,6 @@ width: none; does not do anything as well */
     border-radius: 50%;
     height: 2rem;
     width: 2rem;
-    /* cursor: pointer; */
-}
-#add_button_decrease,
-#add_button_increase {
     cursor: pointer;
 }
 #add_button_decrease:hover,
@@ -542,3 +726,245 @@ width: none; does not do anything as well */
     background-color: lightgreen;
 }
 
+/* Order Btn Modal */
+.scrollable-orders{
+    flex: 1;
+    height: 90%;
+    overflow:auto;
+    overflow-y: scroll;
+    position:relative; 
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.orderBtn-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-orderBtn {
+    background: #f4f4f4;
+    margin: 5% auto;
+    width: 90%;
+    height: 90%;
+    position: relative;
+    border-radius: 5px;
+    /* min-height: 500px; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.close-btn-orderBtn {
+    position: fixed;
+    left: 85%;
+    margin-top: 1%;
+    font-size: 2rem;
+    z-index: 30;
+}
+.close-btn-orderBtn:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+
+/* Order Modal Inside */
+.orderBtn-textBox {
+    position: fixed;
+    text-align: center;
+    width: 90%;
+    height:80%;
+    margin-top: 22%;
+    font-size: 0.8rem;
+    z-index: 20;
+}
+.orderBtn-title {
+    position: fixed;
+    text-align: center;
+    font-family: "Kaisei Tokumin", Sans-Serif;
+    background-color: lightgray;
+    width: 90%;
+    font-size: 0.8rem;
+    padding: 5px 0;
+    z-index: 20;
+}
+
+/* Order Modal Table */
+.review-container table{
+    width: 95%;
+    height: 90%;
+    margin-top: 1%;
+    z-index: 10;
+}
+
+.review-container{
+    display: flex;
+    justify-content: center;
+}
+
+.reviewBox-header {
+    height: 2.5rem;
+    font-size: 1.1rem;
+
+}
+
+.reviewBox-container th {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+#tableNum-row{
+    width: 30%;
+    background-color: lightsalmon;
+}
+
+#order-row {
+    width: 70%;
+}
+
+/* .addedInfo-container th{
+    height: 2rem;
+    font-size: 1.1rem;
+    background: lightcoral;
+} */
+
+
+@media (orientation: landscape){
+    body{
+        width: 98%;
+    }
+    /*Main Buttons only - ADD UPDATE CLOSE*/
+    .updateBtn-modal {
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    .modal-content-updateBtn {
+        background: #f4f4f4;
+        margin: 2.5% 25%;
+        width: 50%;
+        height: 90%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+    .addBtn-modal {
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    .modal-content-addBtn {
+        background: #f4f4f4;
+        margin: 2.5% 25%;
+        width: 50%;
+        height: 90%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+    .closeBtn-modal {
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    .modal-content-closeBtn {
+        background: #f4f4f4;
+        margin: 12.5% 25%;
+        width: 50%;
+        height: 50%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .btn-container {
+        display:grid;
+        grid-auto-columns: 25%;
+        grid-auto-flow: column;
+        background-color: #343434;
+        border-radius: 20px;
+        padding: 10px;
+        color: #c3c3c3;
+        text-align: center;
+    }
+    
+    #signout-btn{
+        padding: 10px 0px;
+        border-radius: 10px;
+        border-width: 2.5px;
+        border-color: black;
+        background-color: lightskyblue;
+        width: 90%;
+        height: 100%;
+        margin: auto;
+        text-align: center; 
+    }
+    #signout-btn:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        opacity: 0.5;
+    }
+
+    #order-btn{
+        padding: 10px 0px;
+        border-radius: 10px;
+        border-width: 2.5px;
+        border-color: black;
+        background-color: lightgreen;
+        width: 90%;
+        height: 100%;
+        text-align: center;
+    }
+    #order-btn:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        opacity: 0.5;
+    }  
+    #void-btn{
+        padding: 10px 0px;
+        border-radius: 10px;
+        border-width: 2.5px;
+        border-color: black;
+        background-color: lightpink;
+        width: 90%;
+        height: 100%;
+    }
+    #void-btn:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        opacity: 0.5;
+    }
+    #close-btn{
+        padding: 10px 0px;
+        background-color: rgb(238, 38, 38);
+        border-radius: 10px;
+        border-width: 2.5px;
+        border-color: black;
+        width: 90%;
+        height: 100%;
+    }
+    #close-btn:active {
+        box-shadow: none;
+        transform: translateY(3px);
+        opacity: 0.5;
+    }
+}
