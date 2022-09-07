@@ -5,6 +5,7 @@ const router = express.Router();
 const loginController = require('../controllers/server-side/server-login'); 
 const signoutController = require('../controllers/server-side/server-signout'); 
 const server_addItemController = require('../controllers/server-side/server_addItem'); 
+const server_viewPageController = require('../controllers/server-side/server_view'); 
 //const server_addBtnController = require('../controllers/server-side/server_addBtn'); 
 //const server_addHomeController = require('../controllers/server-side/server_addHome');
 //const server_addSubmitController = require('../controllers/server-side/server_addSubmit'); 
@@ -12,6 +13,7 @@ const server_addItemController = require('../controllers/server-side/server_addI
 router.post('/user', loginController.user);
 router.post('/user/signout', signoutController.signout_user); 
 router.post('/user/addItem', server_addItemController.addItem); 
+router.post('/user/viewPage', server_viewPageController.viewPage); 
 //router.post('/user/addBtn', server_addBtnController.addBtn); 
 //router.post('/user/addHome', server_addHomeController.addHome); 
 //router.post('/user/addSubmit', server_addSubmitController.addSubmit); 

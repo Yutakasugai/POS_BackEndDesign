@@ -98,7 +98,12 @@ html, body {
     height: 90px;
 }
 .add-view{
+    /* text-align: center;
+    margin-top: 10px; */
+    display: flex;
     text-align: center;
+    justify-content: center;
+    gap: 6px;
     margin-top: 10px;
 }
 .update-button{

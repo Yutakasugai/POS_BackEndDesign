@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Kaisei+Tokumin:wght@500&family=Raleway&family=Share&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/css/Server-Side/server_view.css">
+    <title>Server View Page</title>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- Top Line for user info and some buttons -->
+    <div class="page-container">
+
+        <div class="page-info">
+
+            <h1>User Name: {{name}}</h1>
+
+            <h2 id="table-number">Table: {{table_key}}</h2>
+            <h2 id="customer-number">Customer Number: {{c_number}}</h2>
+        </div>
+
+    </div>
+
+    
+    {{!-- <div class="customer-orders">
+        <div class="scrollable">
+
+            <input type="checkbox" id="1" name="order1" value="0">
+            <label for="order1"> Shio [L/S] </label><br>
+            <input type="checkbox" id="2" name="order2" value="1">
+            <label for="order2"> Shoyu [R/S] <br> +Egg <br> (No Beans)</label><br>
+
+        </div>
+            
+        <div class="customer-orders-button">
+            <div class="remove">
+                <button id="remove-btn">Remove</button>
+            </div>
+            
+            <div></div>
+            
+            <div class="bill">
+                <button id="bill-btn">Make Bill</button>
+            </div>
+        </div>
+
+    </div> --}}
+    
+
+    <!-- Sign out Btn and Close Btn -->
+    <div id="footer">
+        <div class="btn-container">
+            <div class="back">
+                <button id="back-btn">Back</button>
+            </div>
+
+            <div></div>
+
+            <div class="done">
+                <button id="done-btn">Done</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{{!-- Wrapper End --}}
+
+</body>
+</html>

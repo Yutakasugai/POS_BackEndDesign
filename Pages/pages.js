@@ -389,4 +389,11 @@ router.get('/auth/admin/mainPage', (req, res) => {
     })
 })
 
+// Test Server Add Page 
+// router.get('/testShow', (req, res) => {
+//   console.log("This is to check a add page display on the screen"); 
+
+//   res.render("serverView"); 
+// })
+
 module.exports = router;

@@ -217,12 +217,13 @@
 
         </div>
 
-
+        {{!-- Check if I could capture the table condition values from server-login.js --}}
+        <input type="hidden" id="table_con" name="table_con" value={{table_con}}>
 
         <!-- Phone-1 and Phone-2 -->
         <div class="extra_container">
 
-            <div class="ex1" style="display:block;">
+            <div class="ex1" style="display:none;">
                 <div class="extra_phone" id="ex_table1">
 
                     <p class="table_num">Phone 1</p>
@@ -234,7 +235,7 @@
                 </div>
             </div>
 
-            <div class="ex2" style="display:block;">
+            <div class="ex2" style="display:none;">
                 <div class="extra_phone" id="ex_table2">
 
                     <p class="table_num">Phone 2</p>
@@ -249,7 +250,7 @@
 
         <!-- Phone-3 and Phone-4 -->
         <div class="extra_container2">
-            <div class="ex3" style="display:block;">
+            <div class="ex3" style="display:none;">
 
                 <div class="extra_phone" id="ex_table3">
 
@@ -379,7 +380,7 @@
 
         <div class="table-updateBox">
             <!-- Table Panel -->
-            <h1>{if table}</h1>
+            <h1>Table_?</h1>
 
             <!-- Customer Number Panel -->
             <div class="customerCheck">
