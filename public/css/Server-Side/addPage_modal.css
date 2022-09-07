@@ -11,26 +11,10 @@
   transition: visibility 0s opacity 0, 5s;
   z-index: 20;
 }
-
-/* modal for shrimp and vege ramen */
-.modal_bg_shrimp {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0; /*hide this line*/
-  visibility:  hidden; /*hide this line*/
-  transition: visibility 0s opacity 0, 5s;
-  z-index: 20;
-}
-
 .bg-active{
   visibility: visible;
   opacity: 1;
 }
-
 .modal_content {
   position: fixed;
   top: 50%;
@@ -47,7 +31,11 @@
   flex-direction: column;
   box-sizing: border-box;
 }
+
+
+
 /* Modal slide 1 */
+/* Basic Requirements */
 .swiper-slide {
   height: 100%;
 }
@@ -97,7 +85,7 @@
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .slide-item {
   width: 98%;
@@ -123,16 +111,13 @@
   display: grid;
   grid-template-columns: 1fr 1.5fr 1.5fr;
 }
-.ramen_pref_footer {
-}
-.item_multiplied {
-  height: 2em;
-}
+
 
 /* same code for ramen preference, other side dishes, toppings, drinks, beer */
 .menuItem_multiplied {
-  margin-top: 50px;
-  margin-bottom: 40px;
+  margin-top: -15px;
+  /* margin-bottom: 40px; */ 
+  padding: 35px 50px;
 }
 /* chashu counter button */
 .item_counter {
@@ -213,7 +198,7 @@
 
 
 /* Modal slide 2 */
-
+/* Add Topping List */
 .addToppings-section-content{
   box-sizing: border-box;
   height: 100%;
@@ -223,13 +208,14 @@
 
 .addToppings-section-body {
   box-sizing: border-box;
-  height: 80%;
+  height: 85%;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  row-gap: 50px;
 }
 
 .section-row {
@@ -239,24 +225,31 @@
   align-content: center;
 }
 .left-item{
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  /* justify-content: space-between; */
   height: 100%;
   width: 100%;
-  margin-left: -20px;
+  margin-left: 10px;
 }
 .right-item{
-  display: flex;
-  justify-content: space-evenly;
+  /* display: flex;
+  justify-content: space-evenly; */
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr;
   height: 100%;
   width: 100%;
 }
 .item-name2 {
-  margin-top: 0.5em;
+  display: flex;
+  justify-content: start;
+  /* margin-top: 0.5em;
   margin-right: 25px;
   font-size: 0.8em;
-  text-align: right;
-  width: 200px;
+  text-align: right;*/
+  width: 120px; 
+  font-size: 0.8em;
+  margin-top: 0.5em;
 }
 
 /* topping counter button */
@@ -311,53 +304,59 @@
   transform: translateY(5px);
 }
 
-/* Modal slide 3 (Remove toppings section) */
 
-.rToppings-section-content{
+/* Modal slide 3 (Remove toppings section) */
+/* Remove toppings list */
+.rToppings-section-content {
   box-sizing: border-box;
-  height: 100%;
+  height: 98%;
   width: 98%;
   margin-left: 1%;
-} 
-
+}
 .rToppings-section-body {
   box-sizing: border-box;
-  height: 50%;
+  height: 90%;
   margin-left: 20px;
   margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 25px;
 }
-
-/* item name is the same code as modal slide 2 */
-
-.r-or-sButton {
+.rToppings-slide-item {
+  width: 98%;
+}
+.rToppings-containerFor3items {
+  display: grid;
+  grid-template-columns: 1.1fr 1.5fr 1.1fr;
+  align-self: center;
+  align-items: center;
+}
+.rToppings-title {
+  color: rgb(103, 103, 103);
+  font-weight: 500;
+  text-align: left;
+  margin-left: 0.4em;
+  font-size: 0.8em;
+}
+.rToppings-item-preference {
   height: 100%;
+  text-align: left;
+}
+.rToppings-checkboxForPref {
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  top: 10px;
 }
 
-.rButton,
-.sButton {
-  height: 8vw;
-  width: 8vw;
-  font-size: 3vw;
-  border: 2px solid;
-  border-radius: 10px;
-  box-shadow: 0px 0px 50px lightgrey;
-  background-color: rgb(240, 240, 240);
-  box-shadow: 0 5px rgb(119, 119, 119)
-}
 
-.rButton:active,
-.sButton:active {
-  box-shadow: none;
-  transform: translateY(5px);
-  opacity: 0.5;
-  background-color: aquamarine;
-}
 
 /* Modal for Chashu & Don */ 
+/* The box css to pop up  */
 .modal_bg_chashu {
   position: fixed;
   width: 100%;
@@ -374,6 +373,14 @@
   visibility: visible;
   opacity: 1;
 }
+
+/* Design on the inside */
+.chashu_modal_container {
+  box-sizing: border-box;
+  height: 98%;
+  width: 98%;
+  margin-left: 1%;
+}
 .modal_content_chashu {
   position: fixed;
   top: 50%;
@@ -389,9 +396,11 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Title line of chashu modal */
 .chashu_header {
-  height: 16%;
-  max-height: 200px;
+  height: 10%;
+  max-height: 100px;
   box-sizing: border-box;
   background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
   border-radius: 10px;
@@ -400,75 +409,123 @@
   margin-right: 20px;
   margin-bottom: 30px;
   padding: 10px 30px;
-  color: rgb(234, 234, 233);
-}
-.section-title-chashu{
   display: flex;
   justify-content: space-between;
-  margin-left: 180px;
-  margin-top: 0.4em;
+  align-items: center;
 }
-#close_chashu_modal {
-  position: relative;
-  bottom: 0.2em;
+.slide-title-chashu {
+  padding-left: 0px;
+  font-size: 1.2em;
+  border-radius: 15px;
+  color: rgb(234, 234, 233);
 }
-#chashu_subtitle {
-  font-size: 0.6em;
-  margin-top: -0.5em;
+.close_button-chashu {
+  border: none;
+  color: rgb(234, 234, 233);
+  background: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.5em;
+  padding: 0;
+  margin:0;
 }
-.chashu_body {
-  height: 75%;
+
+/* Main Body Part on Chashu Modal */
+.chashu-section-body {
+  box-sizing: border-box;
+  height: 90%;
   margin-left: 20px;
   margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
-  display: grid;
-  grid-template-rows: 1fr 1.2fr 1.5fr;
+  /* display: grid;
+  grid-template-rows: auto; */
+  gap: 25px;
 }
-.chashu_option {
-  margin-top: 1em;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-bottom: 40px;
-  border-bottom: 2px solid;
+.slide-item-chashu {
+  width: 98%;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
-.required_sign {
-  font-size: 1.3em;
+.item-name-chashu {
+  color: rgb(103, 103, 103);
   font-weight: 500;
+  text-align: left;
+  margin-left: 0.4em;
+  font-size: 0.9em;
 }
-.option_choice {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.item-preference-chashu {
+  height: 100%;
+  text-align: left;
 }
-#chashu_shoulder, 
-#chashu_belly,
-#no_g_onion,
-#no_sesamine,
-#no_sauce {
-  width: 1.3em;
-  height: 1.3em;
+.checkboxForPref-chashu {
+  width: 1.2em;
+  height: 1.2em;
   position: relative;
-  top: 13px;
-  margin-right: 15px;
+  top: 10px;
 }
-.not_req_sign {
-  font-size: 1.3em;
-  font-weight: 500;
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-}
-.spec_row {
+.containerFor3items-chashu {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-bottom: 30px;
+  grid-template-columns: 1.1fr 1.2fr 1.3fr;
+  align-self: center;
+  align-items: center;
 }
-#sesamine_option {
-  position: relative;
-  left: 22px;
+#chashu-section-line {
+  width: 95%;
+  background: black;
 }
-.chashu_footer {
 
+/* Chashu Modal - Remove or Side options */
+.rItems-section-body {
+  margin-top: 40px;
+  display: grid;
+  grid-template-rows: auto;
+  gap: 40px;
 }
+.rItems-chashu {
+  width: 98%;
+}
+.rItems-containerFor3items {
+  display: grid;
+  grid-template-columns: 1.1fr 1.5fr 1.1fr;
+  align-self: center;
+  align-items: center;
+}
+.rItems-title {
+  color: rgb(103, 103, 103);
+  font-weight: 500;
+  text-align: left;
+  margin-left: 0.4em;
+  font-size: 0.8em;
+}
+.rItems-preference {
+  height: 100%;
+  text-align: left;
+}
+.rItems-checkboxForPref {
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  top: 10px;
+}
+
+/* Chashu Modal Footer Section */
+.chashu_footer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.chashu-cancelOrAdd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 20px;
+}
+
 
 
 /* Modal for Other Side Dishes */ 
@@ -519,22 +576,14 @@
   align-items: center;
 }
 .dishes_content {
-  height: 85%;
+  height: 89%;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 2.5fr;
-}
-.section-title-dishes {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 20px;
-}
-.side_item {
-}
-.side_footer {
+  grid-template-rows: auto;
+  
 }
 /* same format for drinks as well */ 
 .section_item {
@@ -547,17 +596,18 @@
 }
 .section_item_name {
   padding-top: 30px;
-  font-weight: 500;
+  font-weight: 450;
+  font-size: 3.7rem;
 }
-#matcha_ice {
-  font-size: 45px;
-}
+
+
 /* Section item counter button (used for other side dishes)*/
 /* This code is also used for soft drinks and beers */
 .section_item_counter {
   display: flex;
   justify-content: center;
   margin-left: -10px;
+  margin-top: 20px;
 }
 .counter_section_item {
   font-size: 70px;
@@ -599,6 +649,8 @@
   box-shadow: none;
   transform: translateY(5px);
 }
+
+
 
 /* modal for topping (directly from top menu) */
 .modal_bg_toppings {
@@ -649,20 +701,55 @@
 }
 .toppings-body {
   box-sizing: border-box;
-  height: 85%;
+  height: 89%;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+  grid-template-rows: auto;
+  row-gap: 45px;
 }
 .topping_footer {
-  margin-top: 10vh;
+  margin-bottom: 15px;
+}
+.toppings-section-row {
+  display: grid;
+  grid-template-columns: 0.98fr 1.02fr;
+  /* margin-right: 15px; */
+  /* margin-top: 1px; */
+  align-content: center;
+}
+.toppings-left-item{
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  /* justify-content: space-between; */
+  height: 100%;
+  width: 100%;
+  margin-left: 10px;
+}
+.toppings-right-item{
+  /* display: flex;
+  justify-content: space-evenly; */
+  display: grid;
+  grid-template-columns: 1.15fr 1.25fr;
+  height: 100%;
+  width: 100%;
+}
+.toppings-item-name2 {
+  display: flex;
+  justify-content: start;
+  /* margin-top: 0.5em;
+  margin-right: 25px;
+  font-size: 0.8em;
+  text-align: right;*/
+  width: 120px; 
+  font-size: 0.8em;
+  margin-top: 0.5em;
 }
 
 
-/* modal for drink*/
+/* modal for soft drink*/
 .modal_bg_softDrink {
   position: fixed;
   width: 100%;
@@ -710,18 +797,25 @@
   align-items: center;
 }
 .softDrink_body {
-  height: 85%;
-  max-height: 1100px;
+  height:90%;
+  /* max-height: 1100px; */
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 15px;
   background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
 }
 .softDrink_footer {
-  margin-top: 60px;
+  margin-bottom: auto;
+  margin-top: auto;
 }
+.soft_drink_count{
+  font-size: 4.5rem;
+  padding-bottom: 0px;
+  width: 80px;
+}
+
 
 /* Modal for beers */
 .modal_bg_beer {
@@ -776,8 +870,8 @@
   padding-top: 20px;
 }
 .beer_body {
-  height: 85%;
-  max-height: 1100px;
+  height: 90%;
+  /* max-height: 1100px; */
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 15px;
@@ -786,81 +880,104 @@
   grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 .beer_footer {
-  margin-top: 60px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.drink_beers_count {
+  font-size: 4.5rem;
+  padding-bottom: 0px;
+  width: 80px;
 }
 
 
-
-
-/* Disable right now */
-/* Home Btn Modal */
-.homeBtn-modal {
+/* Modal for Bowl Soup */
+.modal_bg_bowlSoup {
   position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  bottom: 0;
+  top: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
 }
-.modal-content-homeBtn {
-  background: #f4f4f4;
-  margin: 50% auto;
+.bg-active-bowlSoup {
+  visibility: visible;
+  opacity: 1;
+}
+.modal_content_bowlSoup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
   width: 90%;
-  height: 30%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-.close-btn-homeBtn span{
-  position: relative;
-  font-size: 3rem;
-  z-index: 1;
-}
-.close-btn-homeBtn {
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
   display: flex;
-  justify-content: end;
-  margin-right: 2.5rem;
+  flex-direction: column;
 }
-.close-btn-homeBtn:hover {
-  cursor: pointer;
-  color: var(--brightred);
-  transition: 0.2s ease-out;
+.bowlSoup_header {
+  height: 10%;
+  max-height: 100px;
+  box-sizing: border-box;
+  background: linear-gradient(rgb(86, 84, 84),rgb(144, 135, 135));
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-/* CloseBtn Modal */
-.table-closeBox {
+.bowlSoup_content {
+  height: 89%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(184, 183, 183),rgb(232, 225, 225));
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 10rem 4rem;
-  margin-top: 50px;
+  grid-template-rows: auto;
+  
 }
-.table-closeBox h1 {
-  font-size: 2.8rem;
-  text-align: center;
+/* same format for drinks as well */ 
+.section_item_bowlSoup {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-bottom: 2px solid;
+  align-items: center;
+}
+.title_bowlSoup {
+  padding-top: 30px;
+  font-weight: 450;
+  font-size: 3.7rem;
+}
+.num_counter_bowlSoup {
+  font-size: 70px;
+  padding-bottom: 0px;
+  width: 80px;
 }
 
-/* Yes and No Buttons */
-.close_button-container {
+/* BowlSoup Modal Footer Section */
+.bowlSoup_footer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.bowlSoup-cancelOrAdd {
   display: flex;
-  justify-content: center;
-  gap: 10rem;
-  align-self: center;
-}
-#no-btn {
-  font-size: 2.5rem;
-  padding: 15px 60px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-color: black;
-  background-color: lightcoral;
-}
-#yes-btn {
-  font-size: 2.5rem;
-  padding: 15px 60px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-color: black;
-  background-color: lightgreen;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 20px;
 }
