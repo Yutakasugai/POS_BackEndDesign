@@ -1,4 +1,4 @@
-const textBox = document.getElementById('userCheck');
+//const textBox = document.getElementById('userCheck');
 const userList = document.getElementById('userList');
 
 const ws = new WebSocket("ws://localhost:8080")
@@ -18,7 +18,11 @@ ws.addEventListener("message", ({data}) => {
 
     if(control_id[0] === "passedID") {
         let username = control_id[1];
-        $('div.userCheck').append(`<li id=${username}>${username} succesfully logged in!</li>`)
+        $('div.userCheck').append
+        (
+            `<li class="userLog_notice_login" id=${username}>
+            <p id="userLog_p">${username} succesfully logged in!</p></li>
+        `)
         return; 
 
     } else if(control_id[0] === "signout"){
@@ -60,8 +64,22 @@ function acceptUser(user, listUser) {
         if(listUser[s] === username){
             counter = counter + 1; 
             let str_count = String(counter); 
+
             $('button.icon-button').append(`<span class="num_notice_badge">${str_count}</span>`)
-            $('div.userCheck').append(`<li id=${username} repeat_login=${username}>${username} waiting for your permission: <button id="allowBtn_${username}">Allow</button></li>`)
+
+            // $('div#name').append(`<p id=${username}>${username} is requesting: <p>`);
+            // $('div#allow-button').append(`<button id="allow-btn">Allow</button>`); 
+
+            // $('div.userCheck').append(`<div id=${username}>${username} waiting for your permission: 
+            // <button id="allowBtn_${username}">Allow</button></div>`); 
+            
+            // <div id="allow-button"><button class="allow-btn" id="allowBtn_${username}>Allow</div>
+            $('div.userCheck').append
+            (
+                `<li class="userLog_notice" id=${username}><p id="userLog_p">${username} is requesting:
+                <button class="allow_btn" id="allowBtn_${username}">Allow</button></p></li>`
+            ); 
+
             listUser.splice(listUser.indexOf(username), 1) 
 
             passNum = true; 
