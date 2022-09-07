@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://css.gg/copy.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Kaisei+Tokumin:wght@500&family=Raleway&family=Share&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/css/Kitchen-Side/admin_main.css">
     <title>Control Site</title>
 
@@ -14,7 +16,6 @@
 
         <!-- User and Date -->
         <div class="page-info">
-            {{!-- <h1>Name: {{name}}</h1> --}}
             <h2>Date: {{date}}</h2>
             <h2 id="page-time">Time: {{time}}</h2>
         </div>
@@ -22,28 +23,25 @@
         <!-- circle buttons at the top -->
         <div class="circle-buttons">
 
-            {{!-- Table Check Btn --}}
+            <!-- Table Check Btn -->
             <button id="table-btn">T</button>
 
-            {{!-- Icon Button --}}
+            <!-- Icon Button -->
             <div class="user-notice">
                 <button type="button" class="icon-button" id="userCheck-btn">
                     <i class="fa-solid fa-user-check"></i>
-                    {{!-- <span class="num_notice_badge">25</span> --}}
                 </button>
             </div>
 
         </div>
 
         <!-- square buttons at the top -->
-        <div class="square-buttons">
-            <button id="history-btn">History</button>
-
-            {{!-- Close Btn --}}
-            <button id="systemClose-btn">Close</button>
+        <div class="square-button">
+            <button id="history-btn"> View History</button>
         </div>
 
     </div>
+
 
     <!-- Order Box -->
     <div class="box-container">
@@ -53,9 +51,10 @@
             <div class="box-title">
                 <p id="Box1_title">{{Box_1}}</p>
             </div>
-
-            <div class="order-items" id="text_box1" box1_text="{{Box1_Item}}">
-                <p id="itemBox1"></p>
+            <div class="scrollable">
+                <div class="order-items" id="text_box1" box1_text="{{Box1_Item}}">
+                    <p id="itemBox1"></p>
+                </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -74,9 +73,10 @@
             <div class="box-title">
                 <p id="Box2_title">{{Box_2}}</p>
             </div>
-
-            <div class="order-items" id="text_box2" box2_text="{{Box2_Item}}">
-                <p id="itemBox2"></p>
+            <div class="scrollable">
+                <div class="order-items" id="text_box2" box2_text="{{Box2_Item}}">
+                    <p id="itemBox2"></p>
+                </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -95,9 +95,10 @@
             <div class="box-title">
                 <p id="Box3_title">{{Box_3}}</p>
             </div>
-
-            <div class="order-items" id="text_box3" box3_text="{{Box3_Item}}">
-                <p id="itemBox3"></p>
+            <div class="scrollable">
+                <div class="order-items" id="text_box3" box3_text="{{Box3_Item}}">
+                    <p id="itemBox3"></p>
+                </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -117,9 +118,10 @@
             <div class="box-title">
                 <p id="Box4_title">{{Box_4}}</p>
             </div>
-
-            <div class="order-items" id="text_box4" box4_text="{{Box4_Item}}">
-                <p id="itemBox4"></p>
+            <div class="scrollable">
+                <div class="order-items" id="text_box4" box4_text="{{Box4_Item}}">
+                    <p id="itemBox4"></p>
+                </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -138,27 +140,35 @@
     <!-- More orders shown at the corner -->
     <div class="bottom-container">
 
-        {{!-- home back button --}}
-        <form action="/auth/admin/home" method="POST" class="home-button">
-            <input type="hidden" name="adminName" value="{{name}}">
-            <input type="hidden" name="data_key" value="{{date}}">
-            <input type="hidden" name="time_key" value="{{time}}">
-            <button id="home-btn">Home</button>
-        </form>
+        <div class="footer-buttons">
+
+            <!-- home back button -->
+            <form action="/auth/admin/home" method="POST" class="home-button">
+                <input type="hidden" name="adminName" value="{{name}}">
+                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="time_key" value="{{time}}">
+                <button id="home-btn">Home</button>
+            </form>
+
+            <button id="systemClose-btn">Close</button>
+
+        </div>
 
         <div class="moreOrder-container">
+
             <div class="num-panel">
                 <p>+ {{subBox_num}}</p>
             </div>
-    
+
             <div class="two-boxes">
-                <button class="box-1" id="box-btn"></button>
-                <button class="box-2" id="box-btn"></button>
+                <button class="box-1" id="box-btn"><i class="gg-copy"></i>
+                    <span class="num_notice_badge_orders">{{subBox_num}}</span> 
+                </button>
             </div>
         </div>
     </div>
 
-    {{!-- Modal 1 --}}
+    <!-- Modal 1 -->
     <!-- Modal Page for Table Display -->
     <div class="table-modal" id='table-modal'>
         <div class="modal-content-table">
@@ -212,14 +222,14 @@
         </div>
     </div>
 
-    {{!-- Modal 2 --}}
+    <!-- Modal 2 -->
     <!-- Modal Page for Close Btn -->
     <div class="closeBtn-modal" id="closeBtn-modal">
         <div class="modal-content-closeBtn">
             <span class="close-btn-closeBtn">&times;</span>
 
             <div class="closeText-container">
-                <p>Are you sure to close this page?</p>
+                <p>Are you sure to Exit?</p>
                 
                 <div class="yesno-btn">
                     <button id="no-btn">No</button>
@@ -236,19 +246,22 @@
         </div>
     </div>
 
-    {{!-- Modal 3 --}}
+    <!-- Modal 3 -->
     <!-- Pop up modal for checking user login -->
     <div class="userLog-modal" id='userLog-modal'>
         <div class="modal-content">
-
+            <h1>Check UserLog</h1>
             <span class="close-btn-userlogBtn">&times;</span>
+            <div class="line"></div>
+
+            {{!-- Display the usercheck status on the modal --}}
             <div class="userCheck"></div>
 
         </div>
     </div>
 
-    {{!-- Modal 4 --}}
-    {{!-- Modal Page to display more order boxes --}}
+    <!-- Modal 4 -->
+    <!-- Modal Page to display more order boxes -->
     <div class="boxBtn-modal" id="boxBtn-modal">
         <div class="modal-content-boxBtn">
             <span class="close-btn-boxBtn">&times;</span>
@@ -260,9 +273,10 @@
                     <div class="box-title">
                         <p id="subBox1_title">{{Box_5}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox1" subBox1_text="{{Box5_Item}}">
-                        <p id="itemBox5"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox1" subBox1_text="{{Box5_Item}}">
+                            <p id="itemBox5"></p>
+                        </div>
                     </div>
 
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -282,9 +296,10 @@
                     <div class="box-title">
                         <p id="subBox2_title">{{Box_6}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox2" subBox2_text="{{Box6_Item}}">
-                        <p id="itemBox6"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox2" subBox2_text="{{Box6_Item}}">
+                            <p id="itemBox6"></p>
+                        </div>
                     </div>
 
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -303,9 +318,10 @@
                     <div class="box-title">
                         <p id="subBox3_title">{{Box_7}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox3" subBox3_text="{{Box7_Item}}">
-                        <p id="itemBox7"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox3" subBox3_text="{{Box7_Item}}">
+                            <p id="itemBox7"></p>
+                        </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -325,9 +341,10 @@
                     <div class="box-title">
                         <p id="subBo4_title">{{Box_8}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox4" subBox4_text="{{Box8_Item}}">
-                        <p id="itemBox8"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox4" subBox4_text="{{Box8_Item}}">
+                            <p id="itemBox8"></p>
+                        </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -346,9 +363,10 @@
                     <div class="box-title">
                         <p id="subBox5_title">{{Box_9}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox5" subBox5_text="{{Box9_Item}}">
-                        <p id="itemBox9"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox5" subBox5_text="{{Box9_Item}}">
+                            <p id="itemBox9"></p>
+                        </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -368,9 +386,10 @@
                     <div class="box-title">
                         <p id="subBox6_title">{{Box_10}}</p>
                     </div>
-        
-                    <div class="order-items" id="text_subox6" subBox6_text="{{Box10_Item}}">
-                        <p id="itemBox10"></p>
+                    <div class="scrollable">
+                        <div class="order-items" id="text_subox6" subBox6_text="{{Box10_Item}}">
+                            <p id="itemBox10"></p>
+                        </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -389,8 +408,8 @@
         </div>
     </div>
 
-    {{!-- Modal 5 --}}
-    {{!-- History Btn Modal --}}
+    <!-- Modal 5 -->
+    <!-- History Btn Modal  -->
     <div class="historyBtn-modal" id="historyBtn-modal">
         <div class="modal-content-historyBtn">
             <span class="close-btn-historyBtn">&times;</span>
@@ -398,35 +417,36 @@
             <div class="historyBtn-textBox">
 
                 <div class="historyBtn-title">
-                    <h1>View Histroy</h1>
+                    <h1>View History</h1>
                     <h2>{{date}} - {{time}}</h2>
                 </div>
+                <div class="scrollable">
+                    <div class="review-container">
 
-                <div class="review-container">
+                        <table border cellspacing="0">
 
-                    <table border cellspacing="0">
-
-                        <!-- table desc rows -->
-                        <tr class="reviewBox-container"> 
-                            <tr class="reviewBox-header">
-                                <th id="tableNum-row">Table Number</th>
-                                <th id="togoPerson-row">Order By</th>
-                                <th id="itemName-row">Item Name</th>
-                            </tr>
-                            
-                            {{#each done_items}}
-                                <tr class="addedInfo-container">
-                                    <th>{{table_id}}</th>
-                                    <th>{{order_by}}</th>
-                                    <th>{{item_name}}</th>
+                            <!-- table desc rows -->
+                            <tr class="reviewBox-container"> 
+                                <tr class="reviewBox-header">
+                                    <th id="tableNum-row">Table Number</th>
+                                    <th id="togoPerson-row">Order By</th>
+                                    <th id="itemName-row">Item Name</th>
                                 </tr>
-                            {{/each}}
-                        </tr>
+                                
+                                {{#each done_items}}
+                                    <tr class="addedInfo-container">
+                                        <th>{{table_id}}</th>
+                                        <th>{{order_by}}</th>
+                                        <th>{{item_name}}</th>
+                                    </tr>
+                                {{/each}}
 
-                    </table>
+                            </tr>
 
+                        </table>
+
+                    </div>
                 </div>
-
             </div>
 
         </div>

@@ -1,15 +1,18 @@
 body {
-    background: white;
     /* I think this can lock the window swipped up and down */
     overflow-y: hidden;
     overflow-x: hidden;
     padding: 1.5rem calc((100vw - 1200px) / 2);
-    background-color: lightsteelblue;
+    background-color: #585858;;
+    font-family: "Kaisei Tokumin", Sans-Serif;
 }
 
 .page-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    background-color: #343434;;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 /* User name and Date */
@@ -17,10 +20,12 @@ body {
     padding-left: 30px;
 }
 .page-info h1 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+    color: white;
 }
 .page-info h2 {
     font-size: 1.4rem;
+    color:white;
 }
 
 /* Top Buttons */
@@ -35,7 +40,7 @@ body {
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
-    background-color: lightgray;
+    background-color: lightcoral;
 }
 
 /* Add User Box */
@@ -130,7 +135,7 @@ body {
     border-radius: 3px;
     min-height: 500px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 0.2fr;
 }
 
 .close-btn {
@@ -145,6 +150,42 @@ body {
     cursor: pointer;
     color: var(--brightred);
     transition: 0.2s ease-out;
+}
+
+.button-container{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+}
+
+.box-condition{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+
+}
+
+#cancel-btn {
+    font-size: 1.7rem;
+    padding: 7px 25px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: black;
+    background-color: lightcoral;
+    align-self: center;
+}
+#yes-btn {
+    font-size: 1.7rem;
+    padding: 7px 25px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: black;
+    background-color: lightgreen;
+    align-self: center;
 }
 
 @media screen and (max-width: 768px) {

@@ -65,13 +65,13 @@ $('#wait_permit').on('submit', function(e){
 
     if (keyMsg.value === "False"){
 
-        console.log("The system is working"); 
+        //console.log("The system is working"); 
         $('.check-msg').append(`<h4 id="checkMsg">Please check if admin is ready</h4>`); 
         return; 
 
     } else {
 
-        console.log("The system is not started yet..."); 
+        //console.log("The system is not started yet..."); 
 
         let str = userList.value
         let str2 = str.split(',')
