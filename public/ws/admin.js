@@ -1,5 +1,6 @@
 //const textBox = document.getElementById('userCheck');
 const userList = document.getElementById('userList');
+const system_closeBtn = document.getElementById('yes-btn'); 
 
 const ws = new WebSocket("ws://localhost:8080")
 
@@ -53,6 +54,12 @@ ws.addEventListener("close", () => {
     console.log("Close a websocket connection...");
     ws.close()
 })
+
+// Send a key value when close this system
+system_closeBtn.onclick = () => {
+
+    ws.send("closeBtn_clicked"); 
+}
 
 // function to check the user and decide if it is allowed or not
 function acceptUser(user, listUser) {  
