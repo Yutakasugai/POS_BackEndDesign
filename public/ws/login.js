@@ -17,6 +17,8 @@ ws.addEventListener("message", ({data}) => {
     let control_id = data.split('%')
     let current_user = userName.value; 
 
+    // console.log(control_id); 
+
     if(control_id[0] === "admin_permit" && control_id[1] === current_user){
 
         $('h4#checkMsg').remove(); 
@@ -28,6 +30,16 @@ ws.addEventListener("message", ({data}) => {
 
         $('h4#checkMsg').remove(); 
         $('.check-msg').append(`<h4 id="checkMsg">Please check if you already logged in or in the waitlist</h4>`)
+
+    } else if (control_id[0] === "yesBtn_clicked"){
+
+        // Change the id on the input element 
+        keyMsg.setAttribute('value', 'True'); 
+
+    } else if (control_id[0] === "closeBtn_clicked") {
+
+        // Change the id on the input element 
+        keyMsg.setAttribute('value', 'False'); 
 
     } else {
 
