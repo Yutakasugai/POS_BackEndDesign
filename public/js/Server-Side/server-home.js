@@ -1,32 +1,49 @@
-// Table box t1 - t8
-const tableBox_1 = document.getElementById('table1'); 
-const tableBox_2 = document.getElementById('table2'); 
-const tableBox_3 = document.getElementById('table3'); 
-const tableBox_4 = document.getElementById('table4'); 
-const tableBox_5 = document.getElementById('table5'); 
-const tableBox_6 = document.getElementById('table6'); 
-const tableBox_7 = document.getElementById('table7'); 
-const tableBox_8 = document.getElementById('table8'); 
 
-// Add Btn if table is filled
-const addBtn1_filled = document.getElementById('add1_filled'); 
-const addBtn2_filled = document.getElementById('add2_filled'); 
-const addBtn3_filled = document.getElementById('add3_filled'); 
-const addBtn4_filled = document.getElementById('add4_filled'); 
-const addBtn5_filled = document.getElementById('add5_filled'); 
-const addBtn6_filled = document.getElementById('add6_filled'); 
-const addBtn7_filled = document.getElementById('add7_filled'); 
-const addBtn8_filled = document.getElementById('add8_filled'); 
+// const tableBox_1 = document.getElementById('table1'); 
+// const tableBox_2 = document.getElementById('table2'); 
+// const tableBox_3 = document.getElementById('table3'); 
+// const tableBox_4 = document.getElementById('table4'); 
+// const tableBox_5 = document.getElementById('table5'); 
+// const tableBox_6 = document.getElementById('table6'); 
+// const tableBox_7 = document.getElementById('table7'); 
+// const tableBox_8 = document.getElementById('table8'); 
 
-// Add Btn if table is empty
-const addBtn1_empty = document.getElementById('add1_empty'); 
-const addBtn2_empty = document.getElementById('add2_empty');
-const addBtn3_empty = document.getElementById('add3_empty');
-const addBtn4_empty = document.getElementById('add4_empty');
-const addBtn5_empty = document.getElementById('add5_empty');
-const addBtn6_empty = document.getElementById('add6_empty');
-const addBtn7_empty = document.getElementById('add7_empty');
-const addBtn8_empty = document.getElementById('add8_empty');
+// const addBtn1_filled = document.getElementById('add1_filled'); 
+// const addBtn2_filled = document.getElementById('add2_filled'); 
+// const addBtn3_filled = document.getElementById('add3_filled'); 
+// const addBtn4_filled = document.getElementById('add4_filled'); 
+// const addBtn5_filled = document.getElementById('add5_filled'); 
+// const addBtn6_filled = document.getElementById('add6_filled'); 
+// const addBtn7_filled = document.getElementById('add7_filled'); 
+// const addBtn8_filled = document.getElementById('add8_filled'); 
+
+// const addBtn1_empty = document.getElementById('add1_empty'); 
+// const addBtn2_empty = document.getElementById('add2_empty');
+// const addBtn3_empty = document.getElementById('add3_empty');
+// const addBtn4_empty = document.getElementById('add4_empty');
+// const addBtn5_empty = document.getElementById('add5_empty');
+// const addBtn6_empty = document.getElementById('add6_empty');
+// const addBtn7_empty = document.getElementById('add7_empty');
+// const addBtn8_empty = document.getElementById('add8_empty');
+
+// Table Array 
+const tabel_arr = document.getElementById('table_arr').value.split(','); 
+
+for (let i = 0; i < tabel_arr.length; i++){
+
+    if (tabel_arr[i] === "filled"){
+
+        const num_key = String(i + 1); 
+
+        let tableBox = `table${num_key}`; 
+        let addBtn_filled = `add${num_key}_filled`;
+        let addBtn_empty = `add${num_key}_empty`;
+
+        document.getElementById(`${tableBox}`).style.background = 'rgb(60, 217, 13)'; 
+        document.getElementById(`${addBtn_filled}`).style.display = 'block'; 
+        document.getElementById(`${addBtn_empty}`).style.display = 'none'; 
+    }
+}
 
 // Next Btn 
 const next_button = document.getElementById('next-btn'); 
@@ -34,155 +51,82 @@ const next_button = document.getElementById('next-btn');
 // h1 element to display table number on it 
 const tableNum_box = document.getElementById('table-number'); 
 
-// Show an output for table_con value 
-const table_con = document.getElementById('table_con'); 
-
-const table_array = table_con.value.split(','); 
-console.log(table_array); 
-
-for (let i = 0; i < table_array.length; i++) {
-    
-    // table_1 condition
-    if(table_array[i] === 'Table_1'){
-
-        tableBox_1.style.background = 'rgb(60, 217, 13)'; 
-        addBtn1_filled.style.display = 'block'; 
-        addBtn1_empty.style.display = 'none'; 
-    } 
-
-    // table_2 condition
-    if(table_array[i] === 'Table_2'){
-
-        tableBox_2.style.background = 'rgb(60, 217, 13)'; 
-        addBtn2_filled.style.display = 'block';
-        addBtn2_empty.style.display = 'none';
-    } 
-
-    // table_3 condition
-    if(table_array[i] === 'Table_3'){
-
-        tableBox_3.style.background = 'rgb(60, 217, 13)'; 
-        addBtn3_filled.style.display = 'block';
-        addBtn3_empty.style.display = 'none';
-    } 
-
-    // table_4 condition
-    if(table_array[i] === 'Table_4'){
-
-        tableBox_4.style.background = 'rgb(60, 217, 13)'; 
-        addBtn4_filled.style.display = 'block';
-        addBtn4_empty.style.display = 'none';
-    } 
-
-    // table_5 condition
-    if(table_array[i] === 'Table_5'){
-
-        tableBox_5.style.background = 'rgb(60, 217, 13)'; 
-        addBtn5_filled.style.display = 'block';
-        addBtn5_empty.style.display = 'none';
-    } 
-
-    // table_6 condition
-    if(table_array[i] === 'Table_6'){
-
-        tableBox_6.style.background = 'rgb(60, 217, 13)'; 
-        addBtn6_filled.style.display = 'block';
-        addBtn6_empty.style.display = 'none';
-    } 
-
-    // table_7 condition
-    if(table_array[i] === 'Table_7'){
-
-        tableBox_7.style.background = 'rgb(60, 217, 13)'; 
-        addBtn7_filled.style.display = 'block';
-        addBtn7_empty.style.display = 'none';
-    } 
-
-    // table_8 condition
-    if(table_array[i] === 'Table_8'){
-
-        tableBox_8.style.background = 'rgb(60, 217, 13)'; 
-        addBtn8_filled.style.display = 'block';
-        addBtn8_empty.style.display = 'none';
-    } 
-}
-
 // Define which add button user clicked 
 // Table_1
-addBtn1_empty.addEventListener('click', () => {
+document.getElementById('add1_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn1_empty.value; 
+    const table_num = document.getElementById('add1_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_2
-addBtn2_empty.addEventListener('click', () => {
+document.getElementById('add2_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn2_empty.value; 
+    const table_num = document.getElementById('add2_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_3
-addBtn3_empty.addEventListener('click', () => {
+document.getElementById('add3_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn3_empty.value; 
+    const table_num = document.getElementById('add3_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_4
-addBtn4_empty.addEventListener('click', () => {
+document.getElementById('add4_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn4_empty.value; 
+    const table_num = document.getElementById('add4_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_5
-addBtn5_empty.addEventListener('click', () => {
+document.getElementById('add5_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn5_empty.value; 
+    const table_num = document.getElementById('add5_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_6
-addBtn6_empty.addEventListener('click', () => {
+document.getElementById('add6_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn6_empty.value; 
+    const table_num = document.getElementById('add6_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_7
-addBtn7_empty.addEventListener('click', () => {
+document.getElementById('add7_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn7_empty.value; 
+    const table_num = document.getElementById('add7_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
     next_button.setAttribute('value', table_num); 
 })
 //Table_8
-addBtn8_empty.addEventListener('click', () => {
+document.getElementById('add8_empty').addEventListener('click', () => {
 
     // Dsiplay table number on the modal
-    const table_num = addBtn8_empty.value; 
+    const table_num = document.getElementById('add8_empty').value; 
     tableNum_box.innerHTML = table_num; 
 
     // Set a value of table-key in a next btn element
