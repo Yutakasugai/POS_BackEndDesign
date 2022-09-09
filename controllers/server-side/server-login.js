@@ -22,28 +22,71 @@ exports.user = (req, res) => {
     // })
 
     // Insert a name and starttime in userLog table
-    db.query("INSERT INTO userLog(name, startTime) VALUES (?, ?)", [user_name, startTime], (error) => {
-        if(error){
-            console.log(error); 
+    db.query("select name from userLog where name = (?)", (user_name), (error, result) => {
+        if (error){
+            console.log(error)
         }
 
-        // Check which tables, phone and togo orders are filled 
-        db.query("show tables", (error, table_result) => {
-            if(error){
-                console.log(error)
-            }
+        if (result.length > 0) {
 
-            const table_con = table_button(table_result); 
-            //console.log(table_con); 
+            console.log("Not need to insert this value to db"); 
 
-            return res.render("server", {
-                name: user_name, 
-                Date: data_key, 
-                Time: time_key,
-                table_con: table_con
+            // Make an array conatined of table_status
+            db.query("select table_status from table_check", (error, result) => {
+                if (error) {
+                    console.log(error)
+                }
+
+                // Create table array for a next page
+                const table_arr = []
+                for (let l = 0; l < result.length; l++) {
+
+                    table_arr.push(result[l]["table_status"]); 
+                }
+
+                console.log(table_arr); 
+
+                return res.render("server", {
+                    name: user_name, 
+                    Date: data_key, 
+                    Time: time_key,
+                    table_arr: table_arr
+                })
             })
-        })
-    })        
+
+        } else {
+
+            db.query("INSERT INTO userLog(name, startTime) VALUES (?, ?)", [user_name, startTime], (error) => {
+                if(error){
+                    console.log(error); 
+                }
+            })  
+            
+            // Make an array conatined of table_status
+            db.query("select table_status from table_check", (error, result) => {
+                if (error) {
+                    console.log(error)
+                }
+
+                // Create table array for a next page
+                const table_arr = []
+                for (let l = 0; l < result.length; l++) {
+
+                    table_arr.push(result[l]["table_status"]); 
+                }
+
+                console.log(table_arr); 
+
+                return res.render("server", {
+                    name: user_name, 
+                    Date: data_key, 
+                    Time: time_key,
+                    table_arr: table_arr
+                })
+            })
+
+        }
+    })
 }
 
 function getData(startTime) {
@@ -168,23 +211,22 @@ function getData(startTime) {
     }
 }
 
-function table_button(db_result) {
+// function table_button(db_result) {
 
-    const exist_table = []
-    const check_array = ['Table_1', 'Table_2', 'Table_3', 'Table_4', 'Table_5', 'Table_6', 'Table_7', 'Table_8', 'Togo_1', 'Togo_2', 'Togo_3', 'Togo_4', 'Phone_1', 'Phone_2', 'Phone_3', 'Phone_4']; 
+//     const exist_table = []
+//     const check_array = ['Table_1', 'Table_2', 'Table_3', 'Table_4', 'Table_5', 'Table_6', 'Table_7', 'Table_8', 'Togo_1', 'Togo_2', 'Togo_3', 'Togo_4', 'Phone_1', 'Phone_2', 'Phone_3', 'Phone_4']; 
 
-    for (let i = 0; i < db_result.length; i++) {
+//     for (let i = 0; i < db_result.length; i++) {
 
-        for (let t = 0; t < check_array.length; t++){
+//         for (let t = 0; t < check_array.length; t++){
 
-            if(db_result[i]['Tables_in_pos_database'] === check_array[t]){
+//             if(db_result[i]['Tables_in_pos_database'] === check_array[t]){
+ 
+//                 exist_table.push(check_array[t]); 
+//             } 
+//         }
+//     }  
 
-                //exist_table[check_array[t]] = 'order_taken';  
-                exist_table.push(check_array[t]); 
-            } 
-        }
-    }  
-
-    return exist_table; 
-}
+//     return exist_table; 
+// }
 
