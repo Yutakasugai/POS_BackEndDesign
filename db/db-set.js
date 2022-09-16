@@ -64,32 +64,32 @@ db.connect((error) => {
         })
     })
 
-    // Check if there is a table for menu_list 
-    db.query("CREATE TABLE IF NOT EXISTS menu_list (id INT AUTO_INCREMENT PRIMARY KEY, item TEXT NOT NULL, price TEXT NOT NULL)", (error) => {
-        if(error){
-            console.log(error)
-        }
+    // // Check if there is a table for menu_list 
+    // db.query("CREATE TABLE IF NOT EXISTS menu_list (id INT AUTO_INCREMENT PRIMARY KEY, item TEXT NOT NULL, price TEXT NOT NULL)", (error) => {
+    //     if(error){
+    //         console.log(error)
+    //     }
 
-        // console.log("Table, menu_list, created!")
+    //     // console.log("Table, menu_list, created!")
 
-        db.query("select * from menu_list", (error, results) => {
-            if(results.length > 0){
+    //     db.query("select * from menu_list", (error, results) => {
+    //         if(results.length > 0){
 
-                console.log("The menu_list table already have a value")
+    //             console.log("The menu_list table already have a value")
 
-            } else {
+    //         } else {
 
-                db.query("INSERT INTO menu_list (item, price) VALUES ('Miso', '13.00'), ('Shio', '12.45'), ('Shoyu', '12.45'), ('Gyoza', '5.00')", (error) => {
-                    if(error){
-                        console.log(error)
-                    }
+    //             db.query("INSERT INTO menu_list (item, price) VALUES ('Miso', '13.00'), ('Shio', '12.45'), ('Shoyu', '12.45'), ('Gyoza', '5.00')", (error) => {
+    //                 if(error){
+    //                     console.log(error)
+    //                 }
             
-                    console.log("Test values inserted into the menu_list table!")
-                })
-            }
+    //                 console.log("Test values inserted into the menu_list table!")
+    //             })
+    //         }
             
-        })
-    })
+    //     })
+    // })
 
     // Check if there is a table called table_1
     // db.query("CREATE TABLE IF NOT EXISTS Table_1 (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL)", (error) => {

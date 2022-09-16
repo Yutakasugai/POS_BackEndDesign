@@ -101,35 +101,35 @@
         <!-- Shoyu Ramen -->
         <tr id="row_shoyu" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="shoyuModal">Shoyu Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Shoyu" id="shoyuModal">Shoyu Ramen</button>
             </td>
         </tr>
 
         <!-- Shio Ramen -->
         <tr id="row_shio" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="shioModal">Shio Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Shio" id="shioModal">Shio Ramen</button>
             </td>
         </tr>
 
         <!-- Shrimp Ramen -->
         <tr id="row_shrimp" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="shrimpModal">Shrimp Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Shrimp" id="shrimpModal">Shrimp Ramen</button>
             </td>
         </tr>
 
         <!-- Hot Miso Ramen -->
         <tr id="row_hotMiso" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="hotMisoModal">Hot Miso Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Hot" id="hotMisoModal">Hot Miso Ramen</button>
             </td>
         </tr>
 
         <!-- Curry Ramen -->
         <tr id="row_curry" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="curryModal">Curry Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Curry" id="curryModal">Curry Ramen</button>
             </td>
         </tr>
         
@@ -142,46 +142,46 @@
         </tr>
 
         <!-- Flabour Options for vegetable ramen -->
-        <!-- Vege-Shoyu Ramen -->
-        <tr id="vege_shoyu" class="hidden_row">
-            <td colspan=4>
-                <button class="modalButton" id="vege_shoyuModal">Shoyu Flavour</button>
-            </td>
-        </tr>
+            <!-- Vege-Shoyu Ramen -->
+            <tr id="vege_shoyu" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_shoyuModal">Shoyu Flavour</button>
+                </td>
+            </tr>
 
-        <!-- Vege-Shio Ramen -->
-        <tr id="vege_shio" class="hidden_row">
-            <td colspan=4>
-                <button class="modalButton" id="vege_shioModal">Shio Flavour</button>
-            </td>
-        </tr>
+            <!-- Vege-Shio Ramen -->
+            <tr id="vege_shio" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_shioModal">Shio Flavour</button>
+                </td>
+            </tr>
 
-        <!-- Vege-Miso Ramen -->
-        <tr id="vege_miso" class="hidden_row">
-            <td colspan=4>
-                <button class="modalButton" id="vege_misoModal">Miso Flavour</button>
-            </td>
-        </tr>
+            <!-- Vege-Miso Ramen -->
+            <tr id="vege_miso" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_misoModal">Miso Flavour</button>
+                </td>
+            </tr>
 
-        <!-- Vege-Hot Ramen -->
-        <tr id="vege_hot" class="hidden_row">
-            <td colspan=4>
-                <button class="modalButton" id="vege_hotModal">H-Miso Flavour</button>
-            </td>
-        </tr>
+            <!-- Vege-Hot Ramen -->
+            <tr id="vege_hot" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_hotModal">H-Miso Flavour</button>
+                </td>
+            </tr>
 
-        <!-- Vege-Tomato Ramen -->
-        <tr id="vege_tomato" class="hidden_row">
-            <td colspan=4>
-                <button class="modalButton" id="vege_tomatoModal">Tomato Flavour</button>
-            </td>
-        </tr>
+            <!-- Vege-Tomato Ramen -->
+            <tr id="vege_tomato" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_tomatoModal">Tomato Flavour</button>
+                </td>
+            </tr>
 
 
         <!-- Tomato Ramen -->
         <tr id="row_tomato" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="tomatoModal">Tomato Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Tomato" id="tomatoModal">Tomato Ramen</button>
             </td>
         </tr>
 
@@ -195,7 +195,7 @@
         <!-- Cold Ramen -->
         <tr id="row_cold" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" id="coldModal">Cold Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Cold" id="coldModal">Cold Ramen</button>
             </td>
         </tr>
 
@@ -334,8 +334,6 @@
 
     </table>
 
-
-
     <!-- Modal for ramen preferences and toppings -->
     <div class="modal_bg">
         <div class="modal_content">
@@ -361,27 +359,28 @@
 
                             <div class="pref-section-body">
 
-                                <div class="slide-item">
+                                <div class="slide-item" id="soup_container">
 
                                         <div class="containerFor3items">
 
                                             <div class="item-name" id="title-soup">Soup:</div>
                                             
                                             <div class="item-preference">
-                                                <input type="checkbox" name="pref_check" value="Rich" class="checkboxForPref" id="rich_soup">
+                                                <input type="checkbox" name="pref_must" value="[R]" class="checkboxForPref" id="rich_soup">
                                                 <label for="rich_soup">Rich</label>
                                             </div>
 
                                             <div class="item-preference">
-                                                <input type="checkbox" name="pref_check" value="Regular" class="checkboxForPref" id="regular_soup">
-                                                <label for="rich_soup">Regular</label>
+                                                <input type="checkbox" name="pref_must" value="[L]" class="checkboxForPref" id="regular_soup">
+                                                <label for="regular_soup">Regular</label>
                                             </div>
 
                                         </div>
                 
                                 </div>
     
-                                <div class="slide-item">
+                                <div class="slide-item" id="chashu_container">
+                                    
                                     <div class="containerFor3items">
 
                                         <div class="item-name" id="title-chashu">
@@ -391,12 +390,12 @@
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Belly" class="checkboxForPref" id="chashu_belly_choice">
+                                            <input type="checkbox" name="pref_must" value="/[B]" class="checkboxForPref" id="chashu_belly_choice">
                                             <label for="chashu_belly_choice">Belly</label>
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Shoulder" class="checkboxForPref" id="chashu_shoulder_choice">
+                                            <input type="checkbox" name="pref_must" value="/[S]" class="checkboxForPref" id="chashu_shoulder_choice">
                                             <label for="chashu_belly_shoulder">Shoulder</label>
                                         </div>
 
@@ -406,15 +405,15 @@
                                 <div class="slide-item">
                                     <div class="containerFor3items">
 
-                                        <div class="item-name">Noodles:</div>
+                                        <div class="item-name">Nodle:</div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Ex Hard" class="checkboxForPref" id="noodles_ex_hard">
+                                            <input type="checkbox" name="pref_others" value="(Ex Hard)" class="checkboxForPref" id="noodles_ex_hard">
                                             <label for="noodles_ex_hard">Ex Hard</label>
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Hard" class="checkboxForPref" id="noodles_hard">
+                                            <input type="checkbox" name="pref_others" value="(Hard)" class="checkboxForPref" id="noodles_hard">
                                             <label for="noodles_hard">Hard</label>
                                         </div>
 
@@ -427,13 +426,13 @@
                                         <div class="item-name"></div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Soft" class="checkboxForPref" id="noodles_soft">
+                                            <input type="checkbox" name="pref_others" value="(Soft)" class="checkboxForPref" id="noodles_soft">
                                             <label for="noodles_soft">Soft</label>
                                         </div>
 
                                         <div class="item-preference">
-                                            <!-- <input type="checkbox" class="checkboxForPref" id="noodles_ex_soft">
-                                            <label for="noodles_ex_soft">Ex Soft</label> -->
+                                            <input type="checkbox" name="pref_others" value="(Half Nodle)" class="checkboxForPref" id="noodles_half">
+                                            <label for="noodles_half">Half</label>
                                         </div>
 
                                     </div>
@@ -442,15 +441,15 @@
                                 <div class="slide-item">
                                     <div class="containerFor3items">
 
-                                        <div class="item-name">Saltiness:</div>
+                                        <div class="item-name">Salt:</div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="More Salty" class="checkboxForPref" id="salty_soup">
+                                            <input type="checkbox" name="pref_others" value="(More Salty)" class="checkboxForPref" id="salty_soup">
                                             <label for="salty_soup">More</label>
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Less Salty" class="checkboxForPref" id="less_salty_soup">
+                                            <input type="checkbox" name="pref_others" value="(Less Salty)" class="checkboxForPref" id="less_salty_soup">
                                             <label for="less_salty_soup">Less</label>
                                         </div>
 
@@ -463,12 +462,12 @@
                                         <div class="item-name">Oil:</div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="More Oily" class="checkboxForPref" id="ex_oil">
+                                            <input type="checkbox" name="pref_others" value="(More Oily)" class="checkboxForPref" id="ex_oil">
                                             <label for="ex_oil">More</label>
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Less Oily" class="checkboxForPref"  id="less_oil">
+                                            <input type="checkbox" name="pref_others" value="(Less Oily)" class="checkboxForPref"  id="less_oil">
                                             <label for="less_oil">Less</label>
                                         </div>
 
@@ -478,16 +477,20 @@
                                 <div class="slide-item">
                                     <div class="containerFor3items">
 
-                                        <div class="item-name">Garlic:</div>
-
-                                        <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Chili" class="checkboxForPref" id="house_chili">
-                                            <label for="ex_oil">Chili</label>
+                                        <div class="item-name" id="title-spicy">
+                                            <!-- Use this del element for shrimp and vege ramens -->
+                                            <del id="remove-id-spicy" style="text-decoration-color: red"></del>
+                                            <p id="text-box-spicy"></p>
                                         </div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="R.Garlic" class="checkboxForPref"  id="grounded">
-                                            <label for="less_oil">Ground</label>
+                                            <input type="checkbox" name="pref_others" value="(More Spicy)" class="checkboxForPref"  id="More_Spicy">
+                                            <label for="More_Spicy">More</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Less Spicy)" class="checkboxForPref" id="Less_Spicy">
+                                            <label for="Less_Spicy">Less</label>
                                         </div>
 
                                     </div>
@@ -499,7 +502,7 @@
                                         <div></div>
 
                                         <div class="item-preference">
-                                            <input type="checkbox" name="pref_check" value="Take Out" class="checkboxForPref" id="for_takeout">
+                                            <input type="checkbox" name="pref_others" value="(Take Out)" class="checkboxForPref" id="for_takeout">
                                             <label for="for_takeout">TakeOut</label>
                                         </div>
 
@@ -523,9 +526,27 @@
 
                                     <!-- Important! To add ramen items from this add btn -->
                                     <div class="cancelOrAdd">
-                                        <button class="cancelButton" id="topping_cancel">Cancel</button>
 
-                                        <button class="addButton" id="ramen_addBtn">Add</button>
+                                        <button class="cancelButton" id="topping_cancel">Cancel</button>
+                                        
+                                        {{!-- Add btn to insert items in db --}}
+                                        <form action="/auth/user/insertItem" method="POST">
+                                            
+                                            {{!-- Basic Values Required to Pass --}}
+                                            <input type="hidden" name="userName" value="{{name}}">
+                                            <input type="hidden" name="date_key" value="{{Date}}">
+                                            <input type="hidden" name="time_key" value="{{Time}}">
+                                            <input type="hidden" name="table_key" value="{{table_key}}">
+                                            <input type="hidden" name="c_number" value="{{c_number}}">
+                                            <input type="hidden" name="" value="{{c_number}}">
+
+                                            <!-- Input to keep the added items before going to db -->
+                                            <input type="hidden" name="added_item" id="added_item" value="">
+                                            <input type="hidden" name="total_num" id="total_num" value="">
+
+                                            <button class="addButton" id="ramen_addBtn">Add</button>
+                                        </form>
+
                                     </div>
 
                                 </div>
@@ -554,7 +575,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="beans_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" id="beans_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Beans" id="beans_counter">0</h1>
                                                 <button class="topping_button_increase" id="beans_increase">+</button>               
                                             </div>
                                         </div>
@@ -567,7 +588,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="eggs_decrease">-</button>
-                                                <h1 class="topping_counter" name="addTop_count" id="eggs_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Egg" id="eggs_counter">0</h1>
                                                 <button class="topping_button_increase" id="eggs_increase">+</button>                 
                                             </div>
                                         </div>
@@ -581,7 +602,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="belly_decrease">-</button>  
-                                                <h1 class="topping_counter" name="addTop_count" id="belly_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Belly" id="belly_counter">0</h1>
                                                 <button class="topping_button_increase" id="belly_increase">+</button>                
                                             </div>
                                         </div>
@@ -592,7 +613,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="shoulder_decrease">-</button>
-                                                <h1 class="topping_counter" name="addTop_count" id="shoulder_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Shoulder" id="shoulder_counter">0</h1>
                                                 <button class="topping_button_increase" id="shoulder_increase">+</button>                  
                                             </div>
                                         </div>
@@ -606,7 +627,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="sCake_decrease">-</button>  
-                                                <h1 class="topping_counter" name="addTop_count" id="sCake_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="S.Cakes" id="sCake_counter">0</h1>
                                                 <button class="topping_button_increase" id="sCake_increase">+</button>                
                                             </div>
                                         </div>
@@ -617,7 +638,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="wakame_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" id="wakame_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Wakeme" id="wakame_counter">0</h1>
                                                 <button class="topping_button_increase" id="wakame_increase">+</button>                 
                                             </div>
                                         </div>
@@ -633,7 +654,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="nori_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" id="nori_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Nori" id="nori_counter">0</h1>
                                                 <button class="topping_button_increase" id="nori_increase">+</button>                 
                                             </div>
                                         </div>
@@ -646,7 +667,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="gOni_decrease">-</button>
-                                                <h1 class="topping_counter" name="addTop_count" id="gOni_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="G.Onion" id="gOni_counter">0</h1>
                                                 <button class="topping_button_increase" id="gOni_increase">+</button>                  
                                             </div>
                                         </div>
@@ -662,7 +683,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="cheese_decrease">-</button>
-                                                <h1 class="topping_counter" name="addTop_count" id="cheese_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Cheese" id="cheese_counter">0</h1>
                                                 <button class="topping_button_increase" id="cheese_increase">+</button>                                           
                                             </div>
                                         </div>
@@ -674,7 +695,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="butter_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" id="butter_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Butter" id="butter_counter">0</h1>
                                                 <button class="topping_button_increase" id="butter_increase">+</button>                 
                                             </div>
                                         </div>
@@ -690,7 +711,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="corn_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" id="corn_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Corn" id="corn_counter">0</h1>
                                                 <button class="topping_button_increase" id="corn_increase">+</button>                 
                                             </div>
                                         </div>
@@ -703,7 +724,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="fCake_decrease">-</button>     
-                                                <h1 class="topping_counter" name="addTop_count" id="fCake_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="F.Cakes" id="fCake_counter">0</h1>
                                                 <button class="topping_button_increase" id="fCake_increase">+</button>             
                                             </div>
                                         </div>
@@ -720,7 +741,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="bloccoli_decrease">-</button>  
-                                                <h1 class="topping_counter" name="addTop_count" id="bloccoli_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Bloccoli" id="bloccoli_counter">0</h1>
                                                 <button class="topping_button_increase" id="bloccoli_increase">+</button>                
                                             </div>
                                         </div>
@@ -733,7 +754,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="exNoodles_decrease">-</button>
-                                                <h1 class="topping_counter" name="addTop_count" id="exNoodles_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Ex" id="exNoodles_counter">0</h1>
                                                 <button class="topping_button_increase" id="exNoodles_increase">+</button>                  
                                             </div>
                                         </div>
@@ -770,12 +791,12 @@
                                             <div class="rToppings-title">Bean:</div>
                                             
                                             <div class="rToppings-item-preference">
-                                                <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_beans">
+                                                <input type="checkbox" name="remove_check" value="(No Beans)" class="rToppings-checkboxForPref" id="remove_beans">
                                                 <label for="remove_beans" id="remove_label">Remove</label>
                                             </div>
 
                                             <div class="rToppings-item-preference">
-                                                <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="side_beans">
+                                                <input type="checkbox" name="remove_check" value="(Beans Side)" class="rToppings-checkboxForPref" id="side_beans">
                                                 <label for="side_beans" id="remove_label">Side</label>
                                             </div>
 
@@ -791,12 +812,12 @@
                                         <div class="rToppings-title">G.Onion:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_gonion">
+                                            <input type="checkbox" name="remove_check" value="(No G.Onion)" class="rToppings-checkboxForPref" id="remove_gonion">
                                             <label for="remove_gonion" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="side_gonion">
+                                            <input type="checkbox" name="remove_check" value="(G.Onion Side)" class="rToppings-checkboxForPref" id="side_gonion">
                                             <label for="side_gonion" id="remove_label">Side</label>
                                         </div>
 
@@ -811,12 +832,12 @@
                                         <div class="rToppings-title">Onion:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_onion">
+                                            <input type="checkbox" name="remove_check" value="(No Onion)" class="rToppings-checkboxForPref" id="remove_onion">
                                             <label for="remove_gonion">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="side_onion">
+                                            <input type="checkbox" name="remove_check" value="(Onion Side)" class="rToppings-checkboxForPref" id="side_onion">
                                             <label for="side_gonion" id="remove_label">Side</label>
                                         </div>
 
@@ -831,12 +852,12 @@
                                         <div class="rToppings-title">F.Cake:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_fcake">
+                                            <input type="checkbox" name="remove_check" value="(No F.Cake)" class="rToppings-checkboxForPref" id="remove_fcake">
                                             <label for="remove_fcake" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="side_fcake">
+                                            <input type="checkbox" name="remove_check" value="(F.Cake Side)" class="rToppings-checkboxForPref" id="side_fcake">
                                             <label for="side_fcake" id="remove_label">Side</label>
                                         </div>
 
@@ -851,12 +872,12 @@
                                         <div class="rToppings-title">Corn:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_corn">
+                                            <input type="checkbox" name="remove_check" value="(No Corn)" class="rToppings-checkboxForPref" id="remove_corn">
                                             <label for="remove_corn" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_corn">
+                                            <input type="checkbox" name="remove_check" value="(Corn Side)" class="rToppings-checkboxForPref"  id="side_corn">
                                             <label for="side_corn" id="remove_label">Side</label>
                                         </div>
 
@@ -864,7 +885,7 @@
                                 </div>
 
                                 <!-- 6, MSG -->
-                                <div class="rToppings-slide-item">
+                                <!-- <div class="rToppings-slide-item">
 
                                     <div class="rToppings-containerFor3items">
 
@@ -875,13 +896,8 @@
                                             <label for="remove_msg" id="remove_label">Remove</label>
                                         </div>
 
-                                        <!-- <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="pref_check" class="rToppings-checkboxForPref"  id="grounded">
-                                            <label for="less_oil">Side</label>
-                                        </div> -->
-
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- 7, Noodle -->
                                 <div class="rToppings-slide-item">
@@ -891,12 +907,12 @@
                                         <div class="rToppings-title">Ndle:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_noodle">
+                                            <input type="checkbox" name="remove_check" value="(No Noodle)" class="rToppings-checkboxForPref" id="remove_noodle">
                                             <label for="remove_noodle" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_noodle">
+                                            <input type="checkbox" name="remove_check" value="(Noodle Side)" class="rToppings-checkboxForPref"  id="side_noodle">
                                             <label for="side_noodle" id="remove_label">Side</label>
                                         </div>
 
@@ -911,57 +927,57 @@
                                         <div class="rToppings-title">Chashu:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_chashu">
+                                            <input type="checkbox" name="remove_check" value="(No Chashu)" class="rToppings-checkboxForPref" id="remove_chashu">
                                             <label for="remove_chashu" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_chashu">
+                                            <input type="checkbox" name="remove_check" value="(Chashu Side)" class="rToppings-checkboxForPref"  id="side_chashu">
                                             <label for="side_chashu" id="remove_label">Side</label>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <!-- 9, Potato -->
-                                <div class="rToppings-slide-item">
+                                <!-- 9, Nori -->
+                                <!-- <div class="rToppings-slide-item">
 
                                     <div class="rToppings-containerFor3items">
 
                                         <div class="rToppings-title">Nori:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_nori">
+                                            <input type="checkbox" name="remove_check" value="(No Nori)" class="rToppings-checkboxForPref" id="remove_nori">
                                             <label for="remove_nori" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_nori">
+                                            <input type="checkbox" name="remove_check" value="(Nori Side)" class="rToppings-checkboxForPref"  id="side_nori">
                                             <label for="side_nori" id="remove_label">Side</label>
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- 10, S.Cake -->
-                                <div class="rToppings-slide-item">
+                                <!-- <div class="rToppings-slide-item">
 
                                     <div class="rToppings-containerFor3items">
 
                                         <div class="rToppings-title">S.Cake:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_scake">
+                                            <input type="checkbox" name="remove_check" value="(No S.Cake)" class="rToppings-checkboxForPref" id="remove_scake">
                                             <label for="remove_scake" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_scake">
+                                            <input type="checkbox" name="remove_check" value="(S.Cake Side)" class="rToppings-checkboxForPref"  id="side_scake">
                                             <label for="side_scake" id="remove_label">Side</label>
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- 11, All Veg -->
                                 <div class="rToppings-slide-item">
@@ -971,12 +987,12 @@
                                         <div class="rToppings-title">All Veg:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_allveg">
+                                            <input type="checkbox" name="remove_check" value="(No Vege)" class="rToppings-checkboxForPref" id="remove_allveg">
                                             <label for="remove_allveg" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_allveg">
+                                            <input type="checkbox" name="remove_check" value="(Vege Side)" class="rToppings-checkboxForPref"  id="side_allveg">
                                             <label for="side_allveg" id="remove_label">Side</label>
                                         </div>
 
@@ -991,12 +1007,12 @@
                                         <div class="rToppings-title">All Top:</div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_alltop">
+                                            <input type="checkbox" name="remove_check" value="(No All-Top)" class="rToppings-checkboxForPref" id="remove_alltop">
                                             <label for="remove_alltop" id="remove_label">Remove</label>
                                         </div>
 
                                         <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref"  id="side_alltop">
+                                            <input type="checkbox" name="remove_check" value="(All-Top Side)" class="rToppings-checkboxForPref"  id="side_alltop">
                                             <label for="side_alltop" id="remove_label">Side</label>
                                         </div>
 
@@ -1892,7 +1908,7 @@
 <script type="text/javascript" src="/js/Server-Side/addPage_script.js"></script>
 
 {{!-- This Js is to capture taken orders from checkbox --}}
-<script type="text/javascript" src="/js/Server-Side/addPage_getItems.js"></script>
+{{!-- <script type="text/javascript" src="/js/Server-Side/addPage_getItems.js"></script> --}}
 
 </body>
 </html>

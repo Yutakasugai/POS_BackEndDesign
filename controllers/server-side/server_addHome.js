@@ -6,7 +6,7 @@ const db = db_conn["db_conn"];
 exports.addHome = (req, res) => {
 
     const {userName, date_key, time_key, table_key} = req.body; 
-    console.log(userName, date_key, time_key, table_key); 
+    // console.log(userName, date_key, time_key, table_key); 
 
     // Check the table status
     db.query(`select table_status from table_check where table_id = (?)`, (table_key), (error, result) => {
@@ -46,18 +46,16 @@ exports.addHome = (req, res) => {
 
         for (let t = 0; t < result.length; t++) {
 
-            console.log(result[t]); 
-
             table_arr.push(result[t]["table_status"]); 
         }
 
-        console.log(table_arr); 
+        // console.log(table_arr); 
 
-        return res.render("server", {
+        return res.render("server", { 
             name: userName, 
             Date: date_key, 
             Time: time_key, 
-            table_arr: table_arr
+            table_arr: table_arr 
         })
 
     })

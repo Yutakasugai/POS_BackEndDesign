@@ -190,6 +190,26 @@ function table_check(db_result) {
   return exist_table; 
 }
 
+// AddPage Url
+router.get("/addPage", (req, res) => {
+
+    // Capture all needed values from uinsertItem controller 
+    const userName = req.query.user;
+    const date_key = req.query.date; 
+    const time_key = req.query.time; 
+    const table_key = req.query.table;
+    const c_number = req.query.c_num;
+    
+    return res.render('addPage', {
+        name: userName, 
+        Date: date_key, 
+        Time: time_key,
+        table_key: table_key, 
+        c_number: c_number
+    })
+
+})
+
 
 // AddPage Url
 // router.get("/auth/user/addPage", mw_addItem(), (req, res) => {
