@@ -1,3 +1,114 @@
+// Add Button Function
+const ramen_addBtn = document.getElementById('ramen_addBtn'); 
+const item_button = document.querySelectorAll('.modalButton'); 
+
+var item_container = []
+
+// I could capture main item name from this function
+$('button.modalButton').click(function(e) {
+
+    // console.log(e.currentTarget.value);
+    item_container.push(e.currentTarget.value)
+});
+
+// I could capture all results of preference lists from this function
+ramen_addBtn.addEventListener('click', function(event){
+
+  if (item_container[0].includes("Cold") === true){
+
+      console.log("This is cold"); 
+
+  } else if (item_container[0].includes("Shrimp") === true) {
+
+      console.log("This is shrimp"); 
+
+  } else {
+
+      // check if the required options is chcked or not 
+      if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
+          
+        document.getElementById('soup_container').style.background = '#f56c77'; 
+
+        // check if the required options is chcked or not 
+        if (document.getElementById("chashu_belly_choice").checked === false && document.getElementById("chashu_shoulder_choice").checked === false){   
+            document.getElementById('chashu_container').style.background = '#f56c77'; 
+
+
+            event.preventDefault(); 
+            return; 
+
+        } else {
+
+          document.getElementById('chashu_container').style.background = 'transparent'; 
+        }
+        
+        event.preventDefault();
+        return; 
+    
+      } else {
+
+          document.getElementById('soup_container').style.background = 'transparent'; 
+
+          if (document.getElementById("chashu_belly_choice").checked === false && document.getElementById("chashu_shoulder_choice").checked === false){   
+              document.getElementById('chashu_container').style.background = '#f56c77'; 
+              
+              event.preventDefault();
+              return; 
+
+          } else {
+            
+            // This is only one condition when the soup and chashu boxes are filled
+
+              document.getElementById('chashu_container').style.background = 'transparent'; 
+
+              // Capture the total number counter 
+              let total_num = document.getElementById('toppingTop_counter').innerText; 
+
+              const totalNum_input = document.getElementById('total_num'); 
+              totalNum_input.setAttribute('value', total_num); 
+
+              // Capture the chashu and soup values and combine them with each other
+              var result = ''
+              $.each($("input[name='pref_must']:checked"), function(){            
+                  // item_container.push($(this).val());
+                  result = result + this.value; 
+              });
+
+              item_container.push(result);
+          }
+
+      }
+
+      // Capture add topping items 
+      $.each($("h1[name='addTop_count']"), function(){            
+        if ($(this).text() > 0) {
+
+            let addTop_result = ('+' + $(this).text() + '{' + $(this).attr('addTop'));
+            item_container.push(addTop_result);
+        }
+      });
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('added_item'); 
+      item_input.setAttribute('value', item_container); 
+
+  }
+
+})
+
+// Modal Condition Settings
 // Regular Ramen Options
 const misoModal = document.getElementById('misoModal');
 const shoyuModal = document.getElementById('shoyuModal');
@@ -91,6 +202,15 @@ $("input#noodles_soft:checkbox").on('click', function() {
   document.getElementById("noodles_ex_hard").checked = false;
   document.getElementById("noodles_hard").checked = false;
 }); 
+
+// disable checkbox for spicy 
+$("input#More_Spicy:checkbox").on('click', function() {
+  document.getElementById("Less_Spicy").checked = false; 
+}); 
+$("input#Less_Spicy:checkbox").on('click', function() {
+  document.getElementById("More_Spicy").checked = false; 
+}); 
+
 
 
 // Remove or Side Toppings
@@ -196,12 +316,22 @@ document.querySelector('#close_ramen_modal').addEventListener('click', () => {
   document.getElementById('remove-id').innerText = '';
   document.getElementById('text-box').innerText = '';
 
+  // Clear a title text not to doplicate same text for spicy option
+  document.getElementById('remove-id-spicy').innerText = '';
+  document.getElementById('text-box-spicy').innerText = '';
+
   // Back to enable chashu checkboxes to click
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
   // Make all checkbox unchecked when user back to home
-  $('input[name="pref_check"]').each(function() {
+  $('input[name="pref_must"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
     this.checked = false;
     this.disabled = false; 
   });
@@ -225,6 +355,9 @@ document.querySelector('#close_ramen_modal').addEventListener('click', () => {
   wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
   corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
 
+  // Make the item container clean 
+  item_container.length = 0; 
+
 });
 
 document.querySelector('#close_addToppings_modal').addEventListener('click', () => {
@@ -233,14 +366,25 @@ document.querySelector('#close_addToppings_modal').addEventListener('click', () 
   document.getElementById('remove-id').innerText = '';
   document.getElementById('text-box').innerText = '';
 
+  // Clear a title text not to doplicate same text for spicy option
+  document.getElementById('remove-id-spicy').innerText = '';
+  document.getElementById('text-box-spicy').innerText = '';
+
   // Back to enable chashu checkboxes to click
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
   // Make all checkbox unchecked when user back to home
-  $('input[name="pref_check"]').each(function() {
+  // Make all checkbox unchecked when user back to home
+  $('input[name="pref_must"]').each(function() {
     this.checked = false;
-    this.disabled = false;
+    this.disabled = false; 
+  });
+
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
   });
 
   // Make total number of items reset to 0
@@ -264,6 +408,9 @@ document.querySelector('#close_addToppings_modal').addEventListener('click', () 
 
   // Back to a first modal 
   recall_swiper(); 
+
+  // Make the item container clean 
+  item_container.length = 0;
 });
 
 document.querySelector('#close_removeItems_modal').addEventListener('click', () => {
@@ -272,260 +419,23 @@ document.querySelector('#close_removeItems_modal').addEventListener('click', () 
   document.getElementById('remove-id').innerText = '';
   document.getElementById('text-box').innerText = '';
 
-  // Back to enable chashu checkboxes to click
-  document.getElementById("chashu_belly_choice").disabled = false;
-  document.getElementById("chashu_shoulder_choice").disabled = false;
-
-  // Make all checkbox unchecked when user back to home
-  $('input[name="pref_check"]').each(function() {
-    this.checked = false;
-    this.disabled = false;
-  });
-
-  // Make total number of items reset to 0
-  toppingTop_count = 1; 
-  toppingTop_counter.innerHTML = toppingTop_count; 
-
-  // Make add topping count number reset to 0
-  $('h1[name="addTop_count"]').each(function(){
-    this.innerHTML = 0; 
-  })
-
-  // Make remove topping checkboxes unchecked 
-  $('input[name="remove_check"]').each(function() {
-    this.checked = false;
-  });
-
-  // Make add toppings reset rest to 0
-  beans_count = 0; eggs_count = 0; belly_count = 0; shoulder_count = 0; sCake_count = 0; 
-  wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
-  corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
-
-  // Back to a first modal 
-  recall_swiper(); 
-});
-
-
-//miso
-misoModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shoyu
-shoyuModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shio
-shioModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shrimp
-shrimpModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-});
-
-//Hot Miso
-hotMisoModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:"); 
-});
-
-//curry
-curryModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//tomato
-tomatoModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-// Cold
-coldModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-
-  // Block unnecessary checkbox options 
-  document.getElementById("rich_soup").disabled = true;
-  document.getElementById("regular_soup").disabled = true;
-
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-  document.getElementById("noodles_ex_hard").disabled = true;
-  document.getElementById("noodles_hard").disabled = true;
-  document.getElementById("noodles_soft").disabled = true;
-
-  document.getElementById("salty_soup").disabled = true;
-  document.getElementById("less_salty_soup").disabled = true;
-
-  document.getElementById("ex_oil").disabled = true;
-  document.getElementById("less_oil").disabled = true;
-
-}) 
-
-
-// Vegetable Ramen Flavour
-// shoyu
-vshoyuModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-});
-
-// shio
-vshioModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-});
-
-// miso
-vmisoModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-});
-
-// hot 
-vhotModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-});
-
-// tomato
-vtomatoModal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  // Remove an option for chashu
-  document.getElementById('remove-id').append("Chashu:");
-  document.getElementById("chashu_belly_choice").disabled = true;
-  document.getElementById("chashu_shoulder_choice").disabled = true;
-
-});
-
-
-
-
-// SET A
-//miso A
-misoSA_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shoyu A
-shoyuSA_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-shioSA_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-})
-
-
-
-
-// SET B
-//miso B
-misoSB_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shoyu B
-shoyuSB_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-//shio B
-shioSB_Modal.addEventListener('click', () => {
-  document.querySelector('.modal_bg').style.display = 'block';
-  document.querySelector('.modal_bg').classList.add('bg-active');
-
-  document.getElementById('text-box').append("Chashu:");
-});
-
-
-
-
-// Cancel Btn on the preference modal
-const cancelBtn = document.getElementById('topping_cancel'); 
-
-cancelBtn.onclick = () => {
-  document.querySelector('.modal_bg').style.display = 'none';
-
-  document.getElementById('remove-id').innerText = '';
-  document.getElementById('text-box').innerText = '';
+  // Clear a title text not to doplicate same text for spicy option
+  document.getElementById('remove-id-spicy').innerText = '';
+  document.getElementById('text-box-spicy').innerText = '';
 
   // Back to enable chashu checkboxes to click
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
   // Make all checkbox unchecked when user back to home
-  $('input[name="pref_check"]').each(function() {
+  // Make all checkbox unchecked when user back to home
+  $('input[name="pref_must"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
     this.checked = false;
     this.disabled = false; 
   });
@@ -549,6 +459,363 @@ cancelBtn.onclick = () => {
   wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
   corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
 
+  // Back to a first modal 
+  recall_swiper(); 
+
+  // Make the item container clean 
+  item_container.length = 0;
+});
+
+
+//miso
+misoModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+//shoyu
+shoyuModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+//shio
+shioModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+//shrimp
+shrimpModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+//Hot Miso
+hotMisoModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+  
+  // enable spicy option 
+  document.getElementById('text-box-spicy').append('Spicy:'); 
+});
+
+//curry
+curryModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // enable spicy option 
+  document.getElementById('text-box-spicy').append('Spicy:'); 
+});
+
+//tomato
+tomatoModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+// Cold
+coldModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+  document.getElementById('text-box-spicy').append("Spicy:");
+
+  // Block unnecessary checkbox options 
+  document.getElementById("rich_soup").disabled = true;
+  document.getElementById("regular_soup").disabled = true;
+
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  document.getElementById("noodles_ex_hard").disabled = true;
+  document.getElementById("noodles_hard").disabled = true;
+  document.getElementById("noodles_soft").disabled = true;
+
+  document.getElementById("salty_soup").disabled = true;
+  document.getElementById("less_salty_soup").disabled = true;
+
+  document.getElementById("ex_oil").disabled = true;
+  document.getElementById("less_oil").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+}) 
+
+
+// Vegetable Ramen Flavour
+// shoyu
+vshoyuModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+// shio
+vshioModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+// miso
+vmisoModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+// hot 
+vhotModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // enable spicy option 
+  document.getElementById('text-box-spicy').append('Spicy:'); 
+
+});
+
+// tomato
+vtomatoModal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  // Remove an option for chashu
+  document.getElementById('remove-id').append("Chashu:");
+  document.getElementById("chashu_belly_choice").disabled = true;
+  document.getElementById("chashu_shoulder_choice").disabled = true;
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+
+});
+
+
+
+
+// SET A
+//miso A
+misoSA_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+//shoyu A
+shoyuSA_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+shioSA_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+})
+
+
+
+
+// SET B
+//miso B
+misoSB_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+//shoyu B
+shoyuSB_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+//shio B
+shioSB_Modal.addEventListener('click', () => {
+  document.querySelector('.modal_bg').style.display = 'block';
+  document.querySelector('.modal_bg').classList.add('bg-active');
+
+  document.getElementById('text-box').append("Chashu:");
+
+  // Remove an option for spicy 
+  document.getElementById('remove-id-spicy').append("Spicy:");
+  document.getElementById("More_Spicy").disabled = true;
+  document.getElementById("Less_Spicy").disabled = true;
+});
+
+
+
+
+// Cancel Btn on the preference modal
+const cancelBtn = document.getElementById('topping_cancel'); 
+
+cancelBtn.onclick = () => {
+  document.querySelector('.modal_bg').style.display = 'none';
+
+  document.getElementById('remove-id').innerText = '';
+  document.getElementById('text-box').innerText = '';
+
+  // Clear a title text not to doplicate same text for spicy option
+  document.getElementById('remove-id-spicy').innerText = '';
+  document.getElementById('text-box-spicy').innerText = '';
+
+  // Back to enable chashu checkboxes to click
+  document.getElementById("chashu_belly_choice").disabled = false;
+  document.getElementById("chashu_shoulder_choice").disabled = false;
+
+  // Make all checkbox unchecked when user back to home
+  // Make all checkbox unchecked when user back to home
+  $('input[name="pref_must"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+
+  // Make total number of items reset to 0
+  toppingTop_count = 1; 
+  toppingTop_counter.innerHTML = toppingTop_count; 
+
+  // Make add topping count number reset to 0
+  $('h1[name="addTop_count"]').each(function(){
+    this.innerHTML = 0; 
+  })
+
+  // Make remove topping checkboxes unchecked 
+  $('input[name="remove_check"]').each(function() {
+    this.checked = false;
+  });
+
+  // Make add toppings reset rest to 0
+  beans_count = 0; eggs_count = 0; belly_count = 0; shoulder_count = 0; sCake_count = 0; 
+  wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
+  corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
+
+  // Make the item container clean 
+  item_container.length = 0;
 }
 
 
