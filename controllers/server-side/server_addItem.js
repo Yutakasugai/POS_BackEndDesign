@@ -12,18 +12,19 @@ exports.addItem = (req, res) => {
     // console.log(table_key, c_number); 
 
     // Make a connection to table_check db 
-    db.query('select table_status from table_check where table_id = (?)', (table_key), (error, result) => {
+    db.query('select * from table_check where table_id = (?)', (table_key), (error, result) => {
         if (error){
             console.log(error)
         }
 
+        // console.log(result[0]["table_status"]); 
         let c_num = String(c_number); 
 
         // Make sure the current table status from db 
         if (result[0]["table_status"] === "empty") {
 
             // Create a new table in db for the table num 
-            db.query(`CREATE TABLE IF NOT EXISTS ${table_key} (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL, order_status TEXT DEFAULT "unsubmit")`); 
+            db.query(`CREATE TABLE IF NOT EXISTS ${table_key} (id INT AUTO_INCREMENT PRIMARY KEY, full_order TEXT NOT NULL, main_item TEXT NOT NULL, other_pref TEXT, item_price TEXT NOT NULL, order_status TEXT DEFAULT "unsubmit")`); 
             
             // Create another table to keep each item 
             db.query(`CREATE TABLE IF NOT EXISTS ${table_key}_Check (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_num INT NOT NULL)`); 
@@ -49,30 +50,28 @@ exports.addItem = (req, res) => {
         } else {
 
             // Customer number is already filled
-            db.query(`select num_customer from table_check where table_id = ${table_key}`, (error, result) => {
+            db.query(`select * from table_check where table_id = (?)`, (table_key) ,(error, result) => {
                 if(error){
                     console.log(error)
                 }
 
-                // Just test to return a addpage on the window
-                return res.render("addPage", {
-                    name: userName, 
-                    Date: date_key, 
-                    Time: time_key,
-                    table_key: table_key, 
-                    c_number: result[0]["num_customer"]
-                }); 
+                // Pass the submitted items
+                db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_items) => {
+                    if(error) {
+                        console.log(error); 
+                    }
 
+                    // Just test to return a addpage on the window
+                    return res.render("addPage", {
+                        name: userName, 
+                        Date: date_key, 
+                        Time: time_key,
+                        table_key: table_key, 
+                        c_number: result[0]["num_customer"],
+                        submit_items: submit_items
+                    }); 
+                })
             })
         }
     })
-
-    // Flip the panel of table_check db
-    // db.query(`UPDATE table_check SET table_status = "process" WHERE table_id = (?)`, (table_key), (error) => {
-    //     if (error){
-    //         console.log(error)
-    //     }
-
-    //     console.log("table status was updated!"); 
-    // })
 }

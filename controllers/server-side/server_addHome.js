@@ -9,7 +9,7 @@ exports.addHome = (req, res) => {
     // console.log(userName, date_key, time_key, table_key); 
 
     // Check the table status
-    db.query(`select table_status from table_check where table_id = (?)`, (table_key), (error, result) => {
+    db.query(`select * from table_check where table_id = (?)`, (table_key), (error, result) => {
         if (error){
             console.log(error)
         } 
@@ -26,18 +26,26 @@ exports.addHome = (req, res) => {
             })
 
             // Rest the customer number to null
-            db.query(`UPDATE table_check SET num_customer = NULL WHERE table_id = (?)`, (table_key), (error) => {
+            db.query(`UPDATE table_check SET num_customer = 'None' WHERE table_id = (?)`, (table_key), (error) => {
                 if(error) {
                     console.log(error)
                 }
 
                 console.log("Customer number was just reset!"); 
             })
-        } 
+
+            return; 
+
+        } else {
+
+            console.log("This table is filled with submitted items");
+
+            return; 
+        }
     })
 
     // Pass the table condition to a next page, server home page
-    db.query('select table_status from table_check', (error, result) => {
+    db.query('select * from table_check', (error, result) => {
         if (error){
             console.log(error)
         }

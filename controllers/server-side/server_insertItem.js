@@ -5,7 +5,7 @@ const db = db_conn["db_conn"];
 
 exports.insertItem = (req, res) => {
 
-    console.log("This is a test controller to insert items"); 
+    // console.log("This is a test controller to insert items"); 
 
     const {userName, date_key, time_key, table_key, c_number, added_item, total_num} = req.body; 
 
@@ -14,15 +14,28 @@ exports.insertItem = (req, res) => {
     var item_array = added_item.split(','); 
     var item_length = item_array.length;
     let item_name = item_array[0]; 
-    let item_with_pref = `✕ ${total_num}(${item_array[0]}${item_array[1]}`; 
-    temp_array.push(item_with_pref); 
+
+    // Check the total num of main dish 
+    if (total_num > 1) {
+
+        let item_with_pref = `✕${total_num}(${item_array[0]}${item_array[1]}`; 
+        temp_array.push(item_with_pref); 
+
+    } else {
+
+        let item_with_pref = `${item_array[0]}${item_array[1]}`; 
+        temp_array.push(item_with_pref); 
+
+    }
+    
     // Pack only extra toppings to this array
     const exTop_array = []; 
+    const otherPref_array = []; 
 
     // Make a new array for extra toppings if needed
     if (item_length > 2) {
 
-        console.log("There is something extra orders or options"); 
+        // console.log("There is something extra orders or options"); 
 
         for (let k = 2; k < item_length; k++) {
 
@@ -37,12 +50,12 @@ exports.insertItem = (req, res) => {
                 exTop_array.push(exTop_text); 
             }
 
-            // Push all values to temp_array 
             temp_array.push(item_array[k]); 
+            otherPref_array.push(item_array[k]); 
         }
     }
 
-    // console.log(temp_array.join(':')); 
+    // console.log(otherPref_array); 
 
     if (item_name === 'Shrimp' || item_name === 'Vege') {
         console.log("This is shrimp and vege ramen"); 
@@ -65,7 +78,7 @@ exports.insertItem = (req, res) => {
                         console.log(error); 
                     }
 
-                    console.log("The item number is updated!"); 
+                    // console.log("The item number is updated!"); 
                 })
 
             } else {
@@ -76,7 +89,7 @@ exports.insertItem = (req, res) => {
                         console.log(error);
                     }
 
-                    console.log("Item is inserted into table check database"); 
+                    // console.log("Item is inserted into table check database"); 
                 })
             }
         })
@@ -84,7 +97,7 @@ exports.insertItem = (req, res) => {
         // Trying to insert extra topping items to Table_Check db
         if (exTop_array.length > 0) {
 
-            console.log("There is somthing extra toppings with this ramen"); 
+            // console.log("There is somthing extra toppings with this ramen"); 
 
             for (let s = 0; s < exTop_array.length; s++) {
 
@@ -108,7 +121,7 @@ exports.insertItem = (req, res) => {
                                 console.log(error); 
                             }
                             
-                            console.log("The item number is updated!"); 
+                            // console.log("The item number is updated!"); 
                         })
 
                     } else {
@@ -119,7 +132,7 @@ exports.insertItem = (req, res) => {
                                 console.log(error);
                             }
 
-                            console.log("Item is inserted into table check database"); 
+                            // console.log("Item is inserted into table check database"); 
                         })
                     }
                 })
@@ -159,12 +172,12 @@ exports.insertItem = (req, res) => {
                             // console.log(item_total.toFixed(2)); 
 
                             // Trying to insert added items and total price to Table db 
-                            db.query(`insert into ${table_key}(item_name, item_price) values(?, ?)`, [temp_array.join(':'), item_total.toFixed(2)], (error) => {
+                            db.query(`insert into ${table_key}(full_order, main_item, other_pref, item_price) values(?, ?, ?, ?)`, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), item_total.toFixed(2)], (error) => {
                                 if(error){
                                     console.log(error)
                                 } 
 
-                                console.log("The item and price values were just inserted to Table"); 
+                                // console.log("The item and price values were just inserted to Table"); 
 
                                 return res.redirect(url.format({
                                     pathname: '/addPage',
@@ -182,15 +195,40 @@ exports.insertItem = (req, res) => {
                     })
                 }
 
+            } else if (otherPref_array.length > 0) {
+
+                console.log("Only with pref not exTops for this order"); 
+
+                // Trying to insert added items and total price to Table db 
+                db.query(`insert into ${table_key}(full_order, main_item, other_pref, item_price) values(?, ?, ?, ?)`, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), item_total], (error) => {
+                    if(error){
+                        console.log(error)
+                    } 
+
+                    // console.log("The item and price values were just inserted to Table"); 
+
+                    return res.redirect(url.format({
+                        pathname: '/addPage',
+                        query: {
+                            "status": "Server_AddPage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key, 
+                            "table": table_key, 
+                            "c_num": c_number
+                        }
+                    }))
+                })
+
             } else {
 
                 // No extra topppins with this ramen 
-                db.query(`insert into ${table_key}(item_name, item_price) values(?, ?)`, [temp_array.join(':'), item_total], (error) => {
+                db.query(`insert into ${table_key}(full_order, main_item, item_price) values(?, ?, ?)`, [temp_array.join(':'), temp_array[0], item_total], (error) => {
                     if(error) {
                         console.log(error)
                     }
 
-                    console.log("Item without any extra toppings was scuccesfully inserted to db!"); 
+                    // console.log("Item without any extra toppings was scuccesfully inserted to db!"); 
 
                     return res.redirect(url.format({
                         pathname: '/addPage',

@@ -1875,6 +1875,103 @@
         </div>
     </div>  
 
+    <!-- Modal for Check Button -->
+    <div class="check-modal" id="checkBtn-modal">
+
+        <div class="check-content">
+
+            <div class ="check-title">
+                <h2>Submit Sheet</h2>
+            </div>
+
+            <span class="close-btn-checkBtn">&times;</span>
+
+            <div class="orders">
+                <div class="scrollable">
+                    {{#each items}}
+                        <input type="checkbox" class="check_box" value="{{id}}:{{main_item}}:{{other_pref}}" name="willCheck_item">
+                        <label class="check_item">{{main_item}}</label>
+                        <p id="other_pref">{{other_pref}}</p>
+                        <hr style="border-color: black;">
+                    {{/each}}
+                
+                </div>
+            </div>
+
+            <div class="remove-submit-buttons">
+
+                <div class="remove">
+
+                    {{!-- Remove Btn --}}
+                    <form action="/auth/user/removeItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="remove_key" id="remove_key" value="">
+                        <button id="remove-btn">Remove</button>
+                    </form>
+
+                </div>
+
+                <div></div>
+
+                <div class="submit">
+
+                    <form action="/auth/user/submitItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <button id="submit-btn">Submit</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal for Edit Button -->
+    <div class="edit-modal" id="editBtn-modal">
+
+        <div class="edit-content">
+
+            <div class ="edit-title">
+                <h2>Edit Sheet</h2>
+            </div>
+
+            <span class="close-btn-editBtn">&times;</span>
+
+            <div class="edit-orders">
+                <div class="edit-scrollable">
+                    {{#each submit_items}}
+                        <input type="checkbox" class="check_box" value="{{id}}:{{main_item}}:{{other_pref}}" name="willCheck_item">
+                        <label class="check_item">{{main_item}}</label>
+                        <p id="other_pref">{{other_pref}}</p>
+                        <hr style="border-color: black;">
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="edit-confirm-buttons">
+
+                <div class="edit">
+                    <button id="edit-btn">Edit</button>
+                </div>
+
+                <div></div>
+
+                <div class="confirm">
+                    <button id="confirm-btn">Confirm</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 
     <!-- Footer Section -->
     <div class="footer_section">
@@ -1882,7 +1979,11 @@
         <div class="footer">
 
             <div class="check_section">
-                <button class="check_button">Check</button>
+                <button class="check_button" id="check-button">&#128466;&#65039;</button>
+            </div>
+            
+            <div class="edit_section">
+                <button class="edit_button" id="edit-button">&#9999;&#65039;</button>
             </div>
 
             {{!-- Home Button --}}
@@ -1893,7 +1994,7 @@
                     <input type="hidden" name="date_key" value="{{Date}}">
                     <input type="hidden" name="time_key" value="{{Time}}">
                     <input type="hidden" name="table_key" value="{{table_key}}">
-                    <button class="home_button">Home</button>
+                    <button class="home_button">&#127968;</button>
                 </form>
 
             </div>
@@ -1906,6 +2007,7 @@
 {{!-- Vanilla Js Script --}}
 <script type="text/javascript" src="/js/Server-Side/addPage_main.js"></script>
 <script type="text/javascript" src="/js/Server-Side/addPage_script.js"></script>
+<script type="text/javascript" src="/js/Server-Side/addPage_check&edit.js"></script>
 
 {{!-- This Js is to capture taken orders from checkbox --}}
 {{!-- <script type="text/javascript" src="/js/Server-Side/addPage_getItems.js"></script> --}}

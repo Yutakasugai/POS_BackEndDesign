@@ -981,3 +981,265 @@
   padding-right: 50px;
   margin-top: 20px;
 }
+
+
+/* Modal for Check Button*/
+.check-modal{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+
+.bg-active-checkBtn {
+  visibility: visible;
+  opacity: 1;
+}
+
+.close-btn-checkBtn{
+  color: whitesmoke;
+}
+.check-content{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 92%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: grid;
+  grid-template-rows: 8% auto 7%;
+}
+
+.check-title{
+  grid-row:1;
+  position: fixed;
+  text-align: center;
+  background-color: green;
+  color: whitesmoke;
+  width: 100%;
+  font-size: 2rem;
+  padding: 20px 10px;
+  height: auto;
+}
+
+.check-title h2{
+  font-size: 4rem;
+  margin-top: 20px;
+}
+
+.orders{
+  grid-row:2;
+  height:96%;
+  width: 90%;
+  margin:auto;
+  color: black;
+  font-size: 70px;
+  text-align: left;
+  flex: 1;
+  /* overflow:auto; */
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
+  position:relative;
+}
+
+.check_box{
+  width: 50px;
+  height: 50px;
+}
+
+.check_item {
+  font-size: 4rem;
+}
+
+#other_pref {
+  font-size: 3.5rem;
+  word-wrap: break-word;
+  width: 90%;
+}
+
+.close-btn-checkBtn {
+  position: fixed;
+  left: 87%;
+  font-size: 6rem;
+  z-index: 30;
+}
+
+.remove-submit-buttons{
+  grid-row: 3;
+  display: grid;
+  position: absolute;
+  grid-template-columns: 1.2fr 0.2fr 1.2fr;
+  padding: 20px;
+  color: #c3c3c3;
+  background-color: green;
+  border-color: whitesmoke;
+  border-width: 10px;
+  width: 100%;
+  margin: auto; 
+}
+
+#remove-btn{
+
+  padding: 9px 50px;
+  border-radius: 10px;
+  border-width: 2.5px;
+  border-color: black;
+  background-color: lightcoral;
+  float: left;
+}
+#remove-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+#submit-btn{
+  padding: 9px 60px;
+  background-color: yellow;
+  border-radius: 10px;
+  border-width: 2.5px;
+  border-color: black;
+  float: right;
+}
+#submit-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+
+
+/* Edit Modal */
+.edit-modal{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  opacity: 0; /*hide this line*/
+  visibility: hidden; /*hide this line*/
+  transition: visibility 0s opacity 0, 5s;
+}
+
+.close-btn-editBtn{
+  color: whitesmoke;
+}
+
+.bg-active-editBtn {
+  visibility: visible;
+  opacity: 1;
+}
+
+.edit-content{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 90%;
+  height: 90%;
+  z-index: 10;
+  font-size: 50px;
+  display: grid;
+  grid-template-rows: 8% auto 7%;
+}
+
+.edit-title{
+  grid-row:1;
+  position: fixed;
+  text-align: center;
+  background-color: orangered;
+  color: whitesmoke;
+  width: 100%;
+  font-size: 2rem;
+  padding: 20px 10px;
+  height: auto;
+}
+
+.edit-orders{
+  grid-row:2;
+  height:96%;
+  width: 90%;
+  margin:auto;
+  color: black;
+  font-size: 70px;
+  text-align: left;
+  flex: 1;
+  overflow:auto;
+  overflow-y: scroll;
+  position:relative;
+}
+
+.check{
+  width: 50px;
+  height: 50px;
+}
+
+.edit-title h2{
+  font-size: 4rem;
+  margin-top: 20px;
+}
+
+.close-btn-editBtn {
+  position: fixed;
+  left: 87%;
+  font-size: 6rem;
+  z-index: 30;
+}
+
+.edit-confirm-buttons{
+  grid-row: 3;
+  display: grid;
+  position: absolute;
+  grid-template-columns: 1.2fr 0.2fr 1.2fr;
+  padding: 20px;
+  color: #c3c3c3;
+  background-color: orangered;
+  border-color: whitesmoke;
+  width: 100%;
+  margin: auto; 
+}
+
+#edit-btn{
+
+  padding: 9px 90px;
+  border-radius: 10px;
+  border-width: 2.5px;
+  border-color: black;
+  background-color: lightpink;
+  float: left;
+}
+#edit-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+#confirm-btn{
+  padding: 9px 50px;
+  background-color: lightgreen;
+  border-radius: 10px;
+  border-width: 2.5px;
+  border-color: black;
+  float: right;
+}
+#confirm-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}

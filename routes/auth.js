@@ -8,9 +8,8 @@ const server_addItemController = require('../controllers/server-side/server_addI
 const server_viewPageController = require('../controllers/server-side/server_view'); 
 const server_addHomeController = require('../controllers/server-side/server_addHome'); 
 const server_insertItemController = require('../controllers/server-side/server_insertItem'); 
-//const server_addBtnController = require('../controllers/server-side/server_addBtn'); 
-//const server_addHomeController = require('../controllers/server-side/server_addHome');
-//const server_addSubmitController = require('../controllers/server-side/server_addSubmit'); 
+const server_removeItemController = require('../controllers/server-side/server_removeItem'); 
+const server_submitItemController = require('../controllers/server-side/server_submitItem'); 
 
 router.post('/user', loginController.user);
 router.post('/user/signout', signoutController.signout_user); 
@@ -18,9 +17,8 @@ router.post('/user/addItem', server_addItemController.addItem);
 router.post('/user/viewPage', server_viewPageController.viewPage); 
 router.post('/user/addHome', server_addHomeController.addHome); 
 router.post('/user/insertItem', server_insertItemController.insertItem); 
-//router.post('/user/addBtn', server_addBtnController.addBtn); 
-//router.post('/user/addHome', server_addHomeController.addHome); 
-//router.post('/user/addSubmit', server_addSubmitController.addSubmit); 
+router.post('/user/removeItem', server_removeItemController.removeItem); 
+router.post('/user/submitItem', server_submitItemController.submitItem); 
 
 
 // Admin Side

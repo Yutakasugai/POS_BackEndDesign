@@ -6,7 +6,7 @@ const db_conn = require("../db/db-conn");
 const db = db_conn["db_conn"];
 
 // Call the middleware functions from a different folder
-const mw = require("../middlewares/server_home");
+// const mw = require("../middlewares/server_home");
 //const mw_addItem = require("../middlewares/server_addItem");
 const mw_signout = require("../middlewares/signout_users");
 const mw_adminHome = require("../middlewares/admin_home");
@@ -127,68 +127,35 @@ function check_status(systemMsg, userName) {
 
 
 // Server-Side Home Url 
-router.get("/auth/user/home", mw(), (req, res) => {
+router.get('/serverHome', (req, res) => {
   const userName = req.query.user;
   const date_key = req.query.date; 
   const time_key = req.query.time; 
-  const get_id = req.query.id;
 
-  console.log(get_id); 
-
-  check_userLog(userName); 
-
-  db.query("show tables", (error, table_result) => {
-    if(error){
-      console.log(error)
+  // Make an array conatined of table_status
+  db.query("select table_status from table_check", (error, result) => {
+    if (error) {
+        console.log(error)
     }
 
-    const table_con = table_check(table_result); 
-    //console.log(table_con); 
+    // Create table array for a next page
+    const table_arr = []
+    for (let l = 0; l < result.length; l++) {
+
+        table_arr.push(result[l]["table_status"]); 
+    }
+
+    // console.log(table_arr); 
 
     return res.render("server", {
         name: userName, 
         Date: date_key, 
         Time: time_key,
-        table_con: table_con
+        table_arr: table_arr
     })
   })
 });
 
-// Funtion to prevent a user coming to this page from nowhere
-function check_userLog(userName) {
-
-    db.query("select * from userLog where name = (?)", userName, (error, log_result) => {
-      if (error) {
-        console.log(error);
-      }
-
-      if (log_result.length === 0) {
-        return res.redirect("/");
-      } 
-    }
-  );
-}
-
-// Function to check which tables, phone amd togo orders are taken or filled so far
-function table_check(db_result) {
-
-  const exist_table = []
-  const check_array = ['Table_1', 'Table_2', 'Table_3', 'Table_4', 'Table_5', 'Table_6', 'Table_7', 'Table_8', 'Togo_1', 'Togo_2', 'Togo_3', 'Togo_4', 'Phone_1', 'Phone_2', 'Phone_3', 'Phone_4']; 
-
-  for (let i = 0; i < db_result.length; i++) {
-
-      for (let t = 0; t < check_array.length; t++){
-
-          if(db_result[i]['Tables_in_pos_database'] === check_array[t]){
-
-              //exist_table[check_array[t]] = 'order_taken';  
-              exist_table.push(check_array[t]); 
-          } 
-      }
-  }  
-
-  return exist_table; 
-}
 
 // AddPage Url
 router.get("/addPage", (req, res) => {
@@ -199,56 +166,25 @@ router.get("/addPage", (req, res) => {
     const time_key = req.query.time; 
     const table_key = req.query.table;
     const c_number = req.query.c_num;
-    
-    return res.render('addPage', {
-        name: userName, 
-        Date: date_key, 
-        Time: time_key,
-        table_key: table_key, 
-        c_number: c_number
+
+    // Capture all added items for check modal 
+    db.query(`select * from ${table_key} where order_status = 'unsubmit'`, (error, item_result) => {
+        if(error){
+          console.log(error)
+        }
+        
+        // console.log(item_result); 
+
+        return res.render('addPage', {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key,
+            table_key: table_key, 
+            c_number: c_number,
+            items: item_result
+        })
     })
-
 })
-
-
-// AddPage Url
-// router.get("/auth/user/addPage", mw_addItem(), (req, res) => {
-  
-//   const userName = req.query.user;
-//   const date_key = req.query.date; 
-//   const time_key = req.query.time; 
-//   const table_key = req.query.table_key;
-//   const c_number = req.query.c_number;
-//   const row_id = req.query.row_id;
-//   const status = req.query.status;
-
-//   check_userLog(userName); 
-
-//   if (status === "Filled") {
-
-//     return res.render("addPage", {
-//       name: userName,
-//       table_key: table_key, 
-//       c_number: c_number, 
-//       Date: date_key, 
-//       Time: time_key, 
-//       inserted_id: row_id,
-  
-//     })
-
-//   } else {
-
-//     return res.render("addPage", {
-//       name: userName,
-//       table_key: table_key, 
-//       c_number: c_number, 
-//       Date: date_key, 
-//       Time: time_key, 
-//       inserted_id: row_id,
-//       homeBtn_status: "Empty"
-//     })
-//   }
-// });
 
 
 // Admin Home Page Url
