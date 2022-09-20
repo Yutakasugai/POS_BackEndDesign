@@ -1,12 +1,6 @@
-if (total_num > 1) {
+Mysql Syntax to Update 
 
-                  // console.log("The total number is more than 2"); 
+UPDATE table_check SET table_status = 'empty', num_customer = 'None';
 
-                  item_container[0] = `✕ ${total_num}(` + item_container[0]; 
-
-                  // Attach a value to input 
-                  const totalNum_input = document.getElementById('total_num'); 
-                  totalNum_input.setAttribute('value', total_num); 
-
-                  console.log(item_container[0]); 
-              } 
+drop table if exists Table_1, Table_1_Check, Table_2, Table_2_Check, Table_3, Table_3_Check, Table_4, Table_4_Check, Table_5, Table_5_Check,
+Table_6, Table_6_Check, Table_7, Table_7_Check, Table_8, Table_8_Check; 

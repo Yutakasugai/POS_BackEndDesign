@@ -127,7 +127,7 @@ body {
 .box-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    height: 29rem;
+    height: 34rem;
     justify-items: center;
     margin-top: 10px;
 }
@@ -136,7 +136,7 @@ body {
     background-color: #fffdd0;
     /* display: grid; */
     grid-template-columns: 100%;
-    grid-template-rows: 2rem 24rem 2.5rem;
+    grid-template-rows: 2rem 28.15rem 2.5rem;
     /* border-radius: 10px; */
     border-width: 1.5px;
     border-style: solid;
@@ -193,7 +193,7 @@ body {
     justify-content: space-between;
     margin-top: 10px;
     border-radius: 20px;
-    padding: 5px;
+    padding: 10px;
     color: white;
     background-color: #343434;
 }

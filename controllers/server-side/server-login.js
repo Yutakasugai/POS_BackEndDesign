@@ -10,17 +10,6 @@ exports.user = (req, res) => {
     let data_key = dataList[0];
     let time_key = dataList[1];
 
-    // Once the server can be logged in successfuly, a new table will be crated 
-    // const initial_sql = `CREATE TABLE IF NOT EXISTS table_record
-    // (id INT AUTO_INCREMENT PRIMARY KEY, order_from TEXT NOT NULL, c_number INTEGER, order_status TEXT, created_at TEXT NOT NULL, customer_name TEXT, EST TEXT, order_items TEXT)`; 
-
-    // db.query(initial_sql, (error) => {
-    //     if(error){
-    //         console.log(error)
-    //     }
-    //     console.log("table_record is just created!"); 
-    // })
-
     // Insert a name and starttime in userLog table
     db.query("select name from userLog where name = (?)", (user_name), (error, result) => {
         if (error){
@@ -44,7 +33,7 @@ exports.user = (req, res) => {
                     table_arr.push(result[l]["table_status"]); 
                 }
 
-                console.log(table_arr); 
+                // console.log(table_arr); 
 
                 return res.render("server", {
                     name: user_name, 
@@ -75,7 +64,7 @@ exports.user = (req, res) => {
                     table_arr.push(result[l]["table_status"]); 
                 }
 
-                console.log(table_arr); 
+                // console.log(table_arr); 
 
                 return res.render("server", {
                     name: user_name, 
