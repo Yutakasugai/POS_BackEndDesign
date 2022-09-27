@@ -10,7 +10,7 @@ html, body {
     height:100%;
     position: sticky;
     display: grid;
-    grid-template-rows: 125px auto auto 90px;
+    grid-template-rows: 125px auto 90px;
 }
 
 /* User Info & Phone and Take Out buttons */

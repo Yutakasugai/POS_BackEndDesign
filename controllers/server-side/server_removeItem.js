@@ -6,6 +6,8 @@ exports.removeItem = (req, res) => {
 
     const {userName, date_key, time_key, table_key, c_number, remove_key} = req.body; 
 
+    // console.log(remove_key); 
+
     const otherPref_array_temp = []; 
     const mainItem_array = []; 
     const itemID_array = []; 
@@ -21,8 +23,6 @@ exports.removeItem = (req, res) => {
             otherPref_array_temp.push(test[j].split(':').slice(2, test[j].split(':').length));  
         } 
     }
-
-    console.log(itemID_array); 
 
     let temp_other_pref = otherPref_array_temp.join(',').split(','); 
     const pref_array_v1 = []; 
@@ -51,22 +51,10 @@ exports.removeItem = (req, res) => {
         const test_val = mainItem_array[d]
             .replace('[R]', '').replace('[L]', '')
             .replace('/[B]', '').replace('/[S]', '');
-        
-        if (test_val.includes('✕') === true) {
-
-            let item_name = test_val.substring(3); 
-            let item_num = test_val[1]; 
-            let item_total = `${item_num}:${item_name}`; 
-
-            test_array.push(item_total); 
-            test_array_v2.push(item_name); 
-
-        } else {
 
             let temp_val = `1:${test_val}`; 
             test_array.push(temp_val); 
             test_array_v2.push(test_val); 
-        }
     }
 
     let test_array_v3 = [...new Set(test_array_v2)];
@@ -76,6 +64,11 @@ exports.removeItem = (req, res) => {
     let pref_array_v4 = test_func(pref_array_v1, pref_array_v3); 
 
     const total_val_array = test_array_v5.concat(pref_array_v4);
+
+    // console.log(itemID_array); 
+    // console.log(mainItem_array); 
+    // console.log(otherPref_array_temp); 
+    // console.log(total_val_array); 
 
     // console.log(total_val_array); 
 

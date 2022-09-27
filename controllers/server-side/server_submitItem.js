@@ -8,7 +8,7 @@ exports.submitItem = (req, res) => {
     const {userName, date_key, time_key, table_key} = req.body; 
     // console.log(userName, date_key, time_key, table_key, c_number); 
 
-    const item_array = []; 
+    const itemID_array = []; 
 
     // Capture unsubmitted values from table 
     db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, result) => {
@@ -16,50 +16,137 @@ exports.submitItem = (req, res) => {
             console.log(error); 
         }
 
-        for (let i = 0; i < result.length; i++) {
-            // console.log(result[i]['full_order'])
-            item_array.push(result[i]['full_order']); 
-        }  
+        // If there is no items, no any actions happened
+        if (result.length === 0) {
 
-        //console.log(item_array); 
-        let item_package = item_array.join(','); 
+            console.log("There is no items with unsubmit status"); 
 
-        // Insert values to updated_table
-        db.query(`insert into updated_table(table_id, order_items) values(?, ?)`, [table_key, item_package], (error) => {
-            if(error) {
-                console.log(error); 
+            // Go back to server main page 
+            return res.redirect(url.format({
+                pathname: '/serverHome',
+                query: {
+                    "status": "Server_HomePage",
+                    "user": userName,
+                    "date": date_key, 
+                    "time": time_key, 
+                }
+            }))
+
+        } else {
+
+            // Trying to fix the submit action part abd insert id to updated_table 
+            for (let i = 0; i < result.length; i++) {
+
+                itemID_array.push(result[i]['id']); 
             }
 
-            console.log("Items are sent to the kitchen side!"); 
-        })
+            // Insert values to updated_table
+            db.query(`select * from table_check where table_id = (?)`, (table_key), (error, table_result) => {
+                if(error){
+                    console.log(error); 
+                }
 
-        // Change the order status
-        db.query(`update ${table_key} set order_status = "submit"`, (error) => {
-            if(error) {
-                console.log(error);
-            }
+                if (table_result[0]['table_status'] === 'filled'){
 
-            console.log("The order status changed to submit from unsubmit"); 
-        })
+                    console.log("This item is extra order"); 
 
-        // Change the table status 
-        db.query(`update table_check set table_status = "filled" where table_id = (?)`, (table_key), (error) => {
-            if(error) {
-                console.log(error); 
-            }
+                    let table_name = `Extra:${table_key}`; 
 
-            console.log("The table status changed to filled from empty"); 
-        })
+                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [table_name, table_key, itemID_array.join(':')], (error, result) => {
+                        if(error) {
+                            console.log(error); 
+                        }
 
-        // Go back to server main page
-        return res.redirect(url.format({
-            pathname: '/serverHome',
-            query: {
-                "status": "Server_HomePage",
-                "user": userName,
-                "date": date_key, 
-                "time": time_key, 
-            }
-        }))
+                        let temp_result = Object.values(JSON.parse(JSON.stringify(result)));
+
+                        console.log(temp_result[2]); 
+
+                        // Change the order status
+                        db.query(`update ${table_key} set kitchen_id = (?) where order_status = 'unsubmit'`, (temp_result[2]), (error) => {
+                            if(error) {
+                                console.log(error);
+                            }
+
+                            // Change the submit panel
+                            db.query(`update ${table_key} set order_status = "submit"`, (error) => {
+                                if(error) {
+                                    console.log(error);
+                                }
+                
+                                // console.log("The order status changed to submit from unsubmit"); 
+
+                                // Change the table status 
+                                db.query(`update table_check set table_status = "filled" where table_id = (?)`, (table_key), (error) => {
+                                    if(error) {
+                                        console.log(error); 
+                                    }
+
+                                    // Go back to server main page
+                                    return res.redirect(url.format({
+                                        pathname: '/serverHome',
+                                        query: {
+                                            "status": "Server_HomePage",
+                                            "user": userName,
+                                            "date": date_key, 
+                                            "time": time_key, 
+                                        }
+                                    }))
+                                })
+                            })
+                        })
+                    })
+
+                } else {
+
+                    console.log("This item is not extra order"); 
+
+                    let table_name = table_key; 
+
+                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [String(table_name), table_key, itemID_array.join(':')], (error, result) => {
+                        if(error) {
+                            console.log(error); 
+                        }
+
+                        let temp_result = Object.values(JSON.parse(JSON.stringify(result))); 
+
+                        // Change the order status
+                        db.query(`update ${table_key} set kitchen_id = (?) where order_status = 'unsubmit'`, (temp_result[2]), (error) => {
+                            if(error) {
+                                console.log(error);
+                            }
+
+                            // Change the submit panel
+                            db.query(`update ${table_key} set order_status = "submit"`, (error) => {
+                                if(error) {
+                                    console.log(error);
+                                }
+                
+                                console.log("The order status changed to submit from unsubmit"); 
+
+                                // Change the table status 
+                                db.query(`update table_check set table_status = "filled" where table_id = (?)`, (table_key), (error) => {
+                                    if(error) {
+                                        console.log(error); 
+                                    }
+
+                                    // console.log("The table status changed to filled from empty"); 
+
+                                    // Go back to server main page
+                                    return res.redirect(url.format({
+                                        pathname: '/serverHome',
+                                        query: {
+                                            "status": "Server_HomePage",
+                                            "user": userName,
+                                            "date": date_key, 
+                                            "time": time_key, 
+                                        }
+                                    }))
+                                })
+                            })
+                        })
+                    })
+                }
+            })
+        }
     })
 }

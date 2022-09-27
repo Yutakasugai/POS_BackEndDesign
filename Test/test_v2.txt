@@ -1,0 +1,304 @@
+// Array 
+    const insertItem_array = []; 
+    const makePrice_array = []; 
+    const deleteItem_array = []; 
+    const otherPref_array = []; 
+
+    let addedItem_total = edit_total_num; 
+    let replaceItem_array = edit_item.split(','); 
+    let removeItem_array = edit_key.split(':');  
+
+    // console.log(removeItem_array); 
+
+    // Get main item and the total num 
+    if (removeItem_array[1].includes('✕') === true){
+
+        console.log("This removed item is more than two"); 
+
+        let itemName = removeItem_array[1].substring(3)
+            .replace('[R]', '').replace('[L]', '')
+            .replace('/[S]', '').replace('/[B]', ''); 
+
+        let itemNum = removeItem_array[1][1]; 
+        let itemResult = `${itemNum}:${itemName}`; 
+
+        deleteItem_array.push(itemResult); 
+
+    } else {
+
+        console.log("This removed item is only one"); 
+
+        let itemName = removeItem_array[1]
+        .replace('[R]', '').replace('[L]', '')
+        .replace('/[S]', '').replace('/[B]', '');
+
+        let itemResult = `1:${itemName}`; 
+
+        deleteItem_array.push(itemResult); 
+    }
+
+    // Check if removeItem array has other pref
+    if (removeItem_array[2] === ''){
+        let value = ''; 
+        removeItem_array = removeItem_array.filter(item => item !== value); 
+    } else {
+        console.log("This removeItem array has other pref"); 
+        for (let p = 2; p < removeItem_array.length; p++){
+
+            if (removeItem_array[p].includes('+') === true) {
+
+                let exTop_name_v2 = removeItem_array[p].substring(3); 
+                let exTop_num_v2 = removeItem_array[p][1]; 
+                let exTop_result_v2 = `${exTop_num_v2}:${exTop_name_v2}`; 
+
+                deleteItem_array.push(exTop_result_v2); 
+            }
+        }
+    }
+
+    console.log(removeItem_array); 
+
+    // Main item and Total num
+    let checkPrice_item = `${edit_total_num}:${replaceItem_array[0]}`; 
+    makePrice_array.push(checkPrice_item); 
+
+    // Set removeItem id from removeItem_array
+    let removeItem_id = removeItem_array[0]; 
+
+    // Capture all needed value to insert the added item 
+    if (addedItem_total > 1) {
+        let multi_mainItem = `✕${addedItem_total}(${replaceItem_array[0]}${replaceItem_array[1]}`;
+        insertItem_array.push(multi_mainItem); 
+    } else {
+        let single_mainItem = `${replaceItem_array[0]}${replaceItem_array[1]}`; 
+        insertItem_array.push(single_mainItem); 
+    }
+
+    // Check if the added item has any pref 
+    if (replaceItem_array.length > 2) {
+
+        console.log("This added item has some pref"); 
+
+        for (let i = 2; i < replaceItem_array.length; i++) {
+
+            if (replaceItem_array[i].includes('+') === true) {
+
+                let exTop_name = replaceItem_array[i].substring(3); 
+                let exTop_num = replaceItem_array[i][1]; 
+                let exTop_result = `${exTop_num}:${exTop_name}`; 
+
+                makePrice_array.push(exTop_result); 
+            }
+
+            insertItem_array.push(replaceItem_array[i]); 
+            otherPref_array.push(replaceItem_array[i]); 
+        }
+
+    } else {
+
+        console.log("This added item has no pref"); 
+    }
+
+    // console.log(insertItem_array); 
+    // console.log(makePrice_array); 
+    // console.log(removeItem_id, deleteItem_array); 
+
+    // I remove a first value form removeItem array 
+    removeItem_array.shift(); 
+    // console.log(removeItem_array); 
+
+    
+
+    // Make a total price for this main item 
+    let mainItem = makePrice_array[0].split(':')[1]; 
+
+    db.query(`select * from Menu_List where item_name = (?)`, (mainItem), (error, result_price) => {
+        if (error) {
+            console.log(error)
+        } 
+
+        let item_total = result_price[0]['item_price'] * addedItem_total;
+
+        if (makePrice_array.length > 1) {
+
+            for (let s = 1; s < makePrice_array.length; s++) {
+
+                let exTop_name_v3 = makePrice_array[s].split(':')[1];
+                let exTop_num_v3 = makePrice_array[s].split(':')[0]; 
+                
+                db.query(`select * from Menu_List where item_name = (?)`, (exTop_name_v3), (error, result_exTop) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+
+                    item_total = item_total + (result_exTop[0]['item_price'] * exTop_num_v3); 
+
+                    // console.log(item_total.toFixed(2)); 
+
+                    // find and stop the last enter for this for loop 
+                    if (s === (makePrice_array.length - 1)){
+
+                        db.query(`insert into ${table_key}(full_order, main_item, other_pref, item_price, order_status) values(?, ?, ?, ?, ?)`, [insertItem_array.join(':'), insertItem_array[0], otherPref_array.join(':'), item_total, 'submit'], (error) => {
+                            if(error){
+                                console.log(error)
+                            } 
+
+                            console.log("A new item was succesfully inserted!"); 
+                        })
+
+                        return; 
+                    }
+                })
+            }
+
+        } else {
+
+            console.log("This item is not with extop"); 
+
+            db.query(`insert into ${table_key}(full_order, main_item, item_price, order_status) values(?, ?, ?, ?)`, [insertItem_array.join(':'), insertItem_array[0], item_total, 'submit'], (error) => {
+                if(error){
+                    console.log(error)
+                } 
+
+                console.log("A new item was succesfully inserted!"); 
+            })
+
+            return; 
+        }
+    }); 
+
+    // Remove the rwo for the replaced item 
+    db.query(`delete from ${table_key} where id = (?)`, (removeItem_id), (error) => {
+        if(error) {
+            console.log(error); 
+        }
+
+        console.log("Item row was deleted!"); 
+    })
+
+    // Update the total number of table check db
+    for (let r = 0; r < deleteItem_array.length; r++) {
+
+        let deleteItem_name = deleteItem_array[r].split(':')[1]; 
+        let deleteItem_num = deleteItem_array[r].split(':')[0]; 
+
+        // Connect to db
+        db.query(`select * from ${table_key}_Check where item_name = (?)`, (deleteItem_name), (error, result) => {
+            if(error) {
+                console.log(error); 
+            }
+
+            let update_num = result[0]['item_num'] - deleteItem_num; 
+
+            if (update_num > 0) {
+
+                // Update the number to db 
+                db.query(`update ${table_key}_Check set item_num = (?) where item_name = (?)`, [update_num, result[0]['item_name']], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+
+                    console.log("Update the number of delete item"); 
+                })
+
+            } else {
+
+                console.log('The item num is zero now'); 
+
+                db.query(`delete from ${table_key}_Check where id = (?)`, (result[0]['id']), (error) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+
+                    console.log("The item rwo was removed, since it got to zero"); 
+
+                })
+            }
+        })
+    }
+
+    // Add a new item number and name to table check db
+    for (let j = 0; j < makePrice_array.length; j++) {
+
+        let newItem_name = makePrice_array[j].split(':')[1]; 
+        let newItem_num = makePrice_array[j].split(':')[0]; 
+
+        db.query(`select * from ${table_key}_Check where item_name = (?)`, (newItem_name), (error, result) => {
+            if(error) {
+                console.log(error); 
+            }
+
+            if (result.length > 0){
+
+                let update_num = result[0]['item_num'] + Number(newItem_num); 
+
+                db.query(`update ${table_key}_Check set item_num = (?) where item_name = (?)`, [update_num, result[0]['item_name']], (error) => {
+                    if(error){
+                        console.log(error); 
+                    }
+
+                    console.log("New item was just updated to table check"); 
+                })
+
+            } else {
+
+                db.query(`insert into ${table_key}_Check(item_name, item_num) values(?, ?)`, [newItem_name, newItem_num], (error) => {
+                    if (error){
+                        console.log(error); 
+                    }
+
+                    console.log("New item and number were just inserted to table check db"); 
+                })
+            }
+        })
+    }
+
+    // Change a value of update table for kitchen side 
+    db.query(`select * from updated_table where table_id = (?)`, (table_key), (error, result) => {
+        if(error) {
+            console.log(error); 
+        }
+
+        let temp_result = result[0]['order_items'].split(','); 
+        let compare_result = removeItem_array.join(':'); 
+
+        console.log(temp_result); 
+        console.log(compare_result); 
+
+        for (let t = 0; t < temp_result.length; t++) {
+
+            if (compare_result === temp_result[t]){
+
+                console.log("The same result can be found!"); 
+
+                const index = temp_result.indexOf(temp_result[t]); 
+
+                temp_result.splice(index, 1, insertItem_array.join(':'));
+
+                let newItem_box = temp_result.join(','); 
+
+                console.log("This is new item box: " + newItem_box); 
+
+                db.query(`update updated_table set order_items = (?) where table_id = (?)`, [newItem_box, table_key], (error) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+
+                    console.log("The value was upadted for updated_table"); 
+
+                    // Go back to add page again
+                    return res.redirect(url.format({
+                        pathname: '/addPage',
+                        query: {
+                            "status": "Server_AddPage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key, 
+                            "table": table_key, 
+                            "c_num": c_number
+                        }
+                    })); 
+                })
+            }
+        }
+    })
