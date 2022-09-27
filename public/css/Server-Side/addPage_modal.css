@@ -1230,15 +1230,15 @@
   opacity: 0.5;
 }
 
-#confirm-btn{
+#remove-btn-v2{
   padding: 9px 50px;
-  background-color: lightgreen;
+  background-color: lightgoldenrodyellow;
   border-radius: 10px;
   border-width: 2.5px;
   border-color: black;
   float: right;
 }
-#confirm-btn:active {
+#remove-btn-v2:active {
   box-shadow: none;
   transform: translateY(3px);
   opacity: 0.5;

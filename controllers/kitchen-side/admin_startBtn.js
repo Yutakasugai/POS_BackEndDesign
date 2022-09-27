@@ -12,7 +12,7 @@ exports.startBtn = (req, res) => {
     
     // Create updated_table just in case if not exist 
     const upadted_sql = `CREATE TABLE IF NOT EXISTS updated_table 
-    (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", order_items TEXT NOT NULL)`; 
+    (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)`; 
 
     // two tables will be created if not exist
     db.query(sql, (error) => {

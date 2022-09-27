@@ -172,19 +172,114 @@ router.get("/addPage", (req, res) => {
         if(error){
           console.log(error)
         }
-        
-        // console.log(item_result); 
 
-        return res.render('addPage', {
-            name: userName, 
-            Date: date_key, 
-            Time: time_key,
-            table_key: table_key, 
-            c_number: c_number,
-            items: item_result
+        // Capture all submitted items as well
+        db.query(`select * from ${table_key} where order_status = 'submit'`, (error, submit_items) => {
+          if(error){
+            console.log(error); 
+          }
+
+            // Go back to add page again
+            return res.render('addPage', {
+                name: userName, 
+                Date: date_key, 
+                Time: time_key,
+                table_key: table_key, 
+                c_number: c_number,
+                items: item_result,
+                submit_items: submit_items
+            })
         })
     })
 })
+
+// AddPage for remove button in edit sheet 
+router.get("/addPage_Edit", (req, res) => {
+
+    // Capture all needed values from uinsertItem controller 
+    const userName = req.query.user;
+    const date_key = req.query.date; 
+    const time_key = req.query.time; 
+    const table_key = req.query.table;
+    const c_number = req.query.c_num;
+
+    // Capture all added items for check modal 
+    db.query(`select * from ${table_key} where order_status = 'unsubmit'`, (error, item_result) => {
+      if(error){
+        console.log(error)
+      }
+
+      // Capture all submitted items as well
+      db.query(`select * from ${table_key} where order_status = 'submit'`, (error, submit_items) => {
+        if(error){
+          console.log(error); 
+        }
+
+        if (submit_items.length > 0) {
+
+          console.log("Edit sheet has submit items in it"); 
+
+          // Go back to add page again
+          return res.render('addPage', {
+              name: userName, 
+              Date: date_key, 
+              Time: time_key,
+              table_key: table_key, 
+              c_number: c_number,
+              items: item_result,
+              submit_items: submit_items
+          })
+
+        } else {
+
+          console.log("Issue! You remove everything in the edit sheet"); 
+
+          // Remove all tables related to this table 
+          db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
+            if (error) {
+              console.log(error); 
+            }
+          })
+
+          // Change updated_table since there is no items 
+          db.query(`delete from updated_table where table_id = (?)`, (table_key), (error) => {
+            if (error){
+              console.log(error); 
+            }
+          })
+
+          // Update table_check db 
+          db.query(`update table_check set table_status = (?), num_customer = (?) where table_id = (?)`, ['empty', 'None', table_key], (error) => {
+            if (error) {
+              console.log(error); 
+            }
+          })
+
+          console.log("Clear every data related to this table from all tables"); 
+
+          db.query("select table_status from table_check", (error, result) => {
+            if (error) {
+                console.log(error)
+            }
+            // Create table array for a next page
+            const table_arr = []
+            for (let l = 0; l < result.length; l++) {
+
+                table_arr.push(result[l]["table_status"]); 
+            }
+
+            return res.render("server", {
+                name: userName, 
+                Date: date_key, 
+                Time: time_key,
+                table_arr: table_arr
+            })
+          })
+        }
+      })
+  })
+})
+
 
 
 // Admin Home Page Url

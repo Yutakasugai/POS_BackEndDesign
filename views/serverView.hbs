@@ -10,65 +10,66 @@
 </head>
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
 
-    <!-- Top Line for user info and some buttons -->
-    <div class="page-container">
+        <!-- Top Line for user info and some buttons -->
+        <div class="page-container">
 
-        <div class="page-info">
+            <div class="page-info">
 
-            <h1>User Name: {{name}}</h1>
+                <h1>User Name: {{name}}</h1>
 
-            <h2 id="table-number">Table: {{table_key}}</h2>
-            <h2 id="customer-number">Customer Number: {{c_number}}</h2>
+                <h2 id="table-number">Table: {{table_key}}</h2>
+                <h2 id="customer-number">Customer Number: {{c_number}}</h2>
+
+            </div>
+
+        </div>
+
+        
+        <div class="customer-orders">
+            
+            {{!-- <div class="scrollable">
+
+                <input type="checkbox" id="1" name="order1" value="0">
+                <label for="order1"> Shio [L/S] </label><br>
+
+            </div>
+                
+            <div class="customer-orders-button">
+                <div class="remove">
+                    <button id="remove-btn">Remove</button>
+                </div>
+                
+                <div></div>
+                
+                <div class="bill">
+                    <button id="bill-btn">Make Bill</button>
+                </div>
+            </div> --}}
+
+        </div>
+        
+
+        <!-- Sign out Btn and Close Btn -->
+        <div id="footer">
+
+            <div class="btn-container">
+                <div class="back">
+                    <button id="back-btn">Back</button>
+                </div>
+
+                <div></div>
+
+                <div class="done">
+                    <button id="done-btn">Done</button>
+                </div>
+
+            </div>
         </div>
 
     </div>
-
-    
-    {{!-- <div class="customer-orders">
-        <div class="scrollable">
-
-            <input type="checkbox" id="1" name="order1" value="0">
-            <label for="order1"> Shio [L/S] </label><br>
-            <input type="checkbox" id="2" name="order2" value="1">
-            <label for="order2"> Shoyu [R/S] <br> +Egg <br> (No Beans)</label><br>
-
-        </div>
-            
-        <div class="customer-orders-button">
-            <div class="remove">
-                <button id="remove-btn">Remove</button>
-            </div>
-            
-            <div></div>
-            
-            <div class="bill">
-                <button id="bill-btn">Make Bill</button>
-            </div>
-        </div>
-
-    </div> --}}
-    
-
-    <!-- Sign out Btn and Close Btn -->
-    <div id="footer">
-        <div class="btn-container">
-            <div class="back">
-                <button id="back-btn">Back</button>
-            </div>
-
-            <div></div>
-
-            <div class="done">
-                <button id="done-btn">Done</button>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-{{!-- Wrapper End --}}
+    {{!-- Wrapper End --}}
 
 </body>
 </html>

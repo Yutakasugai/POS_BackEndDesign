@@ -69,3 +69,73 @@ removeBtn.addEventListener('click', function(event){
     }
 
 })
+
+// Edit Modal (Edit Button)
+const edit_button = document.getElementById('edit-btn'); 
+const edit_key = document.getElementById('edit_key'); 
+
+const form_ramenAdd = document.getElementById('form_ramenAdd'); 
+const form_ramenEdit = document.getElementById('form_ramenEdit'); 
+const ramen_editBtn = document.getElementById('ramen_editBtn');
+
+// Enable only one checkbox to check if there are multiple items on edit list 
+$('input[name="willEdit_item"]').on('change', function() {
+    $(this).siblings('input[name="willEdit_item"]').prop('checked', false);
+});
+
+const checkEdit_array = []; 
+
+// Capture the item to edit from a list 
+edit_button.addEventListener('click', function(event){
+
+    $.each($("input[name='willEdit_item']:checked"), function(){            
+        checkEdit_array.push($(this).val());
+    });
+
+    // Check if the array is zero or not 
+    if (checkEdit_array.length > 0) {
+
+        edit_key.setAttribute('value', checkEdit_array); 
+
+        editModal.style.display = 'none'; 
+
+        // Change the button id
+        form_ramenAdd.style.display = 'none'; 
+        form_ramenEdit.style.display = 'inline'; 
+
+    } else {
+
+        event.preventDefault(); 
+        return; 
+    }
+})
+
+
+// Edit Sheet Modal (Remove Button)
+const removeBtn_edit = document.getElementById('remove-btn-v2'); 
+const remove_key_edit = document.getElementById('remove_key_edit'); 
+
+const removeItem_edit_array = []; 
+
+removeBtn_edit.addEventListener('click', function(event){
+
+    // console.log("This is passed.")
+
+    $.each($("input[name='willEdit_item']:checked"), function(){            
+        removeItem_edit_array.push($(this).val());
+    });
+
+    // Check if the array is zero or not 
+    if (removeItem_edit_array.length > 0) {
+
+        remove_key_edit.setAttribute('value', removeItem_edit_array); 
+
+    } else {
+
+        // console.log("There is no value of array!"); 
+        event.preventDefault(); 
+        return; 
+    }
+
+})
+
