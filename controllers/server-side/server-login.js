@@ -33,13 +33,19 @@ exports.user = (req, res) => {
                     table_arr.push(result[l]["table_status"]); 
                 }
 
-                // console.log(table_arr); 
+                // Capture the taken order list for viewing 
+                db.query('select * from coming_order', (error, item_result) => {
+                    if (error) {
+                        console.log(error); 
+                    }
 
-                return res.render("server", {
-                    name: user_name, 
-                    Date: data_key, 
-                    Time: time_key,
-                    table_arr: table_arr
+                    return res.render("server", {
+                        name: user_name, 
+                        Date: data_key, 
+                        Time: time_key,
+                        table_arr: table_arr,
+                        items: item_result
+                    })
                 })
             })
 
@@ -64,16 +70,21 @@ exports.user = (req, res) => {
                     table_arr.push(result[l]["table_status"]); 
                 }
 
-                // console.log(table_arr); 
+                // Capture the taken order list for viewing 
+                db.query('select * from coming_order', (error, item_result) => {
+                    if (error) {
+                        console.log(error); 
+                    }
 
-                return res.render("server", {
-                    name: user_name, 
-                    Date: data_key, 
-                    Time: time_key,
-                    table_arr: table_arr
+                    return res.render("server", {
+                        name: user_name, 
+                        Date: data_key, 
+                        Time: time_key,
+                        table_arr: table_arr,
+                        items: item_result
+                    })
                 })
             })
-
         }
     })
 }

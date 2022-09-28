@@ -799,44 +799,46 @@ width: none; does not do anything as well */
 }
 
 /* Order Modal Table */
-.review-container table{
-    width: 95%;
+/* .review-container table{
+    width: 90%;
+    height: 90%;
+    margin-top: 1%;
+    z-index: 10;
+} */
+.review-table {
+    width: 90%;
     height: 90%;
     margin-top: 1%;
     z-index: 10;
 }
 
 .review-container{
+    /* width: 90%; */
     display: flex;
     justify-content: center;
 }
 
 .reviewBox-header {
-    height: 2.5rem;
-    font-size: 1.1rem;
-
+    height: 3rem;
+    /* font-size: 1.1rem; */
 }
 
 .reviewBox-container th {
-    height: 2.5rem;
-    font-size: 1.1rem;
+    height: 3rem;
+    /* font-size: 1.1rem; */
 }
 
-#tableNum-row{
-    width: 30%;
+.tableNum-row{
+    width: 20%;
     background-color: lightsalmon;
 }
 
-#order-row {
-    width: 70%;
+.order-row {
+    font-size: 1rem;
+    max-width: 70%;
+    word-wrap: break-word;
+    /* overflow-wrap: break-word; */
 }
-
-/* .addedInfo-container th{
-    height: 2rem;
-    font-size: 1.1rem;
-    background: lightcoral;
-} */
-
 
 @media (orientation: landscape){
     body{

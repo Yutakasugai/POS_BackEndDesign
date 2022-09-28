@@ -11,6 +11,7 @@ exports.editItem = (req, res) => {
     const newItem_exTop = []; 
     const newItem_temp_array = []; 
     const newItem_array_total = []; 
+    // const newItem_array_view = []; 
     const complete_array = []; 
     const item_array_plus = []; 
     const item_array_minus = []; 
@@ -32,7 +33,7 @@ exports.editItem = (req, res) => {
         // Define the main item and Push it to each array 
         let newItem_with_pref = `${newItem_name}${newItem_box[1]}`; 
         let newItem_num_name = `1:${newItem_name}`; 
-        let newItem_main_total = `+:${edit_total_num}:${newItem_name}`; 
+        let newItem_main_total = `+:${edit_total_num}:${newItem_name}`;
 
         newItem_array.push(newItem_with_pref); 
         newItem_temp_array.push(newItem_num_name); 
@@ -58,7 +59,8 @@ exports.editItem = (req, res) => {
                 }
 
                 newItem_array.push(newItem_box[h]); 
-                newItem_exTop.push(newItem_box[h]); 
+                newItem_exTop.push(newItem_box[h]);
+                // newItem_array_view.push(newItem_box[h]); 
             }
     
         } 
@@ -251,6 +253,13 @@ exports.editItem = (req, res) => {
                                                 console.log(error)
                                             }
                                         })
+
+                                        // Update coming_order table by the changed value 
+                                        db.query(`UPDATE coming_order SET item_name = (?), original_id = (?) WHERE table_id = (?) AND original_id = (?)`, ['Item Edited...', 'None', table_key, oldItem_id], (error) => {
+                                            if (error) {
+                                                console.log(error); 
+                                            }
+                                        })
                                     })
                                 }
                             }); 
@@ -289,6 +298,13 @@ exports.editItem = (req, res) => {
                                         db.query(`update updated_table set item_id = (?) where id = (?)`, [newID_array.join(':'), oldItem_kitchenId], (error) => {
                                             if(error) {
                                                 console.log(error)
+                                            }
+                                        })
+
+                                        // Update coming_order table by the changed value 
+                                        db.query(`UPDATE coming_order SET item_name = (?), original_id = (?) WHERE table_id = (?) AND original_id = (?)`, ['Item Edited...', 'None', table_key, oldItem_id], (error) => {
+                                            if (error) {
+                                                console.log(error); 
                                             }
                                         })
                                     })
@@ -332,6 +348,13 @@ exports.editItem = (req, res) => {
                                     }
                                 })
                             })
+
+                            // Update coming_order table by the changed value 
+                            db.query(`UPDATE coming_order SET item_name = (?), original_id = (?) WHERE table_id = (?) AND original_id = (?)`, [newItem_array.join(':'), temp_id, table_key, oldItem_id], (error) => {
+                                if (error) {
+                                    console.log(error); 
+                                }
+                            })
                         }); 
 
                     } else {
@@ -364,6 +387,13 @@ exports.editItem = (req, res) => {
                                         console.log(error)
                                     }
                                 })
+                            })
+
+                            // Update coming_order table by the changed value 
+                            db.query(`UPDATE coming_order SET item_name = (?), original_id = (?) WHERE table_id = (?) AND original_id = (?)`, [newItem_array.join(':'), temp_id, table_key, oldItem_id], (error) => {
+                                if (error) {
+                                    console.log(error); 
+                                }
                             })
                         }); 
                     }
@@ -443,8 +473,6 @@ exports.editItem = (req, res) => {
         if(error) {
             console.log(error);
         }
-
-        console.log('The oldItem row was removed from table db'); 
     })
 
 

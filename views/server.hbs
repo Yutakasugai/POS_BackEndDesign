@@ -500,13 +500,17 @@
         <div class="orderBtn-textBox">
             <div class="scrollable-orders">
                 <div class="review-container">
-                    <table border cellspacing="0">
+                    <table border cellspacing="0" class="review-table">
                     <!-- table desc rows -->
                     <tr class="reviewBox-container"> 
-                        <tr class="reviewBox-header">
-                            <th id="tableNum-row">Table_1</th>
-                            <th id="order-row">Miso[R/S]</th>
+
+                        {{#each items}}
+                        <tr class="reviewBox-header" id="{{table_id}}_{{orginal_id}}_all">
+                            <td class="tableNum-row" id="{{table_id}}_{{orginal_id}}_table">{{table_id}}</th>
+                            <td class="order-row" id="{{table_id}}_{{orginal_id}}_item">{{item_name}}</th>
                         </tr>
+                        {{/each}}
+
                     </tr>
 
                 </div>

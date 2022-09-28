@@ -17,3 +17,24 @@ INSERT INTO Menu_List(item_name, item_price, gst_price, total_price) VALUES
 
 drop table updated_table, order_result; 
 
+
+
+<div class="orderBtn-textBox">
+            <div class="scrollable-orders">
+                <div class="review-container">
+                    <table border cellspacing="0">
+                    <!-- table desc rows -->
+                    <tr class="reviewBox-container"> 
+
+                        {{#each items}}
+                        <tr class="reviewBox-header" id="{{table_id}}_{{orginal_id}}_all">
+                            <th class="tableNum-row" id="{{table_id}}_{{orginal_id}}_table">{{table_id}}</th>
+                            <th class="order-row" id="{{table_id}}_{{orginal_id}}_item">{{item_name}}</th>
+                        </tr>
+                        {{/each}}
+
+                    </tr>
+
+                </div>
+            </div>
+        </div>

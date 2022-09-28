@@ -145,13 +145,19 @@ router.get('/serverHome', (req, res) => {
         table_arr.push(result[l]["table_status"]); 
     }
 
-    // console.log(table_arr); 
+    // Capture the taken order list for viewing 
+    db.query('select * from coming_order', (error, item_result) => {
+      if (error) {
+          console.log(error); 
+      }
 
-    return res.render("server", {
-        name: userName, 
-        Date: date_key, 
-        Time: time_key,
-        table_arr: table_arr
+      return res.render("server", {
+          name: userName, 
+          Date: date_key, 
+          Time: time_key,
+          table_arr: table_arr,
+          items: item_result
+      })
     })
   })
 });
@@ -255,7 +261,12 @@ router.get("/addPage_Edit", (req, res) => {
             }
           })
 
-          console.log("Clear every data related to this table from all tables"); 
+          // Delete all table rows from coming_order db
+          db.query(`delete from coming_order where table_id = (?)`, (table_key), (error) => {
+            if (error){
+              console.log(error); 
+            }
+          })
 
           db.query("select table_status from table_check", (error, result) => {
             if (error) {
@@ -268,11 +279,18 @@ router.get("/addPage_Edit", (req, res) => {
                 table_arr.push(result[l]["table_status"]); 
             }
 
-            return res.render("server", {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_arr: table_arr
+            db.query('select * from coming_order', (error, item_result) => {
+              if (error) {
+                  console.log(error); 
+              }
+
+              return res.render("server", {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_arr: table_arr,
+                  items: item_result
+              })
             })
           })
         }
