@@ -57,14 +57,19 @@ exports.addHome = (req, res) => {
             table_arr.push(result[t]["table_status"]); 
         }
 
-        // console.log(table_arr); 
+        // Capture the taken order list for viewing 
+        db.query('select * from coming_order', (error, item_result) => {
+            if (error) {
+                console.log(error); 
+            }
 
-        return res.render("server", { 
-            name: userName, 
-            Date: date_key, 
-            Time: time_key, 
-            table_arr: table_arr 
+            return res.render("server", { 
+                name: userName, 
+                Date: date_key, 
+                Time: time_key, 
+                table_arr: table_arr, 
+                items: item_result
+            })
         })
-
     })
 }

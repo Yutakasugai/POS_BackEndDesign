@@ -48,6 +48,13 @@ exports.viewDone = (req, res) => {
         }
     })
 
+    // Remove the item from coming_order db as well
+    db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
+        if (error) {
+            console.log(error); 
+        }
+    }) 
+
     // Back to server add page
     return res.redirect(url.format({
         pathname: '/serverHome',

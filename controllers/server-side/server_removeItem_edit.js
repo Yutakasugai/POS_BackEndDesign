@@ -94,6 +94,13 @@ exports.removeItem_edit = (req, res) => {
         if(error) {
             console.log(error); 
         }
+
+        // Remove the item from coming_order db as well
+        db.query(`DELETE FROM coming_order WHERE table_id = (?) AND original_id = (?)`, [table_key, removeItem_id], (error) => {
+            if (error) {
+                console.log(error); 
+            }
+        }) 
     })
 
     // Back to server add page

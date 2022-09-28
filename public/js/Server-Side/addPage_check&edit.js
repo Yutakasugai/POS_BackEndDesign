@@ -139,3 +139,25 @@ removeBtn_edit.addEventListener('click', function(event){
 
 })
 
+
+// Submit Button on the Submit Sheet 
+const submitBtn = document.getElementById('submit-btn');
+// const submitItem = document.querySelector('.check_box'); 
+
+const submitItem_array = []; 
+
+submitBtn.addEventListener('click', function(event){
+
+    if ($("input[name='willCheck_item']").length > 0) {
+
+        console.log("Submit values can be found on the sheet"); 
+        return; 
+
+    } else {
+
+        console.log("No items can be found to submit in the kitchen"); 
+        event.preventDefault(); 
+        return; 
+    }
+})
+
