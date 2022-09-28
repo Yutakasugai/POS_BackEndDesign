@@ -11,65 +11,69 @@
 <body>
 
     <div class="wrapper">
-
         <!-- Top Line for user info and some buttons -->
         <div class="page-container">
-
             <div class="page-info">
-
-                <h1>User Name: {{name}}</h1>
-
-                <h2 id="table-number">Table: {{table_key}}</h2>
-                <h2 id="customer-number">Customer Number: {{c_number}}</h2>
-
+                <h1>User Name: Yuta</h1>
+                <h2 id="table-number">Table Number: 2</h2>
+                <h2 id="customer-number">Customer Number: 3</h2>
             </div>
-
         </div>
 
-        
         <div class="customer-orders">
+            <div class="scrollable">
+
+                {{#each submit_items}}
+                    <input type="checkbox" class="check_box" value="{{main_item}}:{{other_pref}}:{{item_price}}" name="willPay_item">
+                    <label class="check_item">{{main_item}}</label>
+                    <p id="other_pref">{{other_pref}}</p>
+                    <hr id="item_line">
+                {{/each}}
             
-            {{!-- <div class="scrollable">
-
-                <input type="checkbox" id="1" name="order1" value="0">
-                <label for="order1"> Shio [L/S] </label><br>
-
             </div>
-                
-            <div class="customer-orders-button">
-                <div class="remove">
-                    <button id="remove-btn">Remove</button>
-                </div>
-                
-                <div></div>
-                
-                <div class="bill">
-                    <button id="bill-btn">Make Bill</button>
-                </div>
-            </div> --}}
-
         </div>
-        
+    
+
+
 
         <!-- Sign out Btn and Close Btn -->
         <div id="footer">
-
             <div class="btn-container">
                 <div class="back">
-                    <button id="back-btn">Back</button>
+
+                    {{!-- Back Btn on view Page--}}
+                    <form action="/auth/user/viewPage" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <button id="back-btn">Back</button>
+                    </form>
+                
                 </div>
 
-                <div></div>
+                <div class="bill">
+                    <button id="bill-btn">Bill</button>
+                </div>
 
                 <div class="done">
-                    <button id="done-btn">Done</button>
-                </div>
 
+                    {{!-- Back Btn on view Page--}}
+                    <form action="/auth/user/viewDone" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <button id="done-btn">Done</button>
+                    </form>
+
+                </div>
             </div>
         </div>
 
     </div>
-    {{!-- Wrapper End --}}
 
 </body>
 </html>

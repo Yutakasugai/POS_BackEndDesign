@@ -5,13 +5,14 @@ const router = express.Router();
 const loginController = require('../controllers/server-side/server-login'); 
 const signoutController = require('../controllers/server-side/server-signout'); 
 const server_addItemController = require('../controllers/server-side/server_addItem'); 
-const server_viewPageController = require('../controllers/server-side/server_view'); 
+const server_viewPageController = require('../controllers/server-side/server_viewItem'); 
 const server_addHomeController = require('../controllers/server-side/server_addHome'); 
 const server_insertItemController = require('../controllers/server-side/server_insertItem'); 
 const server_removeItemController = require('../controllers/server-side/server_removeItem'); 
 const server_submitItemController = require('../controllers/server-side/server_submitItem'); 
 const server_editItemController = require('../controllers/server-side/server_editItem'); 
 const server_removeItemEditController = require('../controllers/server-side/server_removeItem_edit'); 
+const server_viewDoneController = require('../controllers/server-side/server_viewDone'); 
 
 router.post('/user', loginController.user);
 router.post('/user/signout', signoutController.signout_user); 
@@ -23,6 +24,7 @@ router.post('/user/removeItem', server_removeItemController.removeItem);
 router.post('/user/submitItem', server_submitItemController.submitItem); 
 router.post('/user/editItem', server_editItemController.editItem); 
 router.post('/user/removeItem_edit', server_removeItemEditController.removeItem_edit); 
+router.post('/user/viewDone', server_viewDoneController.viewDone);
 
 
 // Admin Side
