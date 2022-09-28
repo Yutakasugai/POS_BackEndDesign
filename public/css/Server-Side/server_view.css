@@ -1,16 +1,14 @@
 html, body {
     background: #585858;
     font-family: "Kaisei Tokumin", Sans-Serif;
-    position: sticky;
-    overflow-y: scroll;
-    height: 100%;
 }
 
 .wrapper{
     height:100%;
-    position: sticky;
+    width: 96%;
+    position: fixed;
     display: grid;
-    grid-template-rows: 125px auto 90px;
+    grid-template-rows: 125px auto 5px 90px;
 }
 
 /* User Info & Phone and Take Out buttons */
@@ -37,11 +35,6 @@ html, body {
     /* padding: 3px; */
 }
 
-
-
-
-
-
 /* Display: 0; does not do anything else
 width: none; does not do anything as well */
 .customer-orders{
@@ -61,60 +54,15 @@ width: none; does not do anything as well */
 }
 
 .scrollable{
-    
-    height:88%;
+    height:100%;
     margin:auto;
     color: black;
     font-size: 20px;
-
     flex: 1;
     overflow:auto;
     overflow-y: scroll;
     position:relative;
 }
-
-
-
-.customer-orders-button {
-    grid-row: 3;
-    display: grid;
-    position: absolute;
-    grid-template-columns: 1fr 0.1fr 1fr;
-    border-radius: 20px;
-    padding: 10px;
-    color: #c3c3c3;
-    margin: auto;
-    position: sticky;   
-}
-
-#remove-btn{
-    padding: 9px 16px;
-    border-radius: 10px;
-    border-width: 2.5px;
-    border-color: black;
-    background-color: lightpink;
-    float: left;
-}
-#remove-btn:active {
-    box-shadow: none;
-    transform: translateY(3px);
-    opacity: 0.5;
-}
-#bill-btn{
-    padding: 9px 21px;
-    background-color: lightsalmon;
-    border-radius: 10px;
-    border-width: 2.5px;
-    border-color: black;
-    float: right;
-}
-#bill-btn:active {
-    box-shadow: none;
-    transform: translateY(3px);
-    opacity: 0.5;
-}
-
-
 
 
 /* Close btn and Sign Out btn */
@@ -129,38 +77,70 @@ width: none; does not do anything as well */
 
 .btn-container {
     display: grid;
-    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     background-color: #343434;
     border-radius: 20px;
     padding: 10px;
     color: #c3c3c3;
+    text-align: center;
 }
 
 
-
 #back-btn{
-    padding: 9px 16px;
+    padding: 17px 15px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
     background-color: lightcoral;
-    float: left;
+    width: 70%;
+    margin: auto;
+    text-align: center;
 }
 #back-btn:active {
     box-shadow: none;
     transform: translateY(3px);
     opacity: 0.5;
 }
+
+
+#bill-btn{
+    padding: 17px 15px;
+    background-color: lightsalmon;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+#bill-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+
 #done-btn{
-    padding: 9px 21px;
+    padding: 17px 15px;
     background-color: lightgreen;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
-    float: right;
+    width: 70%;
+    margin: auto;
+    text-align: center;
 }
 #done-btn:active {
     box-shadow: none;
     transform: translateY(3px);
     opacity: 0.5;
+}
+
+
+/* Inside of Box */
+#other_pref {
+    font-size: 1.1rem;
+}
+
+#item_line {
+    border-color: black;
 }
