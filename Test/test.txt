@@ -4,37 +4,28 @@ UPDATE table_check SET table_status = 'empty', num_customer = 'None';
 
 drop table if exists Table_1, Table_1_Check, Table_2, Table_2_Check, Table_3, Table_3_Check, Table_4, Table_4_Check, Table_5, Table_5_Check, Table_6, Table_6_Check, Table_7, Table_7_Check, Table_8, Table_8_Check; 
 
+drop table if exists Togo_1, Togo_1_Check, Togo_2, Togo_2_Check, Togo_3, Togo_3_Check, Togo_4, Togo_4_Check, Phone_1, Phone_1_Check, Phone_2, Phone_2_Check, Phone_3, Phone_3_Check, Phone_4, Phone_4_Check;  
+
 CREATE TABLE IF NOT EXISTS table_check (table_id TEXT NOT NULL, table_status TEXT NOT NULL, num_customer TEXT); 
 
 INSERT INTO table_check(table_id, table_status) VALUES ('Table_1', 'empty'), ('Table_2', 'empty'), ('Table_3', 'empty'), ('Table_4', 'empty'), ('Table_5', 'empty'), ('Table_6', 'empty'), ('Table_7', 'empty'), ('Table_8', 'empty'), ('Togo_1', 'empty'), ('Togo_2', 'empty'), ('Togo_3', 'empty'), ('Togo_4', 'empty'), ('Phone_1', 'empty'), ('Phone_2', 'empty'), ('Phone_3', 'empty'), ('Phone_4', 'empty');
 
-CREATE TABLE IF NOT EXISTS Menu_List (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL, gst_price TEXT NOT NULL, total_price TEXT NOT NULL, num_item TEXT);
+CREATE TABLE IF NOT EXISTS Menu_List (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL, gst_price TEXT NOT NULL, total_price TEXT NOT NULL, num_item TEXT DEFAULT "0");
 
-INSERT INTO Menu_List(item_name, item_price, gst_price, total_price) VALUES
+INSERT INTO Menu_List(item_name, item_price, gst_price, total_price, num_item) VALUES
 ('Shio', '12.45', '0.62', '13.07'), ('Shoyu', '12.45', '0.62', '13.07'), ('Miso', '13.45', '0.67', '14.12'),
 ('Belly', '2.45', '0.12', '2.57'), ('Shoulder', '2.45', '0.12', '2.57'), ('Beans', '1.50', '0.08', '1.58'),
 ('Egg', '1.95', '0.10', '2.05'); 
 
-drop table updated_table, order_result; 
+drop table updated_table, order_result, togo_phone, userLog, coming_order; 
 
+CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", num_customer TEXT DEFAULT "1"); 
 
+CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL); 
 
-<div class="orderBtn-textBox">
-            <div class="scrollable-orders">
-                <div class="review-container">
-                    <table border cellspacing="0">
-                    <!-- table desc rows -->
-                    <tr class="reviewBox-container"> 
+CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL); 
 
-                        {{#each items}}
-                        <tr class="reviewBox-header" id="{{table_id}}_{{orginal_id}}_all">
-                            <th class="tableNum-row" id="{{table_id}}_{{orginal_id}}_table">{{table_id}}</th>
-                            <th class="order-row" id="{{table_id}}_{{orginal_id}}_item">{{item_name}}</th>
-                        </tr>
-                        {{/each}}
+CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)
 
-                    </tr>
+UPDATE Menu_List SET num_item = '0';
 
-                </div>
-            </div>
-        </div>

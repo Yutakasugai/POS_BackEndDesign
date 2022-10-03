@@ -50,15 +50,19 @@
 
         <div class="view_section">
 
-            {{!-- View Button --}}
-            <form action="/auth/user/viewPage" method="POST">
-                <input type="hidden" name="userName" value="{{name}}">
-                <input type="hidden" name="date_key" value="{{Date}}">
-                <input type="hidden" name="time_key" value="{{Time}}">
-                <input type="hidden" name="table_key" value="{{table_key}}">
-                <input type="hidden" name="c_number" value="{{c_number}}">
-                <button class="view-button" name="view_id" value="View">View</button>
-            </form>
+            {{!-- No view btn displayed for togo order --}}
+            {{#if togo_key}}
+                <div class="empty_box"></div>
+            {{else}}
+                <form action="/auth/user/viewPage" method="POST">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
+                    <input type="hidden" name="table_key" value="{{table_key}}">
+                    <input type="hidden" name="c_number" value="{{c_number}}">
+                    <button class="view-button" name="view_id" value="View">View</button>
+                </form>
+            {{/if}}
             
         </div>
 
@@ -538,6 +542,7 @@
                                             <input type="hidden" name="time_key" value="{{Time}}">
                                             <input type="hidden" name="table_key" value="{{table_key}}">
                                             <input type="hidden" name="c_number" value="{{c_number}}">
+                                            <input type="hidden" name="togo_key" value="{{togo_key}}">
 
                                             <!-- Input to keep the added items before going to db -->
                                             <input type="hidden" name="added_item" id="added_item" value="">
@@ -555,6 +560,7 @@
                                             <input type="hidden" name="time_key" value="{{Time}}">
                                             <input type="hidden" name="table_key" value="{{table_key}}">
                                             <input type="hidden" name="c_number" value="{{c_number}}">
+                                            <input type="hidden" name="togo_key" value="{{togo_key}}">
                                             
                                             <!-- Input to keep the added items before going to db -->
                                             <input type="hidden" name="edit_item" id="edit_item" value="">
@@ -1907,13 +1913,14 @@
 
             <div class="orders">
                 <div class="scrollable">
+
                     {{#each items}}
                         <input type="checkbox" class="check_box" value="{{id}}:{{main_item}}:{{other_pref}}" name="willCheck_item">
                         <label class="check_item">{{main_item}}</label>
                         <p id="other_pref">{{other_pref}}</p>
                         <hr style="border-color: black;">
                     {{/each}}
-                
+                    
                 </div>
             </div>
 
@@ -1928,11 +1935,12 @@
                         <input type="hidden" name="time_key" value="{{Time}}">
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
                         <input type="hidden" name="remove_key" id="remove_key" value="">
                         <button id="remove-btn">Remove</button>
                     </form>
 
-                </div>
+                </div> 
 
                 <div></div>
 
@@ -1943,7 +1951,8 @@
                         <input type="hidden" name="date_key" value="{{Date}}">
                         <input type="hidden" name="time_key" value="{{Time}}">
                         <input type="hidden" name="table_key" value="{{table_key}}">
-                        <button id="submit-btn">Submit</button>
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <button id="submit-btn" style="padding: 9px 60px;;">Submit</button>
                     </form>
 
                 </div>
@@ -1952,6 +1961,9 @@
 
         </div>
     </div>
+
+    {{!-- Test input for togo key --}}
+    <input type="hidden" id="togo_key" value="{{togo_key}}">
 
     <!-- Modal for Edit Button -->
     <div class="edit-modal" id="editBtn-modal">
@@ -1992,6 +2004,7 @@
                         <input type="hidden" name="time_key" value="{{Time}}">
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
                         <input type="hidden" name="remove_key_edit" id="remove_key_edit" value="">
                         <button id="remove-btn-v2">Remove</button>
                     </form>
@@ -2024,6 +2037,7 @@
                     <input type="hidden" name="date_key" value="{{Date}}">
                     <input type="hidden" name="time_key" value="{{Time}}">
                     <input type="hidden" name="table_key" value="{{table_key}}">
+                    <input type="hidden" name="togo_key" value="{{togo_key}}">
                     <button class="home_button">&#127968;</button>
                 </form>
 

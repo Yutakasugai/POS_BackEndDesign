@@ -1105,7 +1105,7 @@
 }
 
 #submit-btn{
-  padding: 9px 60px;
+  /* padding: 9px 60px; */
   background-color: yellow;
   border-radius: 10px;
   border-width: 2.5px;

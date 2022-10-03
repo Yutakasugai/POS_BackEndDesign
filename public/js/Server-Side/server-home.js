@@ -1,31 +1,3 @@
-
-// const tableBox_1 = document.getElementById('table1'); 
-// const tableBox_2 = document.getElementById('table2'); 
-// const tableBox_3 = document.getElementById('table3'); 
-// const tableBox_4 = document.getElementById('table4'); 
-// const tableBox_5 = document.getElementById('table5'); 
-// const tableBox_6 = document.getElementById('table6'); 
-// const tableBox_7 = document.getElementById('table7'); 
-// const tableBox_8 = document.getElementById('table8'); 
-
-// const addBtn1_filled = document.getElementById('add1_filled'); 
-// const addBtn2_filled = document.getElementById('add2_filled'); 
-// const addBtn3_filled = document.getElementById('add3_filled'); 
-// const addBtn4_filled = document.getElementById('add4_filled'); 
-// const addBtn5_filled = document.getElementById('add5_filled'); 
-// const addBtn6_filled = document.getElementById('add6_filled'); 
-// const addBtn7_filled = document.getElementById('add7_filled'); 
-// const addBtn8_filled = document.getElementById('add8_filled'); 
-
-// const addBtn1_empty = document.getElementById('add1_empty'); 
-// const addBtn2_empty = document.getElementById('add2_empty');
-// const addBtn3_empty = document.getElementById('add3_empty');
-// const addBtn4_empty = document.getElementById('add4_empty');
-// const addBtn5_empty = document.getElementById('add5_empty');
-// const addBtn6_empty = document.getElementById('add6_empty');
-// const addBtn7_empty = document.getElementById('add7_empty');
-// const addBtn8_empty = document.getElementById('add8_empty');
-
 // Table Array 
 const tabel_arr = document.getElementById('table_arr').value.split(','); 
 

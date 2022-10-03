@@ -133,7 +133,7 @@ router.get('/serverHome', (req, res) => {
   const time_key = req.query.time; 
 
   // Make an array conatined of table_status
-  db.query("select table_status from table_check", (error, result) => {
+  db.query("select * from table_check", (error, result) => {
     if (error) {
         console.log(error)
     }
@@ -151,12 +151,41 @@ router.get('/serverHome', (req, res) => {
           console.log(error); 
       }
 
-      return res.render("server", {
-          name: userName, 
-          Date: date_key, 
-          Time: time_key,
-          table_arr: table_arr,
-          items: item_result
+      // Make another array for togo_phone condition
+      db.query('select * from togo_phone', (error, result_v2) => {
+        if (error) {
+          console.log(error); 
+        }
+
+        if (result_v2.length > 0){
+
+          const table_arr_v2 = []; 
+          for (let h = 0; h < result_v2.length; h++) {
+
+              let value_id = `${result_v2[h]["order_status"]}:${result_v2[h]["table_id"]}`; 
+              table_arr_v2.push(value_id); 
+          }
+
+          // Back to Home Page with togo_phone arr
+          return res.render("server", {
+              name: userName, 
+              Date: date_key, 
+              Time: time_key,
+              table_arr: table_arr,
+              table_arr_v2: table_arr_v2,
+              items: item_result
+          })
+
+        } else {
+
+          return res.render("server", {
+              name: userName, 
+              Date: date_key, 
+              Time: time_key,
+              table_arr: table_arr,
+              items: item_result
+          })
+        }
       })
     })
   })
@@ -297,6 +326,72 @@ router.get("/addPage_Edit", (req, res) => {
       })
   })
 })
+
+
+// Add Page for Togo and Phone Orders
+router.get("/addPage_Togo&Phone", (req, res) => {
+
+  // Capture all needed values from uinsertItem controller 
+  const userName = req.query.user;
+  const date_key = req.query.date; 
+  const time_key = req.query.time; 
+  const table_key = req.query.table;
+
+  // Define if this table is togo or phone
+  if (table_key.includes('Togo') === true) {
+
+    // Get added items from db
+    db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, result) => {
+      if (error) {
+        console.log(error); 
+      }
+
+      db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_result) => {
+        if (error) {
+          console.log(error); 
+        }
+
+        // Back to Add Page for Togo 
+        return res.render("addPage", {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key,
+            table_key: table_key, 
+            c_number: 1,
+            togo_key: 'togo_key',
+            items: result,
+            submit_items: submit_result
+        }); 
+      })
+    })
+
+  } else {
+
+    console.log('This is a phone order'); 
+  }
+})
+
+
+// router.get("/serverView", (req, res) => {
+
+//   // Capture all needed values from uinsertItem controller 
+//   const userName = req.query.user;
+//   const date_key = req.query.date; 
+//   const time_key = req.query.time; 
+//   const table_key = req.query.table;
+//   const order_id = req.query.id; 
+
+//   if (order_id === 'togo_key') {
+
+//     console.log('This is a togo order'); 
+
+//     db.query(``)
+
+//   } else {
+
+//     console.log('This is a phone order'); 
+//   }
+// })
 
 
 

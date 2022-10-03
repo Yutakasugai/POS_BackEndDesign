@@ -4,9 +4,9 @@ const db = db_conn["db_conn"];
 
 exports.removeItem_edit = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, c_number, remove_key_edit} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, remove_key_edit, togo_key} = req.body; 
 
-    console.log(userName, date_key, time_key, table_key, c_number, remove_key_edit); 
+    // console.log(userName, date_key, time_key, table_key, c_number, remove_key_edit); 
 
     const removeItem_array = []; 
     
@@ -103,16 +103,34 @@ exports.removeItem_edit = (req, res) => {
         }) 
     })
 
-    // Back to server add page
-    return res.redirect(url.format({
-        pathname: '/addPage_Edit',
-        query: {
-            "status": "Server_AddPage",
-            "user": userName,
-            "date": date_key, 
-            "time": time_key, 
-            "table": table_key, 
-            "c_num": c_number
-        }
-    }))
+    if (togo_key === 'togo_key') {
+
+        // Back to server add page
+        // Return to Add Page 
+        return res.redirect(url.format({
+            pathname: '/addPage_Togo&Phone',
+            query: {
+                "status": "Server_AddPage",
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key
+            }
+        })); 
+        
+    } else {
+
+        // Back to server add page
+        return res.redirect(url.format({
+            pathname: '/addPage_Edit',
+            query: {
+                "status": "Server_AddPage",
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key, 
+                "c_num": c_number
+            }
+        }))
+    }
 }

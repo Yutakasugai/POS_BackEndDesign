@@ -4,7 +4,7 @@ const db = db_conn["db_conn"];
 
 exports.editItem = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, c_number, edit_item, edit_total_num, edit_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, edit_item, edit_total_num, edit_key, togo_key} = req.body; 
 
     // Array 
     const newItem_array = []; 
@@ -196,7 +196,9 @@ exports.editItem = (req, res) => {
     // console.log("complete_temp_array is :" + complete_temp_array); 
     // console.log("\ncomplete_array is: " + complete_array); 
 
-    // // Insert a new item to table_check db
+    // return res.send("I am testing this function now"); 
+
+    // Insert a new item to table_check db
     let total_price = 0;
     const test_container = []; 
 
@@ -221,13 +223,13 @@ exports.editItem = (req, res) => {
                     if(newItem_exTop.length > 0){
 
                         for (let w = 0; w < edit_total_num; w++){
-                            let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?)`;
-                            db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_exTop.join(':'), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
+                            let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_num, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?, ?)`;
+                            db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_exTop.join(':'), newItem_temp_array.join(','), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
                                 if(error){
                                     console.log(error); 
                                 }
 
-                                // console.log(Object.values(JSON.parse(JSON.stringify(result)))[2]); 
+                                console.log(Object.values(JSON.parse(JSON.stringify(result)))[2], "This is the whole array: " + Object.values(JSON.parse(JSON.stringify(result)))[2]); 
                                 let temp_id = Object.values(JSON.parse(JSON.stringify(result)))[2]; 
 
                                 test_container.push(String(temp_id)); 
@@ -268,13 +270,14 @@ exports.editItem = (req, res) => {
                     } else {
 
                         for (let w = 0; w < edit_total_num; w++){
-                            let insert_sql = `insert into ${table_key}(full_order, main_item, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?)`;
-                            db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
+                            let insert_sql = `insert into ${table_key}(full_order, main_item, item_num, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?)`;
+                            db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_temp_array.join(','), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
                                 if(error){
                                     console.log(error); 
                                 }
 
-                                // console.log(Object.values(JSON.parse(JSON.stringify(result)))[2]);
+                                console.log(Object.values(JSON.parse(JSON.stringify(result)))[2], "This is the whole array: " + Object.values(JSON.parse(JSON.stringify(result)))[2]); 
+
                                 let temp_id = Object.values(JSON.parse(JSON.stringify(result)))[2];
                                 test_container.push(String(temp_id)); 
 
@@ -319,13 +322,14 @@ exports.editItem = (req, res) => {
 
                     if(newItem_exTop.length > 0){
 
-                        let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?)`;
-                        db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_exTop.join(':'), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
+                        let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_num, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?, ?)`;
+                        db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_exTop.join(':'), newItem_temp_array.join(','), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
                             if(error){
                                 console.log(error); 
                             }
 
-                            // console.log(Object.values(JSON.parse(JSON.stringify(result)))[2]);
+                            console.log(Object.values(JSON.parse(JSON.stringify(result)))[2], "This is the whole array: " + Object.values(JSON.parse(JSON.stringify(result)))[2]); 
+
                             let temp_id = Object.values(JSON.parse(JSON.stringify(result)))[2];
                             test_container.push(String(temp_id)); 
 
@@ -359,13 +363,14 @@ exports.editItem = (req, res) => {
 
                     } else {
 
-                        let insert_sql = `insert into ${table_key}(full_order, main_item, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?)`;
-                        db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
+                        let insert_sql = `insert into ${table_key}(full_order, main_item, item_num, item_price, kitchen_id, order_status) values(?, ?, ?, ?, ?, ?)`;
+                        db.query(insert_sql, [newItem_array.join(':'), newItem_array[0], newItem_temp_array.join(','), total_price.toFixed(2), oldItem_kitchenId, 'submit'], (error, result) => {
                             if(error){
                                 console.log(error); 
                             }
 
-                            // console.log(Object.values(JSON.parse(JSON.stringify(result)))[2]); 
+                            console.log(Object.values(JSON.parse(JSON.stringify(result)))[2], "This is the whole array: " + Object.values(JSON.parse(JSON.stringify(result)))[2]); 
+
                             let temp_id = Object.values(JSON.parse(JSON.stringify(result)))[2];
                             test_container.push(String(temp_id)); 
 
@@ -475,18 +480,34 @@ exports.editItem = (req, res) => {
         }
     })
 
+    if (togo_key === 'togo_key') {
 
-    // Back to server add page
-    return res.redirect(url.format({
-        pathname: '/addPage',
-        query: {
-            "status": "Server_AddPage",
-            "user": userName,
-            "date": date_key, 
-            "time": time_key, 
-            "table": table_key, 
-            "c_num": c_number
-        }
-    }))
+        // Return to Add Page 
+        return res.redirect(url.format({
+            pathname: '/addPage_Togo&Phone',
+            query: {
+                "status": "Server_AddPage",
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key
+            }
+        })); 
+
+    } else {
+
+        // Back to server add page
+        return res.redirect(url.format({
+            pathname: '/addPage_Edit',
+            query: {
+                "status": "Server_AddPage",
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key, 
+                "c_num": c_number
+            }
+        }))
+    }
 }
 

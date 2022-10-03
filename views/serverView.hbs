@@ -14,9 +14,9 @@
         <!-- Top Line for user info and some buttons -->
         <div class="page-container">
             <div class="page-info">
-                <h1>User Name: Yuta</h1>
-                <h2 id="table-number">Table Number: 2</h2>
-                <h2 id="customer-number">Customer Number: 3</h2>
+                <h1>User Name: {{name}}</h1>
+                <h2 id="table-number">Table Number: {{table_key}}</h2>
+                <h2 id="customer-number">Customer Number: {{c_number}}</h2>
             </div>
         </div>
 
@@ -48,6 +48,7 @@
                         <input type="hidden" name="time_key" value="{{Time}}">
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
                         <button id="back-btn">Back</button>
                     </form>
                 
@@ -66,6 +67,7 @@
                         <input type="hidden" name="time_key" value="{{Time}}">
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
                         <button id="done-btn">Done</button>
                     </form>
 

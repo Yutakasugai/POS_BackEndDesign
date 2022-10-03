@@ -142,7 +142,6 @@ removeBtn_edit.addEventListener('click', function(event){
 
 // Submit Button on the Submit Sheet 
 const submitBtn = document.getElementById('submit-btn');
-// const submitItem = document.querySelector('.check_box'); 
 
 const submitItem_array = []; 
 
@@ -160,4 +159,16 @@ submitBtn.addEventListener('click', function(event){
         return; 
     }
 })
+
+// Change the innerTexrt of submit btn for togo order
+const togo_key = document.getElementById('togo_key'); 
+
+// console.log(togo_key.value); 
+if (togo_key.value === 'togo_key') {
+
+    // Change the submit btn 
+    submitBtn.innerHTML = 'Next';
+    submitBtn.style.padding = '9px 85px'; 
+
+} 
 

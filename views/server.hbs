@@ -26,8 +26,25 @@
         <div></div>
 
         <div class="page-buttons">
-            <button  id="phone-button">Phone</button>
-            <button  id="takeout-button">Take Out</button>
+
+            {{!-- Phone Button --}}
+            <form action="/auth/user/phoneOrder" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="date_key" value="{{Date}}">
+                <input type="hidden" name="time_key" value="{{Time}}">
+                <input type="hidden" name="table_key" value="Phone">
+                <button id="phone-button">Phone</button>
+            </form>
+
+            {{!-- Togo Button --}}
+            <form action="/auth/user/togoOrder" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="date_key" value="{{Date}}">
+                <input type="hidden" name="time_key" value="{{Time}}">
+                <input type="hidden" name="table_key" value="Togo">
+                <button id="takeout-button">Take Out</button>
+            </form>
+
         </div>
 
     </div>
@@ -217,34 +234,69 @@
 
         </div>
 
-        {{!-- Check if I could capture the table condition values from server-login.js --}}
-        {{!-- <input type="hidden" id="table_con" name="table_con" value={{table_con}}> --}}
-
+        {{!-- Eight Regular Table Condition --}}
         <input type="hidden" id="table_arr" name="table_arr" value={{table_arr}}>
+        {{!-- Togo and Phone Order Condition --}}
+        <input type="hidden" id="table_arr_v2" name="table_arr_v2" value={{table_arr_v2}}>
+
 
         <!-- Phone-1 and Phone-2 -->
         <div class="extra_container">
 
-            <div class="ex1" style="display:none;">
-                <div class="extra_phone" id="ex_table1">
+            <div id="ex1" style="display:none;">
+                <div class="togo_phone_box" id="ex_table_1" style="background: none;">
 
-                    <p class="table_num">Phone 1</p>
+                    <p class="table_num" id="text_ex1"></p>
 
-                    <div class="add-view">
-                        <button class="done-button" id = "doneBtn1">Done</button>
-                        <button class="view-button">View</button>
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_1" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_1" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
 
-            <div class="ex2" style="display:none;">
-                <div class="extra_phone" id="ex_table2">
+            <div id="ex2" style="display:none;">
+                <div class="togo_phone_box" id="ex_table_2" style="background: none;">
 
-                    <p class="table_num">Phone 2</p>
+                    <p class="table_num" id="text_ex2"></p>
 
-                    <div class="add-view">
-                        <button class="done-button" id = "doneBtn2">Done</button>
-                        <button class="view-button">View</button>
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_2" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_2" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -252,26 +304,61 @@
 
         <!-- Phone-3 and Phone-4 -->
         <div class="extra_container2">
-            <div class="ex3" style="display:none;">
 
-                <div class="extra_phone" id="ex_table3">
+            <div id="ex3" style="display:none;">
+                <div class="togo_phone_box" id="ex_table_3" style="background: none;">
 
-                    <p class="table_num">Phone 3</p>
+                    <p class="table_num" id="text_ex3"></p>
 
-                    <div class="add-view">
-                        <button class="done-button" id = "doneBtn3">Done</button>
-                        <button class="view-button">View</button>
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_3" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_3" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
 
-            <div class="ex4" style="display:none;">
-                <div class="extra_phone" id="ex_table4">
+            <div id="ex4" style="display:none;">
+                <div class="togo_phone_box" id="ex_table_4" style="background: none;">
 
-                    <p class="table_num">Phone 4</p>
-                    <div class="add-view">
-                        <button class="done-button" id = "doneBtn4">Done</button>
-                        <button class="view-button">View</button>
+                    <p class="table_num" id="text_ex4"></p>
+
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_4" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_4" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -280,27 +367,66 @@
 
         <!-- Togo-5 and Togo-6 -->
         <div class="extra_container3">
-            <div class="ex5" style="display:none;">
 
-                <div class="extra_takeout" id="ex_table5">
-                    <p class="table_num">To-Go 1</p>
+            <div id="ex5" id="extra_box" style="display:none;">
 
-                    <div class="add-view">
-                        <button class="take-update-button">Update</button>
-                        <button class="view-button">View</button>
+                <div class="togo_phone_box" id="ex_table_5" style="background: none;">
+
+                    <p class="table_num" id="text_ex5"></p>
+
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_5" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_5" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
+
                 </div>  
             </div>
 
-            <div class="ex6 " style="display:none;">
-                <div class="extra_takeout" id="ex_table6">
+            <div id="ex6" id="extra_box" style="display:none;">
 
-                    <p class="table_num">To-Go 2</p>
+                <div class="togo_phone_box" id="ex_table_6" style="background: none;">
 
-                    <div class="add-view">
-                        <button class="take-update-button">Update</button>
-                        <button class="view-button">View</button>
+                    <p class="table_num" id="text_ex6"></p>
+
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_6" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_6" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
+
                 </div>
             </div>
 
@@ -308,27 +434,66 @@
         
         <!-- Togo-7 and Togo-8 -->
         <div class = "extra_container4">
-            <div class="ex7" style="display:none;">
 
-                <div class="extra_takeout" id="ex_table7">
+            <div id="ex7" style="display:none;">
 
-                    <p class="table_num">To-Go 3</p>
+                <div class="togo_phone_box" id="ex_table_7" style="background: none;">
 
-                    <div class="add-view">
-                        <button class="take-update-button">Update</button>
-                        <button class="view-button">View</button>
+                    <p class="table_num" id="text_ex7"></p>
+
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_7" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_7" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
+
                 </div>
             </div>
 
-            <div class = "ex8" style="display:none;">
-                <div class="extra_takeout" id="ex_table8">
-                    <p class="table_num">To-Go 4</p>
+            <div id="ex8" style="display:none;">
 
-                    <div class="add-view">
-                        <button class="take-update-button">Update</button>
-                        <button class="view-button">View</button>
+                <div class="togo_phone_box" id="ex_table_8" style="background: none;">
+
+                    <p class="table_num" id="text_ex8"></p>
+
+                    <div class="togo-option">
+
+                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="done_btn_8" name="table_key" value="">
+                            <button class="done-button" name="func_key" value="done_id">Done</button>
+                        </form>
+                        
+                        {{!-- Phone: Update Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_8" name="table_key" value="">
+                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                        </form>
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -524,6 +689,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="/ws/server.js"></script>
 <script type="text/javascript" src="/js/Server-Side/server-home.js"></script>
+<script type="text/javascript" src="/js/Server-Side/server_togo&phone.js"></script>
 
 </body>
 </html>

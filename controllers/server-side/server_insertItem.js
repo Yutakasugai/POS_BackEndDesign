@@ -7,9 +7,9 @@ exports.insertItem = (req, res) => {
 
     // console.log("This is a test controller to insert items"); 
 
-    const {userName, date_key, time_key, table_key, c_number, added_item, total_num} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, added_item, total_num, togo_key} = req.body; 
 
-    // console.log(added_item, total_num);
+    console.log(added_item, total_num);
 
     var item_array = added_item.split(','); 
     var item_length = item_array.length;
@@ -88,44 +88,44 @@ exports.insertItem = (req, res) => {
     }
 
     // console.log("temp_array is: " + temp_array); 
-    // console.log("exTop_array is: " + temp_price_array);
+    // console.log("temp_price_array is: " + temp_price_array);
     // console.log("otherPref_array is: " + otherPref_array);
     // console.log("makePrice_array is: " + makePrice_array); 
 
     // Trying to insert all added items to Table_Check db 
-    for (let v = 0; v < makePrice_array.length; v++) {
+    // for (let v = 0; v < makePrice_array.length; v++) {
 
-        let item_name_v2 = makePrice_array[v].split(':')[1]; 
-        let item_number_v2 = makePrice_array[v].split(':')[0]; 
+    //     let item_name_v2 = makePrice_array[v].split(':')[1]; 
+    //     let item_number_v2 = makePrice_array[v].split(':')[0]; 
 
-        // Insert some values into table check db
-        db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result) => {
-            if(error) {
-                console.log(error); 
-            }
+    //     // Insert some values into table check db
+    //     db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result) => {
+    //         if(error) {
+    //             console.log(error); 
+    //         }
 
-            if (result.length > 0) {
+    //         if (result.length > 0) {
 
-                let update_num = result[0]['item_num'] + Number(item_number_v2); 
+    //             let update_num = result[0]['item_num'] + Number(item_number_v2); 
     
-                // This is the item already exsited in db 
-                db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result[0]['id']], (error, test) => {
-                    if(error) {
-                        console.log(error); 
-                    }
-                })
+    //             // This is the item already exsited in db 
+    //             db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result[0]['id']], (error, test) => {
+    //                 if(error) {
+    //                     console.log(error); 
+    //                 }
+    //             })
     
-            } else {
+    //         } else {
     
-                // This is the first item to insert 
-                db.query(`insert into ${table_key}_Check (item_name, item_num) values (?, ?)`, [item_name_v2, item_number_v2], (error, test) => {
-                    if (error) {
-                        console.log(error);
-                    }
-                })
-            }
-        })
-    } 
+    //             // This is the first item to insert 
+    //             db.query(`insert into ${table_key}_Check (item_name, item_num) values (?, ?)`, [item_name_v2, item_number_v2], (error, test) => {
+    //                 if (error) {
+    //                     console.log(error);
+    //                 }
+    //             })
+    //         }
+    //     })
+    // } 
 
     let item_total = 0; 
 
@@ -151,11 +151,14 @@ exports.insertItem = (req, res) => {
                 // console.log("This is the end of this for loop"); 
     
                 if (total_num > 1) {
-    
-                    if (temp_price_array.length > 1) {
+
+                    if (otherPref_array.length > 0) {
+
+                        console.log("This item is with some pref"); 
+
                         for (let q = 0; q < total_num; q++) {
-                            let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_price) values(?, ?, ?, ?)`; 
-                            db.query(insert_sql, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), item_total.toFixed(2)], (error) => {
+                            let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_num, item_price) values(?, ?, ?, ?, ?)`; 
+                            db.query(insert_sql, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                                 if(error) {
                                     console.log(error); 
                                 }
@@ -163,22 +166,25 @@ exports.insertItem = (req, res) => {
                         }
 
                     } else {
+
+                        console.log("This item is not with pref"); 
+
                         for (let r = 0; r < total_num; r++) {
-                            let insert_sql = `insert into ${table_key}(full_order, main_item, item_price) values(?, ?, ?)`; 
-                            db.query(insert_sql, [temp_array.join(':'), temp_array[0], item_total.toFixed(2)], (error) => {
+                            let insert_sql = `insert into ${table_key}(full_order, main_item, item_num, item_price) values(?, ?, ?, ?)`; 
+                            db.query(insert_sql, [temp_array.join(':'), temp_array[0], temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                                 if(error){
                                     console.log(error); 
                                 }
                             }); 
                         }
                     }
-    
+
                 } else {
 
-                    if (temp_price_array.length > 1) {
+                    if (otherPref_array.length > 0) {
 
-                        let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_price) values(?, ?, ?, ?)`; 
-                        db.query(insert_sql, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), item_total.toFixed(2)], (error) => {
+                        let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_num, item_price) values(?, ?, ?, ?, ?)`; 
+                        db.query(insert_sql, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                             if(error) {
                                 console.log(error); 
                             }
@@ -186,8 +192,8 @@ exports.insertItem = (req, res) => {
 
                     } else {
 
-                        let insert_sql = `insert into ${table_key}(full_order, main_item, item_price) values(?, ?, ?)`; 
-                        db.query(insert_sql, [temp_array.join(':'), temp_array[0], item_total.toFixed(2)], (error) => {
+                        let insert_sql = `insert into ${table_key}(full_order, main_item, item_num, item_price) values(?, ?, ?, ?)`; 
+                        db.query(insert_sql, [temp_array.join(':'), temp_array[0], temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                             if(error){
                                 console.log(error); 
                             }
@@ -198,16 +204,37 @@ exports.insertItem = (req, res) => {
         })
     }
 
-    // Back to server add page
-    return res.redirect(url.format({
-        pathname: '/addPage',
-        query: {
-            "status": "Server_AddPage",
-            "user": userName,
-            "date": date_key, 
-            "time": time_key, 
-            "table": table_key, 
-            "c_num": c_number
-        }
-    }))
+    // Make sure if this order is togo or phone 
+    if (togo_key === 'togo_key') {
+
+        console.log("Items are added for togo order!")
+
+        // Back to server add page
+        return res.redirect(url.format({
+            pathname: '/addPage_Togo&Phone',
+            query: {
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key
+            }
+        }))
+
+    } else {
+
+        console.log("Itmes are added as a regular order");
+        
+        return res.redirect(url.format({
+            pathname: '/addPage',
+            query: {
+                "status": "Server_AddPage",
+                "user": userName,
+                "date": date_key, 
+                "time": time_key, 
+                "table": table_key, 
+                "c_num": c_number
+            }
+        }))
+    }
+    
 }
