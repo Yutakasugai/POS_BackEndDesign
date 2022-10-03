@@ -13,6 +13,8 @@ const server_submitItemController = require('../controllers/server-side/server_s
 const server_editItemController = require('../controllers/server-side/server_editItem'); 
 const server_removeItemEditController = require('../controllers/server-side/server_removeItem_edit'); 
 const server_viewDoneController = require('../controllers/server-side/server_viewDone'); 
+const server_togoOrderController = require('../controllers/server-side/server_togoOrder'); 
+const server_togoBoxController = require('../controllers/server-side/server_togoBox'); 
 
 router.post('/user', loginController.user);
 router.post('/user/signout', signoutController.signout_user); 
@@ -25,6 +27,8 @@ router.post('/user/submitItem', server_submitItemController.submitItem);
 router.post('/user/editItem', server_editItemController.editItem); 
 router.post('/user/removeItem_edit', server_removeItemEditController.removeItem_edit); 
 router.post('/user/viewDone', server_viewDoneController.viewDone);
+router.post('/user/togoOrder', server_togoOrderController.togoOrder); 
+router.post('/user/togoBox', server_togoBoxController.togoBox); 
 
 
 // Admin Side
