@@ -89,10 +89,9 @@ html, body {
 .table_num {
     font-size: 17px;
     font-weight: 500;
-    padding-left: 10px;
+    padding-left: 9px;
     margin: 5px;
 }
-
 .table{
     flex: 1;
     border: 1px;
@@ -109,9 +108,15 @@ html, body {
     gap: 6px;
     margin-top: 10px;
 }
-
 .togo-option {
-    display: flex;
+    /* display: flex; */
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.phone-option {
     text-align: center;
     justify-content: center;
     gap: 10px;
@@ -190,6 +195,7 @@ html, body {
     margin-left: 10px;
 }
 
+
 /* Take Out and Phone Box */
 .done-view{
     text-align: center;
@@ -206,32 +212,54 @@ html, body {
     border-width: 2.5px;
     border-color: black;
 }
-.view-button{
+.update-btn-togo{
+    background-color:lightcoral;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+.update-btn-togo:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+.update-btn-phone{
+    background-color:lightcoral;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+.update-btn-phone:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+.view-btn-phone{
     background-color: lightcyan;
     padding: 10px 18px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
 }
-.take-update-button{
-    background-color:lightcoral;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border-width: 2.5px;
-    border-color: black;
-}
-.update-btn-v2{
-    background-color:lightcoral;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border-width: 2.5px;
-    border-color: black;
-}
-.update-btn-v2:active {
+.view-btn-phone:active {
     box-shadow: none;
     transform: translateY(3px);
     opacity: 0.5;
 }
+.ex-textBox{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: -3px;
+}
+.table_desc {
+    font-size: 12.5px;
+    /* font-weight: bold; */
+    color: black;
+}
+
 
 
 /* Take Out and Phone Box - 1 row*/

@@ -7,9 +7,9 @@ exports.insertItem = (req, res) => {
 
     // console.log("This is a test controller to insert items"); 
 
-    const {userName, date_key, time_key, table_key, c_number, added_item, total_num, togo_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, added_item, total_num, togo_key, phone_key} = req.body; 
 
-    console.log(added_item, total_num);
+    // console.log(added_item, total_num);
 
     var item_array = added_item.split(','); 
     var item_length = item_array.length;
@@ -205,9 +205,9 @@ exports.insertItem = (req, res) => {
     }
 
     // Make sure if this order is togo or phone 
-    if (togo_key === 'togo_key') {
+    if (togo_key === 'togo_key' || phone_key === 'phone_key') {
 
-        console.log("Items are added for togo order!")
+        console.log("Items are added for togo or phone order!");
 
         // Back to server add page
         return res.redirect(url.format({

@@ -13,10 +13,18 @@
     <div class="wrapper">
         <!-- Top Line for user info and some buttons -->
         <div class="page-container">
+
             <div class="page-info">
+
                 <h1>User Name: {{name}}</h1>
                 <h2 id="table-number">Table Number: {{table_key}}</h2>
-                <h2 id="customer-number">Customer Number: {{c_number}}</h2>
+                
+                {{#if pickUp_time }}
+                    <h2 id="customer-number">PickUp Time: {{pickUp_time}}</h2>
+                {{else}}
+                    <h2 id="customer-number">Customer Number: {{c_number}}</h2>
+                {{/if}}
+
             </div>
         </div>
 
@@ -41,16 +49,30 @@
             <div class="btn-container">
                 <div class="back">
 
-                    {{!-- Back Btn on view Page--}}
-                    <form action="/auth/user/viewPage" method="POST">
-                        <input type="hidden" name="userName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{Date}}">
-                        <input type="hidden" name="time_key" value="{{Time}}">
-                        <input type="hidden" name="table_key" value="{{table_key}}">
-                        <input type="hidden" name="c_number" value="{{c_number}}">
-                        <input type="hidden" name="togo_key" value="{{togo_key}}">
-                        <button id="back-btn">Back</button>
-                    </form>
+                    {{#if ifPhone_id }}
+
+                        <form action="/auth/user/addHome" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            <button id="back-btn">Home</button>
+                        </form>
+
+                    {{else}}
+
+                        <form action="/auth/user/viewBack" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <button id="back-btn">Back</button>
+                        </form>
+
+                    {{/if}}
                 
                 </div>
 
@@ -60,7 +82,7 @@
 
                 <div class="done">
 
-                    {{!-- Back Btn on view Page--}}
+                    {{!-- Done Btn to back to Server Home --}}
                     <form action="/auth/user/viewDone" method="POST">
                         <input type="hidden" name="userName" value="{{name}}">
                         <input type="hidden" name="date_key" value="{{Date}}">
@@ -68,6 +90,7 @@
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
                         <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
                         <button id="done-btn">Done</button>
                     </form>
 

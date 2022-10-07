@@ -50,20 +50,14 @@ const removeItem_array = [];
 
 removeBtn.addEventListener('click', function(event){
 
-    // console.log("This is passed.")
-
     $.each($("input[name='willCheck_item']:checked"), function(){            
         removeItem_array.push($(this).val());
     });
 
     // Check if the array is zero or not 
     if (removeItem_array.length > 0) {
-
         remove_key.setAttribute('value', removeItem_array); 
-
     } else {
-
-        // console.log("There is no value of array!"); 
         event.preventDefault(); 
         return; 
     }
@@ -110,7 +104,6 @@ edit_button.addEventListener('click', function(event){
     }
 })
 
-
 // Edit Sheet Modal (Remove Button)
 const removeBtn_edit = document.getElementById('remove-btn-v2'); 
 const remove_key_edit = document.getElementById('remove_key_edit'); 
@@ -119,7 +112,6 @@ const removeItem_edit_array = [];
 
 removeBtn_edit.addEventListener('click', function(event){
 
-    // console.log("This is passed.")
 
     $.each($("input[name='willEdit_item']:checked"), function(){            
         removeItem_edit_array.push($(this).val());
@@ -127,11 +119,8 @@ removeBtn_edit.addEventListener('click', function(event){
 
     // Check if the array is zero or not 
     if (removeItem_edit_array.length > 0) {
-
         remove_key_edit.setAttribute('value', removeItem_edit_array); 
-
     } else {
-
         // console.log("There is no value of array!"); 
         event.preventDefault(); 
         return; 
@@ -143,18 +132,13 @@ removeBtn_edit.addEventListener('click', function(event){
 // Submit Button on the Submit Sheet 
 const submitBtn = document.getElementById('submit-btn');
 
-const submitItem_array = []; 
-
 submitBtn.addEventListener('click', function(event){
 
     if ($("input[name='willCheck_item']").length > 0) {
-
-        console.log("Submit values can be found on the sheet"); 
         return; 
-
     } else {
 
-        console.log("No items can be found to submit in the kitchen"); 
+        // This works for js controller 
         event.preventDefault(); 
         return; 
     }
@@ -169,6 +153,27 @@ if (togo_key.value === 'togo_key') {
     // Change the submit btn 
     submitBtn.innerHTML = 'Next';
     submitBtn.style.padding = '9px 85px'; 
-
 } 
+
+// Check which option box is selected
+const nextBtn = document.getElementById('next-btn'); 
+const pickUp_time = document.getElementById('pickUp_time'); 
+const selectBar = document.getElementById('time'); 
+// const selectBar = document.getElementById('time'); 
+
+nextBtn.addEventListener('click', function(event){
+
+    // Insert pickUp time to element
+    const select_val = selectBar.options[selectBar.selectedIndex].value; 
+    pickUp_time.setAttribute('value', select_val); 
+
+    if ($("input[name='willCheck_item']").length > 0) {
+        return; 
+    } else {
+        // This works for js controller 
+        event.preventDefault(); 
+        return; 
+    }
+})
+
 

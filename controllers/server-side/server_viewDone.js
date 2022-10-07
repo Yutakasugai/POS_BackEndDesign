@@ -5,7 +5,7 @@ const db = db_conn["db_conn"];
 // View Done Button Controller
 exports.viewDone = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, c_number, togo_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, togo_key, phone_key} = req.body; 
 
     // Make if this order sheet is togo or phone
     if (togo_key === 'togo_key') {
@@ -239,38 +239,66 @@ exports.viewDone = (req, res) => {
                     })
                 })
             }
+
+            // Remove all data related to this table db 
+            db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
+                if(error) {
+                    console.log(error); 
+                }
+            })
+
+            // Remove the item from coming_order db as well
+            db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
+                if (error) {
+                    console.log(error); 
+                }
+            }) 
+
+            if (phone_key === 'phone_key') {
+
+                // Update customer_result db
+                db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, '1'], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                })
+
+                db.query(`delete from togo_phone where table_id = (?)`, (table_key), (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+
+                    return; 
+                })
+            } else {
+
+                // Update customer_result db
+                db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, c_number], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                })
+
+                db.query(`update table_check set table_status = (?), num_customer = (?) where table_id = (?)`, ['empty', 'None', table_key], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+
+                    return; 
+                })
+            }
+
+            // Back to server add page
+            return res.redirect(url.format({
+                pathname: '/serverHome',
+                query: {
+                    "status": "Server_HomePage",
+                    "user": userName,
+                    "date": date_key, 
+                    "time": time_key, 
+                }
+            }))
         })
-
-        // Remove all data related to this table db 
-        db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
-            if(error) {
-                console.log(error); 
-            }
-        })
-
-        db.query(`update table_check set table_status = (?), num_customer = (?) where table_id = (?)`, ['empty', 'None', table_key], (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        })
-
-        // Remove the item from coming_order db as well
-        db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        }) 
-
-        // Back to server add page
-        return res.redirect(url.format({
-            pathname: '/serverHome',
-            query: {
-                "status": "Server_HomePage",
-                "user": userName,
-                "date": date_key, 
-                "time": time_key, 
-            }
-        }))
     }
 }
 

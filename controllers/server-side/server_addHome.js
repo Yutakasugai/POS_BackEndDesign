@@ -5,10 +5,10 @@ const db = db_conn["db_conn"];
 // Server Add Home Button Controller 
 exports.addHome = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, togo_key} = req.body; 
+    const {userName, date_key, time_key, table_key, togo_key, phone_key} = req.body; 
     // console.log(userName, date_key, time_key, table_key, togo_key);
     
-    if (togo_key === 'togo_key'){
+    if (togo_key === 'togo_key' || phone_key === 'phone_key'){
 
         db.query(`select * from togo_phone where table_id = (?)`, (table_key), (error, get_id) => {
             if (error) {
@@ -17,7 +17,7 @@ exports.addHome = (req, res) => {
 
             if (get_id[0]['table_status'] === 'filled') {
 
-                console.log("This is add page after server click update btn"); 
+                // console.log("This is add page after server click update btn"); 
 
                 // Check if server is on the way to submit some items 
                 db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, unsubmit_items) => {
@@ -35,12 +35,17 @@ exports.addHome = (req, res) => {
                                     console.log(error); 
                                 }
                             })
+
+                            return; 
                         }
 
-                    } 
-                })
+                    } else {
 
-                return; 
+                        console.log("Back to serverHome page again"); 
+
+                        return; 
+                    }
+                })
 
             } else {
 

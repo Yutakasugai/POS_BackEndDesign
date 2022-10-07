@@ -1243,3 +1243,88 @@
   transform: translateY(3px);
   opacity: 0.5;
 }
+
+/* Phone Order: PickUp Time Modal */
+#pickupBtn-modal{
+  z-index: 1080 !important;
+}
+
+#pickup-modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border: 1px solid black;
+  border-radius: 30px;
+  background-color: rgb(234, 234, 233);
+  width: 50%;
+  height: 50%;
+  z-index: 10;
+  font-size: 50px;
+}
+
+#pickup-title {
+  font-size: 5rem;
+  text-align: center;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+#time{
+  text-align: center;
+  width: 60%;
+  height: 40%;
+  font-size: 3.5rem;
+}
+
+#cacnel-next-buttons{
+  display: grid;
+  position: absolute;
+  grid-template-columns: 1.2fr 0.2fr 1.2fr;
+  padding: 20px;
+  color: #c3c3c3;
+  background-color: green;
+  border-color: whitesmoke;
+  border-width: 10px;
+  width: 100%;
+  margin: auto; 
+}
+
+#cancel-btn{
+  padding: 30px 60px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: black;
+  background-color: lightcoral;
+  color: black;
+  float: left;
+  font-size: 3rem;
+}
+#cancel-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+#next-btn{
+  padding: 30px 80px;
+  background-color: lightgreen;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: black;
+  color: black;
+  float: right;
+  font-size: 3rem;
+}
+#next-btn:active {
+  box-shadow: none;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+.modal-dialog{
+    max-width: 80%;
+}
+
+.modal-dialog, .modal-content{
+  height: 50%;
+}

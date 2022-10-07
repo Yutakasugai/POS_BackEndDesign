@@ -19,13 +19,16 @@ INSERT INTO Menu_List(item_name, item_price, gst_price, total_price, num_item) V
 
 drop table updated_table, order_result, togo_phone, userLog, coming_order; 
 
-CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", num_customer TEXT DEFAULT "1"); 
+CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1"); 
 
 CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL); 
 
 CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL); 
 
 CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)
+
+DELETE FROM togo_phone WHERE order_status = 'Phone'; 
+DROP TABLE Phone_1_Check, Phone_1; 
 
 UPDATE Menu_List SET num_item = '0';
 

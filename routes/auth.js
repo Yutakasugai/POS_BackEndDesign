@@ -15,8 +15,12 @@ const server_removeItemEditController = require('../controllers/server-side/serv
 const server_viewDoneController = require('../controllers/server-side/server_viewDone'); 
 const server_togoOrderController = require('../controllers/server-side/server_togoOrder'); 
 const server_togoBoxController = require('../controllers/server-side/server_togoBox'); 
+const server_phoneOrderController = require('../controllers/server-side/server_phoneOrder'); 
+const server_viewBackController = require('../controllers/server-side/server_viewBack'); 
+const server_phoneBoxController = require('../controllers/server-side/server_phoneBox'); 
 
-router.post('/user', loginController.user);
+
+router.post('/user', loginController.user); 
 router.post('/user/signout', signoutController.signout_user); 
 router.post('/user/addItem', server_addItemController.addItem); 
 router.post('/user/viewPage', server_viewPageController.viewPage); 
@@ -29,6 +33,9 @@ router.post('/user/removeItem_edit', server_removeItemEditController.removeItem_
 router.post('/user/viewDone', server_viewDoneController.viewDone);
 router.post('/user/togoOrder', server_togoOrderController.togoOrder); 
 router.post('/user/togoBox', server_togoBoxController.togoBox); 
+router.post('/user/phoneOrder', server_phoneOrderController.phoneOrder); 
+router.post('/user/viewBack', server_viewBackController.viewBack); 
+router.post('/user/phoneBox', server_phoneBoxController.phoneBox); 
 
 
 // Admin Side
