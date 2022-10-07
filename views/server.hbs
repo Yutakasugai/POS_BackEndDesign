@@ -66,11 +66,11 @@
                         <button class="update-button">Update</button>
 
                         {{!-- Add Btn --}}
-                        <form action="/auth/user/addItem" method="POST">
+                        <form action="/auth/user/addItem" method="POST" id="add1_filled" style="display: none;">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <button name="table_key" value="Table_1" class="add-button" id="add1_filled" style="display: none;">Add</button>
+                            <button name="table_key" value="Table_1" class="add-button">Add</button>
                         </form>
 
                         <button name="default-addBtn" class="add-button" id="add1_empty" value="Table_1" style="display: block;">Add</button>
@@ -86,11 +86,11 @@
                         <button class="update-button">Update</button>
 
                         {{!-- Add Btn --}}
-                        <form action="/auth/user/addItem" method="POST">
+                        <form action="/auth/user/addItem" method="POST"  id="add2_filled" style="display: none;">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <button name="table_key" value="Table_2" class="add-button" id="add2_filled" style="display: none;">Add</button>
+                            <button name="table_key" value="Table_2" class="add-button">Add</button>
                         </form>
 
                         <button name="default-addBtn" class="add-button" id="add2_empty" value="Table_2" style="display: block;">Add</button>
@@ -111,11 +111,11 @@
                         <button class="update-button">Update</button>
 
                         {{!-- Add Btn --}}
-                        <form action="/auth/user/addItem" method="POST">
+                        <form action="/auth/user/addItem" method="POST" id="add3_filled" style="display: none;">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <button name="table_key" value="Table_3" class="add-button" id="add3_filled" style="display: none;">Add</button>
+                            <button name="table_key" value="Table_3" class="add-button">Add</button>
                         </form>
 
                         <button name="default-addBtn" class="add-button" id="add3_empty" value="Table_3" style="display: block;">Add</button>
@@ -132,11 +132,11 @@
                         <button class="update-button">Update</button>
 
                         {{!-- Add Btn --}}
-                        <form action="/auth/user/addItem" method="POST">
+                        <form action="/auth/user/addItem" method="POST"  id="add4_filled" style="display: none;">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <button name="table_key" value="Table_4" class="add-button" id="add4_filled" style="display: none;">Add</button>
+                            <button name="table_key" value="Table_4" class="add-button">Add</button>
                         </form>
 
                         <button name="default-addBtn" class="add-button" id="add4_empty" value="Table_4" style="display: block;">Add</button>
@@ -243,14 +243,24 @@
         <!-- Phone-1 and Phone-2 -->
         <div class="extra_container">
 
+            {{!-- Extra Box - 1 --}}
             <div id="ex1" style="display:none;">
                 <div class="togo_phone_box" id="ex_table_1" style="background: none;">
 
+                    {{!-- Heading Line --}}
                     <p class="table_num" id="text_ex1"></p>
+                
+                    {{!-- Togo Options --}}
+                    <div class="togo-option" id="togo-option-1" style="display: none;">
+    
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_1" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
 
-                    <div class="togo-option">
-
-                        {{!-- Togo: Done Button --}}
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -258,28 +268,52 @@
                             <input type="hidden" id="done_btn_1" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-1" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_phone_1" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
+                        </form>
+
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_1" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
                         
-                        {{!-- Phone: Update Button --}}
+                    </div>
+
+                </div>
+            </div>
+
+
+            {{!-- Extra Box - 2 --}}
+            <div id="ex2" style="display:none;">
+                <div class="togo_phone_box" id="ex_table_2" style="background: none;">
+
+                    {{!-- Heading Line --}}
+                    <p class="table_num" id="text_ex2"></p>
+
+                    {{!-- Togo Options --}}
+                    <div class="togo-option" id="togo-option-2" style="display: none;">
+
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_1" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_btn_2" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
                         </form>
 
-                    </div>
-                </div>
-            </div>
-
-            <div id="ex2" style="display:none;">
-                <div class="togo_phone_box" id="ex_table_2" style="background: none;">
-
-                    <p class="table_num" id="text_ex2"></p>
-
-                    <div class="togo-option">
-
-                        {{!-- Togo: Done Button --}}
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -287,32 +321,55 @@
                             <input type="hidden" id="done_btn_2" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-2" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_2" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_2" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_2" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
                 </div>
             </div>
         </div>
 
+
         <!-- Phone-3 and Phone-4 -->
         <div class="extra_container2">
 
+            {{!-- Extra Box - 3 --}}
             <div id="ex3" style="display:none;">
                 <div class="togo_phone_box" id="ex_table_3" style="background: none;">
 
+                    {{!-- Heading Line --}}
                     <p class="table_num" id="text_ex3"></p>
 
-                    <div class="togo-option">
+                    {{!-- Togo Options --}}
+                    <div class="togo-option" id="togo-option-3" style="display: none;">
+                        
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_3" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
 
-                        {{!-- Togo: Done Button --}}
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -320,28 +377,50 @@
                             <input type="hidden" id="done_btn_3" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-3" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_3" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_3" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_3" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
                 </div>
             </div>
 
+            {{!-- Extra Box - 4 --}}
             <div id="ex4" style="display:none;">
                 <div class="togo_phone_box" id="ex_table_4" style="background: none;">
 
+                    {{!-- Heading Line --}}
                     <p class="table_num" id="text_ex4"></p>
 
-                    <div class="togo-option">
+                    {{!-- Togo Options --}}
+                    <div class="togo-option" id="togo-option-4" style="display: none;">
 
-                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_4" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
+
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -349,16 +428,28 @@
                             <input type="hidden" id="done_btn_4" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-4" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_4" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_4" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_4" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
                 </div>
             </div>
@@ -374,9 +465,16 @@
 
                     <p class="table_num" id="text_ex5"></p>
 
-                    <div class="togo-option">
+                    <div class="togo-option" id="togo-option-5" style="display: none;">
 
-                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_5" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
+
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -384,18 +482,29 @@
                             <input type="hidden" id="done_btn_5" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
-                            <input type="hidden" name="userName" value="{{name}}">
-                            <input type="hidden" name="date_key" value="{{Date}}">
-                            <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_5" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
-                        </form>
 
                     </div>
 
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-5" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_phone_5" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
+                        </form>
+
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_5" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
+                    </div>
                 </div>  
             </div>
 
@@ -405,9 +514,16 @@
 
                     <p class="table_num" id="text_ex6"></p>
 
-                    <div class="togo-option">
+                    <div class="togo-option" id="togo-option-6" style="display: none;">
 
-                        {{!-- Togo: Done Button --}}
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_6" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
+
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -415,16 +531,28 @@
                             <input type="hidden" id="done_btn_6" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+                    
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-6" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_6" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_6" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_6" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
 
                 </div>
@@ -441,9 +569,16 @@
 
                     <p class="table_num" id="text_ex7"></p>
 
-                    <div class="togo-option">
+                    <div class="togo-option" id="togo-option-7" style="display: none;">
+    
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_7" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
 
-                        {{!-- Togo: Done Button --}}
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -451,16 +586,28 @@
                             <input type="hidden" id="done_btn_7" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-7" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_7" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_7" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_7" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
 
                 </div>
@@ -472,9 +619,16 @@
 
                     <p class="table_num" id="text_ex8"></p>
 
-                    <div class="togo-option">
+                    <div class="togo-option" id="togo-option-8" style="display: none;">
+                        
+                        <form action="/auth/user/togoBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="update_btn_8" name="table_key" value="">
+                            <button class="update-btn-togo" name="func_key" value="update_id">Update</button>
+                        </form>
 
-                        {{!-- Togo: Done Button --}}
                         <form action="/auth/user/togoBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
@@ -482,16 +636,28 @@
                             <input type="hidden" id="done_btn_8" name="table_key" value="">
                             <button class="done-button" name="func_key" value="done_id">Done</button>
                         </form>
-                        
-                        {{!-- Phone: Update Button --}}
-                        <form action="/auth/user/togoBox" method="POST">
+
+                    </div>
+
+                    {{!-- Phone Order --}}
+                    <div class="phone-option" id="phone-option-8" style="display: none;">
+
+                        <form action="/auth/user/phoneBox" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" id="update_btn_8" name="table_key" value="">
-                            <button class="update-btn-v2" name="func_key" value="update_id">Update</button>
+                            <input type="hidden" id="update_phone_8" name="table_key" value="">
+                            <button class="update-btn-phone" name="func_key" value="update_id">Update</button>
                         </form>
 
+                        <form action="/auth/user/phoneBox" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" id="view_phone_8" name="table_key" value="">
+                            <button class="view-btn-phone" name="func_key" value="view_id">View</button>
+                        </form>
+            
                     </div>
 
                 </div>

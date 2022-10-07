@@ -1,19 +1,17 @@
 // Table Array 
 const tabel_arr = document.getElementById('table_arr').value.split(','); 
 
+console.log(tabel_arr); 
+
 for (let i = 0; i < tabel_arr.length; i++){
 
     if (tabel_arr[i] === "filled"){
 
         const num_key = String(i + 1); 
 
-        let tableBox = `table${num_key}`; 
-        let addBtn_filled = `add${num_key}_filled`;
-        let addBtn_empty = `add${num_key}_empty`;
-
-        document.getElementById(`${tableBox}`).style.background = 'rgb(60, 217, 13)'; 
-        document.getElementById(`${addBtn_filled}`).style.display = 'block'; 
-        document.getElementById(`${addBtn_empty}`).style.display = 'none'; 
+        document.getElementById(`table${num_key}`).style.background = 'rgb(60, 217, 13)'; 
+        document.getElementById(`add${num_key}_filled`).style.display = 'block'; 
+        document.getElementById(`add${num_key}_empty`).style.display = 'none'; 
     }
 }
 

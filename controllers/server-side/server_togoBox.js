@@ -60,6 +60,13 @@ exports.togoBox = (req, res) => {
             }
         }) 
 
+        // Update customer_result db
+        db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, '1'], (error) => {
+            if (error) {
+                console.log(error); 
+            }
+        })
+
         // Back to server add page
         return res.redirect(url.format({
             pathname: '/serverHome',
@@ -72,8 +79,6 @@ exports.togoBox = (req, res) => {
         }))
 
     } else {
-
-        console.log("This is update button from togo box"); 
 
         // Capture submitted items from db
         db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_items) => {
@@ -88,6 +93,7 @@ exports.togoBox = (req, res) => {
                 table_key: table_key, 
                 c_number: 1,
                 togo_key: 'togo_key',
+                noView_id: 'True',
                 submit_items: submit_items
             })
         })

@@ -4,7 +4,7 @@ const db = db_conn["db_conn"];
 
 exports.editItem = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, c_number, edit_item, edit_total_num, edit_key, togo_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, edit_item, edit_total_num, edit_key, togo_key, phone_key} = req.body; 
 
     // Array 
     const newItem_array = []; 
@@ -480,7 +480,7 @@ exports.editItem = (req, res) => {
         }
     })
 
-    if (togo_key === 'togo_key') {
+    if (togo_key === 'togo_key' || phone_key === 'phone_key') {
 
         // Return to Add Page 
         return res.redirect(url.format({

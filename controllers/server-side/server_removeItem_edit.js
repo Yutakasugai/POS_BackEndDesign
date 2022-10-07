@@ -4,7 +4,7 @@ const db = db_conn["db_conn"];
 
 exports.removeItem_edit = (req, res) => {
 
-    const {userName, date_key, time_key, table_key, c_number, remove_key_edit, togo_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, remove_key_edit, togo_key, phone_key} = req.body; 
 
     // console.log(userName, date_key, time_key, table_key, c_number, remove_key_edit); 
 
@@ -103,7 +103,7 @@ exports.removeItem_edit = (req, res) => {
         }) 
     })
 
-    if (togo_key === 'togo_key') {
+    if (togo_key === 'togo_key' || phone_key === 'phone_key') {
 
         // Back to server add page
         // Return to Add Page 

@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
@@ -42,16 +43,22 @@
                 Table: {{table_key}}
             </div>
 
-            <div class="customer_num">
-                Customer Number: {{c_number}}
-            </div>
+            {{#if pickUp_time }}
+                <div class="customer_num">
+                    PickUp Time: {{pickUp_time}}
+                </div>
+            {{else}}
+                <div class="customer_num">
+                    Customer Number: {{c_number}}
+                </div>
+            {{/if}}
 
         </div>
 
         <div class="view_section">
 
             {{!-- No view btn displayed for togo order --}}
-            {{#if togo_key}}
+            {{#if noView_id }}
                 <div class="empty_box"></div>
             {{else}}
                 <form action="/auth/user/viewPage" method="POST">
@@ -60,7 +67,8 @@
                     <input type="hidden" name="time_key" value="{{Time}}">
                     <input type="hidden" name="table_key" value="{{table_key}}">
                     <input type="hidden" name="c_number" value="{{c_number}}">
-                    <button class="view-button" name="view_id" value="View">View</button>
+                    {{!-- <input type="hidden" name="phone_key" value="{{phone_key}}"> --}}
+                    <button class="view-button">View</button>
                 </form>
             {{/if}}
             
@@ -542,7 +550,10 @@
                                             <input type="hidden" name="time_key" value="{{Time}}">
                                             <input type="hidden" name="table_key" value="{{table_key}}">
                                             <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                            {{!-- Chech if the order is phone or togo order --}}
                                             <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                            <input type="hidden" name="phone_key" value="{{phone_key}}">
 
                                             <!-- Input to keep the added items before going to db -->
                                             <input type="hidden" name="added_item" id="added_item" value="">
@@ -560,7 +571,10 @@
                                             <input type="hidden" name="time_key" value="{{Time}}">
                                             <input type="hidden" name="table_key" value="{{table_key}}">
                                             <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                            {{!-- Chech if the order is phone or togo order --}}
                                             <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                            <input type="hidden" name="phone_key" value="{{phone_key}}">
                                             
                                             <!-- Input to keep the added items before going to db -->
                                             <input type="hidden" name="edit_item" id="edit_item" value="">
@@ -909,21 +923,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 6, MSG -->
-                                <!-- <div class="rToppings-slide-item">
-
-                                    <div class="rToppings-containerFor3items">
-
-                                        <div class="rToppings-title">MSG:</div>
-
-                                        <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" class="rToppings-checkboxForPref" id="remove_msg">
-                                            <label for="remove_msg" id="remove_label">Remove</label>
-                                        </div>
-
-                                    </div>
-                                </div> -->
-
                                 <!-- 7, Noodle -->
                                 <div class="rToppings-slide-item">
 
@@ -964,45 +963,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 9, Nori -->
-                                <!-- <div class="rToppings-slide-item">
-
-                                    <div class="rToppings-containerFor3items">
-
-                                        <div class="rToppings-title">Nori:</div>
-
-                                        <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" value="(No Nori)" class="rToppings-checkboxForPref" id="remove_nori">
-                                            <label for="remove_nori" id="remove_label">Remove</label>
-                                        </div>
-
-                                        <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" value="(Nori Side)" class="rToppings-checkboxForPref"  id="side_nori">
-                                            <label for="side_nori" id="remove_label">Side</label>
-                                        </div>
-
-                                    </div>
-                                </div> -->
-
-                                <!-- 10, S.Cake -->
-                                <!-- <div class="rToppings-slide-item">
-
-                                    <div class="rToppings-containerFor3items">
-
-                                        <div class="rToppings-title">S.Cake:</div>
-
-                                        <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" value="(No S.Cake)" class="rToppings-checkboxForPref" id="remove_scake">
-                                            <label for="remove_scake" id="remove_label">Remove</label>
-                                        </div>
-
-                                        <div class="rToppings-item-preference">
-                                            <input type="checkbox" name="remove_check" value="(S.Cake Side)" class="rToppings-checkboxForPref"  id="side_scake">
-                                            <label for="side_scake" id="remove_label">Side</label>
-                                        </div>
-
-                                    </div>
-                                </div> -->
 
                                 <!-- 11, All Veg -->
                                 <div class="rToppings-slide-item">
@@ -1936,6 +1896,7 @@
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
                         <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
                         <input type="hidden" name="remove_key" id="remove_key" value="">
                         <button id="remove-btn">Remove</button>
                     </form>
@@ -1946,14 +1907,19 @@
 
                 <div class="submit">
 
-                    <form action="/auth/user/submitItem" method="POST">
-                        <input type="hidden" name="userName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{Date}}">
-                        <input type="hidden" name="time_key" value="{{Time}}">
-                        <input type="hidden" name="table_key" value="{{table_key}}">
-                        <input type="hidden" name="togo_key" value="{{togo_key}}">
-                        <button id="submit-btn" style="padding: 9px 60px;;">Submit</button>
-                    </form>
+                    {{#if ifPhone_id }}
+                        <button id="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button>
+                    {{else}}
+                        <form action="/auth/user/submitItem" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            <button id="submit-btn" style="padding: 9px 60px;">Submit</button>
+                        </form>
+                    {{/if}}
 
                 </div>
 
@@ -1964,6 +1930,59 @@
 
     {{!-- Test input for togo key --}}
     <input type="hidden" id="togo_key" value="{{togo_key}}">
+
+    <!-- Modal for Submit Button using Bootstrap -->
+    <div class="modal fade" id="pickupBtn-modal" tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <h2 class="modal-title w-100" id="pickup-title">Pick-Up Time</h2>
+                </div>
+
+                <div class="modal-body modal-body-centered">
+
+                    {{!-- Select Option Bar --}}
+                    <select name="pickup" id="time">
+                        <option value="10" style="font-size: 1.5rem;">10 Mins</option>
+                        <option value="15" style="font-size: 1.5rem;">15 Mins</option>
+                        <option value="20" style="font-size: 1.5rem;">20 Mins</option>
+                        <option value="30" style="font-size: 1.5rem;">30 Mins</option>
+                        <option value="45" style="font-size: 1.5rem;">45 Mins</option>
+                        <option value="60" style="font-size: 1.5rem;">60 Mins</option>
+                        <option value="90" style="font-size: 1.5rem;">90 Mins</option>
+                        <option value="120" style="font-size: 1.5rem;">120 Mins</option>
+                    </select>
+
+                </div>
+
+                <div class="modal-footer" id="cancel-next-buttons">
+                    <div class="container">
+
+                        <button type="button" id ="cancel-btn" class="btn btn-primary pull-left" data-bs-dismiss="modal">Cancel</button>
+                        
+                        <form action="/auth/user/submitItem" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            <input type="hidden" id="pickUp_time" name="pickUp_time" value="">
+                            <button id="next-btn">Next</button>
+                        </form>
+
+                    </div>
+        
+                    </div>  
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- Modal for Edit Button -->
     <div class="edit-modal" id="editBtn-modal">
@@ -2005,6 +2024,7 @@
                         <input type="hidden" name="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
                         <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
                         <input type="hidden" name="remove_key_edit" id="remove_key_edit" value="">
                         <button id="remove-btn-v2">Remove</button>
                     </form>
@@ -2038,6 +2058,7 @@
                     <input type="hidden" name="time_key" value="{{Time}}">
                     <input type="hidden" name="table_key" value="{{table_key}}">
                     <input type="hidden" name="togo_key" value="{{togo_key}}">
+                    <input type="hidden" name="phone_key" value="{{phone_key}}">
                     <button class="home_button">&#127968;</button>
                 </form>
 
@@ -2052,9 +2073,6 @@
 <script type="text/javascript" src="/js/Server-Side/addPage_main.js"></script>
 <script type="text/javascript" src="/js/Server-Side/addPage_script.js"></script>
 <script type="text/javascript" src="/js/Server-Side/addPage_check&edit.js"></script>
-
-{{!-- This Js is to capture taken orders from checkbox --}}
-{{!-- <script type="text/javascript" src="/js/Server-Side/addPage_getItems.js"></script> --}}
 
 </body>
 </html>
