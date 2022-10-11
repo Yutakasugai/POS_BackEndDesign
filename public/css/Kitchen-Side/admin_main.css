@@ -116,12 +116,12 @@ body {
 
 /* Order Box */
 .scrollable{
-   flex: 1;
+    flex: 1;
     overflow:auto;
     overflow-y: scroll;
     position:relative; 
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 8px;
+    margin-bottom: 3px;
 }
 
 .box-container {
@@ -136,7 +136,7 @@ body {
     background-color: #fffdd0;
     /* display: grid; */
     grid-template-columns: 100%;
-    grid-template-rows: 2rem 28.15rem 2.5rem;
+    grid-template-rows: 3rem 28rem 2.5rem;
     /* border-radius: 10px; */
     border-width: 1.5px;
     border-style: solid;
@@ -146,8 +146,10 @@ body {
 
 /* Box Title */
 .box-title {
+    display: grid;
+    grid-template-rows: auto;
     width: 100%;
-    height: 2.5rem;
+    height: 4.5rem;
     background-color: black;
     text-align: center;
 }
@@ -155,14 +157,38 @@ body {
     margin: auto;
     color: white;
     font-size: 1.6rem;
-    padding-top: 5px;
+    /* padding-top: 3px; */
+}
+.box-title h1 {
+    color: white;
+    font-size: 1.4rem;
+    margin-top: -0.1px;
 }
 
 
 /* Order Items */
 .order-items {
-    font-size: 1.1rem;
+    /* font-size: 1.1rem; */
     padding-left: 10px;
+}
+#mainItem {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+#exTopping {
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    margin-top: -20px;
+    padding-left: 20px;
+}
+#removeItem {
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    margin-top: -20px;
+    padding-left: 20px;
+    color: red;
 }
 #add-toppings {
     margin-top: -15px;
@@ -586,7 +612,7 @@ li.userLog_notice_login {
 .extraBox {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 2rem 25.5rem 2.5rem;
+    grid-template-rows: 3rem 24rem 2.5rem;
     height: 30rem;
     width: 18.5rem;
     background-color: lightgoldenrodyellow;

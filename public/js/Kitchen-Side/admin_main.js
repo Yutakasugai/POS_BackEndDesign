@@ -86,160 +86,140 @@ window.addEventListener('click', (e) => {
     }
 })
 
-// Table Modal - Change Colour
-const table1_check = document.getElementById('Table_1');
-const table2_check = document.getElementById('Table_2');
-const table3_check = document.getElementById('Table_3');
-const table4_check = document.getElementById('Table_4');
-const table5_check = document.getElementById('Table_5');
-const table6_check = document.getElementById('Table_6');
-const table7_check = document.getElementById('Table_7');
-const table8_check = document.getElementById('Table_8');
 
-// Each Box of Table 1-8
-if (table1_check.getAttribute('table_id') === 'order_taken') {
-    table1_check.style.background = 'green'; 
+// Update on Oct 8, start with here
+const total_result = document.getElementById('total_result'); 
+
+let total_result_arr = total_result.value.split(','); 
+
+// console.log(total_result_arr.length, total_result_arr[0]); 
+
+if (total_result_arr[0] !== '') {
+
+    // Insert number of extraBox if need 
+    if (total_result_arr.length > 4) {
+
+        let exBox_num = total_result_arr.length - 4; 
+        document.getElementById('exBox_num').innerHTML = `+ ${exBox_num}`; 
+        document.getElementById('exBox_num_v2').innerHTML = exBox_num;
+        
+    } else {
+
+        document.getElementById('exBox_num').innerHTML = '+ 0'; 
+        document.getElementById('exBox_num_v2').innerHTML = 0;
+    }
+
+    // Create array for items
+    const item_array = []; 
+
+    for (let i = 0; i < total_result_arr.length; i++) {
+
+        // console.log(total_result_arr[i].split('!')[1]);  
+        let temp_item_array = total_result_arr[i].split('!')[1]; 
+
+        if (temp_item_array.includes('Table') === true) {
+            // console.log(total_result_arr[i].split('!')[1].replace('Extra:', '')); 
+            let table_key = temp_item_array.replace('Extra:', ''); 
+
+            // Change a box color for the box
+            document.getElementById(`${table_key}`).style.background = 'lightgreen'; 
+
+        } 
+
+        if (i < 11) {
+
+            let get_num = i + 1; 
+            let each_total_arr = total_result_arr[i].split('!'); 
+
+            // Insert box id to each input element
+            document.getElementById(`boxId_${get_num}`).setAttribute('value', each_total_arr[0]); 
+
+            for (let k = 2; k < each_total_arr.length; k++){
+                //console.log(each_total_arr[k]); 
+                let item_key = `${get_num}!${each_total_arr[k]}`; 
+                item_array.push(item_key); 
+            }
+
+            if (each_total_arr[1].includes('Phone') === true) {
+
+                let name = each_total_arr[1].split('#')[0];
+                let time = each_total_arr[1].split('#')[1]; 
+
+                document.getElementById(`Box_${get_num}`).style.display = 'grid'; 
+                document.getElementById(`boxName_${get_num}`).innerHTML = name;
+                document.getElementById(`pickUp_time_${get_num}`).style.display = 'block'; 
+                document.getElementById(`pickUp_time_${get_num}`).innerHTML = time;  
+
+                // Insert table name to input element 
+                document.getElementById(`tableId_${get_num}`).setAttribute('value', name); 
+
+            } else {
+                document.getElementById(`Box_${get_num}`).style.display = 'grid'; 
+                document.getElementById(`boxName_${get_num}`).innerHTML = each_total_arr[1];
+
+                // Insert table name to input element 
+                document.getElementById(`tableId_${get_num}`).setAttribute('value', each_total_arr[1]);
+
+            }
+        }
+    }
+
+    // Apply each values to item name box
+    for (let j = 0; j < item_array.length; j++){
+
+        // console.log(item_array[j].split('!')); 
+
+        let num_key = item_array[j].split('!')[0];
+        let order_item = item_array[j].split('!')[1]; 
+
+        let each_val = order_item.split(':'); 
+
+        if (each_val.length > 1) {
+
+            var item_box = document.createElement('p'); 
+            var mainItem_text = document.createTextNode(each_val[0]); 
+
+            item_box.appendChild(mainItem_text); 
+            item_box.setAttribute('id', 'mainItem'); 
+
+            document.getElementById(`itemBox_${num_key}`).appendChild(item_box);
+
+            // console.log("Main item is done"); 
+
+            for (let r = 1; r < each_val.length; r++) {
+                // console.log(each_val[r]); 
+                if (each_val[r].includes('+') === true) {
+                    var exTop_box = document.createElement('p'); 
+                    var exTop_text = document.createTextNode(each_val[r]); 
+
+                    exTop_box.appendChild(exTop_text); 
+                    exTop_box.setAttribute('id', 'exTopping'); 
+
+                    document.getElementById(`itemBox_${num_key}`).appendChild(exTop_box);
+                
+                } else {
+                    var remove_box = document.createElement('p');
+                    var remove_text = document.createTextNode(each_val[r]); 
+
+                    remove_box.appendChild(remove_text); 
+                    remove_box.setAttribute('id', 'removeItem'); 
+
+                    document.getElementById(`itemBox_${num_key}`).appendChild(remove_box);
+                }
+            }
+            
+        } else {
+
+            var item_box = document.createElement('p'); 
+            var mainItem_text = document.createTextNode(each_val[0]); 
+
+            item_box.appendChild(mainItem_text); 
+            item_box.setAttribute('id', 'mainItem'); 
+
+            document.getElementById(`itemBox_${num_key}`).appendChild(item_box);
+        }
+    }
 } 
 
-if (table2_check.getAttribute('table_id') === 'order_taken') {
-    table2_check.style.background = 'green'; 
-} 
-
-if (table3_check.getAttribute('table_id') === 'order_taken') {
-    table3_check.style.background = 'green'; 
-} 
-
-if (table4_check.getAttribute('table_id') === 'order_taken') {
-    table4_check.style.background = 'green'; 
-} 
-
-if (table5_check.getAttribute('table_id') === 'order_taken') {
-    table5_check.style.background = 'green'; 
-} 
-
-if (table6_check.getAttribute('table_id') === 'order_taken') {
-    table6_check.style.background = 'green'; 
-} 
-
-if (table7_check.getAttribute('table_id') === 'order_taken') {
-    table7_check.style.background = 'green'; 
-} 
-
-if (table8_check.getAttribute('table_id') === 'order_taken') {
-    table8_check.style.background = 'green'; 
-} 
-
-// Check which box can be displayed 
-const box1_check = document.getElementById('mainBox_1'); 
-const box2_check = document.getElementById('mainBox_2'); 
-const box3_check = document.getElementById('mainBox_3'); 
-const box4_check = document.getElementById('mainBox_4'); 
-
-// Check with subbox should be displayed or not
-const box5_check = document.getElementById('subBox_1'); 
-const box6_check = document.getElementById('subBox_2'); 
-const box7_check = document.getElementById('subBox_3'); 
-const box8_check = document.getElementById('subBox_4'); 
-const box9_check = document.getElementById('subBox_5'); 
-const box10_check = document.getElementById('subBox_6'); 
-
-// console.log(typeof(box1_check.getAttribute('check_box'))); 
-
-if ((box1_check.getAttribute('check_box')) !== 'none'){
-    box1_check.style.display = 'grid'; 
-} 
-if (box2_check.getAttribute('check_box') !== 'none'){
-    box2_check.style.display = 'grid'; 
-} 
-if (box3_check.getAttribute('check_box') !== 'none'){
-    box3_check.style.display = 'grid'; 
-}
-if (box4_check.getAttribute('check_box') !== 'none'){
-    box4_check.style.display = 'grid'; 
-} 
-if (box5_check.getAttribute('check_box') !== 'none'){
-    box5_check.style.display = 'grid'; 
-}
-if (box6_check.getAttribute('check_box') !== 'none'){
-    box6_check.style.display = 'grid'; 
-}
-if (box7_check.getAttribute('check_box') !== 'none'){
-    box7_check.style.display = 'grid'; 
-}
-if (box8_check.getAttribute('check_box') !== 'none'){
-    box8_check.style.display = 'grid'; 
-}
-if (box9_check.getAttribute('check_box') !== 'none'){
-    box9_check.style.display = 'grid'; 
-}
-if (box10_check.getAttribute('check_box') !== 'none'){
-    box10_check.style.display = 'grid'; 
-}
-
-// Clear to display items on the box
-const box1_item = document.getElementById('text_box1'); 
-const box2_item = document.getElementById('text_box2'); 
-const box3_item = document.getElementById('text_box3'); 
-const box4_item = document.getElementById('text_box4'); 
-const box5_item = document.getElementById('text_subox1'); 
-const box6_item = document.getElementById('text_subox2'); 
-const box7_item = document.getElementById('text_subox3'); 
-const box8_item = document.getElementById('text_subox4'); 
-const box9_item = document.getElementById('text_subox5'); 
-const box10_item = document.getElementById('text_subox6'); 
-
-// Text Box For T1-T8
-const text1_box = document.getElementById('itemBox1'); 
-const text2_box = document.getElementById('itemBox2'); 
-const text3_box = document.getElementById('itemBox3');
-const text4_box = document.getElementById('itemBox4'); 
-const text5_box = document.getElementById('itemBox5'); 
-const text6_box = document.getElementById('itemBox6'); 
-const text7_box = document.getElementById('itemBox7');
-const text8_box = document.getElementById('itemBox8'); 
-const text9_box = document.getElementById('itemBox9'); 
-const text10_box = document.getElementById('itemBox10');   
-
-if (box1_item.getAttribute('box1_text') !== 'none'){
-
-    const temp_val_1 = box1_item.getAttribute('box1_text').split(',');
-    text1_box.innerHTML = temp_val_1.sort().join("</p>\n<p>"); 
-}
-if (box2_item.getAttribute('box2_text') !== 'none'){
-    const temp_val_2 = box2_item.getAttribute('box2_text').split(',');
-    text2_box.innerHTML = temp_val_2.sort().join("</p>\n<p>");  
-}
-if (box3_item.getAttribute('box3_text') !== 'none'){
-    const temp_val_3 = box3_item.getAttribute('box3_text').split(',');
-    text3_box.innerHTML = temp_val_3.sort().join("</p>\n<p>"); 
-}
-if (box4_item.getAttribute('box4_text') !== 'none'){
-    const temp_val_4 = box4_item.getAttribute('box4_text').split(',');
-    text4_box.innerHTML = temp_val_4.sort().join("</p>\n<p>"); 
-}
-if (box5_item.getAttribute('subBox1_text') !== 'none'){
-    const temp_val_5 = box5_item.getAttribute('subBox1_text').split(',');
-    text5_box.innerHTML = temp_val_5.sort().join("</p>\n<p>"); 
-}
-if (box6_item.getAttribute('subBox2_text') !== 'none'){
-    const temp_val_6 = box6_item.getAttribute('subBox2_text').split(',');
-    text6_box.innerHTML = temp_val_6.sort().join("</p>\n<p>"); 
-}
-if (box7_item.getAttribute('subBox3_text') !== 'none'){
-    const temp_val_7 = box7_item.getAttribute('subBox3_text').split(','); 
-    text7_box.innerHTML = temp_val_7.sort().join("</p>\n<p>"); 
-}
-if (box8_item.getAttribute('subBox4_text') !== 'none'){
-    const temp_val_8 = box8_item.getAttribute('subBox4_text').split(',');
-    text8_box.innerHTML = temp_val_8.sort().join("</p>\n<p>"); 
-}
-if (box9_item.getAttribute('subBox5_text') !== 'none'){
-    const temp_val_9 = box9_item.getAttribute('subBox5_text').split(',');
-    text9_box.innerHTML = temp_val_9.sort().join("</p>\n<p>"); 
-}
-if (box10_item.getAttribute('subBox6_text') !== 'none'){
-    const temp_val_10 = box10_item.getAttribute('subBox6_text').split(',');
-    text10_box.innerHTML = temp_val_10.sort().join("</p>\n<p>"); 
-}
 
 

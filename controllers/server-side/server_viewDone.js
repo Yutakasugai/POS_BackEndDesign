@@ -15,24 +15,24 @@ exports.viewDone = (req, res) => {
         const itemCheck_array = []; 
         const itemName_array = [];
 
-        db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, result) => {
+        db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, result_v1) => {
             if (error) {
                 console.log(error); 
             }
 
             // Trying to fix the submit action part abd insert id to updated_table 
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result_v1.length; i++) {
 
                 // Insert submit orders into coming_order db 
-                db.query(`insert into coming_order(table_id, item_name, original_id) values(?, ?, ?)`, [table_key, result[i]['full_order'], result[i]['id']], (error) => {
-                    if(error) {
-                        console.log(error); 
-                    }
-                })
+                // db.query(`insert into coming_order(table_id, item_name, original_id) values(?, ?, ?)`, [table_key, result_v1[i]['full_order'], result_v1[i]['id']], (error) => {
+                //     if(error) {
+                //         console.log(error); 
+                //     }
+                // })
 
-                itemID_array.push(result[i]['id']); 
+                itemID_array.push(result_v1[i]['id']); 
 
-                let test_array = result[i]['item_num'].split(',');
+                let test_array = result_v1[i]['item_num'].split(',');
 
                 for (let j = 0; j < test_array.length; j++) {
 
@@ -42,7 +42,7 @@ exports.viewDone = (req, res) => {
                 }
             }
 
-            if (result.length > 1) {
+            if (result_v1.length > 1) {
 
                 let complete_array = clean_array(itemName_array, itemCheck_array); 
 
@@ -52,17 +52,17 @@ exports.viewDone = (req, res) => {
                     let item_number_v2 = complete_array[v].split(':')[0]; 
 
                     // Insert some values into table check db
-                    db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result) => {
+                    db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result_v2) => {
                         if(error) {
                             console.log(error); 
                         }
 
-                        if (result.length > 0) {
+                        if (result_v2.length > 0) {
 
-                            let update_num = result[0]['item_num'] + Number(item_number_v2); 
+                            let update_num = result_v2[0]['item_num'] + Number(item_number_v2); 
 
                             // This is the item already exsited in db 
-                            db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result[0]['id']], (error, test) => {
+                            db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result_v2[0]['id']], (error, test) => {
                                 if(error) {
                                     console.log(error); 
                                 }
@@ -88,17 +88,17 @@ exports.viewDone = (req, res) => {
                     let item_number_v2 = itemCheck_array[v].split(':')[0]; 
 
                     // Insert some values into table check db
-                    db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result) => {
+                    db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result_v3) => {
                         if(error) {
                             console.log(error); 
                         }
 
-                        if (result.length > 0) {
+                        if (result_v3.length > 0) {
 
-                            let update_num = result[0]['item_num'] + Number(item_number_v2); 
+                            let update_num = result_v3[0]['item_num'] + Number(item_number_v2); 
 
                             // This is the item already exsited in db 
-                            db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result[0]['id']], (error, test) => {
+                            db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result_v3[0]['id']], (error, test) => {
                                 if(error) {
                                     console.log(error); 
                                 }
@@ -127,12 +127,21 @@ exports.viewDone = (req, res) => {
 
                     let table_name = `Extra:${table_key}`; 
 
-                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [table_name, table_key, itemID_array.join(':')], (error, result) => {
+                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [table_name, table_key, itemID_array.join(':')], (error, result_v4) => {
                         if(error) {
                             console.log(error); 
                         }
 
-                        let temp_result = Object.values(JSON.parse(JSON.stringify(result)));
+                        let temp_result = Object.values(JSON.parse(JSON.stringify(result_v4)));
+
+                        // Update kitchen id in coming_order db
+                        for (let i = 0; i < result_v1.length; i++) {
+                            db.query(`insert into coming_order(table_id, item_name, original_id, kitchen_id) values(?, ?, ?, ?)`, [table_key, result_v1[i]['full_order'], result_v1[i]['id'], temp_result[2]], (error) => {
+                                if(error) {
+                                    console.log(error); 
+                                }
+                            })
+                        }
 
                         db.query(`update ${table_key} set kitchen_id = (?) where order_status = 'unsubmit'`, (temp_result[2]), (error) => {
                             if(error) {
@@ -168,12 +177,22 @@ exports.viewDone = (req, res) => {
 
                 } else {
 
-                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [table_key, table_key, itemID_array.join(':')], (error, result) => {
+                    db.query(`insert into updated_table (table_name, table_id, item_id) values (?, ?, ?)`, [table_key, table_key, itemID_array.join(':')], (error, result_v5) => {
                         if(error) {
                             console.log(error); 
                         }
 
-                        let temp_result = Object.values(JSON.parse(JSON.stringify(result))); 
+                        let temp_result = Object.values(JSON.parse(JSON.stringify(result_v5))); 
+
+                        // Update kitchen id on coming order db
+                        for (let i = 0; i < result_v1.length; i++) {
+                            // Update kitchen id in coming_order db
+                            db.query(`insert into coming_order(table_id, item_name, original_id, kitchen_id) values(?, ?, ?, ?)`, [table_key, result_v1[i]['full_order'], result_v1[i]['id'], temp_result[2]], (error) => {
+                                if(error) {
+                                    console.log(error); 
+                                }
+                            })
+                        }
 
                         // Change the order status
                         db.query(`update ${table_key} set kitchen_id = (?) where order_status = 'unsubmit'`, (temp_result[2]), (error) => {
@@ -248,11 +267,11 @@ exports.viewDone = (req, res) => {
             })
 
             // Remove the item from coming_order db as well
-            db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
-                if (error) {
-                    console.log(error); 
-                }
-            }) 
+            // db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
+            //     if (error) {
+            //         console.log(error); 
+            //     }
+            // }) 
 
             if (phone_key === 'phone_key') {
 

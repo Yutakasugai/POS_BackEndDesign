@@ -132,22 +132,15 @@ removeBtn_edit.addEventListener('click', function(event){
 // Submit Button on the Submit Sheet 
 const submitBtn = document.getElementById('submit-btn');
 
-submitBtn.addEventListener('click', function(event){
+if ($("input[name='willCheck_item']").length === 0) {
 
-    if ($("input[name='willCheck_item']").length > 0) {
-        return; 
-    } else {
-
-        // This works for js controller 
-        event.preventDefault(); 
-        return; 
-    }
-})
+    console.log("No values on the check list"); 
+    submitBtn.disabled = true;
+} 
 
 // Change the innerTexrt of submit btn for togo order
 const togo_key = document.getElementById('togo_key'); 
 
-// console.log(togo_key.value); 
 if (togo_key.value === 'togo_key') {
 
     // Change the submit btn 
@@ -155,25 +148,5 @@ if (togo_key.value === 'togo_key') {
     submitBtn.style.padding = '9px 85px'; 
 } 
 
-// Check which option box is selected
-const nextBtn = document.getElementById('next-btn'); 
-const pickUp_time = document.getElementById('pickUp_time'); 
-const selectBar = document.getElementById('time'); 
-// const selectBar = document.getElementById('time'); 
-
-nextBtn.addEventListener('click', function(event){
-
-    // Insert pickUp time to element
-    const select_val = selectBar.options[selectBar.selectedIndex].value; 
-    pickUp_time.setAttribute('value', select_val); 
-
-    if ($("input[name='willCheck_item']").length > 0) {
-        return; 
-    } else {
-        // This works for js controller 
-        event.preventDefault(); 
-        return; 
-    }
-})
 
 

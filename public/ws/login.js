@@ -31,15 +31,15 @@ ws.addEventListener("message", ({data}) => {
         $('h4#checkMsg').remove(); 
         $('.check-msg').append(`<h4 id="checkMsg">Please check if you already logged in or in the waitlist</h4>`)
 
-    } else if (control_id[0] === "yesBtn_clicked"){
+    // } else if (control_id[0] === "yesBtn_clicked"){
+
+    //     // Change the id on the input element 
+    //     keyMsg.setAttribute('value', 'True'); 
+
+    // } else if (control_id[0] === "closeBtn_clicked") {
 
         // Change the id on the input element 
-        keyMsg.setAttribute('value', 'True'); 
-
-    } else if (control_id[0] === "closeBtn_clicked") {
-
-        // Change the id on the input element 
-        keyMsg.setAttribute('value', 'False'); 
+        // keyMsg.setAttribute('value', 'False'); 
 
     } else {
 
@@ -71,42 +71,30 @@ function openModal(key) {
 // function to stop user untill admin allow it to log in
 $('#wait_permit').on('submit', function(e){
 
-    e.preventDefault()
+    e.preventDefault(); 
+    $('h4#checkMsg').remove(); 
 
-    $('h4#checkMsg').remove()
+    let str = userList.value
+    let str2 = str.split(',')
 
-    if (keyMsg.value === "False"){
+    for(let s = 0; s < str2.length; s++){
+        let str3 = str2[s].split(':')
 
-        //console.log("The system is working"); 
-        $('.check-msg').append(`<h4 id="checkMsg">Please check if admin is ready</h4>`); 
-        return; 
+        //console.log(str3)
 
-    } else {
+        if(str3[0] === userName.value && str3[1] === userPass.value){
 
-        //console.log("The system is not started yet..."); 
+            $('.check-msg').append(`<h4 id="checkMsg">Hi, ${str3[0]}. Now waiting for admin permit...</h4>`);
 
-        let str = userList.value
-        let str2 = str.split(',')
+            let wait_permit = "wait_permit%" + str3[0]; 
+            
+            ws.send(wait_permit); 
 
-        for(let s = 0; s < str2.length; s++){
-            let str3 = str2[s].split(':')
-
-            //console.log(str3)
-
-            if(str3[0] === userName.value && str3[1] === userPass.value){
-
-                $('.check-msg').append(`<h4 id="checkMsg">Hi, ${str3[0]}. Now waiting for admin permit...</h4>`);
-
-                let wait_permit = "wait_permit%" + str3[0]; 
-                
-                ws.send(wait_permit); 
-
-                return; 
-            }
+            return; 
         }
-
-        // The typed name or pass is not correct
-        $('.check-msg').append('<h4 id="checkMsg">Incorrect, please try again...</h4>');
-        return; 
     }
+
+    // The typed name or pass is not correct
+    $('.check-msg').append('<h4 id="checkMsg">Incorrect, please try again...</h4>');
+    return; 
 })

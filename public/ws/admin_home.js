@@ -1,4 +1,4 @@
-const yes_button = document.getElementById('yes-btn'); 
+// const yes_button = document.getElementById('yes-btn'); 
 
 // Create a connection with web socket
 const ws = new WebSocket("ws://localhost:8080");
@@ -17,8 +17,8 @@ ws.addEventListener("close", () => {
 })
 
 // Start Button and Click Yes to allow users to login
-yes_button.onclick = () => {
-    console.log("yes button is clicked!"); 
+// yes_button.onclick = () => {
+//     console.log("yes button is clicked!"); 
 
-    ws.send("yesBtn_clicked"); 
-}
+//     ws.send("yesBtn_clicked"); 
+// }

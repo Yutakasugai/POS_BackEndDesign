@@ -8,7 +8,7 @@ exports.startBtn = (req, res) => {
 
     // Create a table, order_result, due to the start btn
     const sql = `CREATE TABLE IF NOT EXISTS order_result 
-    (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL,table_id TEXT NOT NULL, order_status TEXT, created_time TEXT NOT NULL, customer_name TEXT, order_items TEXT NOT NULL)`; 
+    (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, EST TEXT DEFAULT "None", order_item TEXT NOT NULL)`; 
     
     // Create updated_table just in case if not exist 
     const upadted_sql = `CREATE TABLE IF NOT EXISTS updated_table 
@@ -45,98 +45,116 @@ exports.startBtn = (req, res) => {
     
             const checkedList = check_userList(nameList, loggedUser); 
 
-            //Jump to an admin page with table values
-            return res.render("admin_main", {
-                name: adminName, 
-                date: data_key, 
-                time: time_key,
-                nameList: checkedList
+            db.query('SELECT * FROM order_result ORDER BY id DESC', (error, done_items) => {
+                if (error) {
+                    console.log(error); 
+                }
+
+                // Capture all values from updated_table as neeed 
+                db.query(`select * from updated_table`, (error, main_result) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+
+                    if (main_result.length > 0){
+
+                        const temp_array = []; 
+
+                        for (let i = 0; i < main_result.length; i++){
+
+                            let box_id = main_result[i]['id']; 
+                            let table_name = main_result[i]['table_name']; 
+                            let table_id = main_result[i]['table_id']; 
+                            let item_id = main_result[i]['item_id'].split(':').join(','); 
+                            let EST_val = main_result[i]['EST']; 
+
+                            //console.log(item_id); 
+
+                            db.query(`select * from ${table_id} where id IN(${item_id})`, (error, test_result) => {
+                                if(error){
+                                    console.log(error); 
+                                }
+
+                                if (table_id.includes('Phone') === true) {
+
+                                    let phone_order = `${table_name}#${EST_val}`; 
+
+                                    if (test_result.length > 1) {
+
+                                        let b = ''; 
+        
+                                        for (let j = 0; j < test_result.length; j++) {
+        
+                                            // console.log(test_result[j]['full_order']); 
+                                            b = `${b}!${test_result[j]['full_order']}`; 
+                                            
+                                            if (j === (test_result.length -1)){
+        
+                                                b = `${box_id}!${phone_order}${b}`; 
+                                                temp_array.push(b); 
+                                            }
+                                        }
+        
+                                    } else {
+        
+                                        let a = `${box_id}!${phone_order}!${test_result[0]['full_order']}`; 
+                                        temp_array.push(a); 
+                                    }
+
+                                } else {
+
+                                    if (test_result.length > 1) {
+
+                                        let b = ''; 
+        
+                                        for (let j = 0; j < test_result.length; j++) {
+        
+                                            // console.log(test_result[j]['full_order']); 
+                                            b = `${b}!${test_result[j]['full_order']}`; 
+                                            
+                                            if (j === (test_result.length -1)){
+        
+                                                b = `${box_id}!${table_name}${b}`; 
+                                                temp_array.push(b); 
+                                            }
+                                        }
+        
+                                    } else {
+        
+                                        let a = `${box_id}!${table_name}!${test_result[0]['full_order']}`; 
+                                        temp_array.push(a); 
+                                    }
+                                }
+
+                                if (i === (main_result.length-1)){
+                                    // console.log(temp_array); 
+
+                                    //Jump to an admin page with table values
+                                    return res.render("admin_main", {
+                                        name: adminName, 
+                                        date: data_key, 
+                                        time: time_key,
+                                        total_result: temp_array.join(','),
+                                        nameList: checkedList,
+                                        done_items: done_items
+                                    })
+                                }
+                            })
+                        }
+
+                    } else {
+
+                        //Jump to an admin page with table values
+                        return res.render("admin_main", {
+                            name: adminName, 
+                            date: data_key, 
+                            time: time_key,
+                            nameList: checkedList,
+                            done_items: done_items
+                        })
+                    }
+                })
             })
-
-            // Check table status
-            // db.query('show tables', (error, result) => {
-            //     if(error){
-            //         console.log(error)
-            //     }
-
-                // Check all table from 1-8 which table is filled
-                // const table_result = table_button(result); 
-
-                // db.query(`select * from updated_table`, (error, test_result) => {
-                //     if(error){
-                //         console.log(error)
-                //     }
-
-                //     const order_paper = get_orderResult(test_result); 
-                //     const item_array = get_itemPaper(test_result); 
-                //     const showBox_id = get_boxId(test_result);
-
-                //     db.query('select * from order_result', (error, view_result) => {
-                //         if(error){
-                //             console.log(error)
-                //         }
-
-                //         // Jump to an admin page with table values
-                //         return res.render("admin_main", {
-                //             name: adminName, 
-                //             date: data_key, 
-                //             time: time_key,
-                //             nameList: checkedList,
-                //             subBox_num: existTable_num(test_result), 
-                //             done_items: view_result,
-
-                //             Table_1: table_result['Table_1'],
-                //             Table_2: table_result['Table_2'],
-                //             Table_3: table_result['Table_3'],
-                //             Table_4: table_result['Table_4'],
-                //             Table_5: table_result['Table_5'],
-                //             Table_6: table_result['Table_6'],
-                //             Table_7: table_result['Table_7'],
-                //             Table_8: table_result['Table_8'],
-
-                //             Box_1: order_paper[0], 
-                //             Box1_Item: item_array[0],
-                //             Box1_ID: showBox_id[0],
-
-                //             Box_2: order_paper[1], 
-                //             Box2_Item: item_array[1],
-                //             Box2_ID: showBox_id[1],
-
-                //             Box_3: order_paper[2], 
-                //             Box3_Item: item_array[2],
-                //             Box3_ID: showBox_id[2],
-
-                //             Box_4: order_paper[3],
-                //             Box4_Item: item_array[3],
-                //             Box4_ID: showBox_id[3],
-
-                //             Box_5: order_paper[4],
-                //             Box5_Item: item_array[4],
-                //             Box5_ID: showBox_id[4],
-
-                //             Box_6: order_paper[5],
-                //             Box6_Item: item_array[5],
-                //             Box6_ID: showBox_id[5],
-
-                //             Box_7: order_paper[6],
-                //             Box7_Item: item_array[6],
-                //             Box7_ID: showBox_id[6],
-
-                //             Box_8: order_paper[7],
-                //             Box8_Item: item_array[7],
-                //             Box8_ID: showBox_id[7],
-
-                //             Box_9: order_paper[8],
-                //             Box9_Item: item_array[8],
-                //             Box9_ID: showBox_id[8],
-
-                //             Box_10: order_paper[9],
-                //             Box10_Item: item_array[9],
-                //             Box10_ID: showBox_id[9],
-                //         })
-                //     })
-            //     })
-            // })
         })
     })
 }

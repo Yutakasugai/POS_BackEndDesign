@@ -7,6 +7,7 @@
     <link href='https://css.gg/copy.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Kaisei+Tokumin:wght@500&family=Raleway&family=Share&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/css/Kitchen-Side/admin_main.css">
+    
     <title>Control Site</title>
 
 </head>
@@ -47,92 +48,102 @@
     <div class="box-container">
 
         <!-- Box-1 -->
-        <div class="order-box" id="mainBox_1" check_box={{Box_1}} style="display: none;">
+        <div class="order-box" id="Box_1" style="display: none;">
+
             <div class="box-title">
-                <p id="Box1_title">{{Box_1}}</p>
+                <p id="boxName_1"></p>
+                <h1 id="pickUp_time_1" style="display: none;"></h1>
             </div>
+
             <div class="scrollable">
-                <div class="order-items" id="text_box1" box1_text="{{Box1_Item}}">
-                    <p id="itemBox1"></p>
+                <div class="order-items" id="itemBox_1">
+                    {{!-- <p id="mainItem_1"></p> --}}
                 </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                 <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="boxItems" value="{{Box1_Item}}">
-                <input type="hidden" name="tableId" value="{{Box_1}}">
-                <input type="hidden" name="boxId" value="{{Box1_ID}}">
-                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" id="boxId_1" name="box_id" value="">
+                <input type="hidden" id="tableId_1" name="table_id" value="">
                 <button class="done-button" id="doneBtn-1">Done</button>
             </form>
+
         </div>
 
         <!-- Box-2 -->
-        <div class="order-box" id="mainBox_2" check_box={{Box_2}} style="display: none;">
+        <div class="order-box" id="Box_2" style="display: none;">
+
             <div class="box-title">
-                <p id="Box2_title">{{Box_2}}</p>
+                <p id="boxName_2"></p>
+                <h1 id="pickUp_time_2" style="display: none;"></h1>
             </div>
+
             <div class="scrollable">
-                <div class="order-items" id="text_box2" box2_text="{{Box2_Item}}">
-                    <p id="itemBox2"></p>
+                <div class="order-items" id="itemBox_2">
+                    {{!-- <p id="mainItem_2"></p> --}}
                 </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                 <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="boxItems" value="{{Box2_Item}}">
-                <input type="hidden" name="tableId" value="{{Box_2}}">
-                <input type="hidden" name="boxId" value="{{Box2_ID}}">
-                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" id="boxId_2" name="box_id" value="">
+                <input type="hidden" id="tableId_2" name="table_id" value="">
                 <button class="done-button" id="doneBtn-2">Done</button>
             </form>
         </div>
 
         <!-- Box-3 -->
-        <div class="order-box" id="mainBox_3" check_box={{Box_3}} style="display: none;">
+        <div class="order-box" id="Box_3" style="display: none;">
+
             <div class="box-title">
-                <p id="Box3_title">{{Box_3}}</p>
+                <p id="boxName_3"></p>
+                <h1 id="pickUp_time_3" style="display: none;"></h1>
             </div>
+
             <div class="scrollable">
-                <div class="order-items" id="text_box3" box3_text="{{Box3_Item}}">
-                    <p id="itemBox3"></p>
+                <div class="order-items" id="itemBox_3">
+                    {{!-- <p id="mainItem_3"></p> --}}
                 </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                 <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="boxItems" value="{{Box3_Item}}">
-                <input type="hidden" name="tableId" value="{{Box_3}}">
-                <input type="hidden" name="boxId" value="{{Box3_ID}}">
-                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" id="boxId_3" name="box_id" value="">
+                <input type="hidden" id="tableId_3" name="table_id" value="">
                 <button class="done-button" id="doneBtn-3">Done</button>
             </form>
 
         </div>
 
         <!-- Box-4 -->
-        <div class="order-box" id="mainBox_4" check_box={{Box_4}} style="display: none;">
+        <div class="order-box" id="Box_4" style="display: none;">
+
             <div class="box-title">
-                <p id="Box4_title">{{Box_4}}</p>
+                <p id="boxName_4"></p>
+                <h1 id="pickUp_time_4" style="display: none;"></h1>
             </div>
+
             <div class="scrollable">
-                <div class="order-items" id="text_box4" box4_text="{{Box4_Item}}">
-                    <p id="itemBox4"></p>
+                <div class="order-items" id="itemBox_4">
+                    {{!-- <p id="mainItem_4"></p> --}}
                 </div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                 <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="boxItems" value="{{Box4_Item}}">
-                <input type="hidden" name="tableId" value="{{Box_4}}">
-                <input type="hidden" name="boxId" value="{{Box4_ID}}">
-                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" id="boxId_4" name="box_id" value="">
+                <input type="hidden" id="tableId_4" name="table_id" value="">
                 <button class="done-button" id="doneBtn-4">Done</button>
             </form>
+
         </div>
 
     </div>
@@ -145,7 +156,7 @@
             <!-- home back button -->
             <form action="/auth/admin/home" method="POST" class="home-button">
                 <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="data_key" value="{{date}}">
+                <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
                 <button id="home-btn">Home</button>
             </form>
@@ -157,12 +168,12 @@
         <div class="moreOrder-container">
 
             <div class="num-panel">
-                <p>+ {{subBox_num}}</p>
+                <p id="exBox_num"></p>
             </div>
 
             <div class="two-boxes">
                 <button class="box-1" id="box-btn"><i class="gg-copy"></i>
-                    <span class="num_notice_badge_orders">{{subBox_num}}</span> 
+                    <span class="num_notice_badge_orders" id="exBox_num_v2"></span> 
                 </button>
             </div>
         </div>
@@ -179,13 +190,13 @@
 
                 <!-- Table 3,4,5 -->
                 <div class="table-345">
-                    <div class="table-box" id="Table_3" table_id="{{Table_3}}" style="background: yellow;">
+                    <div class="table-box" id="Table_3" style="background: yellow;">
                         <p id="table-3">T3</p>
                     </div>
-                    <div class="table-box" id="Table_4" table_id="{{Table_4}}" style="background: yellow;">
+                    <div class="table-box" id="Table_4" style="background: yellow;">
                         <p id="table-4">T4</p>
                     </div>
-                    <div class="table-box" id="Table_5" table_id="{{Table_5}}" style="background: yellow;">
+                    <div class="table-box" id="Table_5" style="background: yellow;">
                         <p id="table-5">T5</p>
                     </div>
                 </div>
@@ -193,13 +204,13 @@
                 <!-- Table 6,7,8 -->
                 <div class="table-678">
 
-                    <div class="table-box2" id="Table_7" table_id="{{Table_7}}" style="background: yellow;">
+                    <div class="table-box2" id="Table_7" style="background: yellow;">
                         <p id="table-7">T7</p>
                     </div>
-                    <div class="table-box2" id="Table_8" table_id="{{Table_8}}" style="background: yellow;">
+                    <div class="table-box2" id="Table_8" style="background: yellow;">
                         <p id="table-8">T8</p>
                     </div>
-                    <div class="table-box2" id="Table_6" table_id="{{Table_6}}" style="background: yellow;">
+                    <div class="table-box2" id="Table_6" style="background: yellow;">
                         <p id="table-6">T6</p>
                     </div>
                 </div>
@@ -207,10 +218,10 @@
                 <!-- Table 1,2 and front-->
                 <div class="table-12">
 
-                    <div class="table-box3" id="Table_1" table_id="{{Table_1}}" style="background: yellow;">
+                    <div class="table-box3" id="Table_1" style="background: yellow;">
                         <p id="table-1">T1</p>
                     </div>
-                    <div class="table-box3" id="Table_2" table_id="{{Table_2}}" style="background: yellow;">
+                    <div class="table-box3" id="Table_2" style="background: yellow;">
                         <p id="table-2">T2</p>
                     </div>
                     <div class="front-box">
@@ -266,141 +277,154 @@
         <div class="modal-content-boxBtn">
             <span class="close-btn-boxBtn">&times;</span>
 
-            <div class="extraBox_container" >
+            <div class="extraBox_container">
 
                 <!-- Extra Box 1 -->
-                <div class="extraBox" id="subBox_1" check_box={{Box_5}} style="display: none;">
+                <div class="extraBox" id="Box_5" style="display: none;">
+
                     <div class="box-title">
-                        <p id="subBox1_title">{{Box_5}}</p>
+                        <p id="boxName_5"></p>
+                        <h1 id="pickUp_time_5" style="display: none;"></h1>
                     </div>
+
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox1" subBox1_text="{{Box5_Item}}">
-                            <p id="itemBox5"></p>
+                        <div class="order-items" id="itemBox_5">
+                            {{!-- <p id="mainItem_5"></p> --}}
                         </div>
                     </div>
 
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box5_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_5}}">
-                        <input type="hidden" name="boxId" value="{{Box5_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_5" name="box_id" value="">
+                        <input type="hidden" id="tableId_5" name="table_id" value="">
                         <button class="done-button" id="doneBtn-5">Done</button>
                     </form>
 
                 </div>
 
                 <!-- Extra Box 2 -->
-                <div class="extraBox" id="subBox_2" check_box={{Box_6}} style="display: none;">
+                <div class="extraBox" id="Box_6" style="display: none;">
+
                     <div class="box-title">
-                        <p id="subBox2_title">{{Box_6}}</p>
+                        <p id="boxName_6"></p>
+                        <h1 id="pickUp_time_6" style="display: none;"></h1>
                     </div>
+
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox2" subBox2_text="{{Box6_Item}}">
-                            <p id="itemBox6"></p>
+                        <div class="order-items" id="itemBox_6">
+                            {{!-- <p id="mainItem_6"></p> --}}
                         </div>
                     </div>
 
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box6_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_6}}">
-                        <input type="hidden" name="boxId" value="{{Box6_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_6" name="box_id" value="">
+                        <input type="hidden" id="tableId_6" name="table_id" value="">
                         <button class="done-button" id="doneBtn-6">Done</button>
                     </form>
+
                 </div>
 
                 <!-- Extra Box 3 -->
-                <div class="extraBox" id="subBox_3" check_box={{Box_7}} style="display: none;">
+                <div class="extraBox" id="Box_7" style="display: none;">
+
                     <div class="box-title">
-                        <p id="subBox3_title">{{Box_7}}</p>
+                        <p id="boxName_7"></p>
+                        <h1 id="pickUp_time_7" style="display: none;"></h1>
                     </div>
+
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox3" subBox3_text="{{Box7_Item}}">
-                            <p id="itemBox7"></p>
+                        <div class="order-items" id="itemBox_7">
+                            {{!-- <p id="mainItem_7"></p> --}}
                         </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box7_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_7}}">
-                        <input type="hidden" name="boxId" value="{{Box7_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_7" name="box_id" value="">
+                        <input type="hidden" id="tableId_7" name="table_id" value="">
                         <button class="done-button" id="doneBtn-7">Done</button>
                     </form>
 
                 </div>
 
                 <!-- Extra Box 4 -->
-                <div class="extraBox" id="subBox_4" check_box={{Box_8}} style="display: none;">
+                <div class="extraBox" id="Box_8" style="display: none;">
+
                     <div class="box-title">
-                        <p id="subBo4_title">{{Box_8}}</p>
+                        <p id="boxName_8"></p>
+                        <h1 id="pickUp_time_8" style="display: none;"></h1>
                     </div>
+
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox4" subBox4_text="{{Box8_Item}}">
-                            <p id="itemBox8"></p>
+                        <div class="order-items" id="itemBox_8">
+                            {{!-- <p id="mainItem_8"></p> --}}
                         </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box8_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_8}}">
-                        <input type="hidden" name="boxId" value="{{Box8_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_8" name="box_id" value="">
+                        <input type="hidden" id="tableId_8" name="table_id" value="">
                         <button class="done-button" id="doneBtn-8">Done</button>
                     </form>
+
                 </div>
 
                 <!-- Extra Box 5 -->
-                <div class="extraBox" id="subBox_5" check_box={{Box_9}} style="display: none;">
+                <div class="extraBox" id="Box_9" style="display: none;">
+
                     <div class="box-title">
-                        <p id="subBox5_title">{{Box_9}}</p>
+                        <p id="boxName_9"></p>
+                        <h1 id="pickUp_time_9" style="display: none;"></h1>
                     </div>
+
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox5" subBox5_text="{{Box9_Item}}">
-                            <p id="itemBox9"></p>
+                        <div class="order-items" id="itemBox_9">
+                            {{!-- <p id="mainItem_9"></p> --}}
                         </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box9_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_9}}">
-                        <input type="hidden" name="boxId" value="{{Box9_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_9" name="box_id" value="">
+                        <input type="hidden" id="tableId_9" name="table_id" value="">
                         <button class="done-button" id="doneBtn-9">Done</button>
                     </form>
 
                 </div>
 
                 <!-- Extra Box 6 -->
-                <div class="extraBox" id="subBox_6" check_box={{Box_10}} style="display: none;">
+                <div class="extraBox" id="Box_10" style="display: none;">
                     <div class="box-title">
-                        <p id="subBox6_title">{{Box_10}}</p>
+                        <p id="boxName_10"></p>
+                        <h1 id="pickUp_time_10" style="display: none;"></h1>
                     </div>
                     <div class="scrollable">
-                        <div class="order-items" id="text_subox6" subBox6_text="{{Box10_Item}}">
-                            <p id="itemBox10"></p>
+                        <div class="order-items" id="itemBox_10">
+                            {{!-- <p id="mainItem_10"></p> --}}
                         </div>
                     </div>
         
                     <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="boxItems" value="{{Box10_Item}}">
-                        <input type="hidden" name="tableId" value="{{Box_10}}">
-                        <input type="hidden" name="boxId" value="{{Box10_ID}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
+                        <input type="hidden" id="boxId_10" name="box_id" value="">
+                        <input type="hidden" id="tableId_10" name="table_id" value="">
                         <button class="done-button" id="doneBtn-10">Done</button>
                     </form>
+
                 </div>
 
             </div>
@@ -429,15 +453,15 @@
                             <tr class="reviewBox-container"> 
                                 <tr class="reviewBox-header">
                                     <th id="tableNum-row">Table Number</th>
-                                    <th id="togoPerson-row">Order By</th>
+                                    <th id="togoPerson-row">EST</th>
                                     <th id="itemName-row">Item Name</th>
                                 </tr>
                                 
                                 {{#each done_items}}
                                     <tr class="addedInfo-container">
-                                        <th>{{table_id}}</th>
-                                        <th>{{order_by}}</th>
-                                        <th>{{item_name}}</th>
+                                        <th>{{table_name}}</th>
+                                        <th>{{EST}}</th>
+                                        <th>{{order_item}}</th>
                                     </tr>
                                 {{/each}}
 
@@ -453,6 +477,7 @@
     </div>
 
     <input type="hidden" id="userList" name="userList" value="{{nameList}}">
+    <input type="hidden" id="total_result" name="total_result" value="{{total_result}}">
 
     {{!-- Js Command --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
