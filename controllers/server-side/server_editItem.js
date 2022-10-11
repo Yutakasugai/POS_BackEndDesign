@@ -498,7 +498,7 @@ exports.editItem = (req, res) => {
 
         // Back to server add page
         return res.redirect(url.format({
-            pathname: '/addPage_Edit',
+            pathname: '/addPage',
             query: {
                 "status": "Server_AddPage",
                 "user": userName,

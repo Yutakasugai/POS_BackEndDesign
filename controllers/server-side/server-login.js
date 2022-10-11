@@ -18,33 +18,46 @@ exports.user = (req, res) => {
 
         if (result.length > 0) {
 
-            console.log("Not need to insert this value to db"); 
+            // Capture the taken order list for viewing 
+            db.query('select * from coming_order', (error, item_result) => {
+                if (error) {
+                    console.log(error); 
+                }
 
-            // Make an array conatined of table_status
-            db.query("select table_status from table_check", (error, result) => {
+                // Make an array conatined of table_status
+                db.query("select * from table_check", (error, result) => {
                 if (error) {
                     console.log(error)
                 }
 
-                // Create table array for a next page
-                const table_arr = []
-                for (let l = 0; l < result.length; l++) {
+                    // Create table array for a next page
+                    const table_arr = []
+                    for (let l = 0; l < result.length; l++) {
 
-                    table_arr.push(result[l]["table_status"]); 
-                }
-
-                // Capture the taken order list for viewing 
-                db.query('select * from coming_order', (error, item_result) => {
-                    if (error) {
-                        console.log(error); 
+                        table_arr.push(result[l]["table_status"]); 
                     }
 
-                    return res.render("server", {
-                        name: user_name, 
-                        Date: data_key, 
-                        Time: time_key,
-                        table_arr: table_arr,
-                        items: item_result
+                    // Make another array for togo_phone condition
+                    db.query('select * from togo_phone', (error, result_v2) => {
+                        if (error) {
+                            console.log(error); 
+                        }
+
+                        const table_arr_v2 = []; 
+                        for (let h = 0; h < result_v2.length; h++) {
+
+                            let value_id = `${result_v2[h]["order_status"]};${result_v2[h]["table_id"]}`; 
+                            table_arr_v2.push(value_id); 
+                        }
+
+                        return res.render("server", {
+                            name: user_name, 
+                            Date: data_key, 
+                            Time: time_key,
+                            table_arr: table_arr,
+                            table_arr_v2: table_arr_v2,
+                            items: item_result
+                        })
                     })
                 })
             })
@@ -58,30 +71,47 @@ exports.user = (req, res) => {
             })  
             
             // Make an array conatined of table_status
-            db.query("select table_status from table_check", (error, result) => {
+
+            db.query('select * from coming_order', (error, item_result) => {
                 if (error) {
-                    console.log(error)
+                    console.log(error); 
                 }
-
-                // Create table array for a next page
-                const table_arr = []
-                for (let l = 0; l < result.length; l++) {
-
-                    table_arr.push(result[l]["table_status"]); 
-                }
-
-                // Capture the taken order list for viewing 
-                db.query('select * from coming_order', (error, item_result) => {
+            
+                // Make an array conatined of table_status
+                db.query("select * from table_check", (error, result) => {
                     if (error) {
-                        console.log(error); 
+                        console.log(error)
                     }
-
-                    return res.render("server", {
-                        name: user_name, 
-                        Date: data_key, 
-                        Time: time_key,
-                        table_arr: table_arr,
-                        items: item_result
+                
+                    // Create table array for a next page
+                    const table_arr = []
+                    for (let l = 0; l < result.length; l++) {
+                
+                        table_arr.push(result[l]["table_status"]); 
+                    }
+            
+                    // Make another array for togo_phone condition
+                    db.query('select * from togo_phone', (error, result_v2) => {
+                        if (error) {
+                            console.log(error); 
+                        }
+                
+                        const table_arr_v2 = []; 
+                        for (let h = 0; h < result_v2.length; h++) {
+                
+                            let value_id = `${result_v2[h]["order_status"]};${result_v2[h]["table_id"]}`; 
+                            table_arr_v2.push(value_id); 
+                        }
+            
+                        // Back to Home Page with togo_phone arr
+                        return res.render("server", {
+                            name: user_name, 
+                            Date: data_key, 
+                            Time: time_key,
+                            table_arr: table_arr,
+                            table_arr_v2: table_arr_v2,
+                            items: item_result
+                        })
                     })
                 })
             })

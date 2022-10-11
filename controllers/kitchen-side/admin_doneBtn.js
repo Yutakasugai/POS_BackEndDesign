@@ -5,47 +5,81 @@ const db = db_conn["db_conn"];
 // Start btn functions
 exports.doneBtn = (req, res) => {
     
-    // console.log("Now you are in doneBtn controller"); 
-    const {adminName, boxItems, tableId, boxId, data_key, time_key} = req.body; 
-    
-    //console.log(boxId); 
+    const {adminName, date_key, time_key, box_id, table_id} = req.body; 
 
-    const result = tableId.includes("Phone"); 
-    const eachItem = boxItems.split(','); 
+    // console.log(adminName, date_key, time_key, box_id); 
+    let new_table_id = table_id.replace('Extra:', ''); 
 
-    if(result === true){
+    if (new_table_id.includes('Phone') === true) {
 
-        console.log("This is a phone order, needed with a c.name"); 
-    } else {
-
-        console.log("This is not a phone order"); 
-
-        // Insert items of done box to order_result
-        for (let k = 0; k < eachItem.length; k++){
-            //console.log(eachItem[k]); 
-            db.query("insert into order_result(table_id, item_name) values(?, ?)", [tableId, eachItem[k]], (error) => {
-                if (error){
-                    console.log(error); 
-                }
-            })
-        }
-
-        // Delete a row of done box from updated_table
-        db.query("delete from updated_table where id = (?)", (boxId), (error) => {
-            if(error){
-                console.log(error)
+        db.query(`select * from updated_table where id = (?)`, (box_id), (error, est_val) =>{
+            if(error) {
+                console.log(error); 
             }
 
-            console.log(`${tableId} with id:${boxId} is removed from updated_table`); 
+            db.query(`select * from ${new_table_id} where kitchen_id = (?)`, (box_id), (error, result) => {
+                if (error) {
+                    console.log(error); 
+                }
+        
+                for (let i = 0; i < result.length; i++) {
+        
+                    let item_name = result[i]['full_order']; 
+                    
+                    // Insert all item values to order_result db
+                    db.query(`insert into order_result(table_name, EST, order_item) values(?, ?, ?)`, [table_id, est_val[0]['EST'], item_name], (error) => {
+                        if(error) {
+                            console.log(error); 
+                        }
+                    })
+                }
+
+                return; 
+            })
+        })
+    } else {
+
+        db.query(`select * from ${new_table_id} where kitchen_id = (?)`, (box_id), (error, result) => {
+            if (error) {
+                console.log(error); 
+            }
+    
+            for (let i = 0; i < result.length; i++) {
+    
+                let item_name = result[i]['full_order']; 
+                
+                // Insert all item values to order_result db
+                db.query(`insert into order_result(table_name, order_item) values(?, ?)`, [table_id, item_name], (error) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+                })
+            }
+
+            return; 
         })
     }
 
-    // Back to admin main page
+    // Delete served items from coming_order db
+    db.query(`delete from coming_order where kitchen_id = (?)`, (box_id), (error) => {
+        if (error) {
+            console.log(error); 
+        }
+    })
+
+    // Delete the order box from updated_table
+    db.query(`delete from updated_table where id = (?)`, (box_id), (error) => {
+        if (error) {
+            console.log(error); 
+        }
+    })
+
+    // Redirect to admin main page
     return res.redirect(url.format({
-        pathname: '/auth/admin/mainPage',
+        pathname: '/adminMain',
         query: {
             admin: adminName, 
-            data: data_key,
+            date: date_key,
             time: time_key
         }
     }))

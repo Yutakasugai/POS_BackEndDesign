@@ -17,7 +17,7 @@ INSERT INTO Menu_List(item_name, item_price, gst_price, total_price, num_item) V
 ('Belly', '2.45', '0.12', '2.57'), ('Shoulder', '2.45', '0.12', '2.57'), ('Beans', '1.50', '0.08', '1.58'),
 ('Egg', '1.95', '0.10', '2.05'); 
 
-drop table updated_table, order_result, togo_phone, userLog, coming_order; 
+drop table if exists updated_table, order_result, togo_phone, userLog, coming_order; 
 
 CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1"); 
 

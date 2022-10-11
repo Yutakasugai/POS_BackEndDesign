@@ -6,7 +6,7 @@ exports.removeItem_edit = (req, res) => {
 
     const {userName, date_key, time_key, table_key, c_number, remove_key_edit, togo_key, phone_key} = req.body; 
 
-    // console.log(userName, date_key, time_key, table_key, c_number, remove_key_edit); 
+    // console.log("This is remove ket edit: " + remove_key_edit); 
 
     const removeItem_array = []; 
     
@@ -80,57 +80,124 @@ exports.removeItem_edit = (req, res) => {
 
         let new_itemID_array = result[0]['item_id'].split(':'); 
         let remove_id = removeItem_id;  
-        new_itemID_array = new_itemID_array.filter(item => item !== remove_id)
+        new_itemID_array = new_itemID_array.filter(item => item !== remove_id);
 
-        db.query(`update updated_table set item_id = (?) where id = (?)`, [new_itemID_array.join(':'), removeID_kitchen], (error) => {
-            if(error) {
-                console.log(error); 
-            }
-        })
-    })
+        if (new_itemID_array.length > 0) {
 
-    // Remove the item rwo from table db 
-    db.query(`delete from ${table_key} where id = (?)`, (removeItem_id), (error) => {
-        if(error) {
-            console.log(error); 
-        }
+            db.query(`update updated_table set item_id = (?) where id = (?)`, [new_itemID_array.join(':'), removeID_kitchen], (error) => {
+                if(error) {
+                    console.log(error); 
+                }
+            })
 
-        // Remove the item from coming_order db as well
-        db.query(`DELETE FROM coming_order WHERE table_id = (?) AND original_id = (?)`, [table_key, removeItem_id], (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        }) 
-    })
+            // Remove the item rwo from table db 
+            db.query(`delete from ${table_key} where id = (?)`, (removeItem_id), (error) => {
+                if(error) {
+                    console.log(error); 
+                }
 
-    if (togo_key === 'togo_key' || phone_key === 'phone_key') {
+                // Remove the item from coming_order db as well
+                db.query(`DELETE FROM coming_order WHERE table_id = (?) AND original_id = (?)`, [table_key, removeItem_id], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                }) 
+            })
 
-        // Back to server add page
-        // Return to Add Page 
-        return res.redirect(url.format({
-            pathname: '/addPage_Togo&Phone',
-            query: {
-                "status": "Server_AddPage",
-                "user": userName,
-                "date": date_key, 
-                "time": time_key, 
-                "table": table_key
-            }
-        })); 
+            if (togo_key === 'togo_key' || phone_key === 'phone_key') {
+
+                // Return to Add Page 
+                return res.redirect(url.format({
+                    pathname: '/addPage_Togo&Phone',
+                    query: {
+                        "status": "Server_AddPage",
+                        "user": userName,
+                        "date": date_key, 
+                        "time": time_key, 
+                        "table": table_key
+                    }
+                })); 
+                
+            } else {
         
-    } else {
-
-        // Back to server add page
-        return res.redirect(url.format({
-            pathname: '/addPage_Edit',
-            query: {
-                "status": "Server_AddPage",
-                "user": userName,
-                "date": date_key, 
-                "time": time_key, 
-                "table": table_key, 
-                "c_num": c_number
+                // Back to server add page
+                return res.redirect(url.format({
+                    pathname: '/addPage',
+                    query: {
+                        "status": "Server_AddPage",
+                        "user": userName,
+                        "date": date_key, 
+                        "time": time_key, 
+                        "table": table_key, 
+                        "c_num": c_number
+                    }
+                }))
             }
-        }))
-    }
+
+        } else {
+
+            console.log("This box bacame empty now..."); 
+
+            // Delete the table row from updated_table
+            db.query(`delete from updated_table where id = (?)`, (removeID_kitchen), (error) => {
+                if (error) {
+                    console.log(error); 
+                }
+            })
+
+            // Remove all tables related to this table 
+            db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
+                if (error) {
+                console.log(error); 
+                }
+            })
+
+            // Delete all table rows from coming_order db
+            db.query(`delete from coming_order where kitchen_id = (?)`, (removeID_kitchen), (error) => {
+                if (error){
+                console.log(error); 
+                }
+            })
+
+            if (togo_key === 'togo_key' || phone_key === 'phone_key') {
+
+                // Update table_check db 
+                db.query(`delete from togo_phone where table_id = (?)`, (table_key), (error) => {
+                    if (error) {
+                    console.log(error); 
+                    }
+
+                    // Back to serverHome page
+                    return res.redirect(url.format({
+                        pathname: '/serverHome',
+                        query: {
+                            "status": "Server_HomePage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key, 
+                        }
+                    }))
+                })
+
+            } else {
+                // Update table_check db 
+                db.query(`update table_check set table_status = (?), num_customer = (?) where table_id = (?)`, ['empty', 'None', table_key], (error) => {
+                    if (error) {
+                    console.log(error); 
+                    }
+
+                    // Back to serverHome page
+                    return res.redirect(url.format({
+                        pathname: '/serverHome',
+                        query: {
+                            "status": "Server_HomePage",
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key, 
+                        }
+                    }))
+                })
+            }
+        }
+    })
 }

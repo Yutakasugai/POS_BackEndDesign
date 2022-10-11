@@ -9,6 +9,15 @@ ws.addEventListener("open", () => {
     console.log("We are connected!"); 
 })
 
+ws.addEventListener("message", ({data}) => {
+    console.log(data); 
+})
+
+ws.addEventListener("close", () => {
+    console.log("Close a websocket connection...");
+    ws.close()
+})
+
 signOutBtn.onclick = () => {
     let signout_id = "signout%" + username.value; 
     console.log(signout_id); 
@@ -20,8 +29,3 @@ nextBtn.onclick = () => {
     let nextbtn_id = "nextBtn%" + tableNum; 
     ws.send(nextbtn_id); 
 }
-
-ws.addEventListener("close", () => {
-    console.log("Close a websocket connection...");
-    ws.close()
-})
