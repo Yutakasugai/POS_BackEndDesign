@@ -135,6 +135,18 @@ html, body {
     transform: translateY(3px);
     opacity: 0.5;
 }
+.addBtn_filled {
+    background-color: lightcyan;
+    padding: 10px 21px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+.addBtn_filled:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
 .add-button{
     background-color: lightcyan;
     padding: 10px 21px;
@@ -154,10 +166,11 @@ html, body {
     flex-direction: row;
     overflow-y: scroll;
     max-height: 100%;
+    gap: 10px;
 }
-#table2 {
+/* #table2 {
     margin-left: 10px;
-}
+} */
 
 /* Table-3 and Table-4 */
 .table3and4 {
@@ -166,10 +179,11 @@ html, body {
     margin-top: 10px;
     overflow-y: scroll;
     max-height: 100%;
+    gap: 10px;
 }
-#table4 {
+/* #table4 {
     margin-left: 10px;
-}
+} */
 
 /* Table-5 and Table-6 */
 .table5and6 {
@@ -178,10 +192,11 @@ html, body {
     margin-top: 10px;
     overflow-y: scroll;
     max-height: 100%;
+    gap: 10px;
 }
-#table6 {
+/* #table6 {
     margin-left: 10px;
-}
+} */
 
 /* Table-7 and Table-8 */
 .table7and8 {
@@ -190,10 +205,11 @@ html, body {
     margin-top: 10px;
     overflow-y: scroll;
     max-height: 100%;
+    gap: 10px;
 }
-#table8 {
+/* #table8 {
     margin-left: 10px;
-}
+} */
 
 
 /* Take Out and Phone Box */

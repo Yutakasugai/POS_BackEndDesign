@@ -4,13 +4,14 @@ const router = express.Router();
 
 // Create a connection with mysql database
 const db_conn = require("../db/db-conn");
+const { table } = require("console");
 const db = db_conn["db_conn"];
 
 // Call the middleware functions from a different folder
 // const mw = require("../middlewares/server_home");
 // const mw_addItem = require("../middlewares/server_addItem");
 // const mw_signout = require("../middlewares/signout_users");
-const mw_adminHome = require("../middlewares/admin_home");
+// const mw_adminHome = require("../middlewares/admin_home");
 
 // First url for anyone
 router.get("/", (req, res) => {
@@ -63,25 +64,6 @@ router.get("/signout", (req, res) => {
   });
 });
 
-// Check why the system force a user to sign out 
-function check_status(systemMsg, userName) {
-
-  if (systemMsg === "Time Out") {
-
-    return msg = "Time out! Please login again...";
-
-  } else if (systemMsg === "Sign Out") {
-
-    return msg = `${userName} succesfully signed out!`;
-
-  } else {
-
-    return msg = "Incorrect. Please try again...";
-
-  }
-}
-
-
 // Server-Side Home Url 
 router.get('/serverHome', (req, res) => {
   const userName = req.query.user;
@@ -104,8 +86,24 @@ router.get('/serverHome', (req, res) => {
       const table_arr = []
       for (let l = 0; l < result.length; l++) {
 
-          table_arr.push(result[l]["table_status"]); 
+        let table_num = result[l]["table_id"].slice(-1); 
+
+        if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'True') {
+          let a = `${table_num}:Fill-Pend`; 
+          table_arr.push(a); 
+
+        } else if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'False') {
+          let b = `${table_num}:Fill`;
+          table_arr.push(b); 
+
+        } else if (result[l]["pending_table"] === 'True' && result[l]["table_status"] === 'empty') {
+          let c = `${table_num}:Pend`;
+          table_arr.push(c); 
+
+        } 
       }
+
+      // console.log(table_arr); 
 
       // Make another array for togo_phone condition
       db.query('select * from togo_phone', (error, result_v2) => {
@@ -116,8 +114,14 @@ router.get('/serverHome', (req, res) => {
           const table_arr_v2 = []; 
           for (let h = 0; h < result_v2.length; h++) {
 
-              let value_id = `${result_v2[h]["order_status"]};${result_v2[h]["table_id"]}`; 
-              table_arr_v2.push(value_id); 
+            if (result_v2[h]["pending_table"] === 'True') {
+              let a = `${result_v2[h]["table_id"]}:Pend`; 
+              table_arr_v2.push(a); 
+
+            } else {
+              let b = `${result_v2[h]["table_id"]}:Fill`; 
+              table_arr_v2.push(b); 
+            }
           }
 
           // Back to Home Page with togo_phone arr
@@ -272,7 +276,7 @@ router.get("/addPage_Togo&Phone", (req, res) => {
 
 // Admin Side
 // Admin Home Page Url
-router.get("/auth/admin/home", mw_adminHome(), (req, res) => {
+router.get("/auth/admin/home", (req, res) => {
 
   const adminName = req.query.admin;
   const data_key = req.query.data;
@@ -479,5 +483,19 @@ function check_userList(nameList, loggedUser) {
       return nameList; 
   }
 }
+
+// Function to check if order_result table exist or not 
+function check_adminHome(table_result) {
+
+  for (let t = 0; t < table_result.length; t++){
+
+    if (table_result[t]['Tables_in_pos_database'] === 'order_result') {
+      return true; 
+    }
+  }
+
+  return false; 
+}
+
 
 module.exports = router;

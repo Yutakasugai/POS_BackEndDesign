@@ -87,10 +87,10 @@
                         <input type="hidden" name="userName" value="{{name}}">
                         <input type="hidden" name="date_key" value="{{Date}}">
                         <input type="hidden" name="time_key" value="{{Time}}">
-                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="table_key" id="table_key" value="{{table_key}}">
                         <input type="hidden" name="c_number" value="{{c_number}}">
-                        <input type="hidden" name="togo_key" value="{{togo_key}}">
-                        <input type="hidden" name="phone_key" value="{{phone_key}}">
+                        <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
                         <button id="done-btn">Done</button>
                     </form>
 
@@ -99,6 +99,10 @@
         </div>
 
     </div>
+
+    {{!-- Js Commnad --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/ws/server_viewPage.js"></script>
 
 </body>
 </html>
