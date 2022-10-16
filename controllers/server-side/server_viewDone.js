@@ -232,6 +232,9 @@ exports.viewDone = (req, res) => {
 
     } else {
 
+        // Update pending_table in table_check 
+        // db.query(`update `)
+
         // Update item number in Menu List db
         db.query(`select * from ${table_key}_Check`, (error, result) => {
             if(error) {

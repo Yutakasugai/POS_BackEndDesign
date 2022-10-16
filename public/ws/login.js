@@ -14,7 +14,7 @@ ws.addEventListener("open", () => {
 
 ws.addEventListener("message", ({data}) => {
 
-    let control_id = data.split('%')
+    let control_id = data.split('%');
     let current_user = userName.value; 
 
     // console.log(control_id); 

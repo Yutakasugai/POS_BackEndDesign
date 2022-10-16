@@ -263,6 +263,13 @@ exports.submitItem = (req, res) => {
                         console.log(error); 
                     }
 
+                    // Update pending_table in table_check
+                    db.query(`update table_check set pending_table = 'False' where table_id = (?)`, (table_key), (error) => {
+                        if (error) {
+                            console.log(error); 
+                        }
+                    })
+
                     if (table_result[0]['table_status'] === 'filled'){
 
                         // console.log("This item is extra order"); 
@@ -320,7 +327,7 @@ exports.submitItem = (req, res) => {
 
                     } else {
 
-                        console.log("This item is not extra order"); 
+                        // console.log("This item is not extra order"); 
 
                         let table_name = table_key; 
 

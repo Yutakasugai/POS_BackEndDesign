@@ -76,6 +76,13 @@ exports.addHome = (req, res) => {
                 console.log(error)
             } 
 
+            // Update pending_table to False
+            db.query(`update table_check set pending_table = 'False' where table_id = (?)`, (table_key), (error) => {
+                if(error) {
+                    console.log(error); 
+                }
+            })
+
             if (result[0]["table_status"] === "empty") {
 
                 // Drop two related tables

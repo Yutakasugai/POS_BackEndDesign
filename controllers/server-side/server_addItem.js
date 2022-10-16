@@ -6,10 +6,9 @@ const db = db_conn["db_conn"];
 // If user update for table 1, this exports will take user to update-1 page
 exports.addItem = (req, res) => {
 
-    console.log("User pressed a bext btn!"); 
+    // console.log("User pressed a bext btn!"); 
 
     const {userName, date_key, time_key, table_key, c_number} = req.body; 
-    // console.log(table_key, c_number); 
 
     // Make a connection to table_check db 
     db.query('select * from table_check where table_id = (?)', (table_key), (error, result) => {
@@ -30,22 +29,22 @@ exports.addItem = (req, res) => {
             db.query(`CREATE TABLE IF NOT EXISTS ${table_key}_Check (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_num INT NOT NULL)`); 
 
             // Insert customer number to table_check 
-            db.query(`UPDATE table_check SET num_customer = ${c_num} WHERE table_id = (?)`, (table_key), (error) => {
+            db.query(`UPDATE table_check SET num_customer = ${c_num}, pending_table = 'True' WHERE table_id = (?)`, (table_key), (error) => {
                 if(error) {
                     console.log(error)
                 }
-
-                console.log("Num customer was updated at the table key."); 
             })
 
-            // Just test to return a addpage on the window
-            return res.render("addPage", {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_key: table_key, 
-                c_number: c_number
-            }); 
+            return res.redirect(url.format({
+                pathname: '/addPage',
+                query: {
+                    "user": userName,
+                    "date": date_key, 
+                    "time": time_key, 
+                    "table": table_key,
+                    "c_num": c_number
+                }
+            }))
 
         } else {
 
@@ -55,23 +54,34 @@ exports.addItem = (req, res) => {
                     console.log(error)
                 }
 
-                // Pass the submitted items
-                db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_items) => {
+                // Update the table status to Pending
+                db.query(`UPDATE table_check SET pending_table = (?) WHERE table_id = (?)`, ['True', table_key], (error) => {
                     if(error) {
                         console.log(error); 
                     }
-
-                    // Just test to return a addpage on the window
-                    return res.render("addPage", {
-                        name: userName, 
-                        Date: date_key, 
-                        Time: time_key,
-                        table_key: table_key, 
-                        c_number: result[0]["num_customer"],
-                        submit_items: submit_items
-                    }); 
+            
+                    return res.redirect(url.format({
+                        pathname: '/addPage',
+                        query: {
+                            "user": userName,
+                            "date": date_key, 
+                            "time": time_key, 
+                            "table": table_key,
+                            "c_num": result[0]["num_customer"]
+                        }
+                    }))
                 })
             })
         }
     })
 }
+
+
+// Just test to return a addpage on the window
+// return res.render("addPage", {
+//     name: userName, 
+//     Date: date_key, 
+//     Time: time_key,
+//     table_key: table_key, 
+//     c_number: c_number
+// }); 

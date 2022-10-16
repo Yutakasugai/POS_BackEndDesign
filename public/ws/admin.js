@@ -55,11 +55,6 @@ ws.addEventListener("close", () => {
     ws.close()
 })
 
-// Send a key value when close this system
-// system_closeBtn.onclick = () => {
-
-//     ws.send("closeBtn_clicked"); 
-// }
 
 // function to check the user and decide if it is allowed or not
 function acceptUser(user, listUser) {  
@@ -131,16 +126,16 @@ function acceptUser(user, listUser) {
 }
 
 // Table Check Modal
-function tableCheck(tableNum) {
-    console.log("User is now tableCheck function")
+// function tableCheck(tableNum) {
+//     console.log("User is now tableCheck function")
 
-    if(tableNum === "Table_1"){
-        console.log("User passed table_1"); 
+//     if(tableNum === "Table_1"){
+//         console.log("User passed table_1"); 
         
-    } else if (tableNum === "Table_2") {
-        console.log("User passed table_2"); 
+//     } else if (tableNum === "Table_2") {
+//         console.log("User passed table_2"); 
         
-    } else {
-        console.log("Cant catch table number..."); 
-    }
-}
+//     } else {
+//         console.log("Cant catch table number..."); 
+//     }
+// }
