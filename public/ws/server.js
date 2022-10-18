@@ -59,9 +59,8 @@ ws.addEventListener("close", () => {
 
 
 signOutBtn.onclick = () => {
-    let signout_id = "signout%" + username.value; 
-
-    ws.send(signout_id)
+    let signout_id = "signoutID%" + username.value; 
+    ws.send(signout_id);
 }
 
 ws_nextBtn.onclick = () => {

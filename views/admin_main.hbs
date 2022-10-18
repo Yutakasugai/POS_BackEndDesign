@@ -154,12 +154,12 @@
         <div class="footer-buttons">
 
             <!-- home back button -->
-            <form action="/auth/admin/home" method="POST" class="home-button">
+            {{!-- <form action="/auth/admin/signOut" method="POST" class="signout-button">
                 <input type="hidden" name="adminName" value="{{name}}">
                 <input type="hidden" name="date_key" value="{{date}}">
                 <input type="hidden" name="time_key" value="{{time}}">
-                <button id="home-btn">Home</button>
-            </form>
+                <button id="signout-btn">Sign Out</button>
+            </form> --}}
 
             <button id="systemClose-btn">Close</button>
 
@@ -245,9 +245,9 @@
                 <div class="yesno-btn">
                     <button id="no-btn">No</button>
 
-                    <form action="/auth/admin/finish" method="POST">
+                    <form action="/auth/admin/signOut" method="POST">
                         <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="data_key" value="{{date}}">
+                        <input type="hidden" name="date_key" value="{{date}}">
                         <input type="hidden" name="time_key" value="{{time}}">
                         <button id="yes-btn">Yes</button>
                     </form>

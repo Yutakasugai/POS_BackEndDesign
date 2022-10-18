@@ -223,11 +223,11 @@ body {
     color: white;
     background-color: #343434;
 }
-.home-button {
+.signout-button {
     padding-left: 5px;
     align-self: center;
 }
-#home-btn {
+#signout-btn {
     padding: 12px 30px;
     border-radius: 10px;
     background: lightgoldenrodyellow;
@@ -238,7 +238,7 @@ body {
     font-weight: 500;
 }
 #systemClose-btn {
-    padding: 12px 30px;
+    padding: 15px 32px;
     border-radius: 10px;
     background: lightcoral;
     border-width: 2.5px;

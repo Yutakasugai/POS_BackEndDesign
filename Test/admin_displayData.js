@@ -1,5 +1,5 @@
 const url = require("url");
-const db_conn = require("../../db/db-conn"); 
+const db_conn = require("../db/db-conn"); 
 const db = db_conn["db_conn"];
 
 // function to display user choice data on the window

@@ -2,31 +2,90 @@ const url = require("url");
 const db_conn = require("../../db/db-conn"); 
 const db = db_conn["db_conn"];
 
-exports.user = (req, res) => {
+// admin login system to check if admin type their correct password and username
+exports.admin = (req, res) => {
 
-    const {user_name} = req.body
+    const {admin_name, admin_password} = req.body;
+
+    console.log(admin_name, admin_password); 
+
     const startTime = new Date(); 
     const dataList = getData(startTime); 
-    let date_key = dataList[0];
-    let time_key = dataList[1];
+    let data_key = dataList[0];
+    let time_key = dataList[1]; 
 
-    // Insert a name and starttime in userLog table
-    db.query("INSERT INTO userLog(name, startTime) VALUES (?, ?)", [user_name, startTime], (error) => {
+    db.query('SELECT * FROM admin WHERE admin_name = (?) AND admin_password = (?)', [admin_name, admin_password], (error, admin_result) =>{
         if(error){
-            console.log(error); 
+            console.log(error)
         }
 
-        // Go back to server main page
-        return res.redirect(url.format({
-            pathname: '/serverHome',
-            query: {
-                "status": "Server_HomePage",
-                "user": user_name,
-                "date": date_key, 
-                "time": time_key, 
+        if (admin_result.length > 0) {
+
+            console.log('The username and password was passed'); 
+
+            if (admin_result[0]['admin_status'] === 'True') {
+
+                console.log('This admin is already logged in...'); 
+
+                // Back to page with error msg
+                return res.redirect(url.format({
+                    pathname: '/signout',
+                    query: {
+                        "user": admin_name,
+                        "status": 'Check Log'
+                    }
+                })) 
+
+            } else {
+
+                // console.log('This user is good to enter!'); 
+
+                // Create order_result db
+                db.query(`CREATE TABLE IF NOT EXISTS order_result (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, EST TEXT DEFAULT "None", order_item TEXT NOT NULL)`); 
+                
+                // Create updated_table db
+                db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)`); 
+
+                // Create togo_phone db
+                db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1")'); 
+
+                // Create coming_order db 
+                db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL, kitchen_id TEXT)')
+
+                // Create customer_result db 
+                db.query('CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL)'); 
+
+                // Update the admin db 
+                db.query(`update admin set admin_status = 'True' where admin_name = (?)`, (admin_name), (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+
+                    return res.redirect(url.format({
+                        pathname: '/adminMain',
+                        query: {
+                            "admin": admin_name,
+                            "date": data_key, 
+                            "time": time_key
+                        }
+                    })) 
+                })
             }
-        }))
-    })  
+
+        } else {
+
+            console.log('The password or username is wrong'); 
+
+            // Back to page with error msg
+            return res.redirect(url.format({
+                pathname: '/signout',
+                query: {
+                    "user": admin_name, 
+                    "status": 'Check Name or Pass'
+                }
+            })) 
+        }
+    })
 }
 
 function getData(startTime) {

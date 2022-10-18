@@ -65,39 +65,39 @@ db.connect((error) => {
     // })
 
     // Check if there is a table called userLog
-    db.query("CREATE TABLE IF NOT EXISTS userLog (name TEXT NOT NULL, startTime TEXT)", (error) => {
-        if(error){
-            console.log(error)
-        }
-    })
+    // db.query("CREATE TABLE IF NOT EXISTS userLog (name TEXT NOT NULL, startTime TEXT)", (error) => {
+    //     if(error){
+    //         console.log(error)
+    //     }
+    // })
 
     // Check if there is a table called adminLog
-    db.query("CREATE TABLE IF NOT EXISTS adminLog (admin_name TEXT NOT NULL, admin_startTime TEXT NOT NULL)", (error) => {
-        if(error){
-            console.log(error)
-        }
-    })
+    // db.query("CREATE TABLE IF NOT EXISTS adminLog (admin_name TEXT NOT NULL, admin_startTime TEXT NOT NULL)", (error) => {
+    //     if(error){
+    //         console.log(error)
+    //     }
+    // })
 
     // Create togo_phone table auto 
-    db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1")', (error) => {
-        if (error) {
-            console.log(error); 
-        }
-    })
+    // db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1")', (error) => {
+    //     if (error) {
+    //         console.log(error); 
+    //     }
+    // })
 
     // Create coming_order db 
-    db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL, kitchen_id TEXT)', (error) => {
-        if (error) {
-            console.log(error); 
-        }
-    })
+    // db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL, kitchen_id TEXT)', (error) => {
+    //     if (error) {
+    //         console.log(error); 
+    //     }
+    // })
 
     // Create customer_result db 
-    db.query('CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL); ', (error) => {
-        if (error) {
-            console.log(error); 
-        }
-    })
+    // db.query('CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL); ', (error) => {
+    //     if (error) {
+    //         console.log(error); 
+    //     }
+    // })
 
-    console.log("userLog, adminLog, togo_phone tables are created!"); 
+    // console.log("userLog, adminLog, togo_phone tables are created!"); 
 })

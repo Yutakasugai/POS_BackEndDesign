@@ -1,4 +1,4 @@
-const db_conn = require("../../db/db-conn"); 
+const db_conn = require("../db/db-conn"); 
 const db = db_conn["db_conn"];
 
 // View Data Function
