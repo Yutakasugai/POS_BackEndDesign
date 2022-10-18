@@ -1,10 +1,8 @@
 const userName = document.querySelector('#user_name'); 
 const userPass = document.querySelector('#user_password');
 const userList = document.getElementById('userList');
-const formID = document.getElementById("wait_permit");
 const enterBtn = document.getElementById("enter-btn"); 
 const loginBtn = document.getElementById("login-btn");
-const keyMsg = document.getElementById("keyMsg"); 
 
 const ws = new WebSocket("ws://localhost:8080");
 
@@ -17,33 +15,34 @@ ws.addEventListener("message", ({data}) => {
     let control_id = data.split('%');
     let current_user = userName.value; 
 
-    // console.log(control_id); 
+    console.log(control_id); 
 
     if(control_id[0] === "admin_permit" && control_id[1] === current_user){
 
         $('h4#checkMsg').remove(); 
-        $('.check-msg').append('<h4 id="checkMsg">You got a permit! Press enter to log in</h4>')
+        $('.check-msg').append('<h4 id="checkMsg">You got a permit! Press enter to log in</h4>');
         
-        openModal(current_user)
+        openModal(current_user);
 
-    } else if (control_id[0] === "already_logged" && control_id[1] === current_user){
+    } else if (control_id[0] === "alreadyLog" && control_id[1] === current_user){
 
         $('h4#checkMsg').remove(); 
-        $('.check-msg').append(`<h4 id="checkMsg">Please check if you already logged in or in the waitlist</h4>`)
+        $('.check-msg').append(`<h4 id="checkMsg">Please check if you already logged in or in the waitlist</h4>`);
 
-    // } else if (control_id[0] === "yesBtn_clicked"){
+    } else if (control_id[0] === "passedID" && control_id[1] === current_user) {
 
-    //     // Change the id on the input element 
-    //     keyMsg.setAttribute('value', 'True'); 
 
-    // } else if (control_id[0] === "closeBtn_clicked") {
+        $('h4#checkMsg').remove(); 
+        $('.check-msg').append(`<h4 id="checkMsg">Hi, ${control_id[1]}. Now waiting for admin permit...</h4>`);
 
-        // Change the id on the input element 
-        // keyMsg.setAttribute('value', 'False'); 
+    } else if (data === "wrongKeys") {
+
+        $('h4#checkMsg').remove(); 
+        $('.check-msg').append(`<h4 id="checkMsg">The username or password is wrong...</h4>`);
 
     } else {
 
-        console.log("Your modal not work cause you not user")
+        console.log("Your modal not work cause you not user"); 
     }
 })
 
@@ -53,7 +52,7 @@ ws.addEventListener("close", () => {
 })
 
 // function to unlock the enter button to log in 
-function openModal(key) {
+function openModal(userName) {
 
     $('#wait_permit').unbind('submit');
 
@@ -61,10 +60,7 @@ function openModal(key) {
     loginBtn.setAttribute('type', 'hidden'); 
 
     enterBtn.onclick = () => {
-
-        let enterID = "passedID%" + key
-
-        ws.send(enterID)
+        ws.send(`loggedID%${userName}`); 
     }
 }
 
@@ -74,27 +70,18 @@ $('#wait_permit').on('submit', function(e){
     e.preventDefault(); 
     $('h4#checkMsg').remove(); 
 
-    let str = userList.value
-    let str2 = str.split(',')
+    // console.log(userName.value, userPass.value); 
 
-    for(let s = 0; s < str2.length; s++){
-        let str3 = str2[s].split(':')
-
-        //console.log(str3)
-
-        if(str3[0] === userName.value && str3[1] === userPass.value){
-
-            $('.check-msg').append(`<h4 id="checkMsg">Hi, ${str3[0]}. Now waiting for admin permit...</h4>`);
-
-            let wait_permit = "wait_permit%" + str3[0]; 
-            
-            ws.send(wait_permit); 
-
-            return; 
-        }
+    if (userName.value === '') {
+        $('h4#checkMsg').remove(); 
+        $('.check-msg').append(`<h4 id="checkMsg">Please type your username...</h4>`); 
+        return; 
+    } else if (userPass.value === '') {
+        $('h4#checkMsg').remove(); 
+        $('.check-msg').append(`<h4 id="checkMsg">Please type your password...</h4>`); 
+        return; 
+    } else {
+        let user_key = `wait_permit%${userName.value}:${userPass.value}`
+        return ws.send(user_key); 
     }
-
-    // The typed name or pass is not correct
-    $('.check-msg').append('<h4 id="checkMsg">Incorrect, please try again...</h4>');
-    return; 
 })

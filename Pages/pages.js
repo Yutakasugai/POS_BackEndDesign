@@ -21,9 +21,10 @@ router.get("/", (req, res) => {
         console.log(error);
       }
 
-      return res.render("index", {
-        nameList: get_userList(results)
-      })
+      // return res.render("index", {
+      //   nameList: get_userList(results)
+      // })
+      return res.render('index'); 
   });
 }); 
 
@@ -53,11 +54,25 @@ router.get("/signout", (req, res) => {
           errMsg: `${userName} succesfully signed out!`
       })
   
+    } else if (systemMsg === 'Check Log'){
+
+      return res.render("index", {
+          nameList: get_userList(results),
+          errMsg: `This user was already logged in...`
+      })
+
+    } else if (systemMsg === 'Check Name or Pass') {
+
+      return res.render("index", {
+          nameList: get_userList(results),
+          errMsg: `The password or username is wrong...`
+      })
+
     } else {
   
       return res.render("index", {
           nameList: get_userList(results),
-          errMsg: `Please try it again, ${userName}`
+          errMsg: `Please try it again...`
       })
   
     }
@@ -275,173 +290,120 @@ router.get("/addPage_Togo&Phone", (req, res) => {
 
 
 // Admin Side
-// Admin Home Page Url
-router.get("/auth/admin/home", (req, res) => {
-
-  const adminName = req.query.admin;
-  const data_key = req.query.data;
-  const time_key = req.query.time;
-
-  // console.log(data_key, time_key); 
-
-  db.query("show tables", (error, table_result) => {
-      if(error){
-          console.log(error)
-      }
-
-      if (check_adminHome(table_result) === true) {
-
-        return res.render("admin", {
-            name: adminName, 
-            data: data_key,
-            time: time_key,
-            changeBtn: "True"
-        })
-
-      } else {
-
-        return res.render("admin", {
-            name: adminName,
-            data: data_key, 
-            time: time_key,
-            changeBtn: "False"
-        })
-      }
-  })
-});
-
+// Admin Main Page 
 router.get("/adminMain", (req, res) => {
 
     const adminName = req.query.admin;
     const date_key = req.query.date;
     const time_key = req.query.time;
 
-    console.log(adminName, date_key, time_key); 
+    // console.log(adminName, date_key, time_key); 
 
-    db.query("select name from users", (error, userList) => {
-      if(error){
-          console.log("This error is in users: " + error)
+    db.query('SELECT * FROM order_result ORDER BY id DESC', (error, done_items) => {
+      if (error) {
+          console.log(error); 
       }
 
-      const nameList = get_userList(userList); 
-
-      // Remove logged users from user list
-      db.query("select name from userLog", (error, loggedUser) => {
-        if(error){
-            console.log("This error is in userLog: " + error)
-        }
-
-        const checkedList = check_userList(nameList, loggedUser); 
-
-        db.query('SELECT * FROM order_result ORDER BY id DESC', (error, done_items) => {
-          if (error) {
+      // Capture all values from updated_table as neeed 
+      db.query(`select * from updated_table`, (error, main_result) => {
+          if(error) {
               console.log(error); 
           }
 
-          // Capture all values from updated_table as neeed 
-          db.query(`select * from updated_table`, (error, main_result) => {
-              if(error) {
-                  console.log(error); 
-              }
+          if (main_result.length > 0){
 
-              if (main_result.length > 0){
+            const temp_array = []; 
 
-                const temp_array = []; 
+            for (let i = 0; i < main_result.length; i++){
 
-                for (let i = 0; i < main_result.length; i++){
+              let box_id = main_result[i]['id']; 
+              let table_name = main_result[i]['table_name']; 
+              let table_id = main_result[i]['table_id']; 
+              let item_id = main_result[i]['item_id'].split(':').join(','); 
+              let EST_val = main_result[i]['EST']; 
 
-                  let box_id = main_result[i]['id']; 
-                  let table_name = main_result[i]['table_name']; 
-                  let table_id = main_result[i]['table_id']; 
-                  let item_id = main_result[i]['item_id'].split(':').join(','); 
-                  let EST_val = main_result[i]['EST']; 
-
-                  db.query(`select * from ${table_id} where id IN(${item_id})`, (error, test_result) => {
-                    if(error){
-                        console.log(error); 
-                    }
-
-                    if (table_id.includes('Phone') === true) {
-
-                      let phone_order = `${table_name}#${EST_val}`; 
-
-                      if (test_result.length > 1) {
-
-                        let b = ''; 
-          
-                        for (let j = 0; j < test_result.length; j++) {
-
-                          // console.log(test_result[j]['full_order']); 
-                          b = `${b}!${test_result[j]['full_order']}`; 
-                          
-                          if (j === (test_result.length -1)){
-
-                              b = `${box_id}!${phone_order}${b}`; 
-                              temp_array.push(b); 
-                          }
-                        }
-
-                      } else {
-
-                        let a = `${box_id}!${phone_order}!${test_result[0]['full_order']}`; 
-                        temp_array.push(a); 
-                      }
-
-                    } else {
-
-                      if (test_result.length > 1) {
-
-                        let b = ''; 
-                
-                        for (let j = 0; j < test_result.length; j++) {
-        
-                            // console.log(test_result[j]['full_order']); 
-                            b = `${b}!${test_result[j]['full_order']}`; 
-                            
-                            if (j === (test_result.length -1)){
-        
-                                b = `${box_id}!${table_name}${b}`; 
-                                temp_array.push(b); 
-                            }
-                        }
-        
-                      } else {
-        
-                        let a = `${box_id}!${table_name}!${test_result[0]['full_order']}`; 
-                        temp_array.push(a); 
-        
-                      }
-                    }
-
-                    if (i === (main_result.length-1)){
-                      // console.log(temp_array); 
-        
-                      //Jump to an admin page with table values
-                      return res.render("admin_main", {
-                          name: adminName, 
-                          date: date_key, 
-                          time: time_key,
-                          total_result: temp_array.join(','),
-                          nameList: checkedList,
-                          done_items: done_items
-                      })
-                    }
-                  })
+              db.query(`select * from ${table_id} where id IN(${item_id})`, (error, test_result) => {
+                if(error){
+                    console.log(error); 
                 }
 
-              } else {
+                if (table_id.includes('Phone') === true) {
 
-                //Jump to an admin page with table values
-                return res.render("admin_main", {
-                    name: adminName, 
-                    date: date_key, 
-                    time: time_key,
-                    nameList: checkedList,
-                    done_items: done_items
-                })
-              }
-          })
-        })
+                  let phone_order = `${table_name}#${EST_val}`; 
+
+                  if (test_result.length > 1) {
+
+                    let b = ''; 
+      
+                    for (let j = 0; j < test_result.length; j++) {
+
+                      // console.log(test_result[j]['full_order']); 
+                      b = `${b}!${test_result[j]['full_order']}`; 
+                      
+                      if (j === (test_result.length -1)){
+
+                          b = `${box_id}!${phone_order}${b}`; 
+                          temp_array.push(b); 
+                      }
+                    }
+
+                  } else {
+
+                    let a = `${box_id}!${phone_order}!${test_result[0]['full_order']}`; 
+                    temp_array.push(a); 
+                  }
+
+                } else {
+
+                  if (test_result.length > 1) {
+
+                    let b = ''; 
+            
+                    for (let j = 0; j < test_result.length; j++) {
+    
+                        // console.log(test_result[j]['full_order']); 
+                        b = `${b}!${test_result[j]['full_order']}`; 
+                        
+                        if (j === (test_result.length -1)){
+    
+                            b = `${box_id}!${table_name}${b}`; 
+                            temp_array.push(b); 
+                        }
+                    }
+    
+                  } else {
+    
+                    let a = `${box_id}!${table_name}!${test_result[0]['full_order']}`; 
+                    temp_array.push(a); 
+    
+                  }
+                }
+
+                if (i === (main_result.length-1)){
+                  // console.log(temp_array); 
+    
+                  //Jump to an admin page with table values
+                  return res.render("admin_main", {
+                      name: adminName, 
+                      date: date_key, 
+                      time: time_key,
+                      total_result: temp_array.join(','),
+                      done_items: done_items
+                  })
+                }
+              })
+            }
+
+          } else {
+
+            //Jump to an admin page with table values
+            return res.render("admin_main", {
+                name: adminName, 
+                date: date_key, 
+                time: time_key,
+                done_items: done_items
+            })
+          }
       })
     })
 })

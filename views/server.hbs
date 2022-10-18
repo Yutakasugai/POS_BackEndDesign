@@ -679,6 +679,8 @@
                 {{!-- Sign Out Btn --}}
                 <form action="/auth/user/signout" method="POST">
                     <input type="hidden" id="userName" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
                     <button type="submit" id="signout-btn">
                         <i style="font-size:20px" class="fa">&#xf08b;</i>
                     </button>
