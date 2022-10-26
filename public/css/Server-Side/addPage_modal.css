@@ -1104,7 +1104,7 @@
   opacity: 0.5;
 }
 
-#submit-btn{
+.submit-btn{
   /* padding: 9px 60px; */
   background-color: yellow;
   border-radius: 10px;
@@ -1112,7 +1112,7 @@
   border-color: black;
   float: right;
 }
-#submit-btn:active {
+.submit-btn:active {
   box-shadow: none;
   transform: translateY(3px);
   opacity: 0.5;

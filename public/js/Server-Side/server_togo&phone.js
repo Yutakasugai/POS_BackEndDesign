@@ -3,7 +3,7 @@ const togo_phone_key = document.getElementById('table_arr_v2').value;
 
 const togo_phone_arr = togo_phone_key.split(','); 
 
-// console.log(togo_phone_arr); 
+console.log(togo_phone_arr); 
 
 if (togo_phone_key.length > 0){
 
@@ -11,6 +11,7 @@ if (togo_phone_key.length > 0){
 
         let table_id = togo_phone_arr[i].split(':')[0]; 
         let table_con = togo_phone_arr[i].split(':')[1]; 
+        let ready_id = togo_phone_arr[i].split(':')[2]; 
 
         // table is can track the order status from fill or pend
 
@@ -34,11 +35,28 @@ if (togo_phone_key.length > 0){
             document.getElementById(`ex_table_${find_exBox}`).style.background = 'ivory';
             document.getElementById(`togo-option-${find_exBox}`).style.display = 'flex'; 
 
+            console.log(ready_id); 
+
+            if (ready_id === 'None') {
+                // Food not ready yet
+                document.getElementById(`doneBtn-togo-${find_exBox}`).disabled = true; 
+            } else {
+                // Food is ready
+                document.getElementById(`doneBtn-togo-${find_exBox}`).disabled = false; 
+            }
+
         } else {
 
             document.getElementById(`ex_table_${find_exBox}`).style.background = 'gold';
             document.getElementById(`phone-option-${find_exBox}`).style.display = 'flex'; 
-            // document.getElementById(`pickUp_time_${find_exBox}`).innerHTML = order_est; 
+            
+            console.log(ready_id); 
+            
+            if (ready_id === 'None') {
+                document.getElementById(`doneBtn-phone-${find_exBox}`).disabled = true; 
+            } else {
+                document.getElementById(`doneBtn-phone-${find_exBox}`).disabled = false; 
+            }
         }
     }
 

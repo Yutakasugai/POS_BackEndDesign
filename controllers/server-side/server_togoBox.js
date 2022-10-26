@@ -9,93 +9,109 @@ exports.togoBox = (req, res) => {
 
     // console.log(table_key, func_key); 
 
-    if (func_key === 'done_id') {
+    if (func_key === 'update_id') {
 
-        // Update the total result in the menu list db
-        db.query(`select * from ${table_key}_Check`, (error, result) => {
-            if(error) {
-                console.log(error); 
-            }
-            // console.log(result);
-            for (let i = 0; i < result.length; i++) {
-
-                let item_name = result[i]['item_name']; 
-                let item_num = Number(result[i]['item_num']); 
-
-                db.query(`select * from Menu_List where item_name = (?)`, (item_name), (error, result_v2) => {
-                    if (error) {
-                        console.log(error); 
-                    }
-
-                    let update_num = Number(result_v2[0]['num_item']) + item_num;
-                    
-                    // console.log(update_num);
-                    db.query(`update Menu_List set num_item = (?) where item_name = (?)`, [update_num, item_name], (error) => {
-                        if(error) {
-                            console.log(error); 
-                        }
-                    })
-                })
-            }
-        })
-
-        // Remove all data related to this table db 
-        db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
-            if(error) {
-                console.log(error); 
-            }
-        })
-
-        // Remove the table id from togo_phone db
-        db.query(`delete from togo_phone where table_id = (?)`, (table_key), (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        })
-
-        // Remove the item from coming_order db as well
-        db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        }) 
-
-        // Update customer_result db
-        db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, '1'], (error) => {
-            if (error) {
-                console.log(error); 
-            }
-        })
-
-        // Back to server add page
+        // Go to Page and Render addPage
         return res.redirect(url.format({
-            pathname: '/serverHome',
+            pathname: '/addPage_Togo&Phone',
             query: {
-                "status": "Server_HomePage",
                 "user": userName,
                 "date": date_key, 
                 "time": time_key, 
+                "table": table_key
             }
         }))
 
     } else {
 
-        // Capture submitted items from db
-        db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_items) => {
-            if(error) {
+        db.query(`select * from ${table_key} where order_status = 'submit' or order_status = 'unsubmit'`, (error, result) => {
+            if (error) {
                 console.log(error); 
             }
 
-            return res.render('addPage', {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_key: table_key, 
-                c_number: 1,
-                togo_key: 'togo_key',
-                noView_id: 'True',
-                submit_items: submit_items
-            })
+            if (result.length > 0) {
+
+                console.log('Some items still not paid yet...'); 
+
+                // Back to server add page
+                return res.redirect(url.format({
+                    pathname: '/serverHome',
+                    query: {
+                        "status": "Server_HomePage",
+                        "user": userName,
+                        "date": date_key, 
+                        "time": time_key, 
+                    }
+                }))
+
+            } else {
+
+                console.log('All items are paid, so ready to done'); 
+
+                // Update the total result in the menu list db
+                db.query(`select * from ${table_key}_Check`, (error, table_result) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+
+                    for (let i = 0; i < table_result.length; i++) {
+                        let item_name = table_result[i]['item_name']; 
+                        let item_num = Number(table_result[i]['item_num']); 
+
+                        db.query(`select * from Menu_List where item_name = (?)`, (item_name), (error, menuList_result) => {
+                            if (error) {
+                                console.log(error); 
+                            }
+
+                            let update_num = Number(menuList_result[0]['num_item']) + item_num;
+                            db.query(`update Menu_List set num_item = (?) where item_name = (?)`, [update_num, item_name], (error) => {
+                                if(error) {
+                                    console.log(error); 
+                                }
+                            })
+                        })
+                    }
+                })
+
+                // Remove all data related to this table db 
+                db.query(`drop table if exists ${table_key}, ${table_key}_Check`, (error) => {
+                    if(error) {
+                        console.log(error); 
+                    }
+                })
+
+                // Remove the table id from togo_phone db
+                db.query(`delete from togo_phone where table_id = (?)`, (table_key), (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                })
+
+                // Remove the item from coming_order db as well
+                db.query(`DELETE FROM coming_order WHERE table_id = (?)`, (table_key), (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                }) 
+
+                // Update customer_result db
+                db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, '1'], (error) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+                })
+
+                // Back to server add page
+                return res.redirect(url.format({
+                    pathname: '/serverHome',
+                    query: {
+                        "status": "Server_HomePage",
+                        "user": userName,
+                        "date": date_key, 
+                        "time": time_key, 
+                    }
+                }))
+            }
         })
     }
 }

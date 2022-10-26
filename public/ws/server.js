@@ -27,11 +27,7 @@ ws.addEventListener("message", ({data}) => {
         
     } else if (control_id[0] === 'SA_submitBtn') {
 
-        document.getElementById(`${control_id[1]}`).style.background = 'rgb(60, 217, 13)';
-        document.getElementById(`${control_id[1]}_filled`).style.display = 'block'; 
-        document.getElementById(`${control_id[1]}_empty`).style.display = 'none'; 
-        document.getElementById(`${control_id[1]}_update`).disabled = false; 
-        document.getElementById(`${control_id[1]}_addBtn`).disabled = false; 
+        console.log('No Change on Server Home Page Yet'); 
         
     } else if (control_id[0] === 'SH_addBtn') {
         
@@ -49,7 +45,7 @@ ws.addEventListener("message", ({data}) => {
         document.getElementById(`${control_id[1]}_update`).disabled = false;
         document.getElementById(`${control_id[1]}_empty`).disabled = false; 
 
-    }
+    } 
 }) 
 
 ws.addEventListener("close", () => {

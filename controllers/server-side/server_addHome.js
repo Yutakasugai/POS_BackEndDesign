@@ -17,8 +17,6 @@ exports.addHome = (req, res) => {
 
             if (get_id[0]['table_status'] === 'filled') {
 
-                // console.log("This is add page after server click update btn"); 
-
                 // Check if server is on the way to submit some items 
                 db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, unsubmit_items) => {
                     if (error) {

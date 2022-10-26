@@ -2353,7 +2353,7 @@ coke_decreaseBtn.addEventListener('click', () => {
   }
 })
 // + btn: Decrease num of topping
- coke_increaseBtn.addEventListener('click', () => {
+coke_increaseBtn.addEventListener('click', () => {
   coke_count ++; 
   coke_counter.innerHTML = coke_count;
   if(coke_count >= 11) {

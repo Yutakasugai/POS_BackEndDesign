@@ -17,13 +17,13 @@ const tableModal = document.getElementById('table-modal');
 const close_tableBtn = document.querySelector('.close-btn-tableBtn'); 
 
 // CloseBtn Modal
-const finishBtn = document.getElementById('systemClose-btn'); 
+const finishBtn = document.getElementById('close-btn'); 
 const no_btn = document.getElementById('no-btn'); 
 const closeBtnModal = document.getElementById('closeBtn-modal');
 const close_closeBtn = document.querySelector('.close-btn-closeBtn'); 
 
 // Two Box Btn Modal
-const boxBtn = document.getElementById('box-btn'); 
+const boxBtn = document.getElementById('more-orders-btn'); 
 const boxBtnModal = document.getElementById('boxBtn-modal'); 
 const close_boxBtn = document.querySelector('.close-btn-boxBtn'); 
 
@@ -92,21 +92,18 @@ const total_result = document.getElementById('total_result');
 
 let total_result_arr = total_result.value.split(','); 
 
-// console.log(total_result_arr.length, total_result_arr[0]); 
+console.log(total_result_arr.length, total_result_arr); 
 
 if (total_result_arr[0] !== '') {
 
     // Insert number of extraBox if need 
     if (total_result_arr.length > 4) {
-
         let exBox_num = total_result_arr.length - 4; 
-        document.getElementById('exBox_num').innerHTML = `+ ${exBox_num}`; 
+        // document.getElementById('exBox_num').innerHTML = `+ ${exBox_num}`; 
         document.getElementById('exBox_num_v2').innerHTML = exBox_num;
-        
     } else {
-
-        document.getElementById('exBox_num').innerHTML = '+ 0'; 
-        document.getElementById('exBox_num_v2').innerHTML = 0;
+        // document.getElementById('exBox_num').innerHTML = '+ 0'; 
+        document.getElementById('exBox_num_v2').innerHTML = '0';
     }
 
     // Create array for items
@@ -114,16 +111,11 @@ if (total_result_arr[0] !== '') {
 
     for (let i = 0; i < total_result_arr.length; i++) {
 
-        // console.log(total_result_arr[i].split('!')[1]);  
         let temp_item_array = total_result_arr[i].split('!')[1]; 
 
         if (temp_item_array.includes('Table') === true) {
-            // console.log(total_result_arr[i].split('!')[1].replace('Extra:', '')); 
             let table_key = temp_item_array.replace('Extra:', ''); 
-
-            // Change a box color for the box
             document.getElementById(`${table_key}`).style.background = 'lightgreen'; 
-
         } 
 
         if (i < 11) {
@@ -135,7 +127,6 @@ if (total_result_arr[0] !== '') {
             document.getElementById(`boxId_${get_num}`).setAttribute('value', each_total_arr[0]); 
 
             for (let k = 2; k < each_total_arr.length; k++){
-                //console.log(each_total_arr[k]); 
                 let item_key = `${get_num}!${each_total_arr[k]}`; 
                 item_array.push(item_key); 
             }
@@ -180,11 +171,10 @@ if (total_result_arr[0] !== '') {
             var mainItem_text = document.createTextNode(each_val[0]); 
 
             item_box.appendChild(mainItem_text); 
-            item_box.setAttribute('id', 'mainItem'); 
+            item_box.setAttribute('class', 'mainItem'); 
+            item_box.setAttribute('id', 'itemKey')
 
             document.getElementById(`itemBox_${num_key}`).appendChild(item_box);
-
-            // console.log("Main item is done"); 
 
             for (let r = 1; r < each_val.length; r++) {
                 // console.log(each_val[r]); 
@@ -193,7 +183,8 @@ if (total_result_arr[0] !== '') {
                     var exTop_text = document.createTextNode(each_val[r]); 
 
                     exTop_box.appendChild(exTop_text); 
-                    exTop_box.setAttribute('id', 'exTopping'); 
+                    exTop_box.setAttribute('class', 'exTopping'); 
+                    exTop_box.setAttribute('id', 'itemKey'); 
 
                     document.getElementById(`itemBox_${num_key}`).appendChild(exTop_box);
                 
@@ -202,11 +193,49 @@ if (total_result_arr[0] !== '') {
                     var remove_text = document.createTextNode(each_val[r]); 
 
                     remove_box.appendChild(remove_text); 
-                    remove_box.setAttribute('id', 'removeItem'); 
+                    remove_box.setAttribute('class', 'removeItem'); 
+                    remove_box.setAttribute('id', 'itemKey'); 
 
                     document.getElementById(`itemBox_${num_key}`).appendChild(remove_box);
                 }
             }
+
+            // var item_box = document.createElement('input'); 
+
+            // item_box.setAttribute('type', 'checkbox'); 
+            // item_box.setAttribute('class', 'check'); 
+
+            // document.getElementById(`itemBox_${num_key}`).appendChild(item_box); 
+
+            // var label_box = document.createElement('label'); 
+            // var mainItem_text = document.createTextNode(each_val[0]);
+
+            // label_box.appendChild(mainItem_text); 
+            // label_box.setAttribute('id', 'mainItem');
+
+            // document.getElementById(`itemBox_${num_key}`).appendChild(label_box); 
+
+            // for (let r = 1; r < each_val.length; r++) {
+            //     // console.log(each_val[r]); 
+            //     if (each_val[r].includes('+') === true) {
+            //         var exTop_box = document.createElement('p'); 
+            //         var exTop_text = document.createTextNode(each_val[r]); 
+
+            //         exTop_box.appendChild(exTop_text); 
+            //         exTop_box.setAttribute('id', 'exTopping'); 
+
+            //         document.getElementById(`itemBox_${num_key}`).appendChild(exTop_box);
+                
+            //     } else {
+            //         var remove_box = document.createElement('p');
+            //         var remove_text = document.createTextNode(each_val[r]); 
+
+            //         remove_box.appendChild(remove_text); 
+            //         remove_box.setAttribute('id', 'removeItem'); 
+
+            //         document.getElementById(`itemBox_${num_key}`).appendChild(remove_box);
+            //     }
+            // }
             
         } else {
 
@@ -214,12 +243,30 @@ if (total_result_arr[0] !== '') {
             var mainItem_text = document.createTextNode(each_val[0]); 
 
             item_box.appendChild(mainItem_text); 
-            item_box.setAttribute('id', 'mainItem'); 
+            item_box.setAttribute('class', 'mainItem'); 
+            item_box.setAttribute('id', 'itemKey'); 
 
             document.getElementById(`itemBox_${num_key}`).appendChild(item_box);
+            // var item_box = document.createElement('input'); 
+    
+            // item_box.setAttribute('type', 'checkbox'); 
+            // item_box.setAttribute('class', 'check'); 
+
+            // document.getElementById(`itemBox_${num_key}`).appendChild(item_box); 
+
+            // var label_box = document.createElement('label'); 
+            // var mainItem_text = document.createTextNode(each_val[0]);
+
+            // label_box.appendChild(mainItem_text); 
+            // label_box.setAttribute('id', 'mainItem');
+
+            // document.getElementById(`itemBox_${num_key}`).appendChild(label_box); 
         }
     }
-} 
+} else {
+
+    document.getElementById('exBox_num_v2').innerHTML = 0;
+}
 
 
 
