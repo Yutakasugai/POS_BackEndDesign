@@ -43,35 +43,30 @@ router.get("/signout", (req, res) => {
     if (systemMsg === "Time Out") {
 
       return res.render("index", {
-          nameList: get_userList(results),
           errMsg: "Time out! Please login again..."
       })
   
     } else if (systemMsg === "Sign Out") {
 
       return res.render("index", {
-          nameList: get_userList(results),
           errMsg: `${userName} succesfully signed out!`
       })
   
     } else if (systemMsg === 'Check Log'){
 
       return res.render("index", {
-          nameList: get_userList(results),
           errMsg: `This user was already logged in...`
       })
 
     } else if (systemMsg === 'Check Name or Pass') {
 
       return res.render("index", {
-          nameList: get_userList(results),
           errMsg: `The password or username is wrong...`
       })
 
     } else {
   
       return res.render("index", {
-          nameList: get_userList(results),
           errMsg: `Please try it again...`
       })
   
@@ -127,27 +122,65 @@ router.get('/serverHome', (req, res) => {
           }
 
           const table_arr_v2 = []; 
-          for (let h = 0; h < result_v2.length; h++) {
 
-            if (result_v2[h]["pending_table"] === 'True') {
-              let a = `${result_v2[h]["table_id"]}:Pend`; 
-              table_arr_v2.push(a); 
+          if (result_v2.length > 0) {
 
-            } else {
-              let b = `${result_v2[h]["table_id"]}:Fill`; 
-              table_arr_v2.push(b); 
+            for (let h = 0; h < result_v2.length; h++) {
+
+              // Check the item is ready or not 
+              db.query(`select * from updated_table where table_id = (?)`, (result_v2[h]['table_id']), (error, table_con) => {
+                if (error) {
+                  console.log(error); 
+                }
+
+                if (table_con.length > 0) {
+
+                  if (result_v2[h]["pending_table"] === 'True') {
+                    let a = `${result_v2[h]["table_id"]}:Pend:None`; 
+                    table_arr_v2.push(a); 
+      
+                  } else {
+                    let b = `${result_v2[h]["table_id"]}:Fill:None`; 
+                    table_arr_v2.push(b); 
+                  }
+
+                } else {
+
+                  if (result_v2[h]["pending_table"] === 'True') {
+                    let a = `${result_v2[h]["table_id"]}:Pend:Done`; 
+                    table_arr_v2.push(a); 
+      
+                  } else {
+                    let b = `${result_v2[h]["table_id"]}:Fill:Done`; 
+                    table_arr_v2.push(b); 
+                  }
+
+                }
+
+                // Back to Home Page with togo_phone arr
+                return res.render("server", {
+                    name: userName, 
+                    Date: date_key, 
+                    Time: time_key,
+                    table_arr: table_arr,
+                    table_arr_v2: table_arr_v2,
+                    items: item_result
+                })
+              })
             }
-          }
 
-          // Back to Home Page with togo_phone arr
-          return res.render("server", {
-              name: userName, 
-              Date: date_key, 
-              Time: time_key,
-              table_arr: table_arr,
-              table_arr_v2: table_arr_v2,
-              items: item_result
-          })
+          } else {
+
+            // Back to Home Page with togo_phone arr
+            return res.render("server", {
+                name: userName, 
+                Date: date_key, 
+                Time: time_key,
+                table_arr: table_arr,
+                table_arr_v2: table_arr_v2,
+                items: item_result
+            })
+          }
       })
     })
   })
@@ -176,18 +209,140 @@ router.get("/addPage", (req, res) => {
             console.log(error); 
           }
 
-            // Go back to add page again
-            return res.render('addPage', {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_key: table_key, 
-                c_number: c_number,
-                items: item_result,
-                submit_items: submit_items
-            })
+            if (submit_items.length > 0) {
+
+              // Go back to add page again
+              return res.render('addPage', {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  c_number: c_number,
+                  items: item_result,
+                  submit_items: submit_items
+              })
+
+            } else {
+
+              // Go back to add page again
+              return res.render('addPage', {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  c_number: c_number,
+                  items: item_result,
+                  submit_items: submit_items,
+                  noView_id: 'True'
+              })
+            }
         })
     })
+})
+
+// Servcer View Page on Server Side 
+router.get('/serverView', (req, res) => {
+
+  // Capture all needed values from uinsertItem controller 
+  const userName = req.query.user;
+  const date_key = req.query.date; 
+  const time_key = req.query.time; 
+  const table_key = req.query.table;
+  const c_number = req.query.c_num;
+
+  db.query(`select * from ${table_key} where order_status = 'submit'`, (error, submit_items) => {
+    if (error) {
+      console.log(error); 
+    }
+
+    // Check if other orders still exist on the klichen side 
+    db.query(`select * from updated_table where table_id = (?)`, (table_key), (error, result_key) => {
+      if (error) {
+          console.log(error); 
+      }
+
+      if (result_key.length > 0) {
+
+        return res.render("serverView", {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key,
+            table_key: table_key, 
+            c_number: c_number,
+            submit_items: submit_items,
+            noDone_id: 'True'
+        }); 
+
+      } else {
+
+        return res.render("serverView", {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key,
+            table_key: table_key, 
+            c_number: c_number,
+            submit_items: submit_items,
+            noDone_id: 'False'
+        }); 
+      }
+    })
+  })
+})
+
+// ServerView Page for Togo and Phone Orders
+router.get('/serverView_Togo&Phone', (req, res) => {
+  
+  // Capture all needed values from uinsertItem controller 
+  const userName = req.query.user;
+  const date_key = req.query.date; 
+  const time_key = req.query.time; 
+  const table_key = req.query.table;
+
+  db.query(`select * from ${table_key} where order_status = 'submit'`, (error, submit_items) => {
+    if (error) {
+      console.log(error); 
+    }
+
+    // Define phone or togo order either
+    if (table_key.includes('Phone') === true) {
+
+      db.query(`select * from togo_phone where table_id = (?)`, (table_key), (error, result) => {
+        if (error) {
+          console.log(error); 
+        }
+
+        return res.render('serverView', {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key,
+            table_key: table_key, 
+            pickUp_time: result[0]['EST'],
+            phone_key: 'phone_key',
+            ifPhone_id: 'True',
+            submit_items: submit_items
+        }) 
+      })
+
+    } else {
+
+      // Togo Order
+      db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, unsubmit_items) => {
+        if (error) {
+            console.log(error); 
+        }
+
+        return res.render('serverView', {
+            name: userName, 
+            Date: date_key, 
+            Time: time_key, 
+            table_key: table_key, 
+            c_number: 1, 
+            togo_key: "togo_key",
+            submit_items: unsubmit_items
+        })
+      })
+    }
+  })
 })
 
 // Add Page for Togo and Phone Orders
@@ -208,7 +363,7 @@ router.get("/addPage_Togo&Phone", (req, res) => {
         console.log(error); 
       }
 
-      db.query(`select * from ${table_key} where order_status = "submit"`, (error, submit_result) => {
+      db.query(`select * from ${table_key} where order_status = "paid"`, (error, paid_items) => {
         if (error) {
           console.log(error); 
         }
@@ -223,14 +378,14 @@ router.get("/addPage_Togo&Phone", (req, res) => {
             togo_key: 'togo_key',
             noView_id: 'True',
             items: result,
-            submit_items: submit_result
+            submit_items: paid_items
         }); 
       })
     })
 
   } else {
 
-    // console.log('This is a phone order'); 
+    // console.log('This is a phone order on addPage_Togo&Phone direct'); 
 
     // Get added items from db
     db.query(`select * from ${table_key} where order_status = "unsubmit"`, (error, result) => {
@@ -249,36 +404,73 @@ router.get("/addPage_Togo&Phone", (req, res) => {
             console.log(error); 
           }
 
-          if (table_con[0]['table_status'] === 'filled') {
+          if (submit_result.length > 0) {
 
-            // Back to Add Page for Togo 
-            return res.render("addPage", {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_key: table_key, 
-                pickUp_time: table_con[0]['EST'],
-                phone_key: 'phone_key',
-                noView_id: 'True',
-                items: result,
-                submit_items: submit_result
-            }); 
+            if (table_con[0]['table_status'] === 'filled') {
+
+              // Back to Add Page for Togo 
+              return res.render("addPage", {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  pickUp_time: table_con[0]['EST'],
+                  phone_key: 'phone_key',
+                  items: result,
+                  submit_items: submit_result
+              }); 
+  
+            } else {
+              
+              // Back to Add Page for Togo 
+              return res.render("addPage", {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  pickUp_time: table_con[0]['EST'],
+                  phone_key: 'phone_key',
+                  ifPhone_id: 'True',
+                  extraOrder_id: 'True',
+                  items: result,
+                  submit_items: submit_result
+              }); 
+            }
 
           } else {
-            
-            // Back to Add Page for Togo 
-            return res.render("addPage", {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_key: table_key, 
-                pickUp_time: table_con[0]['EST'],
-                phone_key: 'phone_key',
-                noView_id: 'True',
-                ifPhone_id: 'True',
-                items: result,
-                submit_items: submit_result
-            }); 
+
+            if (table_con[0]['table_status'] === 'filled') {
+
+              // Back to Add Page for Togo 
+              return res.render("addPage", {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  pickUp_time: table_con[0]['EST'],
+                  phone_key: 'phone_key',
+                  noView_id: 'True',
+                  items: result,
+                  submit_items: submit_result
+              }); 
+  
+            } else {
+              
+              // Back to Add Page for Togo 
+              return res.render("addPage", {
+                  name: userName, 
+                  Date: date_key, 
+                  Time: time_key,
+                  table_key: table_key, 
+                  pickUp_time: table_con[0]['EST'],
+                  phone_key: 'phone_key',
+                  noView_id: 'True',
+                  ifPhone_id: 'True',
+                  extraOrder_id: 'True',
+                  items: result,
+                  submit_items: submit_result
+              }); 
+            }
           }
         })
       })
@@ -380,7 +572,9 @@ router.get("/adminMain", (req, res) => {
                 }
 
                 if (i === (main_result.length-1)){
-                  // console.log(temp_array); 
+
+                  console.log(temp_array); 
+                  console.log(temp_array.join(',')); 
     
                   //Jump to an admin page with table values
                   return res.render("admin_main", {
@@ -412,52 +606,52 @@ router.get("/adminMain", (req, res) => {
 
 
 // Functions List 
-function get_userList(results) {
+// function get_userList(results) {
 
-  const nameList = [];
-  const result = Object.values(JSON.parse(JSON.stringify(results)));
+//   const nameList = [];
+//   const result = Object.values(JSON.parse(JSON.stringify(results)));
 
-  for (let i = 0; i < results.length; i++) {
-    let name_val = result[i]["name"];
-    let pass_val = result[i]["password"];
-    nameList[i] = name_val + ":" + pass_val;
-  }
+//   for (let i = 0; i < results.length; i++) {
+//     let name_val = result[i]["name"];
+//     let pass_val = result[i]["password"];
+//     nameList[i] = name_val + ":" + pass_val;
+//   }
 
-  return nameList; 
-}
+//   return nameList; 
+// }
 
-function check_userList(nameList, loggedUser) {
+// function check_userList(nameList, loggedUser) {
 
-  const result_log = Object.values(JSON.parse(JSON.stringify(loggedUser)));
+//   const result_log = Object.values(JSON.parse(JSON.stringify(loggedUser)));
 
-  if (loggedUser.length > 0) {
+//   if (loggedUser.length > 0) {
 
-      for (let x = 0; x < loggedUser.length; x++){
+//       for (let x = 0; x < loggedUser.length; x++){
 
-          let checkedUser = result_log[x]['name']
-          nameList.splice(nameList.indexOf(checkedUser), 1) 
-      }
+//           let checkedUser = result_log[x]['name']
+//           nameList.splice(nameList.indexOf(checkedUser), 1) 
+//       }
 
-      return nameList; 
-  } else {
+//       return nameList; 
+//   } else {
 
-      console.log("No user in userLog..."); 
-      return nameList; 
-  }
-}
+//       console.log("No user in userLog..."); 
+//       return nameList; 
+//   }
+// }
 
-// Function to check if order_result table exist or not 
-function check_adminHome(table_result) {
+// // Function to check if order_result table exist or not 
+// function check_adminHome(table_result) {
 
-  for (let t = 0; t < table_result.length; t++){
+//   for (let t = 0; t < table_result.length; t++){
 
-    if (table_result[t]['Tables_in_pos_database'] === 'order_result') {
-      return true; 
-    }
-  }
+//     if (table_result[t]['Tables_in_pos_database'] === 'order_result') {
+//       return true; 
+//     }
+//   }
 
-  return false; 
-}
+//   return false; 
+// }
 
 
 module.exports = router;

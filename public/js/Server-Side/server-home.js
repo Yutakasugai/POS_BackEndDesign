@@ -2,6 +2,8 @@
 const tabel_arr = document.getElementById('table_arr').value.split(','); 
 let update_table_arr = [1, 2, 3, 4, 5, 6, 7, 8]; 
 
+console.log(tabel_arr); 
+
 if (tabel_arr[0] !== '') {
     // let value = 3
     // let arr = [1, 2, 3, 4, 5, 3]
@@ -45,7 +47,7 @@ if (tabel_arr[0] !== '') {
 
 } 
 
-console.log(update_table_arr); 
+// console.log(update_table_arr); 
 
 
 // This is Add Modal Set //

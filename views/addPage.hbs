@@ -67,7 +67,7 @@
                     <input type="hidden" name="time_key" value="{{Time}}">
                     <input type="hidden" name="table_key" value="{{table_key}}">
                     <input type="hidden" name="c_number" value="{{c_number}}">
-                    {{!-- <input type="hidden" name="phone_key" value="{{phone_key}}"> --}}
+                    <input type="hidden" name="phone_key" value="{{phone_key}}">
                     <button class="view-button">View</button>
                 </form>
             {{/if}}
@@ -1908,7 +1908,10 @@
                 <div class="submit">
 
                     {{#if ifPhone_id }}
-                        <button id="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button>
+                        <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
+                        <input type="hidden" name="extraOrder_id" id="extraOrder_id" value="{{extraOrder_id}}">
+                        <button id="submit-btn" class="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button>
                     {{else}}
                         <form action="/auth/user/submitItem" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
@@ -1917,7 +1920,8 @@
                             <input type="hidden" name="table_key" value="{{table_key}}">
                             <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
                             <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
-                            <button id="submit-btn" style="padding: 9px 60px;">Submit</button>
+                            <input type="hidden" name="extraOrder_id" id="extraOrder_id" value="{{extraOrder_id}}">
+                            <button id="submit-btn" class="submit-btn" style="padding: 9px 60px;">Submit</button>
                         </form>
                     {{/if}}
 

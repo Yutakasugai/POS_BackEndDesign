@@ -12,6 +12,8 @@
 
 </head>
 <body>
+
+<div class= "wrap">
     <!-- Top Line -->
     <div class="page-container">
 
@@ -25,12 +27,17 @@
         <div class="circle-buttons">
 
             <!-- Table Check Btn -->
-            <button id="table-btn">T</button>
+            <button id="table-btn"><i class="fa fa-table" aria-hidden="true"></i></button>
 
             <!-- Icon Button -->
             <div class="user-notice">
-                <button type="button" class="icon-button" id="userCheck-btn">
+                {{!-- <button type="button" class="icon-button" id="userCheck-btn">
                     <i class="fa-solid fa-user-check"></i>
+                    
+                </button> --}}
+
+                <button type="button" class="icon-button" id="userCheck-btn">
+                    <i style="font-size: 2rem;" class="fa fa-user"></i>
                 </button>
             </div>
 
@@ -38,11 +45,14 @@
 
         <!-- square buttons at the top -->
         <div class="square-button">
-            <button id="history-btn"> View History</button>
+            <button id="more-orders-btn"><i class="gg-copy"></i>
+                <span class="num_notice_badge_orders" id="exBox_num_v2"></span> 
+            </button>
+            <button id="history-btn"><i class="fa fa-history"></i></button>
+            <button id="close-btn"><i class="fa fa-sign-out"></i></button>
         </div>
 
     </div>
-
 
     <!-- Order Box -->
     <div class="box-container">
@@ -56,9 +66,7 @@
             </div>
 
             <div class="scrollable">
-                <div class="order-items" id="itemBox_1">
-                    {{!-- <p id="mainItem_1"></p> --}}
-                </div>
+                <div class="order-items" id="itemBox_1"></div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -81,9 +89,7 @@
             </div>
 
             <div class="scrollable">
-                <div class="order-items" id="itemBox_2">
-                    {{!-- <p id="mainItem_2"></p> --}}
-                </div>
+                <div class="order-items" id="itemBox_2"></div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -105,9 +111,7 @@
             </div>
 
             <div class="scrollable">
-                <div class="order-items" id="itemBox_3">
-                    {{!-- <p id="mainItem_3"></p> --}}
-                </div>
+                <div class="order-items" id="itemBox_3"></div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -130,9 +134,7 @@
             </div>
 
             <div class="scrollable">
-                <div class="order-items" id="itemBox_4">
-                    {{!-- <p id="mainItem_4"></p> --}}
-                </div>
+                <div class="order-items" id="itemBox_4"></div>
             </div>
 
             <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
@@ -145,345 +147,314 @@
             </form>
 
         </div>
-
     </div>
+</div>
 
-    <!-- More orders shown at the corner -->
-    <div class="bottom-container">
+<!-- Modal Page for Table Display -->
+<div class="table-modal" id='table-modal'>
+    <div class="modal-content-table">
 
-        <div class="footer-buttons">
+        <span class="close-btn-tableBtn">&times;</span>
 
-            <!-- home back button -->
-            {{!-- <form action="/auth/admin/signOut" method="POST" class="signout-button">
-                <input type="hidden" name="adminName" value="{{name}}">
-                <input type="hidden" name="date_key" value="{{date}}">
-                <input type="hidden" name="time_key" value="{{time}}">
-                <button id="signout-btn">Sign Out</button>
-            </form> --}}
+        <div class="table-container">
 
-            <button id="systemClose-btn">Close</button>
-
-        </div>
-
-        <div class="moreOrder-container">
-
-            <div class="num-panel">
-                <p id="exBox_num"></p>
-            </div>
-
-            <div class="two-boxes">
-                <button class="box-1" id="box-btn"><i class="gg-copy"></i>
-                    <span class="num_notice_badge_orders" id="exBox_num_v2"></span> 
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 1 -->
-    <!-- Modal Page for Table Display -->
-    <div class="table-modal" id='table-modal'>
-        <div class="modal-content-table">
-
-            <span class="close-btn-tableBtn">&times;</span>
-
-            <div class="table-container">
-
-                <!-- Table 3,4,5 -->
-                <div class="table-345">
-                    <div class="table-box" id="Table_3" style="background: yellow;">
-                        <p id="table-3">T3</p>
-                    </div>
-                    <div class="table-box" id="Table_4" style="background: yellow;">
-                        <p id="table-4">T4</p>
-                    </div>
-                    <div class="table-box" id="Table_5" style="background: yellow;">
-                        <p id="table-5">T5</p>
-                    </div>
+            <!-- Table 3,4,5 -->
+            <div class="table-345">
+                <div class="table-box" id="Table_3" style="background: yellow;">
+                    <p id="table-3">T3</p>
                 </div>
-
-                <!-- Table 6,7,8 -->
-                <div class="table-678">
-
-                    <div class="table-box2" id="Table_7" style="background: yellow;">
-                        <p id="table-7">T7</p>
-                    </div>
-                    <div class="table-box2" id="Table_8" style="background: yellow;">
-                        <p id="table-8">T8</p>
-                    </div>
-                    <div class="table-box2" id="Table_6" style="background: yellow;">
-                        <p id="table-6">T6</p>
-                    </div>
+                <div class="table-box" id="Table_4" style="background: yellow;">
+                    <p id="table-4">T4</p>
                 </div>
-
-                <!-- Table 1,2 and front-->
-                <div class="table-12">
-
-                    <div class="table-box3" id="Table_1" style="background: yellow;">
-                        <p id="table-1">T1</p>
-                    </div>
-                    <div class="table-box3" id="Table_2" style="background: yellow;">
-                        <p id="table-2">T2</p>
-                    </div>
-                    <div class="front-box">
-                        <p id="front" style="font-size: 1rem;">Front</p>
-                    </div>
+                <div class="table-box" id="Table_5" style="background: yellow;">
+                    <p id="table-5">T5</p>
                 </div>
             </div>
 
-        </div>
-    </div>
+            <!-- Table 6,7,8 -->
+            <div class="table-678">
 
-    <!-- Modal 2 -->
-    <!-- Modal Page for Close Btn -->
-    <div class="closeBtn-modal" id="closeBtn-modal">
-        <div class="modal-content-closeBtn">
-            <span class="close-btn-closeBtn">&times;</span>
-
-            <div class="closeText-container">
-                <p>Are you sure to Exit?</p>
-                
-                <div class="yesno-btn">
-                    <button id="no-btn">No</button>
-
-                    <form action="/auth/admin/signOut" method="POST">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <button id="yes-btn">Yes</button>
-                    </form>
+                <div class="table-box2" id="Table_7" style="background: yellow;">
+                    <p id="table-7">T7</p>
+                </div>
+                <div class="table-box2" id="Table_8" style="background: yellow;">
+                    <p id="table-8">T8</p>
+                </div>
+                <div class="table-box2" id="Table_6" style="background: yellow;">
+                    <p id="table-6">T6</p>
                 </div>
             </div>
 
+            <!-- Table 1,2 and front-->
+            <div class="table-12">
+
+                <div class="table-box3" id="Table_1" style="background: yellow;">
+                    <p id="table-1">T1</p>
+                </div>
+                <div class="table-box3" id="Table_2" style="background: yellow;">
+                    <p id="table-2">T2</p>
+                </div>
+                <div class="front-box">
+                    <p id="front" style="font-size: 1rem;">Front</p>
+                </div>
+            </div>
         </div>
+
     </div>
+</div>
 
-    <!-- Modal 3 -->
-    <!-- Pop up modal for checking user login -->
-    <div class="userLog-modal" id='userLog-modal'>
-        <div class="modal-content">
-            <h1>Check UserLog</h1>
-            <span class="close-btn-userlogBtn">&times;</span>
-            <div class="line"></div>
 
-            {{!-- Display the usercheck status on the modal --}}
-            <div class="userCheck"></div>
+<!-- Modal 2 -->
+<!-- Modal Page for Close Btn -->
+<div class="closeBtn-modal" id="closeBtn-modal">
+    <div class="modal-content-closeBtn">
+        <span class="close-btn-closeBtn">&times;</span>
 
+        <div class="closeText-container">
+            <p>Are you sure to Exit?</p>
+            
+            <div class="yesno-btn">
+                <button id="no-btn">No</button>
+
+                <form action="/auth/admin/signOut" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="yes-btn">Yes</button>
+                </form>
+            </div>
         </div>
+
     </div>
+</div>
 
-    <!-- Modal 4 -->
-    <!-- Modal Page to display more order boxes -->
-    <div class="boxBtn-modal" id="boxBtn-modal">
-        <div class="modal-content-boxBtn">
-            <span class="close-btn-boxBtn">&times;</span>
+<!-- Modal 3 -->
+<!-- Pop up modal for checking user login -->
+<div class="userLog-modal" id='userLog-modal'>
+    <div class="modal-content">
+        <h1>Check UserLog</h1>
+        <span class="close-btn-userlogBtn">&times;</span>
+        <div class="line"></div>
 
-            <div class="extraBox_container">
+        {{!-- Display the usercheck status on the modal --}}
+        <div class="userCheck"></div>
 
-                <!-- Extra Box 1 -->
-                <div class="extraBox" id="Box_5" style="display: none;">
+    </div>
+</div>
 
-                    <div class="box-title">
-                        <p id="boxName_5"></p>
-                        <h1 id="pickUp_time_5" style="display: none;"></h1>
-                    </div>
+<!-- Modal 4 -->
+<!-- Modal Page to display more order boxes -->
+<div class="boxBtn-modal" id="boxBtn-modal">
+    <div class="modal-content-boxBtn">
+        <span class="close-btn-boxBtn">&times;</span>
 
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_5">
-                            {{!-- <p id="mainItem_5"></p> --}}
-                        </div>
-                    </div>
+        <div class="extraBox_container">
 
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_5" name="box_id" value="">
-                        <input type="hidden" id="tableId_5" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-5">Done</button>
-                    </form>
+            <!-- Extra Box 1 -->
+            <div class="extraBox" id="Box_5" style="display: none;">
 
+                <div class="box-title">
+                    <p id="boxName_5"></p>
+                    <h1 id="pickUp_time_5" style="display: none;"></h1>
                 </div>
 
-                <!-- Extra Box 2 -->
-                <div class="extraBox" id="Box_6" style="display: none;">
-
-                    <div class="box-title">
-                        <p id="boxName_6"></p>
-                        <h1 id="pickUp_time_6" style="display: none;"></h1>
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_5">
+                        {{!-- <p id="mainItem_5"></p> --}}
                     </div>
-
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_6">
-                            {{!-- <p id="mainItem_6"></p> --}}
-                        </div>
-                    </div>
-
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_6" name="box_id" value="">
-                        <input type="hidden" id="tableId_6" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-6">Done</button>
-                    </form>
-
                 </div>
 
-                <!-- Extra Box 3 -->
-                <div class="extraBox" id="Box_7" style="display: none;">
-
-                    <div class="box-title">
-                        <p id="boxName_7"></p>
-                        <h1 id="pickUp_time_7" style="display: none;"></h1>
-                    </div>
-
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_7">
-                            {{!-- <p id="mainItem_7"></p> --}}
-                        </div>
-                    </div>
-        
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_7" name="box_id" value="">
-                        <input type="hidden" id="tableId_7" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-7">Done</button>
-                    </form>
-
-                </div>
-
-                <!-- Extra Box 4 -->
-                <div class="extraBox" id="Box_8" style="display: none;">
-
-                    <div class="box-title">
-                        <p id="boxName_8"></p>
-                        <h1 id="pickUp_time_8" style="display: none;"></h1>
-                    </div>
-
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_8">
-                            {{!-- <p id="mainItem_8"></p> --}}
-                        </div>
-                    </div>
-        
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_8" name="box_id" value="">
-                        <input type="hidden" id="tableId_8" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-8">Done</button>
-                    </form>
-
-                </div>
-
-                <!-- Extra Box 5 -->
-                <div class="extraBox" id="Box_9" style="display: none;">
-
-                    <div class="box-title">
-                        <p id="boxName_9"></p>
-                        <h1 id="pickUp_time_9" style="display: none;"></h1>
-                    </div>
-
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_9">
-                            {{!-- <p id="mainItem_9"></p> --}}
-                        </div>
-                    </div>
-        
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_9" name="box_id" value="">
-                        <input type="hidden" id="tableId_9" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-9">Done</button>
-                    </form>
-
-                </div>
-
-                <!-- Extra Box 6 -->
-                <div class="extraBox" id="Box_10" style="display: none;">
-                    <div class="box-title">
-                        <p id="boxName_10"></p>
-                        <h1 id="pickUp_time_10" style="display: none;"></h1>
-                    </div>
-                    <div class="scrollable">
-                        <div class="order-items" id="itemBox_10">
-                            {{!-- <p id="mainItem_10"></p> --}}
-                        </div>
-                    </div>
-        
-                    <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
-                        <input type="hidden" name="adminName" value="{{name}}">
-                        <input type="hidden" name="date_key" value="{{date}}">
-                        <input type="hidden" name="time_key" value="{{time}}">
-                        <input type="hidden" id="boxId_10" name="box_id" value="">
-                        <input type="hidden" id="tableId_10" name="table_id" value="">
-                        <button class="done-button" id="doneBtn-10">Done</button>
-                    </form>
-
-                </div>
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_5" name="box_id" value="">
+                    <input type="hidden" id="tableId_5" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-5">Done</button>
+                </form>
 
             </div>
+
+            <!-- Extra Box 2 -->
+            <div class="extraBox" id="Box_6" style="display: none;">
+
+                <div class="box-title">
+                    <p id="boxName_6"></p>
+                    <h1 id="pickUp_time_6" style="display: none;"></h1>
+                </div>
+
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_6">
+                        {{!-- <p id="mainItem_6"></p> --}}
+                    </div>
+                </div>
+
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_6" name="box_id" value="">
+                    <input type="hidden" id="tableId_6" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-6">Done</button>
+                </form>
+
+            </div>
+
+            <!-- Extra Box 3 -->
+            <div class="extraBox" id="Box_7" style="display: none;">
+
+                <div class="box-title">
+                    <p id="boxName_7"></p>
+                    <h1 id="pickUp_time_7" style="display: none;"></h1>
+                </div>
+
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_7">
+                        {{!-- <p id="mainItem_7"></p> --}}
+                    </div>
+                </div>
     
-        </div>
-    </div>
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_7" name="box_id" value="">
+                    <input type="hidden" id="tableId_7" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-7">Done</button>
+                </form>
 
-    <!-- Modal 5 -->
-    <!-- History Btn Modal  -->
-    <div class="historyBtn-modal" id="historyBtn-modal">
-        <div class="modal-content-historyBtn">
-            <span class="close-btn-historyBtn">&times;</span>
+            </div>
 
-            <div class="historyBtn-textBox">
+            <!-- Extra Box 4 -->
+            <div class="extraBox" id="Box_8" style="display: none;">
 
-                <div class="historyBtn-title">
-                    <h1>View History</h1>
-                    <h2>{{date}} - {{time}}</h2>
+                <div class="box-title">
+                    <p id="boxName_8"></p>
+                    <h1 id="pickUp_time_8" style="display: none;"></h1>
                 </div>
-                <div class="scrollable">
-                    <div class="review-container">
 
-                        <table border cellspacing="0">
-
-                            <!-- table desc rows -->
-                            <tr class="reviewBox-container"> 
-                                <tr class="reviewBox-header">
-                                    <th id="tableNum-row">Table Number</th>
-                                    <th id="togoPerson-row">EST</th>
-                                    <th id="itemName-row">Item Name</th>
-                                </tr>
-                                
-                                {{#each done_items}}
-                                    <tr class="addedInfo-container">
-                                        <th>{{table_name}}</th>
-                                        <th>{{EST}}</th>
-                                        <th>{{order_item}}</th>
-                                    </tr>
-                                {{/each}}
-
-                            </tr>
-
-                        </table>
-
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_8">
+                        {{!-- <p id="mainItem_8"></p> --}}
                     </div>
                 </div>
+    
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_8" name="box_id" value="">
+                    <input type="hidden" id="tableId_8" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-8">Done</button>
+                </form>
+
+            </div>
+
+            <!-- Extra Box 5 -->
+            <div class="extraBox" id="Box_9" style="display: none;">
+
+                <div class="box-title">
+                    <p id="boxName_9"></p>
+                    <h1 id="pickUp_time_9" style="display: none;"></h1>
+                </div>
+
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_9">
+                        {{!-- <p id="mainItem_9"></p> --}}
+                    </div>
+                </div>
+    
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_9" name="box_id" value="">
+                    <input type="hidden" id="tableId_9" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-9">Done</button>
+                </form>
+
+            </div>
+
+            <!-- Extra Box 6 -->
+            <div class="extraBox" id="Box_10" style="display: none;">
+                <div class="box-title">
+                    <p id="boxName_10"></p>
+                    <h1 id="pickUp_time_10" style="display: none;"></h1>
+                </div>
+                <div class="scrollable2">
+                    <div class="order-items" id="itemBox_10">
+                        {{!-- <p id="mainItem_10"></p> --}}
+                    </div>
+                </div>
+    
+                <form action="/auth/admin/doneBtn" method="POST" class="done-btn">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <input type="hidden" id="boxId_10" name="box_id" value="">
+                    <input type="hidden" id="tableId_10" name="table_id" value="">
+                    <button class="done-button" id="doneBtn-10">Done</button>
+                </form>
+
             </div>
 
         </div>
+
     </div>
+</div>
 
-    <input type="hidden" id="userList" name="userList" value="{{nameList}}">
-    <input type="hidden" id="total_result" name="total_result" value="{{total_result}}">
+<!-- Modal 5 -->
+<!-- History Btn Modal  -->
+<div class="historyBtn-modal" id="historyBtn-modal">
+    <div class="modal-content-historyBtn">
+        <span class="close-btn-historyBtn">&times;</span>
 
-    {{!-- Js Command --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/ws/admin.js"></script>
-    <script type="text/javascript" src="/js/Kitchen-Side/admin_main.js"></script>
-    <script src="https://kit.fontawesome.com/442362b37d.js" crossorigin="anonymous"></script>
+        <div class="historyBtn-textBox">
+
+            <div class="historyBtn-title">
+                <h1>View History</h1>
+                <h2>{{date}} - {{time}}</h2>
+            </div>
+
+            <!-- Table -->
+            <div class="table">
+                <!-- Table Desc -->
+                <div class="table-desc">
+                    <table border cellspacing="0">
+                        <thead>
+                            <!-- Item Title -->
+                            <tr class="header">
+                                <th id="item-rows">Table Name</th>
+                                <th id="item-rows">EST</th>
+                                <th id="item-rows">Item Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Items Rows -->
+                            {{#each done_items}}
+                            <tr class="addedInfo-container">
+                                <th>{{table_name}}</th>
+                                <th>{{EST}}</th>
+                                <th>{{order_item}}</th>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="userList" name="userList" value="{{nameList}}">
+<input type="hidden" id="total_result" name="total_result" value="{{total_result}}">
+
+{{!-- Js Command --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="/ws/admin.js"></script>
+<script type="text/javascript" src="/js/Kitchen-Side/admin_main.js"></script>
+<script src="https://kit.fontawesome.com/442362b37d.js" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

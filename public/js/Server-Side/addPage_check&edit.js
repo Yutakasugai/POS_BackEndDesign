@@ -130,7 +130,8 @@ removeBtn_edit.addEventListener('click', function(event){
 
 
 // Submit Button on the Submit Sheet 
-const submitBtn = document.getElementById('submit-btn');
+// const submitBtn = document.getElementById('submit-btn');
+const submitBtn = document.querySelector('.submit-btn'); 
 
 if ($("input[name='willCheck_item']").length === 0) {
 

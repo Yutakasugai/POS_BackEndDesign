@@ -2,21 +2,27 @@ body {
     background: #585858;
     font-family: "Kaisei Tokumin", Sans-Serif;
     /* I think this can lock the window swipped up and down */
-    overflow-y: hidden;
-    overflow-x: hidden;
+    /* overflow-y: hidden;
+    overflow-x: hidden; */
     padding: 1.5rem calc((100vw - 1200px) / 2);
+    margin-top: -10px;
 }
 
-
+.wrap{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* margin-top:15px; */
+}
 /* User Info */
 .page-container {
     display: grid;
     grid-template-columns: 22.5rem auto auto;
     background-color: #343434;
     border-radius: 20px;
-    padding: 10px;
+    padding: 5px;
     color: white;
-    margin-top: -20px;
+    /* margin-top: -20px; */
 }
 /* .page-info {
     margin-top: -15px;
@@ -26,9 +32,12 @@ body {
 } */
 .page-info h2 {
     font-size: 1.3rem;
+    margin-left: 20px;
+    
 }
 #page-time {
     margin-top: -10px;
+    margin-left: 20px;
 }
 
 
@@ -37,6 +46,7 @@ body {
     display: flex;
     align-self: center;
     gap: 50px;
+    color:black;
 }
 .circle-buttons button {
     display: block;
@@ -45,20 +55,22 @@ body {
     position: relative;
     align-items: center;
     justify-content: center;
-    height: 80px;
-    width: 80px;
+    height: 75px;
+    width: 75px;
     border-width: 2px;
     border-color: black;
     outline: none;
     border-radius: 50%;
+    color:black;
 }
 
 #table-btn {
     background-color: lightyellow;
-    
+    color:black;
 }
 #userCheck-btn {
     background-color: white;
+    color:black;
 }
 /* Icon Button Design */
 .user-notice button {
@@ -84,7 +96,7 @@ body {
     border-radius: 50%;
 }
 .icon-button i {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 
@@ -94,56 +106,108 @@ body {
     display: flex;
     /* justify-content: space-between; */
     align-self: center;
-    justify-content: end;
     margin-right: 20px;
+    gap:20px;
+    justify-content: end;
+    margin-top: 10px;
 
 }
 .square-button button{
-    width: 150px;
-    height: 55px;
-    font-size: 1.2rem;
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
     font-weight: 500;
     color: black;
     border-width: 2.5px;
     border-color: black;
 }
+#more-orders-btn{
+    border-radius: 10px;
+    padding:26px;
+    background-color: lightgoldenrodyellow;
+    position: relative;
+    display: block;
+    text-align:center;
+    margin:auto;
+}
 #history-btn {
     border-radius: 10px;
     background-color: lightblue;
 }
+#close-btn{
+    border-radius: 10px;
+    background-color: lightcoral;
+}
 
+.num_notice_badge_orders {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+    background: #f3172d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
 
+#more-orders-btn:active {
+    box-shadow: none;
+    transform: translateY(5px);
+    opacity: 0.5;
+}
+
+#history-btn:active {
+    box-shadow: none;
+    transform: translateY(5px);
+    opacity: 0.5;
+}
+#close-btn:active {
+    box-shadow: none;
+    transform: translateY(5px);
+    opacity: 0.5;
+}
+.num-panel {
+    align-self: center;
+    font-size: 1.3rem;
+}
 
 /* Order Box */
 .scrollable{
-    flex: 1;
-    overflow:auto;
-    overflow-y: scroll;
-    position:relative; 
-    margin-top: 8px;
-    margin-bottom: 3px;
+    display: flex;
+    position: relative;
+    flex-shrink: 0;
+    flex-direction: row;
+    flex:1;
+    overflow:scroll;
+    overflow-y: scroll; 
+
+    margin-bottom:auto;
+    height:67vh;
 }
 
 .box-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    height: 34rem;
+    margin-top: auto;
+    height:100%;
+    bottom:0;
     justify-items: center;
     margin-top: 10px;
 }
 .order-box {
     width: 94%; 
+    height: 77vh;
     background-color: #fffdd0;
-    /* display: grid; */
-    grid-template-columns: 100%;
-    grid-template-rows: 3rem 28rem 2.5rem;
-    /* border-radius: 10px; */
     border-width: 1.5px;
     border-style: solid;
     border-color: black;
 }
 
-
+/* Box Title */
 /* Box Title */
 .box-title {
     display: grid;
@@ -171,125 +235,42 @@ body {
     /* font-size: 1.1rem; */
     padding-left: 10px;
 }
-#mainItem {
+.mainItem {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 18px;
+}
+.exTopping {
     font-size: 1.5rem;
     font-weight: 500;
+
+    margin-top: -18px;
+    padding-left: 25px;
 }
-#exTopping {
-    font-size: 1.2rem;
+.removeItem {
+    font-size: 1.5rem;
     font-weight: 500;
 
-    margin-top: -20px;
-    padding-left: 20px;
-}
-#removeItem {
-    font-size: 1.2rem;
-    font-weight: 500;
-
-    margin-top: -20px;
-    padding-left: 20px;
+    margin-top: -18px;
+    padding-left: 25px;
     color: red;
 }
-#add-toppings {
-    margin-top: -15px;
-    padding-left: 10px;
-}
+
 
 /* Done Btn at each boxes */
 .done-button {
     background: lightgreen;
+    display: fixed;
+    bottom: 0;
     width: 100%;
-    height: 120%;
+    height: 50px;
+    margin-top: auto;
     font-size: 1rem;
     color: black;
     font-weight: 500;
 } 
 
-/* Bottom Line */
-.footer-buttons {
-    display: flex;
-    /* justify-content: space-between; */
-    align-self: center;
-    justify-content: end;
-    gap: 20px;
-}
-
-.bottom-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    border-radius: 20px;
-    padding: 10px;
-    color: white;
-    background-color: #343434;
-}
-.signout-button {
-    padding-left: 5px;
-    align-self: center;
-}
-#signout-btn {
-    padding: 12px 30px;
-    border-radius: 10px;
-    background: lightgoldenrodyellow;
-    border-width: 2.5px;
-    border-color: black;
-    font-size: 0.8rem;
-    color: black;
-    font-weight: 500;
-}
-#systemClose-btn {
-    padding: 15px 32px;
-    border-radius: 10px;
-    background: lightcoral;
-    border-width: 2.5px;
-    border-color: black;
-    font-size: 0.8rem;
-    color: black;
-    font-weight: 500;
-} 
-/* Two Boxes and Number Plates*/
-.moreOrder-container {
-    display: flex;
-    /* justify-content: end; */
-    padding-right: 30px;
-}
-.num_notice_badge_orders {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 30px;
-    height: 30px;
-    font-size: 1.1rem;
-    background: #f3172d;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-.two-boxes button{
-    position: relative;
-    display: block;
-    padding: 20px 20px;
-    margin-left: 15px;
-    background-color: lightgoldenrodyellow;
-    border-color: black;
-    color:black;
-}
-.box-1:active {
-    box-shadow: none;
-    transform: translateY(5px);
-    opacity: 0.5;
-  }
-.box-1 {
-    margin-top: 10px;
-    /* transform: translate(20%, 20%); */
-    z-index: 10;
-}
-.num-panel {
-    align-self: center;
-    font-size: 1.3rem;
-}
 
 /* Modal 1 */
 /* Table Modal */
@@ -463,7 +444,8 @@ body {
 }
 #no-btn {
     font-size: 1.1rem;
-    padding: 12px 40px;
+    padding: 12px 35px;
+    height:50px;
     background: lightcoral;
     border-radius: 5px;
     border-width: 2.5px;
@@ -472,6 +454,7 @@ body {
 #yes-btn {
     font-size: 1.1rem;
     padding: 12px 35px;
+    height:50px;
     background: lightgreen;
     border-radius: 5px;
     border-width: 2.5px;
@@ -487,26 +470,35 @@ body {
     position: absolute;
 }
 
-li.userLog_notice {
-    list-style-type: none;
-    margin-left: 5rem;
-}
-li.userLog_notice_login {
-    list-style-type: none;
+
+.name-cols{
+    display: grid;
+    grid-template-columns: 70% 20%;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
+    width:90%;
+    max-height: 1fr;
 }
-#userLog_p {
+
+#name{
+    grid-column: 1;
     font-size: 24px;
+    float:left;
 }
-.allow_btn {
+
+
+.allow-btn{
+    grid-column: 2;
+    font-size: 1.1rem;
     padding: 10px 30px;
     background: lightcoral;
-    /* margin-top: 25px; */
+    margin-top: 15px;
     border-radius: 5px;
     border-width: 2.5px;
     border-color: black;
-    margin-left: 10rem;
 }
+
 .allow-btn:active {
     box-shadow: none;
     transform: translateY(5px);
@@ -561,6 +553,7 @@ li.userLog_notice_login {
 
 /* Modal 4 */
 /* Modal for box btn */
+
 .boxBtn-modal {
     position: fixed;
     z-index: 10;
@@ -576,7 +569,7 @@ li.userLog_notice_login {
     background: silver;
     margin: 5% auto;
     width: 85%;
-    height: 85%;
+    height: 90%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     border-radius: 3px;
@@ -601,6 +594,19 @@ li.userLog_notice_login {
     transition: 0.2s ease-out;
 }
 
+.scrollable2 {
+    display: flex;
+    position: relative;
+    flex-shrink: 0;
+    flex-direction: row;
+    flex:1;
+    overflow:scroll;
+    overflow-y: scroll; 
+
+    margin-bottom:auto;
+    height:64vh;
+}
+
 /* Box Modal Inside */
 .extraBox_container {
     display: flex;
@@ -612,8 +618,8 @@ li.userLog_notice_login {
 .extraBox {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 3rem 24rem 2.5rem;
-    height: 30rem;
+    grid-template-rows: 4rem 64vh 3rem;
+    height: auto;
     width: 18.5rem;
     background-color: lightgoldenrodyellow;
     border-width: 1px;
@@ -652,7 +658,6 @@ li.userLog_notice_login {
     margin-top: 10px;
     font-size: 2rem;
     z-index: 30;
-
 }
 .close-btn-historyBtn:hover {
     cursor: pointer;
@@ -661,7 +666,7 @@ li.userLog_notice_login {
 }
 
 /* History Modal Inside */
-.historyBtn-title {
+/* .historyBtn-title {
     position: fixed;
     text-align: center;
     background-color: #f4f4f4;
@@ -673,40 +678,77 @@ li.userLog_notice_login {
 }
 .historyBtn-title h2 {
     margin-top: -10px;
-}
+} */
 
+.historyBtn-title {
+    background-color: #f4f4f4;
+    padding: 10px;
+    color: black;
+    text-align: center;
+    margin:auto;
+    width: 100%;
+    
+}
+.historyBtn-title h1{
+    font-size: 1.4rem;
+}
+.historyBtn-title h2{
+    font-size: 1.2rem;
+}
 /* Histroy Modal Table */
-.review-container table{
-    width: 95%;
-    margin-top: 21%;
-    z-index: 10;
-}
 
-.review-container{
+.table {
+    text-align: center;
     display: flex;
     justify-content: center;
+    margin-top: -5px;
+    width: 100%;
+}
+.table-desc thead{
+    width:100%;
+    position:fixed;
+}
+.table-desc table {
+    border: 0.5px;
+    border-color: black;
+    background-color: white;
+    height: 530px;
+    width: 100%;
+    display: inline-block;
+    overflow: auto;
+    position: relative;
 }
 
-.reviewBox-header {
-    height: 2.5rem;
+
+.table-desc th {
+    width:200px;
+    height: 2rem;
     font-size: 1.1rem;
 }
 
-.reviewBox-container th {
-    height: 2.5rem;
-    font-size: 1.1rem;
-}
 
-#tableNum-row{
-    width: 23%;
-}
-
-#togoPerson-row {
-    width: 20%;
+#item-rows{
+    background-color: lightpink;
+    border-bottom: 0.5px;
+    border-color: black;
 }
 
 .addedInfo-container th{
     height: 2rem;
     font-size: 1.1rem;
-    background: lightcoral;
+    background: whites;
+}
+#rotate
+{
+    display:none;
+}
+
+@media (orientation: portrait){
+    body{
+        background-color: black;
+        display:block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
 }

@@ -414,22 +414,22 @@ width: none; does not do anything as well */
     transform: translateY(3px);
     opacity: 0.5;
 }
+
 #order-btn{
-    padding: 20px 0px;
+    padding: 0px 25px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: black;
     background-color: lightgreen;
     width: 65.5px;
     height: 100%;
-    text-align: center;
+    /* text-align: center;
+    align-self: center;
+    align-items: center;
+    justify-content: center;  */
 }
-#order-btn:active {
-    box-shadow: none;
-    transform: translateY(3px);
-    opacity: 0.5;
-}  
 #void-btn{
+    font-size: 1.1rem;
     padding: 20px 0px;
     border-radius: 10px;
     border-width: 2.5px;

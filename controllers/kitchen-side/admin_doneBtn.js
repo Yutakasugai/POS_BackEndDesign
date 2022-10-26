@@ -72,6 +72,46 @@ exports.doneBtn = (req, res) => {
         if (error) {
             console.log(error); 
         }
+
+        // // Check if the num table has extra order or something
+        // db.query(`select * from updated_table where table_id = (?)`, (new_table_id), (error, result) => {
+        //     if (error) {
+        //         console.log(error); 
+        //     }
+
+        //     if (result.length > 0) {
+                
+        //         console.log('There are still orders found on the kitchen side'); 
+
+        //         // Redirect to admin main page
+        //         return res.redirect(url.format({
+        //             pathname: '/adminMain',
+        //             query: {
+        //                 admin: adminName, 
+        //                 date: date_key,
+        //                 time: time_key
+        //             }
+        //         }))
+
+        //     } else {
+
+        //         // Define if the order is phone or togo 
+        //         if (new_table_id.includes('Phone') === true || new_table_id.includes('Togo') === true) {
+
+        //             // Update the finish table value 
+        //             db.query(`update togo_phone set readyPay_status = 'True' where table_id = (?)`, (new_table_id), (error) => {
+        //                 if (error) {
+        //                     console.log(error); 
+        //                 }
+        //             })
+        //         }
+
+        //         console.log('There is no any other orders found on the kitchen side'); 
+
+        //         // Update the finish table value 
+        //         db.query(`update table_check`)
+        //     }
+        // })
     })
 
     // Redirect to admin main page
