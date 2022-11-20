@@ -66,11 +66,38 @@ removeBtn.addEventListener('click', function(event){
 
 // Edit Modal (Edit Button)
 const edit_button = document.getElementById('edit-btn'); 
-const edit_key = document.getElementById('edit_key'); 
 
+// Add Buttonn for Main Items 
+const edit_key = document.getElementById('edit_key'); 
 const form_ramenAdd = document.getElementById('form_ramenAdd'); 
 const form_ramenEdit = document.getElementById('form_ramenEdit'); 
-const ramen_editBtn = document.getElementById('ramen_editBtn');
+// const ramen_editBtn = document.getElementById('ramen_editBtn');
+
+// Add Button for Side Dishes
+const editKey_side = document.getElementById('editKey_side');
+const form_sideAdd = document.getElementById('form_sideAdd'); 
+const form_sideEdit = document.getElementById('form_sideEdit'); 
+// const side_editBtn = document.getElementById('side_editBtn');  
+
+// Add Button Controller for Other Side Dishes
+const editKey_others = document.getElementById('editKey_others');
+const form_othersAdd =  document.getElementById('form_othersAdd');
+const form_othersEdit = document.getElementById('form_othersEdit');  
+
+// Add Button Controller for Extra Toppings 
+const editKey_toppings = document.getElementById('editKey_toppings');
+const form_toppingAdd = document.getElementById('form_toppingsAdd'); 
+const form_toppingsEdit = document.getElementById('form_toppingsEdit');  
+
+// Add Button Controller for Soft Drinks
+const editKey_softdrinks = document.getElementById('editKey_softdrinks'); 
+const form_softdrinksAdd = document.getElementById('form_softdrinksAdd'); 
+const form_softdrinksEdit = document.getElementById('form_softdrinksEdit'); 
+
+// Add Button Controller for Soft Drinks
+const editKey_beers = document.getElementById('editKey_beers'); 
+const form_beersAdd = document.getElementById('form_beersAdd'); 
+const form_beersEdit = document.getElementById('form_beersEdit'); 
 
 // Enable only one checkbox to check if there are multiple items on edit list 
 $('input[name="willEdit_item"]').on('change', function() {
@@ -90,12 +117,37 @@ edit_button.addEventListener('click', function(event){
     if (checkEdit_array.length > 0) {
 
         edit_key.setAttribute('value', checkEdit_array); 
+        editKey_side.setAttribute('value', checkEdit_array); 
+        editKey_others.setAttribute('value', checkEdit_array); 
+        editKey_toppings.setAttribute('value', checkEdit_array); 
+        editKey_softdrinks.setAttribute('value', checkEdit_array); 
+        editKey_beers.setAttribute('value', checkEdit_array); 
 
         editModal.style.display = 'none'; 
 
         // Change the button id
         form_ramenAdd.style.display = 'none'; 
         form_ramenEdit.style.display = 'inline'; 
+
+        // Change the button id 
+        form_sideAdd.style.display = 'none'; 
+        form_sideEdit.style.display = 'inline'; 
+
+        // Change the button id 
+        form_othersAdd.style.display = 'none'; 
+        form_othersEdit.style.display = 'inline'; 
+
+        // Change the button id
+        form_toppingAdd.style.display = 'none'; 
+        form_toppingsEdit.style.display = 'inline'; 
+
+        // Change the button id
+        form_softdrinksAdd.style.display = 'none'; 
+        form_softdrinksEdit.style.display = 'inline'; 
+
+        // Change the button id
+        form_beersAdd.style.display = 'none'; 
+        form_beersEdit.style.display = 'inline'; 
 
     } else {
 

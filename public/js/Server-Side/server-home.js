@@ -1,6 +1,6 @@
-// Table Array 
+// Regular Table Order 
 const tabel_arr = document.getElementById('table_arr').value.split(','); 
-let update_table_arr = [1, 2, 3, 4, 5, 6, 7, 8]; 
+// let update_table_arr = [1, 2, 3, 4, 5, 6, 7, 8]; 
 
 console.log(tabel_arr); 
 
@@ -8,6 +8,8 @@ if (tabel_arr[0] !== '') {
     // let value = 3
     // let arr = [1, 2, 3, 4, 5, 3]
     // arr = arr.filter(item => item !== value)
+
+    console.log('Entered for loop'); 
 
     for (let i = 0; i < tabel_arr.length; i++) {
         
@@ -19,9 +21,8 @@ if (tabel_arr[0] !== '') {
         if (table_con === 'Fill-Pend') {
 
             // Remove the fill table from update_table_arr
-            update_table_arr = update_table_arr.filter(item => item !== Number(table_id)); 
+            // update_table_arr = update_table_arr.filter(item => item !== Number(table_id)); 
 
-            // document.getElementById(`${control_id[1]}_empty`).disabled = true; 
             document.getElementById(`Table_${table_id}`).style.background = 'rgb(60, 217, 13)'; 
             document.getElementById(`Table_${table_id}_filled`).style.display = 'block'; 
             document.getElementById(`Table_${table_id}_empty`).style.display = 'none'; 
@@ -32,11 +33,13 @@ if (tabel_arr[0] !== '') {
         } else if (table_con === 'Fill') {
 
             // Remove the fill table from update_table_arr
-            update_table_arr = update_table_arr.filter(item => item !== Number(table_id)); 
+            // update_table_arr = update_table_arr.filter(item => item !== Number(table_id)); 
 
             document.getElementById(`Table_${table_id}`).style.background = 'rgb(60, 217, 13)'; 
             document.getElementById(`Table_${table_id}_filled`).style.display = 'block'; 
             document.getElementById(`Table_${table_id}_empty`).style.display = 'none'; 
+
+            document.getElementById(`Table_${table_id}_update`).disabled = false; 
 
         } else {
 
@@ -47,11 +50,153 @@ if (tabel_arr[0] !== '') {
 
 } 
 
-// console.log(update_table_arr); 
+// Togo - Phone Order 
+const togo_phone_key = document.getElementById('table_arr_v2').value; 
 
+const togo_phone_arr = togo_phone_key.split(','); 
+
+if (togo_phone_key.length > 0){
+
+    for (let i = 0; i < togo_phone_arr.length; i++) {
+
+        let table_id = togo_phone_arr[i].split(':')[0]; 
+        // let table_con = togo_phone_arr[i].split(':')[1]; 
+        let ready_id = togo_phone_arr[i].split(':')[1]; 
+
+        // table is can track the order status from fill or pend
+
+        let find_exBox = i + 1; 
+        
+        // Fill the text box for both togo and phone box
+        document.getElementById(`ex${find_exBox}`).style.display = 'block'; 
+        document.getElementById(`text_ex${find_exBox}`).innerHTML = table_id; 
+
+        // Apply table key to togo order input box
+        document.getElementById(`done_btn_${find_exBox}`).setAttribute('value', table_id); 
+        document.getElementById(`update_btn_${find_exBox}`).setAttribute('value', table_id); 
+
+        // Apply table key to phone order input box
+        document.getElementById(`update_phone_${find_exBox}`).setAttribute('value', table_id); 
+        document.getElementById(`view_phone_${find_exBox}`).setAttribute('value', table_id); 
+
+        // Define if the order is togo or phone
+        if (table_id.includes('Togo') === true) {
+
+            document.getElementById(`ex_table_${find_exBox}`).style.background = 'ivory';
+            document.getElementById(`togo-option-${find_exBox}`).style.display = 'flex'; 
+
+            document.getElementById(`doneBtn-togo-${find_exBox}`).setAttribute('table_id', table_id); 
+
+            // console.log(ready_id); 
+
+            if (ready_id === 'None') {
+                // Food not ready yet
+                document.getElementById(`doneBtn-togo-${find_exBox}`).disabled = true; 
+            } else {
+                // Food is ready
+                document.getElementById(`doneBtn-togo-${find_exBox}`).disabled = false; 
+            }
+
+        } else {
+
+            document.getElementById(`ex_table_${find_exBox}`).style.background = 'gold';
+            document.getElementById(`phone-option-${find_exBox}`).style.display = 'flex'; 
+
+            document.getElementById(`doneBtn-phone-${find_exBox}`).setAttribute('table_id', table_id); 
+            
+            // console.log(ready_id); 
+            
+            if (ready_id === 'None') {
+                document.getElementById(`doneBtn-phone-${find_exBox}`).disabled = true; 
+            } else {
+                document.getElementById(`doneBtn-phone-${find_exBox}`).disabled = false; 
+            }
+        }
+    }
+
+}
+
+// Color Set: Coming Items 
+$('td.tableNum-row').each(function() {
+    
+    if ($(this).text().includes('Togo') === true) {
+        document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(17, 255, 49, 0.43)'; 
+
+    } else if ($(this).text().includes('Phone') === true) {
+        document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(0, 0, 255, 0.43)';
+
+    } else  {
+
+        if ($(this).text().includes('Table_1') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(19, 18, 19, 0.08)';
+
+        } else if ($(this).text().includes('Table_2') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(60, 132, 60, 0.44)';
+
+        } else if ($(this).text().includes('Table_3') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 125, 125, 0.5)';
+
+        } else if ($(this).text().includes('Table_4') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 125, 0, 0.49)';
+
+        } else if ($(this).text().includes('Table_5') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 0, 0, 0.49)';
+
+        } else if ($(this).text().includes('Table_6') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(170, 18, 18, 0.26)';
+
+        } else if ($(this).text().includes('Table_7') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(0, 177, 179, 0.24)';
+
+        } else if ($(this).text().includes('Table_8') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'lightcoral';
+
+        }
+    }
+})
+
+
+// Color Set: Paid Items 
+$('td.tableNum-row-2').each(function() {
+    // console.log($(this).text(), $(this).attr('get_id')); 
+
+    if ($(this).text().includes('Togo') === true) {
+        document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(17, 255, 49, 0.43)'; 
+
+    } else if ($(this).text().includes('Phone') === true) {
+        document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(0, 0, 255, 0.43)';
+
+    } else  {
+
+        if ($(this).text().includes('Table_1') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(19, 18, 19, 0.08)';
+
+        } else if ($(this).text().includes('Table_2') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(60, 132, 60, 0.44)';
+
+        } else if ($(this).text().includes('Table_3') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 125, 125, 0.5)';
+
+        } else if ($(this).text().includes('Table_4') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 125, 0, 0.49)';
+
+        } else if ($(this).text().includes('Table_5') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(125, 0, 0, 0.49)';
+
+        } else if ($(this).text().includes('Table_6') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(170, 18, 18, 0.26)';
+
+        } else if ($(this).text().includes('Table_7') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'rgba(0, 177, 179, 0.24)';
+
+        } else if ($(this).text().includes('Table_8') === true) {
+            document.getElementById(`row_${$(this).attr('get_id')}`).style.background = 'lightcoral';
+
+        }
+    }
+})
 
 // This is Add Modal Set //
-
 const next_button = document.getElementById('next-btn'); 
 const tableNum_box = document.getElementById('table-number'); 
 const addBtnModal = document.getElementById('addBtn-modal'); 
@@ -271,7 +416,7 @@ increaseBtn.addEventListener('click', () => {
     }
 })
 
-let test_array = [3,5,7,9,11]; 
+// let test_array = [3,5,7,9,11]; 
 
 // - btn: switch table
 decreaseBtn_switch.addEventListener('click', () => {
@@ -289,7 +434,7 @@ decreaseBtn_switch.addEventListener('click', () => {
         }
 
     } else {
-        counter_switch.innerHTML = test_array[count_switch]; 
+        counter_switch.innerHTML = count_switch; 
 
         check_2 = false; 
         confirm_button.disabled = false; 
@@ -299,10 +444,10 @@ decreaseBtn_switch.addEventListener('click', () => {
 // + btn: switch table
 increaseBtn_switch.addEventListener('click', () => {
 
-    //count_switch ++; 
+    count_switch ++; 
     counter_switch.style.display = 'block'; 
 
-    if (count_switch === test_array.length) {
+    if (count_switch === 9) {
 
         count_switch = 0; 
         counter_switch.style.display = 'none'; 
@@ -313,14 +458,18 @@ increaseBtn_switch.addEventListener('click', () => {
         }
         
     } else {
-        counter_switch.innerHTML = test_array[count_switch]; 
-        count_switch ++; 
+        counter_switch.innerHTML = count_switch; 
 
         check_2 = false; 
         confirm_button.disabled = false; 
     }
 })
 
+// confirm_button.addEventListener('click', () => { 
+    
+//     document.getElementById('new_c_number').setAttribute('value', counter.innerHTML);
+//     document.getElementById('new_table_key').setAttribute('value', counter_switch.innerHTML);
+// })
 
 // Close Btn Modal 
 const closeBtn = document.getElementById('close-btn');
@@ -350,6 +499,20 @@ orderBtn.addEventListener('click', () => {
 })
 orderBtnClose.addEventListener('click', () => {
     orderBtnModal.style.display = 'none'; 
+})
+
+// Done Items Modal 
+const orderBtn_2 = document.getElementById('void-btn'); 
+const orderBtnModal_2 = document.getElementById('orderBtn-modal-2'); 
+const orderBtnClose_2 = document.querySelector('.close-btn-orderBtn-2');
+
+// Open the modal or not 
+orderBtn_2.addEventListener('click', () => {
+    console.log('void btn is clisked'); 
+    orderBtnModal_2.style.display = 'block'; 
+})
+orderBtnClose_2.addEventListener('click', () => {
+    orderBtnModal_2.style.display = 'none'; 
 })
 
 

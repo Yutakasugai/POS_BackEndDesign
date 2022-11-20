@@ -16,6 +16,12 @@ exports.user = (req, res) => {
             console.log(error); 
         }
 
+        // Set Up Tables 
+        // db.query(`CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1")`); 
+        // db.query(`CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL)`); 
+        // db.query(`CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL)`); 
+        // db.query(`CREATE TABLE IF NOT EXISTS done_order (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL)`); 
+
         // Go to serverAdd Page
         return res.redirect(url.format({
             pathname: '/serverHome',

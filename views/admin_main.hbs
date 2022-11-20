@@ -75,7 +75,7 @@
                 <input type="hidden" name="time_key" value="{{time}}">
                 <input type="hidden" id="boxId_1" name="box_id" value="">
                 <input type="hidden" id="tableId_1" name="table_id" value="">
-                <button class="done-button" id="doneBtn-1">Done</button>
+                <button class="done-button" id="doneBtn-1" value="">Done</button>
             </form>
 
         </div>
@@ -98,7 +98,7 @@
                 <input type="hidden" name="time_key" value="{{time}}">
                 <input type="hidden" id="boxId_2" name="box_id" value="">
                 <input type="hidden" id="tableId_2" name="table_id" value="">
-                <button class="done-button" id="doneBtn-2">Done</button>
+                <button class="done-button" id="doneBtn-2" value="">Done</button>
             </form>
         </div>
 
@@ -120,7 +120,7 @@
                 <input type="hidden" name="time_key" value="{{time}}">
                 <input type="hidden" id="boxId_3" name="box_id" value="">
                 <input type="hidden" id="tableId_3" name="table_id" value="">
-                <button class="done-button" id="doneBtn-3">Done</button>
+                <button class="done-button" id="doneBtn-3" value="">Done</button>
             </form>
 
         </div>
@@ -143,7 +143,7 @@
                 <input type="hidden" name="time_key" value="{{time}}">
                 <input type="hidden" id="boxId_4" name="box_id" value="">
                 <input type="hidden" id="tableId_4" name="table_id" value="">
-                <button class="done-button" id="doneBtn-4">Done</button>
+                <button class="done-button" id="doneBtn-4" value="">Done</button>
             </form>
 
         </div>
@@ -203,9 +203,8 @@
     </div>
 </div>
 
-
-<!-- Modal 2 -->
-<!-- Modal Page for Close Btn -->
+<!-- Modal 2-->
+<!-- Modal Page if admin want to continue to nigth time -->
 <div class="closeBtn-modal" id="closeBtn-modal">
     <div class="modal-content-closeBtn">
         <span class="close-btn-closeBtn">&times;</span>
@@ -216,12 +215,47 @@
             <div class="yesno-btn">
                 <button id="no-btn">No</button>
 
-                <form action="/auth/admin/signOut" method="POST">
+                <form action="/auth/admin/signOut" method="POST" id="continue_check" time_key="{{time}}" style="display: none;">
                     <input type="hidden" name="adminName" value="{{name}}">
                     <input type="hidden" name="date_key" value="{{date}}">
                     <input type="hidden" name="time_key" value="{{time}}">
-                    <button id="yes-btn">Yes</button>
+                    <button id="yes-btn-night">Yes</button>
                 </form>
+
+                <button id="yes-btn-lunch" style="display: none;">Yes</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal 2.1 -->
+<!-- Modal Page for Close Btn -->
+<div class="checkContinue-modal" id="checkContinue-modal">
+    <div class="modal-content-checkContinue">
+        <span class="close-btn-checkContinue">&times;</span>
+
+        <div class="checkText-container">
+            <p>Do you want to continue for Night?</p>
+            
+            <div class="yesno-btn-checkContinue">
+
+                <form action="/auth/admin/continueBtn" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="no-btn-checkContinue" name="key" value="False">No</button>
+                </form>
+
+                <form action="/auth/admin/continueBtn" method="POST">
+                    <input type="hidden" name="adminName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{date}}">
+                    <input type="hidden" name="time_key" value="{{time}}">
+                    <button id="yes-btn-checkContinue" name="key" value="True">Yes</button>
+                </form>
+
             </div>
         </div>
 
@@ -270,7 +304,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_5" name="box_id" value="">
                     <input type="hidden" id="tableId_5" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-5">Done</button>
+                    <button class="done-button" id="doneBtn-5" value="">Done</button>
                 </form>
 
             </div>
@@ -295,7 +329,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_6" name="box_id" value="">
                     <input type="hidden" id="tableId_6" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-6">Done</button>
+                    <button class="done-button" id="doneBtn-6" value="">Done</button>
                 </form>
 
             </div>
@@ -320,7 +354,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_7" name="box_id" value="">
                     <input type="hidden" id="tableId_7" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-7">Done</button>
+                    <button class="done-button" id="doneBtn-7" value="">Done</button>
                 </form>
 
             </div>
@@ -345,7 +379,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_8" name="box_id" value="">
                     <input type="hidden" id="tableId_8" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-8">Done</button>
+                    <button class="done-button" id="doneBtn-8" value="">Done</button>
                 </form>
 
             </div>
@@ -370,7 +404,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_9" name="box_id" value="">
                     <input type="hidden" id="tableId_9" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-9">Done</button>
+                    <button class="done-button" id="doneBtn-9" value="">Done</button>
                 </form>
 
             </div>
@@ -393,7 +427,7 @@
                     <input type="hidden" name="time_key" value="{{time}}">
                     <input type="hidden" id="boxId_10" name="box_id" value="">
                     <input type="hidden" id="tableId_10" name="table_id" value="">
-                    <button class="done-button" id="doneBtn-10">Done</button>
+                    <button class="done-button" id="doneBtn-10" value="">Done</button>
                 </form>
 
             </div>
@@ -416,38 +450,37 @@
                 <h2>{{date}} - {{time}}</h2>
             </div>
 
-            <!-- Table -->
-            <div class="table">
-                <!-- Table Desc -->
-                <div class="table-desc">
-                    <table border cellspacing="0">
-                        <thead>
-                            <!-- Item Title -->
-                            <tr class="header">
-                                <th id="item-rows">Table Name</th>
-                                <th id="item-rows">EST</th>
-                                <th id="item-rows">Item Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Items Rows -->
-                            {{#each done_items}}
-                            <tr class="addedInfo-container">
-                                <th>{{table_name}}</th>
-                                <th>{{EST}}</th>
-                                <th>{{order_item}}</th>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
+            {{!-- <div class="scrollable"></div> --}}
+            <div class="review-container">
+
+                <table border cellspacing="0">
+
+                    <tr class="reviewBox-header">
+                        <th id="tableNum-row">Table Number</th>
+                        <th id="togoPerson-row">EST</th>
+                        <th id="itemName-row">Item Name</th>
+                    </tr>
+                        
+                    {{#each done_items}}
+                        <tr class="addedInfo-container" id="row_{{id}}">
+                            <th id="key_value" get_id="{{id}}">{{table_name}}</th>
+                            <th>{{EST}}</th>
+                            <th>{{order_item}}</th>
+                        </tr>
+                    {{/each}}
+
+                </table>
             </div>
+
         </div>
     </div>
 </div>
 
-<input type="hidden" id="userList" name="userList" value="{{nameList}}">
+{{!-- <input type="hidden" id="userList" name="userList" value="{{nameList}}"> --}}
 <input type="hidden" id="total_result" name="total_result" value="{{total_result}}">
+<input type="hidden" id="table_check" name="table_check" value="{{table_check}}">
+<input type="hidden" id="exit_id" name="exit_id" value="{{exit_id}}">
+
 
 {{!-- Js Command --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -63,6 +63,21 @@ exports.viewDone = (req, res) => {
                 })
             }
 
+            // Insert submit items to done_order db
+            db.query(`select * from ${table_key} where order_status = 'submit'`, (error, submit_item) => {
+                if (error) {
+                    console.log(error); 
+                }
+
+                for (let i = 0; i < submit_item.length; i++) {
+                    db.query(`insert into done_order(table_id, item_name) values(?, ?)`, [table_key, submit_item[i]['full_order']], (error) => {
+                        if (error) {
+                            console.log(error); 
+                        }
+                    })
+                }
+            })
+
             // Update customer_result db
             db.query(`insert into customer_result(table_id, num_customer) values(?, ?)`, [table_key, c_number], (error) => {
                 if (error) {

@@ -20,25 +20,13 @@ ws.addEventListener("close", () => {
 
 ws_doneBtn.onclick = () => {
     
-    if (ws_togo_key.value === 'togo_key') {
-
-        console.log('WS ServerView: Togo Order'); 
-        let SV_doneBtn = `SV_doneBtn_Togo%${table_num.value}`;
-
-        return ws.send(SV_doneBtn); 
-
-    } else if (ws_phone_key.value === 'phone_key') {
-
-        console.log('WS ServerView: Phone Order');
-        let SV_doneBtn = `SV_doneBtn_Phone%${table_num.value}`; 
-
-        return ws.send(SV_doneBtn); 
+    if (ws_togo_key.value === 'togo_key' || ws_phone_key.value === 'phone_key') {
+        console.log('Done Button is clicked for togo or phone orders...'); 
+        return; 
 
     } else {
-
-        console.log('WS ServerView: Regular Order');
+        // console.log('WS ServerView: Regular Order');
         let SV_doneBtn = `SV_doneBtn%${table_num.value}`; 
-
         return ws.send(SV_doneBtn); 
     }
 }

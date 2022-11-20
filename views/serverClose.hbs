@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Kaisei+Tokumin:wght@500&family=Raleway&family=Share&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/Server-Side/server_close.css">
+    <title>Admin-Home: Test Page</title>
+</head>
+
+<body>
+    <!-- Top Line -->
+    <div class="header">
+        <!-- Final Sheet -->
+        <div class="header-info">
+            <h2>Final Sheet</h2>
+        </div>
+        <!-- Sign Out Button at the top -->
+        <!-- <div class="signout">
+            <button id="signout-btn">Sign Out</button>
+        </div> -->
+    </div>
+
+    <div class="table-wrap">
+        <div class="cash-table">
+            <table border cellspacing="0">
+                <tr>
+                    <th colspan="4">Cash</th>
+                </tr>
+                <tr>
+                    <td>$100</td>
+                    <td id="cash-data"><input type="number" id="hundred_cash" value="0"/></td>
+                    <td>$2</td>
+                    <td id="cash-data"><input type="number" id="toonie_coin" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>$50</td>
+                    <td id="cash-data"><input type="number" id="fifty_cash" value="0"/></td>
+                    <td>$1</td>
+                    <td id="cash-data"><input type="number" id="loonie_coin" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>$20</td>
+                    <td id="cash-data"><input type="number" id="twenty_cash" value="0"/></td>
+                    <td>$0.25</td>
+                    <td id="cash-data"><input type="number" id="quater_cent" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>$10</td>
+                    <td id="cash-data"><input type="number" id="ten_cash" value="0"/></td>
+                    <td>$0.10</td>
+                    <td id="cash-data"><input type="number" id="ten_cent" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>$5</td>
+                    <td id="cash-data"><input type="number" id="five_cash" value="0"/></td>
+                    <td>$0.05</td>
+                    <td id="cash-data"><input type="number" id="five_cent" value="0"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="cash">Total Cash</td>
+                    <td colspan="2" id="total-cash"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="floats">Float</td>
+                    <td colspan="2" id="final-data">$54.00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="debit-table">
+            <table border cellspacing="0">
+                <tr>
+                    <th colspan="4">Debit</th>
+                </tr>
+
+                <tr>
+                    <td colspan="2">Total Debit</td>
+                    <td colspan="2" id="cash-data"><input type="number" id="total-debit" value="0"/></td>
+                </tr>
+                {{!-- <tr>
+                    <td colspan="2">Night</td>
+                    <td colspan="2" id="cash-data"><input type="text"/></td>
+                </tr> --}}
+                <tr>
+                    <td colspan="2" id="sales">Total Sales</td>
+                    <td colspan="2" id="total-sale"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="tips">Total Tip</td>
+                    <td colspan="2" id="total-tips"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="customers">Customer</td>
+                    <td colspan="2" id="total-customers"></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="all-clear">
+            <form action="/auth/user/closeBack" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="date_key" value="{{date}}">
+                <input type="hidden" name="time_key" value="{{time}}">
+                <button id="clear-btn"><i style="font-size:20px" class="fa">&#9747;</i></button>
+            </form>
+        </div>
+
+        <div class="copy">
+            <form action="/auth/user/closeTotal" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="date_key" value="{{date}}">
+                <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" name="input_values" id="input-values" value="">
+                <input type="hidden" name="debit_val" id="debit_val" value="">
+                <input type="hidden" name="sale_val" id="sale_val" value="{{sale}}">
+                <button id="copy-btn"><i style="font-size:20px" class="fa">&#9999;&#65039;</i></button>
+            </form>
+        </div>
+
+        <div class="done">
+            <form action="/auth/user/closeAll" method="POST">
+                <input type="hidden" name="userName" value="{{name}}">
+                <input type="hidden" name="date_key" value="{{date}}">
+                <input type="hidden" name="time_key" value="{{time}}">
+                <input type="hidden" name="tip_val" id="tip_val" value="{{tips}}">
+                <input type="hidden" name="sale_val" id="sale_val" value="{{sale}}">
+                <input type="hidden" name="cash_val" id="cash_val" value="{{cash}}">
+                <button id="done-btn"><i style="font-size:20px" class="fa">&#xf00c;</i></button>
+            </form>
+        </div>
+    </div>
+
+    {{!-- Necessary Values --}}
+    <input type="hidden" name="array_total" id="array_total" value="{{arr_1}}">
+    <input type="hidden" name="array_cash" id="array_cash" value="{{arr_2}}">
+
+    {{!-- Js Commnad --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/Server-Side/server_close.js"></script>
+    {{!-- <script type="text/javascript" src="/ws/Server-Side/ws_serverClose.js"></script> --}}
+
+</body>
+</html>

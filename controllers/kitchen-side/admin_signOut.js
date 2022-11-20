@@ -14,13 +14,20 @@ exports.signOut = (req, res) => {
             console.log(error); 
         }
 
-        // Back to page with error msg
-        return res.redirect(url.format({
-            pathname: '/signout',
-            query: {
-                "user": adminName,
-                "status": "Sign Out"
+        // Drop some tables 
+        db.query(`drop table if exists order_result, updated_table`, (error) => {
+            if (error) {
+                console.log(error); 
             }
-        })) 
+
+            // Back to page with error msg
+            return res.redirect(url.format({
+                pathname: '/signout',
+                query: {
+                    "user": adminName,
+                    "status": "Sign Out"
+                }
+            })) 
+        })
     })
 }

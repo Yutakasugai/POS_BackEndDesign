@@ -18,6 +18,11 @@ const server_togoBoxController = require('../controllers/server-side/server_togo
 const server_phoneOrderController = require('../controllers/server-side/server_phoneOrder'); 
 const server_viewBackController = require('../controllers/server-side/server_viewBack'); 
 const server_phoneBoxController = require('../controllers/server-side/server_phoneBox'); 
+const server_updateBtnController = require('../controllers/server-side/server_updateBtn'); 
+const server_finishBtnController = require('../controllers/server-side/server_finishBtn'); 
+const server_closeBackController = require('../controllers/server-side/server_closeBack'); 
+const server_closeTotalController = require('../controllers/server-side/server_closeTotal'); 
+const server_closeAllController = require('../controllers/server-side/server_closeAll'); 
 
 
 router.post('/user', loginController.user); 
@@ -36,17 +41,22 @@ router.post('/user/togoBox', server_togoBoxController.togoBox);
 router.post('/user/phoneOrder', server_phoneOrderController.phoneOrder); 
 router.post('/user/viewBack', server_viewBackController.viewBack); 
 router.post('/user/phoneBox', server_phoneBoxController.phoneBox); 
+router.post('/user/updateTable', server_updateBtnController.updateTable); 
+router.post('/user/finishBtn', server_finishBtnController.finishBtn); 
+router.post('/user/closeBack', server_closeBackController.closeBack); 
+router.post('/user/closeTotal', server_closeTotalController.closeTotal); 
+router.post('/user/closeAll', server_closeAllController.closeAll); 
 
 
 // Admin Side
 const admin_loginController = require("../controllers/kitchen-side/admin_login"); 
 const admin_signOutBtnController = require('../controllers/kitchen-side/admin_signOut'); 
-// const admin_closeBtnController = require('../controllers/kitchen-side/admin_closeBtn'); 
 const admin_doneBtnController = require('../controllers/kitchen-side/admin_doneBtn'); 
+const admin_continueBtnController = require('../controllers/kitchen-side/admin_continueBtn'); 
 
 router.post('/admin', admin_loginController.admin); 
 router.post('/admin/signOut', admin_signOutBtnController.signOut); 
-// router.post('/admin/finish', admin_closeBtnController.closeBtn); 
 router.post('/admin/doneBtn', admin_doneBtnController.doneBtn); 
+router.post('/admin/continueBtn', admin_continueBtnController.continueBtn); 
 
 module.exports = router; 

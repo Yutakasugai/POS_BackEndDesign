@@ -41,31 +41,41 @@ router.get("/signout", (req, res) => {
     }
 
     if (systemMsg === "Time Out") {
-
       return res.render("index", {
           errMsg: "Time out! Please login again..."
       })
   
     } else if (systemMsg === "Sign Out") {
-
       return res.render("index", {
           errMsg: `${userName} succesfully signed out!`
       })
   
     } else if (systemMsg === 'Check Log'){
-
       return res.render("index", {
           errMsg: `This user was already logged in...`
       })
 
     } else if (systemMsg === 'Check Name or Pass') {
-
       return res.render("index", {
           errMsg: `The password or username is wrong...`
       })
 
+    } else if (systemMsg === 'Check Log Admin') {
+      return res.render("index", {
+          errMsg: `Another admin is now in active...`
+      })
+
+    } else if (systemMsg === 'Work Done') {
+      return res.render("index", {
+          errMsg: `Thanks for your work!!`
+      })
+
+    } else if (systemMsg === 'Close All') {
+      return res.render("index", {
+          errMsg: `You all closed this system, thanks again!`
+      })
+
     } else {
-  
       return res.render("index", {
           errMsg: `Please try it again...`
       })
@@ -76,87 +86,96 @@ router.get("/signout", (req, res) => {
 
 // Server-Side Home Url 
 router.get('/serverHome', (req, res) => {
-  const userName = req.query.user;
-  const date_key = req.query.date; 
-  const time_key = req.query.time; 
+    const userName = req.query.user;
+    const date_key = req.query.date; 
+    const time_key = req.query.time; 
 
-  // Capture the taken order list for viewing 
-  db.query('select * from coming_order', (error, item_result) => {
-    if (error) {
-        console.log(error); 
-    }
-
-    // Make an array conatined of table_status
-    db.query("select * from table_check", (error, result) => {
+    // Get items from done_order table 
+    db.query(`select * from done_order`, (error, done_items) => {
       if (error) {
-          console.log(error)
+        console.log(error); 
       }
 
-      // Create table array for a next page
-      const table_arr = []
-      for (let l = 0; l < result.length; l++) {
-
-        let table_num = result[l]["table_id"].slice(-1); 
-
-        if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'True') {
-          let a = `${table_num}:Fill-Pend`; 
-          table_arr.push(a); 
-
-        } else if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'False') {
-          let b = `${table_num}:Fill`;
-          table_arr.push(b); 
-
-        } else if (result[l]["pending_table"] === 'True' && result[l]["table_status"] === 'empty') {
-          let c = `${table_num}:Pend`;
-          table_arr.push(c); 
-
-        } 
-      }
-
-      // console.log(table_arr); 
-
-      // Make another array for togo_phone condition
-      db.query('select * from togo_phone', (error, result_v2) => {
-          if (error) {
+      // Capture the taken order list for viewing 
+      db.query('select * from coming_order', (error, item_result) => {
+        if (error) {
             console.log(error); 
+        }
+
+        // Make an array conatined of table_status
+        db.query("select * from table_check", (error, result) => {
+          if (error) {
+              console.log(error)
           }
 
-          const table_arr_v2 = []; 
+          // Create table array for a next page
+          const table_arr = []
+          for (let l = 0; l < result.length; l++) {
 
-          if (result_v2.length > 0) {
+            let table_num = result[l]["table_id"].slice(-1); 
 
-            for (let h = 0; h < result_v2.length; h++) {
+            if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'True') {
+              let a = `${table_num}:Fill-Pend`; 
+              table_arr.push(a); 
 
-              // Check the item is ready or not 
-              db.query(`select * from updated_table where table_id = (?)`, (result_v2[h]['table_id']), (error, table_con) => {
-                if (error) {
-                  console.log(error); 
+            } else if (result[l]["table_status"] === 'filled' && result[l]["pending_table"] === 'False') {
+              let b = `${table_num}:Fill`;
+              table_arr.push(b); 
+
+            } else if (result[l]["pending_table"] === 'True' && result[l]["table_status"] === 'empty') {
+              let c = `${table_num}:Pend`;
+              table_arr.push(c); 
+            } 
+          }
+
+          // Make another array for togo_phone condition
+          db.query('select * from togo_phone', (error, result_v2) => {
+              if (error) {
+                console.log(error); 
+              }
+
+              const table_con_arr = []; 
+              const table_arr_v2 = []; 
+
+              if (result_v2.length > 0) {
+
+                for (let i = 0; i < result_v2.length; i++) {
+                  // table_con_arr.push(result_v2[i]['table_id']);
+
+                  db.query(`select * from updated_table where table_id = (?)`, (result_v2[i]['table_id']), (error, result_v3) => {
+                    if (error) {
+                      console.log(error); 
+                    }
+
+                    if (result_v3.length > 0) {
+                      // Items are not ready yet
+                      let item_con = `${result_v2[i]['table_id']}:None`; 
+                      table_arr_v2.push(item_con); 
+
+                    } else {
+                      let item_con = `${result_v2[i]['table_id']}:Done`; 
+                      table_arr_v2.push(item_con); 
+
+                    }
+
+                    if (i === (result_v2.length - 1)) {
+
+                      // This is the last loop 
+                      // Back to Home Page with togo_phone arr
+                      return res.render("server", {
+                          name: userName, 
+                          Date: date_key, 
+                          Time: time_key,
+                          table_arr: table_arr,
+                          table_arr_v2: table_arr_v2,
+                          items: item_result, 
+                          done_items: done_items
+                      })
+                    }
+                  })
                 }
 
-                if (table_con.length > 0) {
-
-                  if (result_v2[h]["pending_table"] === 'True') {
-                    let a = `${result_v2[h]["table_id"]}:Pend:None`; 
-                    table_arr_v2.push(a); 
-      
-                  } else {
-                    let b = `${result_v2[h]["table_id"]}:Fill:None`; 
-                    table_arr_v2.push(b); 
-                  }
-
-                } else {
-
-                  if (result_v2[h]["pending_table"] === 'True') {
-                    let a = `${result_v2[h]["table_id"]}:Pend:Done`; 
-                    table_arr_v2.push(a); 
-      
-                  } else {
-                    let b = `${result_v2[h]["table_id"]}:Fill:Done`; 
-                    table_arr_v2.push(b); 
-                  }
-
-                }
-
+              } else {
                 // Back to Home Page with togo_phone arr
                 return res.render("server", {
                     name: userName, 
@@ -164,26 +183,14 @@ router.get('/serverHome', (req, res) => {
                     Time: time_key,
                     table_arr: table_arr,
                     table_arr_v2: table_arr_v2,
-                    items: item_result
+                    items: item_result,
+                    done_items: done_items
                 })
-              })
-            }
-
-          } else {
-
-            // Back to Home Page with togo_phone arr
-            return res.render("server", {
-                name: userName, 
-                Date: date_key, 
-                Time: time_key,
-                table_arr: table_arr,
-                table_arr_v2: table_arr_v2,
-                items: item_result
-            })
-          }
+              }
+          })  
+        })
       })
     })
-  })
 });
 
 
@@ -363,10 +370,11 @@ router.get("/addPage_Togo&Phone", (req, res) => {
         console.log(error); 
       }
 
-      db.query(`select * from ${table_key} where order_status = "paid"`, (error, paid_items) => {
-        if (error) {
-          console.log(error); 
-        }
+      // db.query(`select * from ${table_key} where order_status = "paid"`, (error, paid_items) => {
+      //   if (error) {
+      //     console.log(error); 
+      //   }
+      // })
 
         // Back to Add Page for Togo 
         return res.render("addPage", {
@@ -377,10 +385,8 @@ router.get("/addPage_Togo&Phone", (req, res) => {
             c_number: 1,
             togo_key: 'togo_key',
             noView_id: 'True',
-            items: result,
-            submit_items: paid_items
+            items: result
         }); 
-      })
     })
 
   } else {
@@ -478,7 +484,44 @@ router.get("/addPage_Togo&Phone", (req, res) => {
   }
 })
 
+// Server Close Page for Server
+router.get('/serverClose', (req, res) => {
 
+  // Capture all needed values from uinsertItem controller 
+  const userName = req.query.user; 
+  const date_key = req.query.date; 
+  const time_key = req.query.time; 
+
+  // capture all vaules from db
+  db.query(`select * from final_result where date_key = (?) and time_key = (?)`, [date_key, time_key], (error, result_v1) => {
+    if (error) {
+      console.log(error); 
+    }
+
+    if (result_v1.length > 0) {
+      // console.log(result_v1); 
+
+      const array_total = [
+        `cash_total:${result_v1[0]['cash_total']}`, 
+        `sale_total:${result_v1[0]['sale_total']}`,
+        `debit_total:${result_v1[0]['debit_total']}`,
+        `tip_total:${result_v1[0]['tip_total']}`,
+        `customer_total:${result_v1[0]['customer_total']}`
+      ]
+
+      return res.render('serverClose', {
+        name: userName, 
+        date: date_key, 
+        time: time_key,
+        arr_1: array_total, 
+        arr_2: result_v1[0]['cash_list'],
+        sale: result_v1[0]['sale_total'],
+        tips: result_v1[0]['tip_total'], 
+        cash: result_v1[0]['cash_total']
+      })
+    } 
+  })
+})
 
 
 // Admin Side
@@ -488,170 +531,181 @@ router.get("/adminMain", (req, res) => {
     const adminName = req.query.admin;
     const date_key = req.query.date;
     const time_key = req.query.time;
-
-    // console.log(adminName, date_key, time_key); 
-
-    db.query('SELECT * FROM order_result ORDER BY id DESC', (error, done_items) => {
-      if (error) {
+    
+    // Get table key
+    db.query(`select * from table_check where table_status = 'filled'`, (error, table_check) => {
+        if (error) {
           console.log(error); 
-      }
+        }
 
-      // Capture all values from updated_table as neeed 
-      db.query(`select * from updated_table`, (error, main_result) => {
-          if(error) {
-              console.log(error); 
-          }
+        // Some tables are filled
+        const table_chech_arr = []; 
+        for (let i = 0; i < table_check.length; i++) {
+            table_chech_arr.push(table_check[i]['table_id']); 
+        }
 
-          if (main_result.length > 0){
+        console.log(table_chech_arr); 
 
-            const temp_array = []; 
+        db.query('SELECT * FROM order_result ORDER BY id DESC', (error, done_items) => {
+            if (error) {
+                console.log(error); 
+            }
 
-            for (let i = 0; i < main_result.length; i++){
-
-              let box_id = main_result[i]['id']; 
-              let table_name = main_result[i]['table_name']; 
-              let table_id = main_result[i]['table_id']; 
-              let item_id = main_result[i]['item_id'].split(':').join(','); 
-              let EST_val = main_result[i]['EST']; 
-
-              db.query(`select * from ${table_id} where id IN(${item_id})`, (error, test_result) => {
-                if(error){
+            // Capture all values from updated_table as neeed 
+            db.query(`select * from updated_table`, (error, main_result) => {
+                if (error) {
                     console.log(error); 
                 }
 
-                if (table_id.includes('Phone') === true) {
+                if (main_result.length > 0){
 
-                  let phone_order = `${table_name}#${EST_val}`; 
-
-                  if (test_result.length > 1) {
-
-                    let b = ''; 
-      
-                    for (let j = 0; j < test_result.length; j++) {
-
-                      // console.log(test_result[j]['full_order']); 
-                      b = `${b}!${test_result[j]['full_order']}`; 
-                      
-                      if (j === (test_result.length -1)){
-
-                          b = `${box_id}!${phone_order}${b}`; 
-                          temp_array.push(b); 
+                  const temp_array = []; 
+    
+                  for (let i = 0; i < main_result.length; i++){
+    
+                    let box_id = main_result[i]['id']; 
+                    let table_name = main_result[i]['table_name']; 
+                    let table_id = main_result[i]['table_id']; 
+                    let item_id = main_result[i]['item_id'].split(':').join(','); 
+                    let EST_val = main_result[i]['EST']; 
+    
+                    db.query(`select * from ${table_id} where id IN(${item_id})`, (error, test_result) => {
+                      if(error){
+                          console.log(error); 
                       }
-                    }
+    
+                      if (table_id.includes('Phone') === true) {
+    
+                        let phone_order = `${table_name}#${EST_val}`; 
+    
+                        if (test_result.length > 1) {
+    
+                          let b = ''; 
+            
+                          for (let j = 0; j < test_result.length; j++) {
+    
+                            // console.log(test_result[j]['full_order']); 
+                            b = `${b}!${test_result[j]['full_order']}`; 
+                            
+                            if (j === (test_result.length -1)){
+    
+                                b = `${box_id}!${phone_order}${b}`; 
+                                temp_array.push(b); 
+                            }
+                          }
+    
+                        } else {
+    
+                          let a = `${box_id}!${phone_order}!${test_result[0]['full_order']}`; 
+                          temp_array.push(a); 
+                        }
+    
+                      } else {
+    
+                        if (test_result.length > 1) {
+    
+                          let b = ''; 
+                  
+                          for (let j = 0; j < test_result.length; j++) {
+          
+                              // console.log(test_result[j]['full_order']); 
+                              b = `${b}!${test_result[j]['full_order']}`; 
+                              
+                              if (j === (test_result.length -1)){
+          
+                                  b = `${box_id}!${table_name}${b}`; 
+                                  temp_array.push(b); 
+                              }
+                          }
+          
+                        } else {
+          
+                          let a = `${box_id}!${table_name}!${test_result[0]['full_order']}`; 
+                          temp_array.push(a); 
+          
+                        }
+                      }
+    
+                      if (i === (main_result.length-1)){
+    
+                        console.log(temp_array); 
+                        console.log(temp_array.join(',')); 
 
-                  } else {
+                        // Check if any user is still active 
+                        db.query(`select * from users where user_status = 'True'`, (error, user_status) => {
+                          if (error) {
+                            console.log(error); 
+                          } 
 
-                    let a = `${box_id}!${phone_order}!${test_result[0]['full_order']}`; 
-                    temp_array.push(a); 
+                          if (user_status.length > 0) {
+                            console.log('This admin still cant exit yet, since users are still active...');
+
+                            //Jump to an admin page with table values
+                            return res.render("admin_main", {
+                                name: adminName, 
+                                date: date_key, 
+                                time: time_key,
+                                total_result: temp_array.join(','),
+                                done_items: done_items, 
+                                table_check: table_chech_arr.join(','), 
+                                exit_id: 'False'
+                            })
+
+                          } else {
+                            console.log('All user left, so you are good to exit from system!'); 
+
+                            //Jump to an admin page with table values
+                            return res.render("admin_main", {
+                                name: adminName, 
+                                date: date_key, 
+                                time: time_key,
+                                total_result: temp_array.join(','),
+                                done_items: done_items, 
+                                table_check: table_chech_arr.join(','), 
+                                exit_id: 'True'
+                            })
+                          }
+                        })
+                      }
+                    })
                   }
-
+    
                 } else {
 
-                  if (test_result.length > 1) {
-
-                    let b = ''; 
-            
-                    for (let j = 0; j < test_result.length; j++) {
-    
-                        // console.log(test_result[j]['full_order']); 
-                        b = `${b}!${test_result[j]['full_order']}`; 
-                        
-                        if (j === (test_result.length -1)){
-    
-                            b = `${box_id}!${table_name}${b}`; 
-                            temp_array.push(b); 
-                        }
+                  // Check if any user is still active 
+                  db.query(`select * from users where user_status = 'True'`, (error, user_status) => {
+                    if (error) {
+                      console.log(error); 
                     }
-    
-                  } else {
-    
-                    let a = `${box_id}!${table_name}!${test_result[0]['full_order']}`; 
-                    temp_array.push(a); 
-    
-                  }
-                }
 
-                if (i === (main_result.length-1)){
-
-                  console.log(temp_array); 
-                  console.log(temp_array.join(',')); 
-    
-                  //Jump to an admin page with table values
-                  return res.render("admin_main", {
-                      name: adminName, 
-                      date: date_key, 
-                      time: time_key,
-                      total_result: temp_array.join(','),
-                      done_items: done_items
+                    if (user_status.length > 0) {
+                      //Jump to an admin page with table values
+                      return res.render("admin_main", {
+                          name: adminName, 
+                          date: date_key, 
+                          time: time_key,
+                          done_items: done_items,
+                          table_check: table_chech_arr.join(','),
+                          exit_id: 'False'
+                      })
+                      
+                    } else {
+                      //Jump to an admin page with table values
+                      return res.render("admin_main", {
+                          name: adminName, 
+                          date: date_key, 
+                          time: time_key,
+                          done_items: done_items,
+                          table_check: table_chech_arr.join(','),
+                          exit_id: 'True'
+                      })
+                    }
                   })
                 }
-              })
-            }
-
-          } else {
-
-            //Jump to an admin page with table values
-            return res.render("admin_main", {
-                name: adminName, 
-                date: date_key, 
-                time: time_key,
-                done_items: done_items
             })
-          }
-      })
+        })
     })
 })
-
-
-
-
-// Functions List 
-// function get_userList(results) {
-
-//   const nameList = [];
-//   const result = Object.values(JSON.parse(JSON.stringify(results)));
-
-//   for (let i = 0; i < results.length; i++) {
-//     let name_val = result[i]["name"];
-//     let pass_val = result[i]["password"];
-//     nameList[i] = name_val + ":" + pass_val;
-//   }
-
-//   return nameList; 
-// }
-
-// function check_userList(nameList, loggedUser) {
-
-//   const result_log = Object.values(JSON.parse(JSON.stringify(loggedUser)));
-
-//   if (loggedUser.length > 0) {
-
-//       for (let x = 0; x < loggedUser.length; x++){
-
-//           let checkedUser = result_log[x]['name']
-//           nameList.splice(nameList.indexOf(checkedUser), 1) 
-//       }
-
-//       return nameList; 
-//   } else {
-
-//       console.log("No user in userLog..."); 
-//       return nameList; 
-//   }
-// }
-
-// // Function to check if order_result table exist or not 
-// function check_adminHome(table_result) {
-
-//   for (let t = 0; t < table_result.length; t++){
-
-//     if (table_result[t]['Tables_in_pos_database'] === 'order_result') {
-//       return true; 
-//     }
-//   }
-
-//   return false; 
-// }
 
 
 module.exports = router;

@@ -1,13 +1,11 @@
 // Add Button Function
 const ramen_addBtn = document.getElementById('ramen_addBtn'); 
 const item_button = document.querySelectorAll('.modalButton'); 
-const ramen_editBtn_v2 = document.getElementById('ramen_editBtn'); 
 
 var item_container = []
 
 // I could capture main item name from this function
 $('button.modalButton').click(function(e) {
-
     // console.log(e.currentTarget.value);
     item_container.push(e.currentTarget.value)
 });
@@ -15,31 +13,133 @@ $('button.modalButton').click(function(e) {
 // I could capture all results of preference lists from this function
 ramen_addBtn.addEventListener('click', function(event){
 
-  if (item_container[0].includes("Cold") === true){
+  if (item_container[0].includes("Shrimp") === true) {
 
-      console.log("This is cold"); 
+      if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
+          
+        document.getElementById('soup_container').style.background = '#f56c77'; 
+        event.preventDefault();
+        return; 
 
-  } else if (item_container[0].includes("Shrimp") === true) {
+      } else {
+          
+        document.getElementById('soup_container').style.background = 'transparent'; 
+        // This is only one condition when the soup and chashu boxes are filled
 
-      console.log("This is shrimp"); 
+        document.getElementById('chashu_container').style.background = 'transparent'; 
+
+        // Capture the total number counter 
+        let total_num = document.getElementById('toppingTop_counter').innerText; 
+
+        const totalNum_input = document.getElementById('total_num'); 
+        totalNum_input.setAttribute('value', total_num); 
+
+        // Capture the chashu and soup values and combine them with each other
+        var result = ''
+        $.each($("input[name='pref_must']:checked"), function(){            
+            // item_container.push($(this).val());
+            result = result + this.value; 
+        });
+
+        item_container.push(result);
+      }
+
+      // Capture add topping items 
+      $.each($("h1[name='addTop_count']"), function(){            
+        if ($(this).text() > 0) {document.getElementById('soup_container').style.background = 'transparent'; 
+
+            let addTop_result = ('+' + $(this).text() + '{' + $(this).attr('addTop'));
+            item_container.push(addTop_result);
+        }
+      });
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('added_item'); 
+      item_input.setAttribute('value', item_container); 
+
+
+  } else if (item_container[0].includes("Vege") === true) {
+
+    if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
+        
+      document.getElementById('soup_container').style.background = '#f56c77'; 
+      event.preventDefault();
+      return; 
+
+    }
+    else {
+        
+      document.getElementById('soup_container').style.background = 'transparent'; 
+      // This is only one condition when the soup and chashu boxes are filled
+
+      document.getElementById('chashu_container').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('toppingTop_counter').innerText; 
+
+      const totalNum_input = document.getElementById('total_num'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture the chashu and soup values and combine them with each other
+      var result = ''
+      $.each($("input[name='pref_must']:checked"), function(){            
+          // item_container.push($(this).val());
+          result = result + this.value; 
+      });
+
+      item_container.push(result);
+
+    }
+
+    // Capture add topping items 
+    $.each($("h1[name='addTop_count']"), function(){            
+      if ($(this).text() > 0) {document.getElementById('soup_container').style.background = 'transparent'; 
+
+          let addTop_result = ('+' + $(this).text() + '{' + $(this).attr('addTop'));
+          item_container.push(addTop_result);
+      }
+    });
+
+    // Capture other pref options 
+    $.each($("input[name='pref_others']:checked"), function(){            
+        item_container.push($(this).val());
+    });
+
+    $.each($("input[name='remove_check']:checked"), function(){
+        item_container.push($(this).val());
+    })
+
+    console.log(item_container); 
+
+    // Insert this array to the hidden input to keep 
+    const item_input = document.getElementById('added_item'); 
+    item_input.setAttribute('value', item_container); 
+
 
   } else {
 
       // check if the required options is chcked or not 
       if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
-          
         document.getElementById('soup_container').style.background = '#f56c77'; 
 
         // check if the required options is chcked or not 
         if (document.getElementById("chashu_belly_choice").checked === false && document.getElementById("chashu_shoulder_choice").checked === false){   
             document.getElementById('chashu_container').style.background = '#f56c77'; 
-
-
             event.preventDefault(); 
             return; 
 
         } else {
-
           document.getElementById('chashu_container').style.background = 'transparent'; 
         }
         
@@ -59,23 +159,22 @@ ramen_addBtn.addEventListener('click', function(event){
           } else {
             
             // This is only one condition when the soup and chashu boxes are filled
+            document.getElementById('chashu_container').style.background = 'transparent'; 
 
-              document.getElementById('chashu_container').style.background = 'transparent'; 
+            // Capture the total number counter 
+            let total_num = document.getElementById('toppingTop_counter').innerText; 
 
-              // Capture the total number counter 
-              let total_num = document.getElementById('toppingTop_counter').innerText; 
+            const totalNum_input = document.getElementById('total_num'); 
+            totalNum_input.setAttribute('value', total_num); 
 
-              const totalNum_input = document.getElementById('total_num'); 
-              totalNum_input.setAttribute('value', total_num); 
+            // Capture the chashu and soup values and combine them with each other
+            var result = ''
+            $.each($("input[name='pref_must']:checked"), function(){            
+                // item_container.push($(this).val());
+                result = result + this.value; 
+            });
 
-              // Capture the chashu and soup values and combine them with each other
-              var result = ''
-              $.each($("input[name='pref_must']:checked"), function(){            
-                  // item_container.push($(this).val());
-                  result = result + this.value; 
-              });
-
-              item_container.push(result);
+            item_container.push(result);
           }
 
       }
@@ -104,40 +203,344 @@ ramen_addBtn.addEventListener('click', function(event){
       // Insert this array to the hidden input to keep 
       const item_input = document.getElementById('added_item'); 
       item_input.setAttribute('value', item_container); 
-
   }
+})
+
+
+
+//Side Dishes
+//Add Button Function
+const sides_addBtn = document.getElementById('chashu_add'); 
+const sides_button = document.querySelectorAll('.chashu_pref_button'); 
+
+sides_addBtn.addEventListener('click', function(event){
+
+  if (item_container[0].includes("C.Don") === true){
+
+      // This is only one condition when the soup and chashu boxes are filled
+      document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('chashu_counter').innerText; 
+
+      const totalNum_input = document.getElementById('totalNum_side'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('addedItem_side'); 
+      item_input.setAttribute('value', item_container); 
+
+  } else if (item_container[0].includes("G.Don") === true){
+
+      // This is only one condition when the soup and chashu boxes are filled
+      document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('chashu_counter').innerText; 
+
+      const totalNum_input = document.getElementById('totalNum_side'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('addedItem_side'); 
+      item_input.setAttribute('value', item_container); 
+
+  } else {
+
+    // check if the required options is chcked or not 
+    if (document.getElementById("chashu_belly").checked === false && document.getElementById("chashu_shoulder").checked === false){   
+        document.getElementById('chashu-bg').style.background = '#f56c77'; 
+        event.preventDefault(); 
+        return; 
+
+    } else {
+      // This is only one condition when the soup and chashu boxes are filled
+      document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('chashu_counter').innerText; 
+
+      const totalNum_input = document.getElementById('totalNum_side'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture the chashu
+      var result = ''
+      $.each($("input[name='chashu_check']:checked"), function(){            
+          // item_container.push($(this).val());
+          result = result + this.value; 
+      });
+
+      item_container.push(result);
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('addedItem_side'); 
+      item_input.setAttribute('value', item_container); 
+
+    }
+  }
+})
+
+
+//Other Sides
+//Add Button Function
+const other_addBtn = document.getElementById('other-add'); 
+const other_button = document.querySelectorAll('.dishes_button'); 
+
+other_addBtn.addEventListener('click', function(event){
+
+  // Capture add topping items 
+  $.each($("div[name='addTop_count']"), function(){            
+    if ($(this).text() > 0) {
+        let addTop_result = ($(this).text() + ':' + $(this).attr('addTop'));
+        item_container.push(addTop_result);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('addedItem_others'); 
+  item_input.setAttribute('value', item_container); 
+})
+
+
+//Toppings
+const toppings_addBtn = document.getElementById('topping_add'); 
+const toppings_button = document.querySelectorAll('.topping_modal_button'); 
+
+toppings_addBtn.addEventListener('click', function(event){
+
+  // Capture add topping items 
+  $.each($("h1[name='exTopping_count']"), function(){            
+    if ($(this).text() > 0) {
+
+        let exTop_result = ($(this).text() + ':' + $(this).attr('exTop'));
+        item_container.push(exTop_result);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('addedItem_toppings'); 
+  item_input.setAttribute('value', item_container); 
 
 })
 
 
+// Soft Drinks
+// Add Button Function
+const drinks_addBtn = document.getElementById('softDrink_add'); 
+const drinks_button = document.querySelectorAll('.drinksButton'); 
+
+drinks_addBtn.addEventListener('click', function(event){
+  // Capture add topping items 
+  $.each($("div[name='drinks_count']"), function(){            
+    if ($(this).text() > 0) {
+      let drinks_results = ($(this).text() + ':' + $(this).attr('drinks'));
+      item_container.push(drinks_results);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('addedItem_softdrinks'); 
+  item_input.setAttribute('value', item_container); 
+})
+
+// Beers
+// Add Button Function
+const beer_addBtn = document.getElementById('beer_add'); 
+
+beer_addBtn.addEventListener('click', function(event){
+  // Capture add topping items 
+  $.each($("div[name='drinks_count']"), function(){            
+    if ($(this).text() > 0) {
+
+        let drinks_results = ($(this).text() + ':' + $(this).attr('drinks'));
+        item_container.push(drinks_results);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('addedItem_beers'); 
+  item_input.setAttribute('value', item_container); 
+})
+
+
+
+
+
+// Edit Item for Main Items (Ramen)
 // Addply this same condition to Change button on edit sheet 
+const ramen_editBtn_v2 = document.getElementById('ramen_editBtn'); 
+
 ramen_editBtn_v2.addEventListener('click', function(event){
 
-  if (item_container[0].includes("Cold") === true){
+  if (item_container[0].includes("Shrimp") === true) {
 
-    console.log("This is cold"); 
+    if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
+        
+      document.getElementById('soup_container').style.background = '#f56c77'; 
+      event.preventDefault();
+      return; 
 
-  } else if (item_container[0].includes("Shrimp") === true) {
+    } else {
+        
+      document.getElementById('soup_container').style.background = 'transparent'; 
+      // This is only one condition when the soup and chashu boxes are filled
 
-      console.log("This is shrimp"); 
+      document.getElementById('chashu_container').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('toppingTop_counter').innerText; 
+
+      const totalNum_input = document.getElementById('edit_total_num'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture the chashu and soup values and combine them with each other
+      var result = ''
+      $.each($("input[name='pref_must']:checked"), function(){            
+          // item_container.push($(this).val());
+          result = result + this.value; 
+      });
+
+      item_container.push(result);
+    }
+
+    // Capture add topping items 
+    $.each($("h1[name='addTop_count']"), function(){            
+      if ($(this).text() > 0) {document.getElementById('soup_container').style.background = 'transparent'; 
+
+          let addTop_result = ('+' + $(this).text() + '{' + $(this).attr('addTop'));
+          item_container.push(addTop_result);
+      }
+    });
+
+    // Capture other pref options 
+    $.each($("input[name='pref_others']:checked"), function(){            
+        item_container.push($(this).val());
+    });
+
+    $.each($("input[name='remove_check']:checked"), function(){
+        item_container.push($(this).val());
+    })
+
+    console.log(item_container); 
+
+    // Insert this array to the hidden input to keep 
+    const item_input = document.getElementById('edit_item'); 
+    item_input.setAttribute('value', item_container); 
+
+
+  } else if (item_container[0].includes("Vege") === true) {
+
+    if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
+        
+      document.getElementById('soup_container').style.background = '#f56c77'; 
+      event.preventDefault();
+      return; 
+
+    } else {
+      
+      document.getElementById('soup_container').style.background = 'transparent'; 
+      // This is only one condition when the soup and chashu boxes are filled
+
+      document.getElementById('chashu_container').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('toppingTop_counter').innerText; 
+
+      const totalNum_input = document.getElementById('edit_total_num'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture the chashu and soup values and combine them with each other
+      var result = ''
+      $.each($("input[name='pref_must']:checked"), function(){            
+          // item_container.push($(this).val());
+          result = result + this.value; 
+      });
+
+      item_container.push(result);
+
+    }
+
+    // Capture add topping items 
+    $.each($("h1[name='addTop_count']"), function(){            
+      if ($(this).text() > 0) {document.getElementById('soup_container').style.background = 'transparent'; 
+
+          let addTop_result = ('+' + $(this).text() + '{' + $(this).attr('addTop'));
+          item_container.push(addTop_result);
+      }
+    });
+
+    // Capture other pref options 
+    $.each($("input[name='pref_others']:checked"), function(){            
+        item_container.push($(this).val());
+    });
+
+    $.each($("input[name='remove_check']:checked"), function(){
+        item_container.push($(this).val());
+    })
+
+    console.log(item_container); 
+
+    // Insert this array to the hidden input to keep 
+    const item_input = document.getElementById('edit_item'); 
+    item_input.setAttribute('value', item_container); 
+
 
   } else {
 
     // check if the required options is chcked or not 
     if (document.getElementById("rich_soup").checked === false && document.getElementById("regular_soup").checked === false){
-        
       document.getElementById('soup_container').style.background = '#f56c77'; 
 
       // check if the required options is chcked or not 
       if (document.getElementById("chashu_belly_choice").checked === false && document.getElementById("chashu_shoulder_choice").checked === false){   
           document.getElementById('chashu_container').style.background = '#f56c77'; 
-
-
           event.preventDefault(); 
           return; 
 
       } else {
-
         document.getElementById('chashu_container').style.background = 'transparent'; 
       }
       
@@ -157,25 +560,23 @@ ramen_editBtn_v2.addEventListener('click', function(event){
         } else {
           
           // This is only one condition when the soup and chashu boxes are filled
+          document.getElementById('chashu_container').style.background = 'transparent'; 
 
-            document.getElementById('chashu_container').style.background = 'transparent'; 
+          // Capture the total number counter 
+          let total_num = document.getElementById('toppingTop_counter').innerText; 
 
-            // Capture the total number counter 
-            let total_num = document.getElementById('toppingTop_counter').innerText; 
+          const totalNum_input = document.getElementById('edit_total_num'); 
+          totalNum_input.setAttribute('value', total_num); 
 
-            const edit_totalNum_input = document.getElementById('edit_total_num'); 
-            edit_totalNum_input.setAttribute('value', total_num); 
+          // Capture the chashu and soup values and combine them with each other
+          var result = ''
+          $.each($("input[name='pref_must']:checked"), function(){            
+              // item_container.push($(this).val());
+              result = result + this.value; 
+          });
 
-            // Capture the chashu and soup values and combine them with each other
-            var result = ''
-            $.each($("input[name='pref_must']:checked"), function(){            
-                // item_container.push($(this).val());
-                result = result + this.value; 
-            });
-
-            item_container.push(result);
+          item_container.push(result);
         }
-
     }
 
     // Capture add topping items 
@@ -200,11 +601,206 @@ ramen_editBtn_v2.addEventListener('click', function(event){
     console.log(item_container); 
 
     // Insert this array to the hidden input to keep 
-    const editItem_input = document.getElementById('edit_item');  
-    editItem_input.setAttribute('value', item_container); 
-
+    const item_input = document.getElementById('edit_item'); 
+    item_input.setAttribute('value', item_container); 
   }
+})
 
+// Edit Items for Side Dishes(C.Plate, C.Burger, C.Don, G.Don)
+// Declare a new edit button 
+const side_editBtn = document.getElementById('side_editBtn');
+
+// I could capture main item name from this function
+// $('button.chashu_pref_button').click(function(e) {
+//   // console.log(e.currentTarget.value);
+//   item_container.push(e.currentTarget.value)
+// });
+
+side_editBtn.addEventListener('click', () => {
+
+  if (item_container[0].includes("C.Don") === true){
+
+    // This is only one condition when the soup and chashu boxes are filled
+    document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+    // Capture the total number counter 
+    let total_num = document.getElementById('chashu_counter').innerText; 
+
+    const totalNum_input = document.getElementById('editNum_side'); 
+    totalNum_input.setAttribute('value', total_num); 
+
+    // Capture other pref options 
+    $.each($("input[name='pref_others']:checked"), function(){            
+        item_container.push($(this).val());
+    });
+
+    $.each($("input[name='remove_check']:checked"), function(){
+
+        item_container.push($(this).val());
+    })
+
+    console.log(item_container); 
+
+    // Insert this array to the hidden input to keep 
+    const item_input = document.getElementById('editItem_side'); 
+    item_input.setAttribute('value', item_container); 
+
+  } else if (item_container[0].includes("G.Don") === true){
+
+    // This is only one condition when the soup and chashu boxes are filled
+    document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+    // Capture the total number counter 
+    let total_num = document.getElementById('chashu_counter').innerText; 
+
+    const totalNum_input = document.getElementById('editNum_side'); 
+    totalNum_input.setAttribute('value', total_num); 
+
+    // Capture other pref options 
+    $.each($("input[name='pref_others']:checked"), function(){            
+        item_container.push($(this).val());
+    });
+
+    $.each($("input[name='remove_check']:checked"), function(){
+
+        item_container.push($(this).val());
+    })
+
+    console.log(item_container); 
+
+    // Insert this array to the hidden input to keep 
+    const item_input = document.getElementById('editItem_side'); 
+    item_input.setAttribute('value', item_container); 
+
+  } else {
+
+    // check if the required options is chcked or not 
+    if (document.getElementById("chashu_belly").checked === false && document.getElementById("chashu_shoulder").checked === false){   
+        document.getElementById('chashu-bg').style.background = '#f56c77'; 
+        event.preventDefault(); 
+        return; 
+
+    } else {
+      // This is only one condition when the soup and chashu boxes are filled
+      document.getElementById('chashu-bg').style.background = 'transparent'; 
+
+      // Capture the total number counter 
+      let total_num = document.getElementById('chashu_counter').innerText; 
+
+      const totalNum_input = document.getElementById('editNum_side'); 
+      totalNum_input.setAttribute('value', total_num); 
+
+      // Capture the chashu
+      var result = ''
+      $.each($("input[name='chashu_check']:checked"), function(){            
+          // item_container.push($(this).val());
+          result = result + this.value; 
+      });
+
+      item_container.push(result);
+
+      // Capture other pref options 
+      $.each($("input[name='pref_others']:checked"), function(){            
+          item_container.push($(this).val());
+      });
+
+      $.each($("input[name='remove_check']:checked"), function(){
+
+          item_container.push($(this).val());
+      })
+
+      console.log(item_container); 
+
+      // Insert this array to the hidden input to keep 
+      const item_input = document.getElementById('editItem_side'); 
+      item_input.setAttribute('value', item_container); 
+
+    }
+  }
+})
+
+
+// Edit Items for Side Dishes(Other Items)
+// Declare a new edit button 
+const others_editBtn = document.getElementById('others_editBtn'); 
+
+others_editBtn.addEventListener('click', () => {
+  // Capture add topping items 
+  $.each($("div[name='addTop_count']"), function(){            
+    if ($(this).text() > 0) {
+        let addTop_result = ($(this).text() + ':' + $(this).attr('addTop'));
+        item_container.push(addTop_result);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('editItem_others'); 
+  item_input.setAttribute('value', item_container);
+})
+
+
+// Edit Items for Ex Toppings
+// Declare a new edit button 
+const toppings_editBtn = document.getElementById('toppings_editBtn');
+
+toppings_editBtn.addEventListener('click', () => {
+  // Capture add topping items 
+  $.each($("h1[name='exTopping_count']"), function(){            
+    if ($(this).text() > 0) {
+        let exTop_result = ($(this).text() + ':' + $(this).attr('exTop') + ':(Side)');
+        item_container.push(exTop_result);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('editItem_toppings'); 
+  item_input.setAttribute('value', item_container);
+})
+
+
+// Edit Items for Soft Drinks 
+// Declare a new button 
+const softdrinks_editBtn = document.getElementById('softdrinks_editBtn');
+
+softdrinks_editBtn.addEventListener('click', () => {
+  // Capture add topping items 
+  $.each($("div[name='drinks_count']"), function(){            
+    if ($(this).text() > 0) {
+      let drinks_results = ($(this).text() + ':' + $(this).attr('drinks'));
+      item_container.push(drinks_results);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('editItem_softdrinks'); 
+  item_input.setAttribute('value', item_container);
+})
+
+
+// Edit Items for Beers 
+// Declare a new button 
+const beers_editBtn = document.getElementById('beers_editBtn');
+
+beers_editBtn.addEventListener('click', () => {
+  // Capture add topping items 
+  $.each($("div[name='drinks_count']"), function(){            
+    if ($(this).text() > 0) {
+        let drinks_results = ($(this).text() + ':' + $(this).attr('drinks'));
+        item_container.push(drinks_results);
+    }
+  });
+
+  console.log(item_container); 
+
+  // Insert this array to the hidden input to keep 
+  const item_input = document.getElementById('editItem_beers'); 
+  item_input.setAttribute('value', item_container); 
 })
 
 
@@ -410,6 +1006,8 @@ recall_swiper();
 
 //close ramen  modal from the preference mdal page
 document.querySelector('#close_ramen_modal').addEventListener('click', () => {
+
+  // console.log('close btn is clicked!');
   document.querySelector('.modal_bg').style.display = 'none';
 
   // Clear a title text not to doplicate same text 
@@ -423,6 +1021,10 @@ document.querySelector('#close_ramen_modal').addEventListener('click', () => {
   // Back to enable chashu checkboxes to click
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
+
+  // Back to regular color from error one 
+  document.getElementById('soup_container').style.background = 'transparent';
+  document.getElementById('chashu_container').style.background = 'transparent';
 
   // Make all checkbox unchecked when user back to home
   $('input[name="pref_must"]').each(function() {
@@ -455,12 +1057,46 @@ document.querySelector('#close_ramen_modal').addEventListener('click', () => {
   wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
   corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
 
-  // Make the item container clean 
-  item_container.length = 0; 
+  if (item_container[0] === 'Vege') {
+    console.log('This is a close btn of modal from vege ramen!');
 
+    // Make the item container clean 
+    item_container.length = 0; 
+    // Add Vege value at the top 
+    item_container.push('Vege'); 
+    
+  } else {
+    // Make the item container clean 
+    item_container.length = 0; 
+  }
 });
 
+// Exception: vege ramen option 
+const vegeRamen_btn = document.getElementById('vegeModal');
+const topBox_btn = document.getElementById('top_box'); 
+
+vegeRamen_btn.addEventListener('click', () => {
+  // console.log('Vege ramen button clicked'); 
+
+  if (item_container.length > 1) {
+    console.log('This is a vege button to back to previous list'); 
+
+    // Clean the array 
+    item_container.length = 0; 
+  }
+})
+
+topBox_btn.addEventListener('click', () => {
+  // console.log('Top box clicked!'); 
+
+  if (item_container[0] === 'Vege') {
+    // Clean the array 
+    item_container.length = 0; 
+  }
+})
+
 document.querySelector('#close_addToppings_modal').addEventListener('click', () => {
+
   document.querySelector('.modal_bg').style.display = 'none';
 
   document.getElementById('remove-id').innerText = '';
@@ -474,7 +1110,10 @@ document.querySelector('#close_addToppings_modal').addEventListener('click', () 
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
-  // Make all checkbox unchecked when user back to home
+  // Back to regular color from error one 
+  document.getElementById('soup_container').style.background = 'transparent';
+  document.getElementById('chashu_container').style.background = 'transparent';
+
   // Make all checkbox unchecked when user back to home
   $('input[name="pref_must"]').each(function() {
     this.checked = false;
@@ -509,8 +1148,18 @@ document.querySelector('#close_addToppings_modal').addEventListener('click', () 
   // Back to a first modal 
   recall_swiper(); 
 
-  // Make the item container clean 
-  item_container.length = 0;
+  if (item_container[0] === 'Vege') {
+    console.log('This is a close btn of modal from vege ramen!'); 
+
+    // Make the item container clean 
+    item_container.length = 0; 
+    // Add Vege value at the top 
+    item_container.push('Vege'); 
+    
+  } else {
+    // Make the item container clean 
+    item_container.length = 0; 
+  }
 });
 
 document.querySelector('#close_removeItems_modal').addEventListener('click', () => {
@@ -527,7 +1176,10 @@ document.querySelector('#close_removeItems_modal').addEventListener('click', () 
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
-  // Make all checkbox unchecked when user back to home
+  // Back to regular color from error one 
+  document.getElementById('soup_container').style.background = 'transparent';
+  document.getElementById('chashu_container').style.background = 'transparent';
+
   // Make all checkbox unchecked when user back to home
   $('input[name="pref_must"]').each(function() {
     this.checked = false;
@@ -562,8 +1214,18 @@ document.querySelector('#close_removeItems_modal').addEventListener('click', () 
   // Back to a first modal 
   recall_swiper(); 
 
-  // Make the item container clean 
-  item_container.length = 0;
+  if (item_container[0] === 'Vege') {
+    console.log('This is a close btn of modal from vege ramen!'); 
+
+    // Make the item container clean 
+    item_container.length = 0; 
+    // Add Vege value at the top 
+    item_container.push('Vege'); 
+    
+  } else {
+    // Make the item container clean 
+    item_container.length = 0; 
+  }
 });
 
 
@@ -882,7 +1544,10 @@ cancelBtn.onclick = () => {
   document.getElementById("chashu_belly_choice").disabled = false;
   document.getElementById("chashu_shoulder_choice").disabled = false;
 
-  // Make all checkbox unchecked when user back to home
+  // Back to regular color from error one 
+  document.getElementById('soup_container').style.background = 'transparent';
+  document.getElementById('chashu_container').style.background = 'transparent';
+
   // Make all checkbox unchecked when user back to home
   $('input[name="pref_must"]').each(function() {
     this.checked = false;
@@ -914,10 +1579,19 @@ cancelBtn.onclick = () => {
   wakame_count = 0; nori_count = 0; gOni_count = 0; cheese_count = 0; butter_count = 0; 
   corn_count = 0; fCake_count = 0; bloccoli_count = 0; exNoodles_count = 0; 
 
-  // Make the item container clean 
-  item_container.length = 0;
-}
+  if (item_container[0] === 'Vege') {
+    console.log('This is a close btn of modal from vege ramen!'); 
 
+    // Make the item container clean 
+    item_container.length = 0; 
+    // Add Vege value at the top 
+    item_container.push('Vege'); 
+    
+  } else {
+    // Make the item container clean 
+    item_container.length = 0; 
+  }
+}
 
 
 // Chashu Preferences Modal
@@ -996,6 +1670,18 @@ document.querySelector('#close_chashu_modal').addEventListener('click', () => {
   $('input[name="chashu_check"]').each(function() {
     this.checked = false;
   });
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+  // Make remove topping checkboxes unchecked 
+  $('input[name="remove_check"]').each(function() {
+    this.checked = false;
+  });
+
+  // Make the item container clean 
+  item_container.length = 0;
 
   // Reset the major multiplier to 1 again
   chashu_count = 1;
@@ -1019,10 +1705,22 @@ cancelBtn_chashu.onclick = () => {
   $('input[name="chashu_check"]').each(function() {
     this.checked = false;
   });
+  // For other preference choices
+  $('input[name="pref_others"]').each(function() {
+    this.checked = false;
+    this.disabled = false; 
+  });
+  // Make remove topping checkboxes unchecked 
+  $('input[name="remove_check"]').each(function() {
+    this.checked = false;
+  });
 
   // Reset the major multiplier to 1 again
   chashu_count = 1;
-  chashu_counter.innerHTML = chashu_count; 
+  chashu_counter.innerHTML = chashu_count;
+  
+  // Reset array 
+  item_container.length = 0; 
 
 }
 
@@ -1033,7 +1731,6 @@ chashuP_Modal.addEventListener('click', () => {
 
   document.getElementById('display-text').append("Chashu:");
 });
-
 // C. Burger
 chashuB_Modal.addEventListener('click', () => {
   document.querySelector('.modal_bg_chashu').style.display = 'block';
@@ -1081,11 +1778,16 @@ document.querySelector('#close_side_modal').addEventListener('click', () => {
   // Reset all values to 0
   gyoza_count = 0; steamedBan_count = 0; kimchiS_count = 0; 
   kimchiL_count = 0; rice_count = 0; matcha_count = 0; 
+
+  // Make the item container clean 
+  item_container.length = 0;
 });
 
 side_Modal.addEventListener('click', () => {
   document.querySelector('.modal_bg_dishes').style.display = 'block';
   document.querySelector('.modal_bg_dishes').classList.add('bg-active-dishes');
+
+  
 });
 
 // cancel Button
@@ -1096,6 +1798,14 @@ cancelBtn_other.onclick = () => {
   $('.counter_section_item').each(function() {
     this.innerHTML = 0;
   });
+
+  // Make add topping count number reset to 0
+  $('div[name="addTop_count"]').each(function(){
+    this.innerHTML = 0; 
+  })
+
+  // Make the item container clean 
+  item_container.length = 0;
 
   // Reset all values to 0
   gyoza_count = 0; steamedBan_count = 0; kimchiS_count = 0; 
@@ -1120,6 +1830,9 @@ document.querySelector('#close_toppings_modal').addEventListener('click', () => 
   beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
   wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
   cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0; 
+
+    // Make the item container clean 
+  item_container.length = 0;
 });
 
 toppings_Modal.addEventListener('click', () => {
@@ -1135,6 +1848,9 @@ cancelBtn_topping.onclick = () => {
   $("h1[name='exTopping_count']").each(function(){
     this.innerHTML = 0; 
   })
+
+  // Make the item container clean 
+  item_container.length = 0;
 
   // Reset each counters to 0
   beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
@@ -1158,6 +1874,8 @@ document.querySelector('#close_softDrink_modal').addEventListener('click', () =>
   // Make the js value to 0
   coke_count = 0; sprite_count = 0; icedTea_count = 0;
 
+  // Make the item container clean 
+  item_container.length = 0;
 });
 
 softDrink_Modal.addEventListener('click', () => {
@@ -1175,6 +1893,9 @@ cancelBtn_softDrinks.onclick = () => {
 
   // Make the js value to 0
   coke_count = 0; sprite_count = 0; icedTea_count = 0;
+
+  // Make the item container clean 
+  item_container.length = 0;
 }
 
 
@@ -1192,6 +1913,9 @@ document.querySelector('#close_beer_modal').addEventListener('click', () => {
   }); 
 
   asahi_count = 0; sapporo_count = 0; kokanee_count = 0; 
+
+  // Make the item container clean 
+  item_container.length = 0;
 });
 
 beer_Modal.addEventListener('click', () => {
@@ -1208,6 +1932,9 @@ cancelBtn_beers.onclick = () => {
   }); 
 
   asahi_count = 0; sapporo_count = 0; kokanee_count = 0; 
+
+  // Make the item container clean 
+  item_container.length = 0;
 }
 
 // Bowl　Soup Modal 
@@ -1729,6 +2456,7 @@ exNoodles_increaseBtn.addEventListener('click', () => {
   }
 })
 
+
 // other side dishes counter button
 // for gyoza
 let gyoza_decreaseBtn = document.getElementById('gyoza_decrease');
@@ -1740,22 +2468,50 @@ let gyoza_count = 0;
 gyoza_decreaseBtn.addEventListener('click', () => {
   gyoza_count --; 
   gyoza_counter.innerHTML = gyoza_count; 
-  if(gyoza_count < 0) {
+
+  if(gyoza_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     gyoza_count = 0;
     gyoza_counter.innerHTML = gyoza_count; 
+
   } else {
+
     gyoza_counter.innerHTML = gyoza_count; 
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 gyoza_increaseBtn.addEventListener('click', () => {
   gyoza_count ++; 
   gyoza_counter.innerHTML = gyoza_count;
+
   if(gyoza_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     gyoza_count = 0;
     gyoza_counter.innerHTML = gyoza_count; 
+
   } else {
+
     gyoza_counter.innerHTML = gyoza_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    steamedBan_counter.innerHTML = 0; 
+    kimchiS_counter.innerHTML = 0; 
+    kimchiL_counter.innerHTML = 0; 
+    rice_counter.innerHTML = 0; 
+    matcha_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    steamedBan_count = 0; kimchiS_count = 0; 
+    kimchiL_count = 0; rice_count = 0; matcha_count = 0;
+
   }
 })
 
@@ -1770,22 +2526,49 @@ let steamedBan_count = 0;
 steamedBan_decreaseBtn.addEventListener('click', () => {
   steamedBan_count --; 
   steamedBan_counter.innerHTML = steamedBan_count; 
-  if(steamedBan_count < 0) {
+
+  if(steamedBan_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     steamedBan_count = 0;
     steamedBan_counter.innerHTML = steamedBan_count; 
+
   } else {
+
     steamedBan_counter.innerHTML = steamedBan_count; 
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 steamedBan_increaseBtn.addEventListener('click', () => {
   steamedBan_count ++; 
   steamedBan_counter.innerHTML = steamedBan_count;
+
   if(steamedBan_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     steamedBan_count = 0;
     steamedBan_counter.innerHTML = steamedBan_count; 
+
   } else {
+
     steamedBan_counter.innerHTML = steamedBan_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    gyoza_counter.innerHTML = 0; 
+    kimchiS_counter.innerHTML = 0; 
+    kimchiL_counter.innerHTML = 0; 
+    rice_counter.innerHTML = 0; 
+    matcha_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    gyoza_count = 0; kimchiS_count = 0; 
+    kimchiL_count = 0; rice_count = 0; matcha_count = 0; 
   }
 })
 
@@ -1800,22 +2583,49 @@ let kimchiS_count = 0;
 kimchiS_decreaseBtn.addEventListener('click', () => {
   kimchiS_count --; 
   kimchiS_counter.innerHTML = kimchiS_count; 
-  if(kimchiS_count < 0) {
+
+  if(kimchiS_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     kimchiS_count = 0;
     kimchiS_counter.innerHTML = kimchiS_count; 
+
   } else {
-    kimchiS_counter.innerHTML = kimchiS_count; 
+
+    kimchiS_counter.innerHTML = kimchiS_count;
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 kimchiS_increaseBtn.addEventListener('click', () => {
   kimchiS_count ++; 
   kimchiS_counter.innerHTML = kimchiS_count;
+
   if(kimchiS_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     kimchiS_count = 0;
     kimchiS_counter.innerHTML = kimchiS_count; 
+
   } else {
+
     kimchiS_counter.innerHTML = kimchiS_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    gyoza_counter.innerHTML = 0; 
+    steamedBan_counter.innerHTML = 0; 
+    kimchiL_counter.innerHTML = 0; 
+    rice_counter.innerHTML = 0; 
+    matcha_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    gyoza_count = 0; steamedBan_count = 0; 
+    kimchiL_count = 0; rice_count = 0; matcha_count = 0; 
   }
 })
 
@@ -1830,22 +2640,49 @@ let kimchiL_count = 0;
 kimchiL_decreaseBtn.addEventListener('click', () => {
   kimchiL_count --; 
   kimchiL_counter.innerHTML = kimchiL_count; 
-  if(kimchiL_count < 0) {
+
+  if(kimchiL_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     kimchiL_count = 0;
     kimchiL_counter.innerHTML = kimchiL_count; 
+
   } else {
+
     kimchiL_counter.innerHTML = kimchiL_count; 
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 kimchiL_increaseBtn.addEventListener('click', () => {
   kimchiL_count ++; 
   kimchiL_counter.innerHTML = kimchiL_count;
+
   if(kimchiL_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     kimchiL_count = 0;
     kimchiL_counter.innerHTML = kimchiL_count; 
+
   } else {
+
     kimchiL_counter.innerHTML = kimchiL_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    gyoza_counter.innerHTML = 0; 
+    steamedBan_counter.innerHTML = 0; 
+    kimchiS_counter.innerHTML = 0; 
+    rice_counter.innerHTML = 0; 
+    matcha_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    gyoza_count = 0; steamedBan_count = 0; kimchiS_count = 0; 
+    rice_count = 0; matcha_count = 0; 
   }
 })
 
@@ -1860,22 +2697,49 @@ let rice_count = 0;
 rice_decreaseBtn.addEventListener('click', () => {
   rice_count --; 
   rice_counter.innerHTML = rice_count; 
-  if(rice_count < 0) {
+
+  if(rice_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     rice_count = 0;
     rice_counter.innerHTML = rice_count; 
+
   } else {
+
     rice_counter.innerHTML = rice_count; 
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 rice_increaseBtn.addEventListener('click', () => {
   rice_count ++; 
   rice_counter.innerHTML = rice_count;
+
   if(rice_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     rice_count = 0;
     rice_counter.innerHTML = rice_count; 
+
   } else {
+
     rice_counter.innerHTML = rice_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    gyoza_counter.innerHTML = 0; 
+    steamedBan_counter.innerHTML = 0; 
+    kimchiS_counter.innerHTML = 0; 
+    kimchiL_counter.innerHTML = 0; 
+    matcha_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    gyoza_count = 0; steamedBan_count = 0; kimchiS_count = 0; 
+    kimchiL_count = 0; matcha_count = 0; 
   }
 })
 
@@ -1890,24 +2754,52 @@ let matcha_count = 0;
 matcha_decreaseBtn.addEventListener('click', () => {
   matcha_count --; 
   matcha_counter.innerHTML = matcha_count; 
-  if(matcha_count < 0) {
+
+  if(matcha_count <= 0) {
+
+    other_addBtn.disabled = true; 
+
     matcha_count = 0;
     matcha_counter.innerHTML = matcha_count; 
+
   } else {
+
     matcha_counter.innerHTML = matcha_count; 
+
+    other_addBtn.disabled = false; 
   }
 })
 // + btn: Decrease num of topping
 matcha_increaseBtn.addEventListener('click', () => {
   matcha_count ++; 
   matcha_counter.innerHTML = matcha_count;
+
   if(matcha_count >= 11) {
+
+    other_addBtn.disabled = true; 
+
     matcha_count = 0;
     matcha_counter.innerHTML = matcha_count; 
+
   } else {
+
     matcha_counter.innerHTML = matcha_count; 
+
+    other_addBtn.disabled = false; 
+
+    // Reset other items to 0
+    gyoza_counter.innerHTML = 0; 
+    steamedBan_counter.innerHTML = 0; 
+    kimchiS_counter.innerHTML = 0; 
+    kimchiL_counter.innerHTML = 0; 
+    rice_counter.innerHTML = 0; 
+
+    // Reset all values to 0
+    gyoza_count = 0; steamedBan_count = 0; kimchiS_count = 0; 
+    kimchiL_count = 0; rice_count = 0; 
   }
 })
+
 
 
 // Topping Mdal
@@ -1921,23 +2813,54 @@ let beansTop_count = 0;
 // - btn: Increase num of topping 
 beansTop_decreaseBtn.addEventListener('click', () => {
   beansTop_count --; 
-  beansTop_counter.innerHTML = beanTop_count; 
-  if(beansTop_count < 0) {
+  beansTop_counter.innerHTML = beansTop_count; 
+
+  if(beansTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     beansTop_count = 0;
     beansTop_counter.innerHTML = beansTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     beansTop_counter.innerHTML = beansTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 beansTop_increaseBtn.addEventListener('click', () => {
   beansTop_count ++; 
   beansTop_counter.innerHTML = beansTop_count;
+
   if(beansTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     beansTop_count = 0;
     beansTop_counter.innerHTML = beansTop_count; 
+
   } else {
     beansTop_counter.innerHTML = beansTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Beans') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+
   }
 })
 
@@ -1952,22 +2875,52 @@ let eggsTop_count = 0;
 eggsTop_decreaseBtn.addEventListener('click', () => {
   eggsTop_count --; 
   eggsTop_counter.innerHTML = eggsTop_count; 
-  if(eggsTop_count < 0) {
+
+  if(eggsTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     eggsTop_count = 0;
     eggsTop_counter.innerHTML = eggsTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     eggsTop_counter.innerHTML = eggsTop_count; 
+
   }
 })
 // + btn: Decrease num of topping
 eggsTop_increaseBtn.addEventListener('click', () => {
   eggsTop_count ++; 
   eggsTop_counter.innerHTML = eggsTop_count;
+
   if(eggsTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     eggsTop_count = 0;
     eggsTop_counter.innerHTML = eggsTop_count; 
+
   } else {
     eggsTop_counter.innerHTML = eggsTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Egg') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+
   }
 })
 
@@ -1982,22 +2935,52 @@ let bellyTop_count = 0;
 bellyTop_decreaseBtn.addEventListener('click', () => {
   bellyTop_count --; 
   bellyTop_counter.innerHTML = bellyTop_count; 
-  if(bellyTop_count < 0) {
+
+  if(bellyTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     bellyTop_count = 0;
     bellyTop_counter.innerHTML = bellyTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     bellyTop_counter.innerHTML = bellyTop_count; 
+
   }
 })
 // + btn: Decrease num of topping
 bellyTop_increaseBtn.addEventListener('click', () => {
   bellyTop_count ++; 
   bellyTop_counter.innerHTML = bellyTop_count;
+
   if(bellyTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     bellyTop_count = 0;
     bellyTop_counter.innerHTML = bellyTop_count; 
+
   } else {
     bellyTop_counter.innerHTML = bellyTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !==  'Belly') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+
   }
 })
 
@@ -2013,24 +2996,56 @@ let shoulderTop_count = 0;
 shoulderTop_decreaseBtn.addEventListener('click', () => {
   shoulderTop_count --; 
   shoulderTop_counter.innerHTML = shoulderTop_count; 
-  if(shoulderTop_count < 0) {
+
+  if(shoulderTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     shoulderTop_count = 0;
     shoulderTop_counter.innerHTML = shoulderTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     shoulderTop_counter.innerHTML = shoulderTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 shoulderTop_increaseBtn.addEventListener('click', () => {
   shoulderTop_count ++; 
   shoulderTop_counter.innerHTML = shoulderTop_count;
+
   if(shoulderTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     shoulderTop_count = 0;
     shoulderTop_counter.innerHTML = shoulderTop_count; 
+
   } else {
     shoulderTop_counter.innerHTML = shoulderTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Shoulder') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+  
   }
 })
+
 
 // Topping counter button
 // for S.Cake
@@ -2043,22 +3058,53 @@ let sCakeTop_count = 0;
 sCakeTop_decreaseBtn.addEventListener('click', () => {
   sCakeTop_count --; 
   sCakeTop_counter.innerHTML = sCakeTop_count; 
-  if(sCakeTop_count < 0) {
+
+  if(sCakeTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     sCakeTop_count = 0;
     sCakeTop_counter.innerHTML = sCakeTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     sCakeTop_counter.innerHTML = sCakeTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 sCakeTop_increaseBtn.addEventListener('click', () => {
   sCakeTop_count ++; 
   sCakeTop_counter.innerHTML = sCakeTop_count;
+
   if(sCakeTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     sCakeTop_count = 0;
     sCakeTop_counter.innerHTML = sCakeTop_count; 
+
   } else {
     sCakeTop_counter.innerHTML = sCakeTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'S.Cake') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; 
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+  
   }
 })
 
@@ -2073,22 +3119,53 @@ let wakameTop_count = 0;
 wakameTop_decreaseBtn.addEventListener('click', () => {
   wakameTop_count --; 
   wakameTop_counter.innerHTML = wakameTop_count; 
-  if(wakameTop_count < 0) {
+
+  if(wakameTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     wakameTop_count = 0;
     wakameTop_counter.innerHTML = wakameTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     wakameTop_counter.innerHTML = wakameTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 wakameTop_increaseBtn.addEventListener('click', () => {
   wakameTop_count ++; 
   wakameTop_counter.innerHTML =wakameTop_count;
+
   if(wakameTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     wakameTop_count = 0;
     wakameTop_counter.innerHTML = wakameTop_count; 
+
   } else {
     wakameTop_counter.innerHTML = wakameTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Wakame') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+  
   }
 })
 
@@ -2103,22 +3180,52 @@ let noriTop_count = 0;
 noriTop_decreaseBtn.addEventListener('click', () => {
   noriTop_count --; 
   noriTop_counter.innerHTML = noriTop_count; 
-  if(noriTop_count < 0) {
+
+  if(noriTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     noriTop_count = 0;
     noriTop_counter.innerHTML = noriTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     noriTop_counter.innerHTML = noriTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 noriTop_increaseBtn.addEventListener('click', () => {
   noriTop_count ++; 
   noriTop_counter.innerHTML =noriTop_count;
+
   if(noriTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     noriTop_count = 0;
     noriTop_counter.innerHTML = noriTop_count; 
+
   } else {
     noriTop_counter.innerHTML = noriTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Nori') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2133,22 +3240,52 @@ let gOniTop_count = 0;
 gOniTop_decreaseBtn.addEventListener('click', () => {
   gOniTop_count --; 
   gOniTop_counter.innerHTML = gOniTop_count; 
-  if(gOniTop_count < 0) {
+
+  if(gOniTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     gOniTop_count = 0;
     gOniTop_counter.innerHTML = gOniTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     gOniTop_counter.innerHTML = gOniTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 gOniTop_increaseBtn.addEventListener('click', () => {
   gOniTop_count ++; 
   gOniTop_counter.innerHTML = gOniTop_count;
+
   if(gOniTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     gOniTop_count = 0;
     gOniTop_counter.innerHTML = gOniTop_count; 
+
   } else {
     gOniTop_counter.innerHTML = gOniTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'G.Onion') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2163,22 +3300,52 @@ let cheeseTop_count = 0;
 cheeseTop_decreaseBtn.addEventListener('click', () => {
   cheeseTop_count --; 
   cheeseTop_counter.innerHTML = cheeseTop_count; 
-  if(cheeseTop_count < 0) {
+
+  if(cheeseTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     cheeseTop_count = 0;
     cheeseTop_counter.innerHTML = cheeseTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     cheeseTop_counter.innerHTML = cheeseTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 cheeseTop_increaseBtn.addEventListener('click', () => {
   cheeseTop_count ++; 
   cheeseTop_counter.innerHTML =cheeseTop_count;
+
   if(cheeseTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     cheeseTop_count = 0;
     cheeseTop_counter.innerHTML = cheeseTop_count; 
+
   } else {
     cheeseTop_counter.innerHTML = cheeseTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Cheese') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2193,22 +3360,53 @@ let butterTop_count = 0;
 butterTop_decreaseBtn.addEventListener('click', () => {
   butterTop_count --; 
   butterTop_counter.innerHTML = butterTop_count; 
-  if(butterTop_count < 0) {
+
+  if(butterTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     butterTop_count = 0;
     butterTop_counter.innerHTML = butterTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     butterTop_counter.innerHTML = butterTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 butterTop_increaseBtn.addEventListener('click', () => {
   butterTop_count ++; 
   butterTop_counter.innerHTML = butterTop_count;
+
   if(butterTop_count >= 11) {
-    butter_count = 0;
+
+    toppings_addBtn.disabled = true; 
+
+    butterTop_count = 0;
     butterTop_counter.innerHTML = butterTop_count; 
+
   } else {
     butterTop_counter.innerHTML = butterTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Butter') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
+  
   }
 })
 
@@ -2223,22 +3421,52 @@ let cornTop_count = 0;
 cornTop_decreaseBtn.addEventListener('click', () => {
   cornTop_count --; 
   cornTop_counter.innerHTML = cornTop_count; 
-  if(corTopn_count < 0) {
+
+  if(cornTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     cornTop_count = 0;
     cornTop_counter.innerHTML = cornTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     cornTop_counter.innerHTML = cornTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
- cornTop_increaseBtn.addEventListener('click', () => {
+cornTop_increaseBtn.addEventListener('click', () => {
   cornTop_count ++; 
   cornTop_counter.innerHTML = cornTop_count;
+
   if(cornTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     cornTop_count = 0;
     cornTop_counter.innerHTML = cornTop_count; 
+
   } else {
     cornTop_counter.innerHTML = cornTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Corn') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    fCakeTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2251,24 +3479,54 @@ let fCakeTop_count = 0;
 
 // - btn: Increase num of topping 
 fCakeTop_decreaseBtn.addEventListener('click', () => {
-  fCakeTopTop_count --; 
-  fCake_counter.innerHTML = fCakeTop_count; 
-  if(fCakeTop_count < 0) {
+  fCakeTop_count --; 
+  fCakeTop_counter.innerHTML = fCakeTop_count; 
+
+  if(fCakeTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     fCakeTop_count = 0;
     fCakeTop_counter.innerHTML = fCakeTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     fCakeTop_counter.innerHTML = fCakeTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 fCakeTop_increaseBtn.addEventListener('click', () => {
   fCakeTop_count ++; 
   fCakeTop_counter.innerHTML = fCakeTop_count;
+
   if(fCakeTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     fCakeTop_count = 0;
     fCakeTop_counter.innerHTML = fCakeTop_count; 
+
   } else {
     fCakeTop_counter.innerHTML = fCakeTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'F.Cake') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; bloccoliTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2283,22 +3541,52 @@ let bloccoliTop_count = 0;
 bloccoliTop_decreaseBtn.addEventListener('click', () => {
   bloccoliTop_count --; 
   bloccoliTop_counter.innerHTML = bloccoli_count; 
-  if(bloccoliTop_count < 0) {
+
+  if(bloccoliTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     bloccoliTop_count = 0;
     bloccoliTop_counter.innerHTML = bloccoliTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     bloccoliTop_counter.innerHTML = bloccoliTop_count; 
+
   }
 })
+
 // + btn: Decrease num of topping
 bloccoliTop_increaseBtn.addEventListener('click', () => {
   bloccoliTop_count ++; 
   bloccoliTop_counter.innerHTML = bloccoliTop_count;
+
   if(bloccoliTop_count >= 11) {
-    bloccoli_Topcount = 0;
+
+    toppings_addBtn.disabled = true; 
+
+    bloccoliTop_count = 0;
     bloccoliTop_counter.innerHTML = bloccoliTop_count; 
+
   } else {
     bloccoliTop_counter.innerHTML = bloccoliTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Broccoli') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; exNoodlesTop_count = 0;
   }
 })
 
@@ -2313,22 +3601,52 @@ let exNoodlesTop_count = 0;
 exNoodlesTop_decreaseBtn.addEventListener('click', () => {
   exNoodlesTop_count --; 
   exNoodlesTop_counter.innerHTML = exNoodlesTop_count; 
-  if(exNoodlesTop_count < 0) {
+
+  if(exNoodlesTop_count <= 0) {
+
+    toppings_addBtn.disabled = true; 
+
     exNoodlesTop_count = 0;
     exNoodlesTop_counter.innerHTML = exNoodlesTop_count; 
+
   } else {
+
+    toppings_addBtn.disabled = false; 
+
     exNoodlesTop_counter.innerHTML = exNoodlesTop_count; 
+
   }
 })
 // + btn: Decrease num of topping
 exNoodlesTop_increaseBtn.addEventListener('click', () => {
   exNoodlesTop_count ++; 
   exNoodlesTop_counter.innerHTML = exNoodlesTop_count;
+
   if(exNoodlesTop_count >= 11) {
+
+    toppings_addBtn.disabled = true; 
+
     exNoodlesTop_count = 0;
     exNoodlesTop_counter.innerHTML = exNoodlesTop_count; 
+
   } else {
     exNoodlesTop_counter.innerHTML = exNoodlesTop_count; 
+
+    toppings_addBtn.disabled = false; 
+
+    // Change the innerText 
+    $("h1[name='exTopping_count']").each(function(){
+      if ($(this).attr('exTop') !== 'Ex') {
+        // console.log('Hello'); 
+        this.innerHTML = 0; 
+      }
+    })
+
+    // Reset each counters to 0
+    beansTop_count = 0; eggsTop_count = 0; bellyTop_count = 0; shoulderTop_count = 0; sCakeTop_count = 0;
+    wakameTop_count = 0; noriTop_count = 0; gOniTop_count = 0; cheeseTop_count = 0;butterTop_count = 0;
+    cornTop_count = 0; fCakeTop_count = 0; bloccoliTop_count = 0; 
+  
   }
 })
 
@@ -2345,22 +3663,47 @@ let coke_count = 0;
 coke_decreaseBtn.addEventListener('click', () => {
   coke_count --; 
   coke_counter.innerHTML = coke_count; 
-  if(coke_count < 0) {
+
+  if(coke_count <= 0) {
+
+    drinks_addBtn.disabled = true; 
+
     coke_count = 0;
     coke_counter.innerHTML = coke_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     coke_counter.innerHTML = coke_count; 
+
   }
 })
 // + btn: Decrease num of topping
 coke_increaseBtn.addEventListener('click', () => {
   coke_count ++; 
   coke_counter.innerHTML = coke_count;
+
   if(coke_count >= 11) {
+
+    drinks_addBtn.disabled = true; 
+
     coke_count = 0;
     coke_counter.innerHTML = coke_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     coke_counter.innerHTML = coke_count; 
+
+    // Change display number to 0
+    sprite_counter.innerHTML = 0; 
+    icedTea_counter.innerHTML = 0; 
+
+    // Make the js value to 0
+    sprite_count = 0; icedTea_count = 0;
+
   }
 })
 
@@ -2375,22 +3718,46 @@ let sprite_count = 0;
 sprite_decreaseBtn.addEventListener('click', () => {
   sprite_count --; 
   sprite_counter.innerHTML = sprite_count; 
-  if(sprite_count < 0) {
+
+  if(sprite_count <= 0) {
+
+    drinks_addBtn.disabled = true; 
+
     sprite_count = 0;
     sprite_counter.innerHTML = sprite_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     sprite_counter.innerHTML = sprite_count; 
+
   }
 })
 // + btn: Decrease num of topping
 sprite_increaseBtn.addEventListener('click', () => {
   sprite_count ++; 
   sprite_counter.innerHTML = sprite_count;
+
   if(sprite_count >= 11) {
+
+    drinks_addBtn.disabled = true; 
+
     sprite_count = 0;
     sprite_counter.innerHTML = sprite_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     sprite_counter.innerHTML = sprite_count; 
+
+    // Change display number to 0
+    icedTea_counter.innerHTML = 0; 
+    coke_counter.innerHTML = 0; 
+
+    // Make the js value to 0
+    coke_count = 0; icedTea_count = 0;
   }
 })
 
@@ -2405,24 +3772,50 @@ let icedTea_count = 0;
 icedTea_decreaseBtn.addEventListener('click', () => {
   icedTea_count --; 
   icedTea_counter.innerHTML = icedTea_count; 
-  if(icedTea_count < 0) {
+
+  if(icedTea_count <= 0) {
+
+    drinks_addBtn.disabled = true; 
+
     icedTea_count = 0;
     icedTea_counter.innerHTML = icedTea_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     icedTea_counter.innerHTML = icedTea_count; 
+
   }
 })
 // + btn: Decrease num of topping
 icedTea_increaseBtn.addEventListener('click', () => {
   icedTea_count ++; 
   icedTea_counter.innerHTML = icedTea_count;
+
   if(icedTea_count >= 11) {
+
+    drinks_addBtn.disabled = true; 
+
     icedTea_count = 0;
     icedTea_counter.innerHTML = icedTea_count; 
+
   } else {
+
+    drinks_addBtn.disabled = false; 
+
     icedTea_counter.innerHTML = icedTea_count; 
+
+    // Change display number to 0
+    sprite_counter.innerHTML = 0; 
+    coke_counter.innerHTML = 0; 
+
+    // Make the js value to 0
+    coke_count = 0; sprite_count = 0;
   }
 })
+
+
 
 
 // Beer counter button
@@ -2436,22 +3829,46 @@ let asahi_count = 0;
 asahi_decreaseBtn.addEventListener('click', () => {
   asahi_count --; 
   asahi_counter.innerHTML = asahi_count; 
-  if(asahi_count < 0) {
+
+  if(asahi_count <= 0) {
+
+    beer_addBtn.disabled = true; 
+
     asahi_count = 0;
     asahi_counter.innerHTML = asahi_count; 
+
   } else {
+
+    beer_addBtn.disabled = false; 
+
     asahi_counter.innerHTML = asahi_count; 
+
   }
 })
 // + btn: Decrease num of topping
 asahi_increaseBtn.addEventListener('click', () => {
   asahi_count ++; 
   asahi_counter.innerHTML = asahi_count;
+
   if(asahi_count >= 11) {
+
+    beer_addBtn.disabled = true; 
+
     asahi_count = 0;
     asahi_counter.innerHTML = asahi_count; 
+
   } else {
     asahi_counter.innerHTML = asahi_count; 
+
+    beer_addBtn.disabled = false; 
+
+    // Change displayed number to 0
+    sapporo_counter.innerHTML = 0; 
+    kokanee_counter.innerHTML = 0; 
+
+    // Reset count number to 0
+    sapporo_count = 0; kokanee_count = 0; 
+
   }
 })
 
@@ -2466,22 +3883,46 @@ let sapporo_count = 0;
 sapporo_decreaseBtn.addEventListener('click', () => {
   sapporo_count --; 
   sapporo_counter.innerHTML = sapporo_count; 
-  if(sapporo_count < 0) {
+
+  if(sapporo_count <= 0) {
+
+    beer_addBtn.disabled = true; 
+
     sapporo_count = 0;
     sapporo_counter.innerHTML = sapporo_count; 
+
   } else {
+    beer_addBtn.disabled = false; 
+
     sapporo_counter.innerHTML = sapporo_count; 
+
   }
 })
 // + btn: Decrease num of topping
 sapporo_increaseBtn.addEventListener('click', () => {
   sapporo_count ++; 
   sapporo_counter.innerHTML = sapporo_count;
+
   if(sapporo_count >= 11) {
+
+    beer_addBtn.disabled = true; 
+
     sapporo_count = 0;
     sapporo_counter.innerHTML = sapporo_count; 
+
   } else {
+
+    beer_addBtn.disabled = false; 
+
     sapporo_counter.innerHTML = sapporo_count; 
+
+    // Change displayed number to 0
+    asahi_counter.innerHTML = 0; 
+    kokanee_counter.innerHTML = 0; 
+
+    // Reset count number to 0
+    asahi_count = 0; kokanee_count = 0; 
+
   }
 })
 
@@ -2497,206 +3938,239 @@ let kokanee_count = 0;
 kokanee_decreaseBtn.addEventListener('click', () => {
   kokanee_count --; 
   kokanee_counter.innerHTML = kokanee_count; 
-  if(kokanee_count < 0) {
+
+  if(kokanee_count <= 0) {
+
+    beer_addBtn.disabled = true; 
+
     kokanee_count = 0;
     kokanee_counter.innerHTML = kokanee_count; 
+
   } else {
+
+    beer_addBtn.disabled = false; 
+
     kokanee_counter.innerHTML = kokanee_count; 
+
   }
 })
 // + btn: Decrease num of topping
 kokanee_increaseBtn.addEventListener('click', () => {
   kokanee_count ++; 
   kokanee_counter.innerHTML = kokanee_count;
+
   if(kokanee_count >= 11) {
+
+    beer_addBtn.disabled = true; 
+
     kokanee_count = 0;
     kokanee_counter.innerHTML = kokanee_count; 
+
   } else {
+
+    beer_addBtn.disabled = false; 
+
     kokanee_counter.innerHTML = kokanee_count; 
+
+    // Change displayed number to 0
+    asahi_counter.innerHTML = 0; 
+    sapporo_counter.innerHTML = 0; 
+
+    // Reset count number to 0
+    asahi_count = 0; sapporo_count = 0;
+
   }
 })
 
 
-// Bowl Soup Counter
-// for shio soup
-let BS_Shio_decreaseBtn = document.getElementById('BS_Shio_decrease');
-let BS_Shio_increaseBtn = document.getElementById('BS_Shio_increase'); 
-let BS_Shio_counter = document.getElementById('BS_Shio_counter');
-let BS_Shio_count = 0;
-
-// - btn: Decrease num  
-BS_Shio_decreaseBtn.addEventListener('click', () => {
-  BS_Shio_count --; 
-  BS_Shio_counter.innerHTML = BS_Shio_count; 
-  if(BS_Shio_count < 0) {
-    BS_Shio_count = 0;
-    BS_Shio_counter.innerHTML = BS_Shio_count; 
-  } else {
-    BS_Shio_counter.innerHTML = BS_Shio_count; 
-  }
-})
-// + btn: Increase num 
-BS_Shio_increaseBtn.addEventListener('click', () => {
-  BS_Shio_count ++; 
-  BS_Shio_counter.innerHTML = BS_Shio_count; 
-  if(BS_Shio_count >= 11) {
-    BS_Shio_count = 0;
-    BS_Shio_counter.innerHTML = BS_Shio_count; 
-  } else {
-    BS_Shio_counter.innerHTML = BS_Shio_count; 
-  }
-})
 
 
-// for shoyu soup
-let BS_Shoyu_decreaseBtn = document.getElementById('BS_Shoyu_decrease');
-let BS_Shoyu_increaseBtn = document.getElementById('BS_Shoyu_increase'); 
-let BS_Shoyu_counter = document.getElementById('BS_Shoyu_counter');
-let BS_Shoyu_count = 0;
-
-// - btn: Decrease num  
-BS_Shoyu_decreaseBtn.addEventListener('click', () => {
-  BS_Shoyu_count --; 
-  BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  if(BS_Shoyu_count < 0) {
-    BS_Shoyu_count = 0;
-    BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  } else {
-    BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  }
-})
-// + btn: Increase num 
-BS_Shoyu_increaseBtn.addEventListener('click', () => {
-  BS_Shoyu_count ++; 
-  BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  if(BS_Shoyu_count >= 11) {
-    BS_Shoyu_count = 0;
-    BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  } else {
-    BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
-  }
-})
 
 
-// for miso soup
-let BS_Miso_decreaseBtn = document.getElementById('BS_Miso_decrease');
-let BS_Miso_increaseBtn = document.getElementById('BS_Miso_increase'); 
-let BS_Miso_counter = document.getElementById('BS_Miso_counter');
-let BS_Miso_count = 0;
-
-// - btn: Decrease num  
-BS_Miso_decreaseBtn.addEventListener('click', () => {
-  BS_Miso_count --; 
-  BS_Miso_counter.innerHTML = BS_Miso_count; 
-  if(BS_Miso_count < 0) {
-    BS_Miso_count = 0;
-    BS_Miso_counter.innerHTML = BS_Miso_count; 
-  } else {
-    BS_Miso_counter.innerHTML = BS_Miso_count; 
-  }
-})
-// + btn: Increase num 
-BS_Miso_increaseBtn.addEventListener('click', () => {
-  BS_Miso_count ++; 
-  BS_Miso_counter.innerHTML = BS_Miso_count; 
-  if(BS_Miso_count >= 11) {
-    BS_Miso_count = 0;
-    BS_Miso_counter.innerHTML = BS_Miso_count; 
-  } else {
-    BS_Miso_counter.innerHTML = BS_Miso_count; 
-  }
-})
 
 
-// for hot miso soup
-let BS_hotMiso_decreaseBtn = document.getElementById('BS_hotMiso_decrease');
-let BS_hotMiso_increaseBtn = document.getElementById('BS_hotMiso_increase'); 
-let BS_hotMiso_counter = document.getElementById('BS_hotMiso_counter');
-let BS_hotMiso_count = 0;
 
-// - btn: Decrease num  
-BS_hotMiso_decreaseBtn.addEventListener('click', () => {
-  BS_hotMiso_count --; 
-  BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  if(BS_hotMiso_count < 0) {
-    BS_hotMiso_count = 0;
-    BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  } else {
-    BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  }
-})
 
-// + btn: Increase num 
-BS_hotMiso_increaseBtn.addEventListener('click', () => {
-  BS_hotMiso_count ++; 
-  BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  if(BS_hotMiso_count >= 11) {
-    BS_hotMiso_count = 0;
-    BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  } else {
-    BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
-  }
-})
+// // Bowl Soup Counter
+// // for shio soup
+// let BS_Shio_decreaseBtn = document.getElementById('BS_Shio_decrease');
+// let BS_Shio_increaseBtn = document.getElementById('BS_Shio_increase'); 
+// let BS_Shio_counter = document.getElementById('BS_Shio_counter');
+// let BS_Shio_count = 0;
 
-// for curry soup
-let BS_Curry_decreaseBtn = document.getElementById('BS_Curry_decrease');
-let BS_Curry_increaseBtn = document.getElementById('BS_Curry_increase'); 
-let BS_Curry_counter = document.getElementById('BS_Curry_counter');
-let BS_Curry_count = 0;
+// // - btn: Decrease num  
+// BS_Shio_decreaseBtn.addEventListener('click', () => {
+//   BS_Shio_count --; 
+//   BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   if(BS_Shio_count < 0) {
+//     BS_Shio_count = 0;
+//     BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   } else {
+//     BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   }
+// })
+// // + btn: Increase num 
+// BS_Shio_increaseBtn.addEventListener('click', () => {
+//   BS_Shio_count ++; 
+//   BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   if(BS_Shio_count >= 11) {
+//     BS_Shio_count = 0;
+//     BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   } else {
+//     BS_Shio_counter.innerHTML = BS_Shio_count; 
+//   }
+// })
 
-// - btn: Decrease num  
-BS_Curry_decreaseBtn.addEventListener('click', () => {
-  BS_Curry_count --; 
-  BS_Curry_counter.innerHTML = BS_Curry_count; 
-  if(BS_Curry_count < 0) {
-    BS_Curry_count = 0;
-    BS_Curry_counter.innerHTML = BS_Curry_count; 
-  } else {
-    BS_Curry_counter.innerHTML = BS_Curry_count; 
-  }
-})
 
-// + btn: Increase num 
-BS_Curry_increaseBtn.addEventListener('click', () => {
-  BS_Curry_count ++; 
-  BS_Curry_counter.innerHTML = BS_Curry_count; 
-  if(BS_Curry_count >= 11) {
-    BS_Curry_count = 0;
-    BS_Curry_counter.innerHTML = BS_Curry_count; 
-  } else {
-    BS_Curry_counter.innerHTML = BS_Curry_count; 
-  }
-})
+// // for shoyu soup
+// let BS_Shoyu_decreaseBtn = document.getElementById('BS_Shoyu_decrease');
+// let BS_Shoyu_increaseBtn = document.getElementById('BS_Shoyu_increase'); 
+// let BS_Shoyu_counter = document.getElementById('BS_Shoyu_counter');
+// let BS_Shoyu_count = 0;
 
-// for tomato soup
-let BS_Tomato_decreaseBtn = document.getElementById('BS_Tomato_decrease');
-let BS_Tomato_increaseBtn = document.getElementById('BS_Tomato_increase'); 
-let BS_Tomato_counter = document.getElementById('BS_Tomato_counter');
-let BS_Tomato_count = 0;
+// // - btn: Decrease num  
+// BS_Shoyu_decreaseBtn.addEventListener('click', () => {
+//   BS_Shoyu_count --; 
+//   BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   if(BS_Shoyu_count < 0) {
+//     BS_Shoyu_count = 0;
+//     BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   } else {
+//     BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   }
+// })
+// // + btn: Increase num 
+// BS_Shoyu_increaseBtn.addEventListener('click', () => {
+//   BS_Shoyu_count ++; 
+//   BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   if(BS_Shoyu_count >= 11) {
+//     BS_Shoyu_count = 0;
+//     BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   } else {
+//     BS_Shoyu_counter.innerHTML = BS_Shoyu_count; 
+//   }
+// })
 
-// - btn: Decrease num  
-BS_Tomato_decreaseBtn.addEventListener('click', () => {
-  BS_Tomato_count --; 
-  BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  if(BS_Tomato_count < 0) {
-    BS_Tomato_count = 0;
-    BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  } else {
-    BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  }
-})
 
-// + btn: Increase num 
-BS_Tomato_increaseBtn.addEventListener('click', () => {
-  BS_Tomato_count ++; 
-  BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  if(BS_Tomato_count >= 11) {
-    BS_Tomato_count = 0;
-    BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  } else {
-    BS_Tomato_counter.innerHTML = BS_Tomato_count; 
-  }
-})
+// // for miso soup
+// let BS_Miso_decreaseBtn = document.getElementById('BS_Miso_decrease');
+// let BS_Miso_increaseBtn = document.getElementById('BS_Miso_increase'); 
+// let BS_Miso_counter = document.getElementById('BS_Miso_counter');
+// let BS_Miso_count = 0;
+
+// // - btn: Decrease num  
+// BS_Miso_decreaseBtn.addEventListener('click', () => {
+//   BS_Miso_count --; 
+//   BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   if(BS_Miso_count < 0) {
+//     BS_Miso_count = 0;
+//     BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   } else {
+//     BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   }
+// })
+// // + btn: Increase num 
+// BS_Miso_increaseBtn.addEventListener('click', () => {
+//   BS_Miso_count ++; 
+//   BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   if(BS_Miso_count >= 11) {
+//     BS_Miso_count = 0;
+//     BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   } else {
+//     BS_Miso_counter.innerHTML = BS_Miso_count; 
+//   }
+// })
+
+
+// // for hot miso soup
+// let BS_hotMiso_decreaseBtn = document.getElementById('BS_hotMiso_decrease');
+// let BS_hotMiso_increaseBtn = document.getElementById('BS_hotMiso_increase'); 
+// let BS_hotMiso_counter = document.getElementById('BS_hotMiso_counter');
+// let BS_hotMiso_count = 0;
+
+// // - btn: Decrease num  
+// BS_hotMiso_decreaseBtn.addEventListener('click', () => {
+//   BS_hotMiso_count --; 
+//   BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   if(BS_hotMiso_count < 0) {
+//     BS_hotMiso_count = 0;
+//     BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   } else {
+//     BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   }
+// })
+
+// // + btn: Increase num 
+// BS_hotMiso_increaseBtn.addEventListener('click', () => {
+//   BS_hotMiso_count ++; 
+//   BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   if(BS_hotMiso_count >= 11) {
+//     BS_hotMiso_count = 0;
+//     BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   } else {
+//     BS_hotMiso_counter.innerHTML = BS_hotMiso_count; 
+//   }
+// })
+
+// // for curry soup
+// let BS_Curry_decreaseBtn = document.getElementById('BS_Curry_decrease');
+// let BS_Curry_increaseBtn = document.getElementById('BS_Curry_increase'); 
+// let BS_Curry_counter = document.getElementById('BS_Curry_counter');
+// let BS_Curry_count = 0;
+
+// // - btn: Decrease num  
+// BS_Curry_decreaseBtn.addEventListener('click', () => {
+//   BS_Curry_count --; 
+//   BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   if(BS_Curry_count < 0) {
+//     BS_Curry_count = 0;
+//     BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   } else {
+//     BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   }
+// })
+
+// // + btn: Increase num 
+// BS_Curry_increaseBtn.addEventListener('click', () => {
+//   BS_Curry_count ++; 
+//   BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   if(BS_Curry_count >= 11) {
+//     BS_Curry_count = 0;
+//     BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   } else {
+//     BS_Curry_counter.innerHTML = BS_Curry_count; 
+//   }
+// })
+
+// // for tomato soup
+// let BS_Tomato_decreaseBtn = document.getElementById('BS_Tomato_decrease');
+// let BS_Tomato_increaseBtn = document.getElementById('BS_Tomato_increase'); 
+// let BS_Tomato_counter = document.getElementById('BS_Tomato_counter');
+// let BS_Tomato_count = 0;
+
+// // - btn: Decrease num  
+// BS_Tomato_decreaseBtn.addEventListener('click', () => {
+//   BS_Tomato_count --; 
+//   BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   if(BS_Tomato_count < 0) {
+//     BS_Tomato_count = 0;
+//     BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   } else {
+//     BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   }
+// })
+
+// // + btn: Increase num 
+// BS_Tomato_increaseBtn.addEventListener('click', () => {
+//   BS_Tomato_count ++; 
+//   BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   if(BS_Tomato_count >= 11) {
+//     BS_Tomato_count = 0;
+//     BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   } else {
+//     BS_Tomato_counter.innerHTML = BS_Tomato_count; 
+//   }
+// })
 
 
 

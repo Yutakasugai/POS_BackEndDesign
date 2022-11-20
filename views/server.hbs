@@ -64,7 +64,7 @@
                     <p class="table_num">T1</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_1" id="Table_1_update">Update</button>
+                        <button class="update-button" value="Table_1" id="Table_1_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_1_filled" style="display: none;">
@@ -84,7 +84,7 @@
                     <p class="table_num">T2</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_2" id="Table_2_update">Update</button>
+                        <button class="update-button" value="Table_2" id="Table_2_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST"  id="Table_2_filled" style="display: none;">
@@ -109,7 +109,7 @@
                     <p class="table_num">T3</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_3" id="Table_3_update">Update</button>
+                        <button class="update-button" value="Table_3" id="Table_3_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_3_filled" style="display: none;">
@@ -130,7 +130,7 @@
                     <p class="table_num">T4</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_4" id="Table_4_update">Update</button>
+                        <button class="update-button" value="Table_4" id="Table_4_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_4_filled" style="display: none;">
@@ -155,7 +155,7 @@
                     <p class="table_num">T5</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_5" id="Table_5_update">Update</button>
+                        <button class="update-button" value="Table_5" id="Table_5_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_5_filled" style="display: none;">
@@ -174,7 +174,7 @@
                     <p class="table_num">T6</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_6" id="Table_6_update">Update</button>
+                        <button class="update-button" value="Table_6" id="Table_6_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_6_filled" style="display: none;">
@@ -199,7 +199,7 @@
                     <p class="table_num">T7</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_7" id="Table_7_update">Update</button>
+                        <button class="update-button" value="Table_7" id="Table_7_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_7_filled" style="display: none;">
@@ -218,7 +218,7 @@
                     <p class="table_num">T8</p>
 
                     <div class="add-view">
-                        <button class="update-button" value="Table_8" id="Table_8_update">Update</button>
+                        <button class="update-button" value="Table_8" id="Table_8_update" disabled>Update</button>
 
                         {{!-- Add Btn --}}
                         <form action="/auth/user/addItem" method="POST" id="Table_8_filled" style="display: none;">
@@ -268,7 +268,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="done_btn_1" name="table_key" value="">
-                            <button class="done-button" id="doneBtn-togo-1" name="func_key" value="done_id">Done</button>
+                            <button class="done-button" id="doneBtn-togo-1" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
 
                     </div>
@@ -289,7 +289,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="view_phone_1" name="table_key" value="">
-                            <button class="view-btn-phone" id="doneBtn-phone-1" name="func_key" value="done_id">Done</button>
+                            <button class="view-btn-phone" id="doneBtn-phone-1" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
                         
                     </div>
@@ -321,7 +321,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="done_btn_2" name="table_key" value="">
-                            <button class="done-button" id="doneBtn-togo-2" name="func_key" value="done_id">Done</button>
+                            <button class="done-button" id="doneBtn-togo-2" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
 
                     </div>
@@ -342,7 +342,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="view_phone_2" name="table_key" value="">
-                            <button class="view-btn-phone" id="doneBtn-phone-2" name="func_key" value="done_id">Done</button>
+                            <button class="view-btn-phone" id="doneBtn-phone-2" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
             
                     </div>
@@ -377,7 +377,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="done_btn_3" name="table_key" value="">
-                            <button class="done-button" id="doneBtn-togo-3" name="func_key" value="done_id">Done</button>
+                            <button class="done-button" id="doneBtn-togo-3" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
 
                     </div>
@@ -398,10 +398,11 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="view_phone_3" name="table_key" value="">
-                            <button class="view-btn-phone" id="doneBtn-phone-3" name="func_key" value="done_id">Done</button>
+                            <button class="view-btn-phone" id="doneBtn-phone-3" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
             
                     </div>
+
                 </div>
             </div>
 
@@ -428,7 +429,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="done_btn_4" name="table_key" value="">
-                            <button class="done-button" id="doneBtn-togo-4" name="func_key" value="done_id">Done</button>
+                            <button class="done-button" id="doneBtn-togo-4" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
 
                     </div>
@@ -449,7 +450,7 @@
                             <input type="hidden" name="date_key" value="{{Date}}">
                             <input type="hidden" name="time_key" value="{{Time}}">
                             <input type="hidden" id="view_phone_4" name="table_key" value="">
-                            <button class="view-btn-phone" id="doneBtn-phone-4" name="func_key" value="done_id">Done</button>
+                            <button class="view-btn-phone" id="doneBtn-phone-4" table_id="" name="func_key" value="done_id">Done</button>
                         </form>
             
                     </div>
@@ -748,13 +749,19 @@
             <!-- Cancel and Confirm Button -->
             <div class="button-container">
                 <button id="cancel-btn">Cancel</button>
-                <button id="confirm-btn">Confirm</button>
+
+                <form action="/auth/user/updateTable" method="POST">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
+                    {{!-- <input type="hidden" id="new_c_number" name="new_c_number" value="">
+                    <input type="hidden" id="new_table_key" name="new_table_key" value=""> --}}
+                    <button id="confirm-btn" name="table_key" value="">Confirm</button>
+                </form>
             </div>
 
         </div>
     </div>
-</div>
-
 </div>
 
 <!-- addBtn Modal -->
@@ -812,8 +819,16 @@
             
             <!-- Yes or No Buttons -->
             <div class="close_button-container">
+
                 <button id="no-btn">No</button>
-                <button id="yes-btn">Yes</button>
+
+                <form action="/auth/user/finishBtn" method="POST">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
+                    <button id="yes-btn">Yes</button>
+                </form>
+
             </div>
 
         </div>
@@ -829,42 +844,61 @@
         <span class="close-btn-orderBtn">&times;</span>
 
         <div class="orderBtn-title">
-            <h1>Check Order</h1>
+            <h1>Coming Items</h1>
         </div>
 
         <div class="orderBtn-textBox">
             <div class="scrollable-orders">
                 <div class="review-container">
                     <table border cellspacing="0" class="review-table">
-                    <!-- table desc rows -->
-                    {{!-- <tr class="reviewBox-container" id="tableMain_box">  --}}
-
                         {{#each items}}
-                        {{!-- <tr class="reviewBox-header" id="{{table_id}}_{{orginal_id}}_all">
-                            <td class="tableNum-row" id="{{table_id}}_{{orginal_id}}_table">{{table_id}}</th>
-                            <td class="order-row" id="{{table_id}}_{{orginal_id}}_item">{{item_name}}</th>
-                        </tr> --}}
-
-                        <tr class="reviewBox-header" id="{{table_id}}_{{original_id}}">
-                            <td class="tableNum-row">{{table_id}}</td>
-                            <td class="order-row">{{item_name}}</td>
-                        </tr>
+                            <tr class="reviewBox-header" name="row_{{kitchen_id}}" id="row_{{id}}">
+                                <td class="tableNum-row" get_id="{{id}}">{{table_id}}</td>
+                                <td class="order-row">{{item_name}}</td>
+                            </tr>
                         {{/each}}
-
-                    {{!-- </tr> --}}
+                    </table>
 
                 </div>
             </div>
         </div>
     </div>
-</div>   
+</div>  
+
+<div class="orderBtn-modal-2" id="orderBtn-modal-2">
+    <div class="modal-content-orderBtn-2">
+
+        <span class="close-btn-orderBtn-2">&times;</span>
+
+        <div class="orderBtn-title-2">
+            <h1>Paid Items</h1>
+        </div>
+
+        <div class="orderBtn-textBox-2">
+            <div class="scrollable-orders-2">
+                <div class="review-container-2">
+                    <table border cellspacing="0" class="review-table-2">
+                        {{#each done_items}}
+                            <tr class="reviewBox-header-2" id="row_{{id}}">
+                                <td class="tableNum-row-2" get_id="{{id}}">{{table_id}}</td>
+                                <td class="order-row-2">{{item_name}}</td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 
 
 {{!-- Js Commnad --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="/ws/server.js"></script>
 <script type="text/javascript" src="/js/Server-Side/server-home.js"></script>
-<script type="text/javascript" src="/js/Server-Side/server_togo&phone.js"></script>
+{{!-- <script type="text/javascript" src="/js/Server-Side/server_togo_phone.js"></script> --}}
 
 </body>
 </html>
