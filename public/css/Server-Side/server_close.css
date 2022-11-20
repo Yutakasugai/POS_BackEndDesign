@@ -1,0 +1,218 @@
+html, body {
+    background: #585858;
+    font-family: "Kaisei Tokumin", Sans-Serif;
+    position: fixed;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+/* Header */
+.header {
+    background-color: #343434;
+    color: ivory;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0px 15px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.header-info{
+    display: inline-block;
+    margin-right: auto;
+}
+.header-info h2{
+    font-size: 1.5rem;
+}
+.signout{
+    display: inline-block;
+}
+#signout-btn {
+    background-color: gold;
+    padding: 14px 30px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+#signout-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+
+/* Body - Tables */
+.table-wrap{
+    overflow: scroll;
+}
+.cash-table{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.cash-table table{
+    width: 90%;
+    table-layout: fixed;
+    text-align: center;
+    border:0.5px solid black;
+}
+
+.cash-table th{
+    background-color: gold;
+    border: 0.5px solid black;
+}
+
+.cash-table tr{
+    background-color: ivory;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.cash-table td{
+    border: 0.5px solid black;
+}
+
+.cash-table input{
+    color: red;
+    background-color: ivory;
+    text-align: center;
+    border: none;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    width: 85%;
+    margin: auto;
+    padding: 4px;
+}
+
+
+#final-data{
+    color:blue;
+}
+
+
+.debit-table{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.debit-table table{
+    width: 90%;
+    table-layout: fixed;
+    text-align: center;
+    border:0.5px solid black;
+}
+
+.debit-table th{
+    background-color: gold;
+    border: 0.5px solid black;
+}
+
+.debit-table tr{
+    background-color: ivory;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.debit-table td{
+    border: 0.5px solid black;
+}
+
+.debit-table input{
+    color: red;
+    background-color: ivory;
+    text-align: center;
+    border: none;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    width: 85%;
+    margin: auto;
+    padding: 4px;
+}
+
+#floats{
+    background-color: lightcoral;
+}
+
+#tips{
+    background-color: lightsalmon;
+}
+
+#sales{
+    background-color: lightgreen;
+}
+
+#cash{
+    background-color:lightgreen;
+}
+
+
+/* Footer */
+.footer{
+    background-color: #343434;
+    color: #c3c3c3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+#clear-btn{
+    padding: 20px 0px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightcoral;
+    width: 64.5px;
+    height: 64.5px;
+    margin: auto;
+    text-align: center;
+}
+
+#copy-btn{
+    padding: 20px 0px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightskyblue;
+    width: 64.5px;
+    height: 64.5px;
+    margin: auto;
+    text-align: center;
+}
+
+#done-btn{
+    padding: 20px 0px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: black;
+    background-color: lightgreen;
+    width: 64.5px;
+    height: 64.5px;
+    margin: auto;
+    text-align: center;
+}
+
+#clear-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+
+#copy-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}
+
+#done-btn:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    opacity: 0.5;
+}

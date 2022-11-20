@@ -28,61 +28,61 @@
 </head>
 
 <body>
-<!-- header section at the top -->
-<div class="header_section">
-
-    <div class="header">
-
-        <div class="user_info">
-
-            <div class="user_name">
-                User Name: {{name}}
-            </div>
-
-            <div class="table_num">
-                Table: {{table_key}}
-            </div>
-
-            {{#if pickUp_time }}
-                <div class="customer_num">
-                    PickUp Time: {{pickUp_time}}
-                </div>
-            {{else}}
-                <div class="customer_num">
-                    Customer Number: {{c_number}}
-                </div>
-            {{/if}}
-
-        </div>
-
-        <div class="view_section">
-
-            {{!-- No view btn displayed for togo order --}}
-            {{#if noView_id }}
-                <div class="empty_box"></div>
-            {{else}}
-                <form action="/auth/user/viewPage" method="POST">
-                    <input type="hidden" name="userName" value="{{name}}">
-                    <input type="hidden" name="date_key" value="{{Date}}">
-                    <input type="hidden" name="time_key" value="{{Time}}">
-                    <input type="hidden" name="table_key" value="{{table_key}}">
-                    <input type="hidden" name="c_number" value="{{c_number}}">
-                    <input type="hidden" name="phone_key" value="{{phone_key}}">
-                    <button class="view-button">View</button>
-                </form>
-            {{/if}}
-            
-        </div>
-
-    </div>
-
-</div>
 
 <!-- Wrapper Start -->
 <div id="wrapper">
 
-    <table  id="table_detail" align=center cellpadding=10>
+    <!-- header section at the top -->
+    <div class="header_section">
 
+        <div class="header">
+
+            <div class="user_info">
+
+                <div class="user_name">
+                    User Name: {{name}}
+                </div>
+
+                <div class="table_num">
+                    Table: {{table_key}}
+                </div>
+
+                {{#if pickUp_time }}
+                    <div class="customer_num">
+                        PickUp Time: {{pickUp_time}}
+                    </div>
+                {{else}}
+                    <div class="customer_num">
+                        Customer Number: {{c_number}}
+                    </div>
+                {{/if}}
+
+            </div>
+
+            <div class="view_section">
+
+                {{!-- No view btn displayed for togo order --}}
+                {{#if noView_id }}
+                    <div class="empty_box"></div>
+                {{else}}
+                    <form action="/auth/user/viewPage" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
+                        <button class="view-button">View</button>
+                    </form>
+                {{/if}}
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <table  id="table_detail" align=center cellpadding=10>
 
         <!-- Top Menu Row at the main -->
         <tr id="top_row">
@@ -149,7 +149,7 @@
         <!-- Vegetable Ramen -->
         <tr id="row_vege" class="hidden_row" checkID_vege="close">
             <td colspan=4>
-                <button class="modalButton" id="vegeModal" style="background: #ebebeb;">Vegetable Ramen</button>
+                <button class="modalButton" id="vegeModal" value="Vege" style="background: #ebebeb;">Vegetable Ramen</button>
             </td>
         </tr>
 
@@ -157,35 +157,35 @@
             <!-- Vege-Shoyu Ramen -->
             <tr id="vege_shoyu" class="hidden_row">
                 <td colspan=4>
-                    <button class="modalButton" id="vege_shoyuModal">Shoyu Flavour</button>
+                    <button class="modalButton" value="Shoyu" id="vege_shoyuModal">Shoyu Flavour</button>
                 </td>
             </tr>
 
             <!-- Vege-Shio Ramen -->
             <tr id="vege_shio" class="hidden_row">
                 <td colspan=4>
-                    <button class="modalButton" id="vege_shioModal">Shio Flavour</button>
+                    <button class="modalButton" value="Shio" id="vege_shioModal">Shio Flavour</button>
                 </td>
             </tr>
 
             <!-- Vege-Miso Ramen -->
             <tr id="vege_miso" class="hidden_row">
                 <td colspan=4>
-                    <button class="modalButton" id="vege_misoModal">Miso Flavour</button>
+                    <button class="modalButton" value="Miso" id="vege_misoModal">Miso Flavour</button>
                 </td>
             </tr>
 
             <!-- Vege-Hot Ramen -->
             <tr id="vege_hot" class="hidden_row">
                 <td colspan=4>
-                    <button class="modalButton" id="vege_hotModal">H-Miso Flavour</button>
+                    <button class="modalButton" value="Hot" id="vege_hotModal">H-Miso Flavour</button>
                 </td>
             </tr>
 
             <!-- Vege-Tomato Ramen -->
             <tr id="vege_tomato" class="hidden_row">
                 <td colspan=4>
-                    <button class="modalButton" id="vege_tomatoModal">Tomato Flavour</button>
+                    <button class="modalButton" value="Tomato" id="vege_tomatoModal">Tomato Flavour</button>
                 </td>
             </tr>
 
@@ -200,18 +200,16 @@
         <!-- Bowl Soup -->
         <tr id="row_soup" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="bowlSoupModal">Bowl Soup</button>
+                <button class="modalButton" id="bowlSoupModal" disabled>Bowl Soup</button>
             </td>
         </tr>
 
         <!-- Cold Ramen -->
         <tr id="row_cold" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" name="ramen_btn" value="Cold" id="coldModal">Cold Ramen</button>
+                <button class="modalButton" name="ramen_btn" value="Cold" id="coldModal" disabled>Cold Ramen</button>
             </td>
         </tr>
-
-
 
         <!-- Ramen Set-->
         <tr id="set_row" checkID_set="close">
@@ -233,21 +231,21 @@
         <!-- Set A Miso Ramen -->
         <tr id="row_misoSA" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="misoSA_Modal">Miso SET A</button>
+                <button class="modalButton" value="Set A-Miso" id="misoSA_Modal">Miso SET A</button>
             </td>
         </tr>
 
         <!-- Set A Shoyu Ramen -->
         <tr id="row_shoyuSA" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="shoyuSA_Modal">Shoyu SET A</button>
+                <button class="modalButton" value="Set A-Shoyu" id="shoyuSA_Modal">Shoyu SET A</button>
             </td>
         </tr>
 
         <!-- Set A Shio Ramen -->
         <tr id="row_shioSA" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="shioSA_Modal">Shio SET A</button>
+                <button class="modalButton" value="Set A-Shio" id="shioSA_Modal">Shio SET A</button>
             </td>
         </tr>
 
@@ -262,21 +260,21 @@
         <!-- Set B Miso Ramen -->
         <tr id="row_misoSB" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="misoSB_Modal">Miso SET B</button>
+                <button class="modalButton" value="Set B-Miso" id="misoSB_Modal">Miso SET B</button>
             </td>
         </tr>
 
         <!-- Set B Shoyu Ramen -->
         <tr id="row_shoyuSB" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="shoyuSB_Modal">Shoyu SET B</button>
+                <button class="modalButton" value="Set B-Shoyu" id="shoyuSB_Modal">Shoyu SET B</button>
             </td>
         </tr>
 
         <!-- Set B Shio Ramen -->
         <tr id="row_shioSB" class="hidden_row">
             <td colspan=4>
-                <button class="modalButton" id="shioSB_Modal">Shio SET B</button>
+                <button class="modalButton" value="Set B-Shio" id="shioSB_Modal">Shio SET B</button>
             </td>
         </tr>
 
@@ -290,27 +288,27 @@
 
         <tr id="row_side1" class="hidden_row">
             <td colspan=4>
-                <button class="chashu_pref_button" id="chashu_p_modal">Chashu Plate</div>
+                <button class="chashu_pref_button" value="C.Plate" id="chashu_p_modal">Chashu Plate</div>
             </td>
         </tr>
         <tr id="row_side2" class="hidden_row">
             <td colspan=4>
-                <button class="chashu_pref_button" id="chashu_b_modal">Chashu Burger</div>
+                <button class="chashu_pref_button" value="C.Burger" id="chashu_b_modal">Chashu Burger</div>
             </td>
         </tr>
         <tr id="row_side3" class="hidden_row">
             <td colspan=4>
-                <button class="chashu_pref_button" id="chashu_d_modal">Chashu Don</div>
+                <button class="chashu_pref_button" value="C.Don" id="chashu_d_modal">Chashu Don</div>
             </td>
         </tr>
         <tr id="row_side4" class="hidden_row">
             <td colspan=4>
-                <button class="chashu_pref_button" id="gOnion_modal">Green Onion Don</div>
+                <button class="chashu_pref_button" value="G.Don" id="gOnion_modal">Green Onion Don</div>
             </td>
         </tr>
         <tr id="row_side5" class="hidden_row">
             <td colspan=4>
-                <button class="dishes_button" id="side_dishes_modal">Other Side Dishes</div>              
+                <button class="dishes_button" value="Other" id="side_dishes_modal">Other Side Dishes</div>              
             </td>
         </tr>
 
@@ -318,7 +316,7 @@
         <!-- Ramen topping-->
         <tr id="topping_row">
             <th colspan=4>
-                <button class="topping_modal_button" id="topping_yellow">
+                <button class="topping_modal_button" value="Extra Toppings" id="topping_yellow">
                     Topping
                 </div>
             </th>
@@ -334,13 +332,13 @@
 
         <tr id="soft_drink_row" class="hidden_row">
             <th colspan=4>
-                <button class="modalButton" id="soft_dri_modal">Soft Drinks</button>
+                <button class="drinksButton" value="Soft Drinks" id="soft_dri_modal">Soft Drinks</button>
             </th>
         </tr>
 
         <tr id="beer_row" class="hidden_row">
             <th colspan=4>
-                <button class="modalButton" id="beer_modal">Beer</button>
+                <button class="drinksButton" value="Beer" id="beer_modal">Beer</button>
             </th>
         </tr>
 
@@ -542,7 +540,7 @@
                                         <button class="cancelButton" id="topping_cancel">Cancel</button>
                                         
                                         {{!-- Add btn to insert items in db --}}
-                                        <form action="/auth/user/insertItem" method="POST" id="form_ramenAdd" style="display: ;">
+                                        <form action="/auth/user/insertItem" method="POST" id="form_ramenAdd" style="display: inline;">
                                             
                                             {{!-- Basic Values Required to Pass --}}
                                             <input type="hidden" name="userName" value="{{name}}">
@@ -666,7 +664,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="sCake_decrease">-</button>  
-                                                <h1 class="topping_counter" name="addTop_count" addTop="S.Cakes" id="sCake_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="S.Cake" id="sCake_counter">0</h1>
                                                 <button class="topping_button_increase" id="sCake_increase">+</button>                
                                             </div>
                                         </div>
@@ -677,7 +675,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="wakame_decrease">-</button> 
-                                                <h1 class="topping_counter" name="addTop_count" addTop="Wakeme" id="wakame_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Wakame" id="wakame_counter">0</h1>
                                                 <button class="topping_button_increase" id="wakame_increase">+</button>                 
                                             </div>
                                         </div>
@@ -763,7 +761,7 @@
                                         <div class="toppingCounter">
                                             <div class="topping_button_wrapper">               
                                                 <button class="topping_button_decrease" id="fCake_decrease">-</button>     
-                                                <h1 class="topping_counter" name="addTop_count" addTop="F.Cakes" id="fCake_counter">0</h1>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="F.Cake" id="fCake_counter">0</h1>
                                                 <button class="topping_button_increase" id="fCake_increase">+</button>             
                                             </div>
                                         </div>
@@ -1035,7 +1033,7 @@
                 <div class="chashu-section-body">
 
                     <!-- Chashu Option for only plate and burger -->
-                    <div class="slide-item-chashu">
+                    <div class="slide-item-chashu" id="chashu-bg">
                         <div class="containerFor3items-chashu">
 
                             <div class="item-name-chashu">
@@ -1044,12 +1042,12 @@
                             </div>
                             
                             <div class="item-preference-chashu">
-                                <input type="checkbox" name="chashu_check" class="checkboxForPref-chashu" id="chashu_belly">
+                                <input type="checkbox" name="chashu_check" value="[B]" class="checkboxForPref-chashu" id="chashu_belly">
                                 <label for="chashu_belly">Belly</label>
                             </div>
 
                             <div class="item-preference-chashu">
-                                <input type="checkbox" name="chashu_check" class="checkboxForPref-chashu" id="chashu_shoulder">
+                                <input type="checkbox" name="chashu_check" value="[S]" class="checkboxForPref-chashu" id="chashu_shoulder">
                                 <label for="chashu_shoulder">Shoulder</label>
                             </div>
 
@@ -1069,12 +1067,12 @@
                                 <div class="rItems-title">G.onion:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_gonion">
+                                    <input type="checkbox" name="remove_check" value="(No G.Onion)" class="rItems-checkboxForPref" id="rItems_gonion">
                                     <label for="rItems_gonion">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_gonion">
+                                    <input type="checkbox" name="pref_others" value="(G.Onion Side)"class="rItems-checkboxForPref"  id="sItems_gonion">
                                     <label for="sItems_gonion">Side</label>
                                 </div>
 
@@ -1088,12 +1086,12 @@
                                 <div class="rItems-title">Sesame:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_sesame">
+                                    <input type="checkbox" name="remove_check" value="(No Sesame)" class="rItems-checkboxForPref" id="rItems_sesame">
                                     <label for="rItems_sesame">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_sesame">
+                                    <input type="checkbox" name="pref_others" value="(Sesame Side)" class="rItems-checkboxForPref"  id="sItems_sesame">
                                     <label for="sItems_sesame">Side</label>
                                 </div>
 
@@ -1107,12 +1105,12 @@
                                 <div class="rItems-title">Lettuce:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_lettuce">
+                                    <input type="checkbox" name="remove_check" value="(No Lettuce)" class="rItems-checkboxForPref" id="rItems_lettuce">
                                     <label for="rItems_lettuce">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_lettuce">
+                                    <input type="checkbox" name="pref_others" value="(Lettuce Side)" class="rItems-checkboxForPref"  id="sItems_lettuce">
                                     <label for="sItems_lettuce">Side</label>
                                 </div>
 
@@ -1126,12 +1124,12 @@
                                 <div class="rItems-title">B.Flake:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_bflake">
+                                    <input type="checkbox" name="remove_check" value= "(No B.Flake)" class="rItems-checkboxForPref" id="rItems_bflake">
                                     <label for="rItems_bflake">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_bflake">
+                                    <input type="checkbox" name="pref_others" value="(B.Flake Side)" class="rItems-checkboxForPref"  id="sItems_bflake">
                                     <label for="sItems_bflake">Side</label>
                                 </div>
 
@@ -1146,12 +1144,12 @@
                                 <div class="rItems-title">Sauce:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_sauce">
+                                    <input type="checkbox" name="remove_check" value="(No Sauce)" class="rItems-checkboxForPref" id="rItems_sauce">
                                     <label for="rItems_sauce">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_sauce">
+                                    <input type="checkbox" name="pref_others" value="(Sauce Side)" class="rItems-checkboxForPref"  id="sItems_sauce">
                                     <label for="sItems_sauce">Side</label>
                                 </div>
 
@@ -1159,20 +1157,27 @@
                         </div>
 
 
-                        <!-- Chashu Modal: 6, All Top -->
+                        <!-- Chashu Modal: 6, Take Out -->
                         <div class="rItems-chashu">
                             <div class="rItems-containerFor3items">
 
-                                <div class="rItems-title">All Top:</div>
+                                {{!-- <div class="rItems-title">All Top:</div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_alltop">
+                                    <input type="checkbox" name="remove_check" value="(No All-Top)" class="rItems-checkboxForPref" id="rItems_alltop">
                                     <label for="rItems_alltop">Remove</label>
                                 </div>
 
                                 <div class="rItems-preference">
-                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_alltop">
+                                    <input type="checkbox" name="pref_others" value="(All-Top Side)" class="rItems-checkboxForPref"  id="sItems_alltop">
                                     <label for="sItems_alltop">Side</label>
+                                </div> --}}
+
+                                <div></div>
+
+                                <div class="item-preference">
+                                    <input type="checkbox" name="pref_others" value="(Take Out)" class="checkboxForPref" id="for_takeout">
+                                    <label for="for_takeout">TakeOut</label>
                                 </div>
 
                             </div>
@@ -1194,8 +1199,54 @@
                         </div>
 
                         <div class="chashu-cancelOrAdd">
+
                             <button class="cancelButton" id="chashu_cancel">Cancel</button>
-                            <button class="addButton" id="chashu_add">Add</button>
+
+                            {{!-- Add btn to insert items in db --}}
+                            <form action="/auth/user/insertItem" method="POST" id="form_sideAdd" style="display: inline;">
+                                
+                                {{!-- Basic Values Required to Pass --}}
+                                <input type="hidden" name="userName" value="{{name}}">
+                                <input type="hidden" name="date_key" value="{{Date}}">
+                                <input type="hidden" name="time_key" value="{{Time}}">
+                                <input type="hidden" name="table_key" value="{{table_key}}">
+                                <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                {{!-- Chech if the order is phone or togo order --}}
+                                <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                                <!-- Input to keep the added items before going to db -->
+                                <input type="hidden" name="addedItem_side" id="addedItem_side" value="">
+                                <input type="hidden" name="totalNum_side" id="totalNum_side" value="">
+
+                                <button class="addButton" id="chashu_add">Add</button>
+
+                            </form>
+
+                            {{!-- Edit Button --}}
+                            <form action="/auth/user/editItem" method="POST" id="form_sideEdit" style="display: none;">
+                        
+                                <input type="hidden" name="userName" value="{{name}}">
+                                <input type="hidden" name="date_key" value="{{Date}}">
+                                <input type="hidden" name="time_key" value="{{Time}}">
+                                <input type="hidden" name="table_key" value="{{table_key}}">
+                                <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                {{!-- Chech if the order is phone or togo order --}}
+                                <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                <input type="hidden" name="phone_key" value="{{phone_key}}">
+                                
+                                <!-- Input to keep the added items before going to db -->
+                                <input type="hidden" name="editItem_side" id="editItem_side" value="">
+                                <input type="hidden" name="editNum_side" id="editNum_side" value="">
+
+                                {{!-- Pass the edit item id --}}
+                                <input type="hidden" name="editKey_side" id="editKey_side" value="">
+                                <button class="addButton" id="side_editBtn">Confirm</button>
+                            
+                            </form> 
+
                         </div>
 
                     </div> 
@@ -1231,7 +1282,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="gyoza_decrease">-</button>  
-                            <div class="counter_section_item" id="gyoza_counter">0</div>
+                            <div class="counter_section_item" name="addTop_count" addTop="Gyoza" id="gyoza_counter">0</div>
                             <button class="button_increase" id="gyoza_increase">+</button>                
                         </div>
                     </div>
@@ -1244,7 +1295,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="steamedBan_decrease">-</button>   
-                            <div class="counter_section_item" id="steamedBan_counter">0</div>
+                            <div class="counter_section_item" name="addTop_count" addTop="S.Ban" id="steamedBan_counter">0</div>
                             <button class="button_increase" id="steamedBan_increase">+</button>             
                         </div>
                     </div>
@@ -1256,7 +1307,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="kimchiS_decrease">-</button>
-                            <div class="counter_section_item" id="kimchiS_counter">0</div>
+                            <div class="counter_section_item" name="addTop_count" addTop="Kimchi [S]" id="kimchiS_counter">0</div>
                             <button class="button_increase" id="kimchiS_increase">+</button>                 
                         </div>
                     </div>
@@ -1268,7 +1319,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="kimchiL_decrease">-</button> 
-                            <div class="counter_section_item" id="kimchiL_counter">0</div>
+                            <div class="counter_section_item" name="addTop_count" addTop="Kimchi [L]" id="kimchiL_counter">0</div>
                             <button class="button_increase" id="kimchiL_increase">+</button>
                         </div>
                     </div>
@@ -1280,7 +1331,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="rice_decrease">-</button>  
-                            <div class="counter_section_item" id="rice_counter">0</div>  
+                            <div class="counter_section_item" name="addTop_count" addTop="Rice" id="rice_counter">0</div>  
                             <button class="button_increase" id="rice_increase">+</button>                
                         </div>
                     </div>
@@ -1292,7 +1343,7 @@
                     <div class="section_item_counter" id="side_item_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="matcha_decrease">-</button>  
-                            <div class="counter_section_item" id="matcha_counter">0</div>
+                            <div class="counter_section_item" name="addTop_count" addTop="Ice Cream" id="matcha_counter">0</div>
                             <button class="button_increase" id="matcha_increase">+</button>               
                         </div>
                     </div>
@@ -1302,12 +1353,53 @@
 
                     <div class="chashu-cancelOrAdd">
                         <button class="cancelButton" id="cancelBtn_other">Cancel</button>
-                        <button class="addButton" id="chashu_add">Add</button>
+
+                        {{!-- Add btn to insert items in db --}}
+                        <form action="/auth/user/insertItem" method="POST" id="form_othersAdd" style="display: inline;">
+                            
+                            {{!-- Basic Values Required to Pass --}}
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="addedItem_others" id="addedItem_others" value="">
+                            {{!-- <input type="hidden" name="totalNum_side" id="totalNum_others" value=""> --}}
+
+                            <button class="addButton" id="other-add">Add</button>
+
+                        </form>
+
+                        {{!-- Edit Button --}}
+                        <form action="/auth/user/editItem" method="POST" id="form_othersEdit" style="display: none;">
+                    
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="editItem_others" id="editItem_others" value="">
+
+                            {{!-- Pass the edit item id --}}
+                            <input type="hidden" name="editKey_others" id="editKey_others" value="">
+                            <button class="addButton" id="others_editBtn">Confirm</button>
+                        
+                        </form>
+                        
                     </div>
-
-                </div> 
-
-
+                </div>  
             </div>
         </div>
     </div>
@@ -1342,7 +1434,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="beansTop_decrease">-</button>   
-                                <h1 class="topping_counter" name="exTopping_count" id="beansTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Beans" id="beansTop_counter">0</h1>
                                 <button class="topping_button_increase" id="beansTop_increase">+</button>                 
                             </div>
                         </div>
@@ -1357,7 +1449,7 @@
                             <div class="topping_button_wrapper"> 
 
                                 <button class="topping_button_decrease" id="eggsTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="eggsTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Egg" id="eggsTop_counter">0</h1>
                                 <button class="topping_button_increase" id="eggsTop_increase">+</button>
 
                             </div>
@@ -1377,7 +1469,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="bellyTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="bellyTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Belly" id="bellyTop_counter">0</h1>
                                 <button class="topping_button_increase" id="bellyTop_increase">+</button>
                     
                             </div>
@@ -1392,7 +1484,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="shoulderTop_decrease">-</button>
-                                <h1 class="topping_counter" name="exTopping_count" id="shoulderTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Shoulder" id="shoulderTop_counter">0</h1>
                                 <button class="topping_button_increase" id="shoulderTop_increase">+</button>
                                                 
                             </div>
@@ -1412,7 +1504,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="sCakeTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="sCakeTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="S.Cake" id="sCakeTop_counter">0</h1>
                                 <button class="topping_button_increase" id="sCakeTop_increase">+</button>
                                                 
                             </div>
@@ -1428,7 +1520,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="wakameTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="wakameTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Wakame" id="wakameTop_counter">0</h1>
                                 <button class="topping_button_increase" id="wakameTop_increase">+</button>
                             </div>
                         </div>
@@ -1447,7 +1539,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="noriTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="noriTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Nori" id="noriTop_counter">0</h1>
                                 <button class="topping_button_increase" id="noriTop_increase">+</button>
                             </div>
                         </div>
@@ -1462,7 +1554,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="gOniTop_decrease">-</button>  
-                                <h1 class="topping_counter" name="exTopping_count" id="gOniTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="G.Onion"  id="gOniTop_counter">0</h1>
                                 <button class="topping_button_increase" id="gOniTop_increase">+</button>
                             </div>
                         </div>
@@ -1481,7 +1573,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="cheeseTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="cheeseTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Cheese" id="cheeseTop_counter">0</h1>
                                 <button class="topping_button_increase" id="cheeseTop_increase">+</button>
                             </div>
                         </div>
@@ -1496,7 +1588,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="butterTop_decrease">-</button> 
-                                <h1 class="topping_counter" name="exTopping_count" id="butterTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count"  exTop="Butter" id="butterTop_counter">0</h1>
                                 <button class="topping_button_increase" id="butterTop_increase">+</button>
                             </div>
                         </div>
@@ -1515,7 +1607,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="cornTop_decrease">-</button>    
-                                <h1 class="topping_counter" name="exTopping_count" id="cornTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Corn" id="cornTop_counter">0</h1>
                                 <button class="topping_button_increase" id="cornTop_increase">+</button>
                             </div>
                         </div>
@@ -1529,7 +1621,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="fCakeTop_decrease">-</button>
-                                <h1 class="topping_counter" name="exTopping_count" id="fCakeTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="F.Cake" id="fCakeTop_counter">0</h1>
                                 <button class="topping_button_increase" id="fCakeTop_increase">+</button>
                             </div>
                         </div>
@@ -1541,14 +1633,14 @@
                     <div class="toppings-left-item">
 
                         <div class="toppings-item-name2">
-                            Bloccoli:
+                            Brocolli:
                         </div>
 
                         <!-- Topping counter button -->
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="bloccoliTop_decrease">-</button>
-                                <h1 class="topping_counter" name="exTopping_count" id="bloccoliTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Broccoli" id="bloccoliTop_counter">0</h1>
                                 <button class="topping_button_increase" id="bloccoliTop_increase">+</button>
                             </div>
                         </div>
@@ -1564,7 +1656,7 @@
                         <div class="toppingCounter">
                             <div class="topping_button_wrapper">               
                                 <button class="topping_button_decrease" id="exNoodlesTop_decrease">-</button>
-                                <h1 class="topping_counter" name="exTopping_count" id="exNoodlesTop_counter">0</h1>
+                                <h1 class="topping_counter" name="exTopping_count" exTop="Ex" id="exNoodlesTop_counter">0</h1>
                                 <button class="topping_button_increase" id="exNoodlesTop_increase">+</button>
                             </div>
                         </div>
@@ -1575,11 +1667,53 @@
                 <div class="topping_footer">
                     <div class="cancelOrAdd">
                         <button class="cancelButton" id="cancelBtn_topping">Cancel</button>
-                        <button class="addButton" id="topping_add">Add</button>
+
+                        {{!-- Add btn to insert items in db --}}
+                        <form action="/auth/user/insertItem" method="POST" id="form_toppingsAdd" style="display: inline;">
+                            
+                            {{!-- Basic Values Required to Pass --}}
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="addedItem_toppings" id="addedItem_toppings" value="">
+                            {{!-- <input type="hidden" name="totalNum_side" id="totalNum_others" value=""> --}}
+
+                            <button class="addButton" id="topping_add" disabled>Add</button>
+
+                        </form>
+
+                        {{!-- Edit Button --}}
+                        <form action="/auth/user/editItem" method="POST" id="form_toppingsEdit" style="display: none;">
+                    
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="editItem_toppings" id="editItem_toppings" value="">
+
+                            {{!-- Pass the edit item id --}}
+                            <input type="hidden" name="editKey_toppings" id="editKey_toppings" value="">
+                            <button class="addButton" id="toppings_editBtn">Confirm</button>
+                        
+                        </form>
+                        
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -1607,10 +1741,10 @@
                     <div class="section_item_name">Coka Cola</div>
 
                     <!-- Section item counter button -->
-                    <div class="section_item_counter" id="soft_coke_counter">
+                    <div class="section_item_counter" value="Coke" id="soft_coke_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="coke_decrease">-</button>  
-                            <div class="soft_drink_count" id="coke_counter">0</div>
+                            <div class="soft_drink_count" name="drinks_count" drinks="Coke" id="coke_counter">0</div>
                             <!-- <h1 class="soft_drink_count" id="coke_counter">0</h1> -->
                             <button class="button_increase" id="coke_increase">+</button>                
                         </div>
@@ -1621,12 +1755,11 @@
                 <div class="section_item">
                     <div class="section_item_name">Sprite</div>
                     <!-- Section item counter button -->
-                    <div class="section_item_counter" id="soft_sprite_counter">
+                    <div class="section_item_counter" value="Sprite" id="soft_sprite_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="sprite_decrease">-</button>  
-                            <div class="soft_drink_count" id="sprite_counter">0</div>
-                            <button class="button_increase" id="sprite_increase">+</button>
-                                            
+                            <div class="soft_drink_count" name="drinks_count" drinks="Sprite" id="sprite_counter">0</div>
+                            <button class="button_increase" id="sprite_increase">+</button>           
                         </div>
                     </div>
                 </div>
@@ -1634,10 +1767,10 @@
                 <div class="section_item">
                     <div class="section_item_name">Iced Tea</div>
                     <!-- Section item counter button -->
-                    <div class="section_item_counter" id="soft_icedTea_counter">
+                    <div class="section_item_counter" value="Iced Tea" id="soft_icedTea_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="icedTea_decrease">-</button>  
-                            <div class="soft_drink_count" id="icedTea_counter">0</div>
+                            <div class="soft_drink_count" name="drinks_count" drinks="Iced Tea" id="icedTea_counter">0</div>
                             <button class="button_increase" id="icedTea_increase">+</button>
                         </div>
                     </div>
@@ -1647,7 +1780,51 @@
                 <div class="softDrink_footer">
                     <div class="cancelOrAdd">
                         <button class="cancelButton" id="softDrink_cancel">Cancel</button>
-                        <button class="addButton" id="softDrink_add">Add</button>
+
+                        {{!-- Add btn to insert items in db --}}
+                        <form action="/auth/user/insertItem" method="POST" id="form_softdrinksAdd" style="display: inline;">
+                            
+                            {{!-- Basic Values Required to Pass --}}
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="addedItem_softdrinks" id="addedItem_softdrinks" value="">
+                            {{!-- <input type="hidden" name="totalNum_side" id="totalNum_others" value=""> --}}
+
+                            <button class="addButton" id="softDrink_add" disabled>Add</button>
+
+                        </form>
+
+                        {{!-- Edit Button --}}
+                        <form action="/auth/user/editItem" method="POST" id="form_softdrinksEdit" style="display: none;">
+                    
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="editItem_softdrinks" id="editItem_softdrinks" value="">
+
+                            {{!-- Pass the edit item id --}}
+                            <input type="hidden" name="editKey_softdrinks" id="editKey_softdrinks" value="">
+                            <button class="addButton" id="softdrinks_editBtn">Confirm</button>
+                        
+                        </form>
+
                     </div>
                 </div> 
             </div>
@@ -1679,7 +1856,7 @@
                     <div class="section_item_counter" id="beer_asahi_counter">
                         <div class="button_wrapper">               
                             <button class="button_decrease" id="asahi_decrease">-</button> 
-                            <div class="drink_beers_count" id="asahi_counter">0</div>
+                            <div class="drink_beers_count" name="drinks_count" drinks="Asahi" id="asahi_counter">0</div>
                             <button class="button_increase" id="asahi_increase">+</button>
                         </div>
                     </div>
@@ -1697,7 +1874,7 @@
                         <div class="button_wrapper">        
 
                             <button class="button_decrease" id="sapporo_decrease">-</button> 
-                            <div class="drink_beers_count" id="sapporo_counter">0</div>
+                            <div class="drink_beers_count" name="drinks_count" drinks="Sapporo" id="sapporo_counter">0</div>
                             <button class="button_increase" id="sapporo_increase">+</button>
                                             
                         </div>
@@ -1714,7 +1891,7 @@
                         <div class="button_wrapper">      
 
                             <button class="button_decrease" id="kokanee_decrease">-</button>  
-                            <div class="drink_beers_count" id="kokanee_counter">0</div>
+                            <div class="drink_beers_count" name="drinks_count" drinks="Kokanee" id="kokanee_counter">0</div>
                             <button class="button_increase" id="kokanee_increase">+</button>
                         
                         </div>
@@ -1725,7 +1902,51 @@
                 <div class="beer_footer">
                     <div class="cancelOrAdd">
                         <button class="cancelButton" id="beer_cancel">Cancel</button>
-                        <button class="addButton" id="beer_add">Add</button>
+
+                        {{!-- Add btn to insert items in db --}}
+                        <form action="/auth/user/insertItem" method="POST" id="form_beersAdd" style="display: inline;">
+                            
+                            {{!-- Basic Values Required to Pass --}}
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="addedItem_beers" id="addedItem_beers" value="">
+                            {{!-- <input type="hidden" name="totalNum_side" id="totalNum_others" value=""> --}}
+
+                            <button class="addButton" id="beer_add" disabled>Add</button>
+
+                        </form>
+
+                        {{!-- Edit Button --}}
+                        <form action="/auth/user/editItem" method="POST" id="form_beersEdit" style="display: none;">
+                    
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                            {{!-- Chech if the order is phone or togo order --}}
+                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            
+                            <!-- Input to keep the added items before going to db -->
+                            <input type="hidden" name="editItem_beers" id="editItem_beers" value="">
+
+                            {{!-- Pass the edit item id --}}
+                            <input type="hidden" name="editKey_beers" id="editKey_beers" value="">
+                            <button class="addButton" id="beers_editBtn">Confirm</button>
+                        
+                        </form>
+                        
                     </div>
                 </div> 
             </div>
@@ -2034,9 +2255,7 @@
                     </form>
 
                 </div>
-
             </div>
-
         </div>
     </div>
 

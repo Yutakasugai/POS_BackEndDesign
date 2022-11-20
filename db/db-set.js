@@ -11,7 +11,7 @@ db.connect((error) => {
     console.log("MySql connected!"); 
 
     // Check if there is a table for user or not 
-    // db.query("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, password TEXT NOT NULL)", (error) => {
+    // db.query("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, password TEXT NOT NULL, user_status TEXT DEFAULT 'False')", (error) => {
     //     if(error){
     //         console.log(error)
     //     }
@@ -38,7 +38,7 @@ db.connect((error) => {
     // })
 
     // Check if there is a table for admin or not 
-    // db.query("CREATE TABLE IF NOT EXISTS admin (id INT AUTO_INCREMENT PRIMARY KEY, admin_name TEXT NOT NULL, admin_password TEXT NOT NULL)", (error) => {
+    // db.query("CREATE TABLE IF NOT EXISTS admin (id INT AUTO_INCREMENT PRIMARY KEY, admin_name TEXT NOT NULL, admin_password TEXT NOT NULL, admin_status TEXT DEFAULT 'False')", (error) => {
     //     if(error){
     //         console.log(error)
     //     }

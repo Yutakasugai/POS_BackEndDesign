@@ -24,11 +24,12 @@ exports.togoBox = (req, res) => {
 
     } else {
 
-        db.query(`select * from ${table_key} where order_status = 'submit' or order_status = 'unsubmit'`, (error, result) => {
+        db.query(`select * from ${table_key} where order_status = 'submit'`, (error, result) => {
             if (error) {
                 console.log(error); 
             }
 
+            // if you go to this condition, suspect some serious problem with this coding 
             if (result.length > 0) {
 
                 console.log('Some items still not paid yet...'); 
@@ -46,7 +47,7 @@ exports.togoBox = (req, res) => {
 
             } else {
 
-                console.log('All items are paid, so ready to done'); 
+                // console.log('All items are paid, so ready to done'); 
 
                 // Update the total result in the menu list db
                 db.query(`select * from ${table_key}_Check`, (error, table_result) => {
@@ -69,6 +70,21 @@ exports.togoBox = (req, res) => {
                                     console.log(error); 
                                 }
                             })
+                        })
+                    }
+                })
+
+                // Insert items to done_order db
+                db.query(`select * from ${table_key} where order_status = 'paid'`, (error, paid_items) => {
+                    if (error) {
+                        console.log(error); 
+                    } 
+
+                    for (let i = 0; i < paid_items.length; i++) {
+                        db.query(`insert into done_order(table_id, item_name) values(?, ?)`, [table_key, paid_items[i]['full_order']], (error) => {
+                            if (error) {
+                                console.log(error); 
+                            }
                         })
                     }
                 })

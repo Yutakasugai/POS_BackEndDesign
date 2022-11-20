@@ -1,6 +1,6 @@
 const url = require("url");
-const db_conn = require("../../db/db-conn"); 
-const db = db_conn["db_conn"];
+// const db_conn = require("../../db/db-conn"); 
+// const db = db_conn["db_conn"];
 
 // Submit Btn Controller 
 exports.submitItem = (req, res) => {
@@ -26,6 +26,8 @@ exports.submitItem = (req, res) => {
         }))
 
     } else {
+
+        console.log('Phone order is submitted!'); 
 
         // Go back to server main page
         return res.redirect(url.format({

@@ -7,127 +7,215 @@ exports.insertItem = (req, res) => {
 
     // console.log("This is a test controller to insert items"); 
 
-    const {userName, date_key, time_key, table_key, c_number, added_item, total_num, togo_key, phone_key} = req.body; 
+    const {userName, date_key, time_key, table_key, c_number, added_item, total_num, addedItem_side, totalNum_side, addedItem_others, addedItem_toppings, addedItem_softdrinks, addedItem_beers, togo_key, phone_key} = req.body; 
 
-    // console.log(added_item, total_num);
+    // Main Ramen, Set Menu --> Same Add Button from Pref Modal 
+    // Some Side Sished --> Another Add Button 
 
-    var item_array = added_item.split(','); 
-    var item_length = item_array.length;
-    let item_name = item_array[0]; 
+    console.log(added_item, total_num);
+    console.log(addedItem_side, totalNum_side); 
+    console.log(addedItem_others); 
+    console.log(addedItem_toppings); 
 
     // Pack only extra toppings to this array
     const temp_array = []; 
     const temp_price_array = []; 
     const otherPref_array = []; 
-    const makePrice_array = []; 
+    const makePrice_array = [];
 
-    // Check the item name 
-    if (item_name === 'Cold') {
+    if (added_item !== undefined && total_num !== undefined) {
+        console.log('This value is main ramen items...'); 
 
-        console.log("This is a cold ramen with no soup and meat pref"); 
-        temp_array.push(item_name);
+        const arr_v1 = added_item.split(','); 
+        const item_key = arr_v1[0]; // -> Miso, Set A-Shio, C.Plate, Others, Vege, Extra Toppings, Soft Drinks, Beer
 
-        // Make a new array for extra toppings if needed
-        if (item_length > 1) {
-
-            // console.log("There is something extra orders or options"); 
-
-            for (let k = 2; k < item_length; k++) {
-
-                // console.log(item_array[k]); 
-                if (item_array[k].includes('+') === true) {
-
-                    let char_text = item_array[k].substring(3);
-                    let number_item = item_array[k][1]; 
-                    let exTop_text = `${number_item}:${char_text}`; 
-
-                    // console.log(exTop_text); 
-                    exTop_array.push(exTop_text); 
+        if (item_key === 'Vege') {
+            console.log('Vegetable Ramen'); 
+    
+            //['Vege', 'Shoyu', ‘[R]’]
+    
+            let itemName_vege = `${arr_v1[0]}-${arr_v1[1]}${arr_v1[2]}`; // -> Vege-Shio[R]
+            let mainItem_v2 = `1:${arr_v1[0]}-${arr_v1[1]}`; // -> 1:Vege-Shio
+            let mainItem = `${total_num}:${arr_v1[0]}-${arr_v1[1]}`; // -> 3:Vege-Shio[R]
+    
+            temp_array.push(itemName_vege);
+            temp_price_array.push(mainItem_v2); 
+            makePrice_array.push(mainItem); 
+    
+            if (arr_v1.length > 3) {
+                // Some pref is with this vege ramen
+                for (let i = 3; i < arr_v1.length; i++) {
+    
+                    if (arr_v1[i].includes('+') === true) {
+                        let char_text = arr_v1[i].substring(3);
+                        let number_item = arr_v1[i][1]; 
+                        let exTop_text = `${number_item}:${char_text}`; 
+    
+                        let test_num = arr_v1[i][1] * total_num;
+                        let exTop_text_v2 = `${test_num}:${char_text}`;
+    
+                        temp_price_array.push(exTop_text); 
+                        makePrice_array.push(exTop_text_v2); 
+                    }
+    
+                    temp_array.push(arr_v1[i]); 
+                    otherPref_array.push(arr_v1[i]); 
                 }
+            }
 
-                temp_array.push(item_array[k]); 
-                otherPref_array.push(item_array[k]); 
+        } else {
+            console.log('This item is with pref for soup or chashu'); 
+
+            let item_with_pref = `${arr_v1[0]}${arr_v1[1]}`; 
+            let mainItem_v2 = `1:${arr_v1[0]}`; 
+            let mainItem = `${total_num}:${arr_v1[0]}`; 
+
+            temp_array.push(item_with_pref);
+            temp_price_array.push(mainItem_v2); 
+            makePrice_array.push(mainItem); 
+
+            if (arr_v1.length > 2) {
+                // console.log("There is something extra orders or options"); 
+                for (let i = 2; i < arr_v1.length; i++) {
+
+                    if (arr_v1[i].includes('+') === true) {
+
+                        let char_text = arr_v1[i].substring(3);
+                        let number_item = arr_v1[i][1]; 
+                        let exTop_text = `${number_item}:${char_text}`; 
+
+                        let test_num = arr_v1[i][1] * total_num;
+                        let exTop_text_v2 = `${test_num}:${char_text}`;
+
+                        // console.log(exTop_text); 
+                        temp_price_array.push(exTop_text); 
+                        makePrice_array.push(exTop_text_v2); 
+                    }
+
+                    temp_array.push(arr_v1[i]); 
+                    otherPref_array.push(arr_v1[i]); 
+                }
             }
         }
 
-    } else {
+    } else if (addedItem_side !== undefined && totalNum_side !== undefined) {
+        console.log('This value is side dishes...'); 
 
-        let item_with_pref = `${item_array[0]}${item_array[1]}`; 
-        let mainItem = `${total_num}:${item_name}`; 
-        let mainItem_v2 = `1:${item_name}`; 
-        temp_array.push(item_with_pref);
+        const arr_v2 = addedItem_side.split(','); 
+        const item_key = arr_v2[0]; // -> C.Plate, C.Burger, C.Don, G.Don
+        
+        if (item_key === 'C.Plate' || item_key === 'C.Burger') {
+            console.log('This item is either place or burger, so with a pref'); 
+
+            let item_with_pref = `${arr_v2[0]}${arr_v2[1]}`; 
+            let mainItem_v2 = `1:${arr_v2[0]}`; 
+            let mainItem = `${totalNum_side}:${arr_v2[0]}`;
+
+            temp_array.push(item_with_pref);
+            temp_price_array.push(mainItem_v2); 
+            makePrice_array.push(mainItem); 
+
+            if (arr_v2.length > 2) {
+                console.log('This has some extra pref'); 
+
+                for (let i = 2; i < arr_v2.length; i++) {
+                    temp_array.push(arr_v2[i]); 
+                    otherPref_array.push(arr_v2[i]); 
+                }
+            }
+
+        } else {
+            console.log('This item is either G.Don or C.Don, so without pref');
+
+            let item_with_pref = `${arr_v2[0]}`; 
+            let mainItem_v2 = `1:${arr_v2[0]}`; 
+            let mainItem = `${totalNum_side}:${arr_v2[0]}`;
+
+            temp_array.push(item_with_pref);
+            temp_price_array.push(mainItem_v2); 
+            makePrice_array.push(mainItem); 
+
+            if (arr_v2.length > 1) {
+                console.log('This has some extra pref'); 
+
+                for (let i = 1; i < arr_v2.length; i++) {
+                    temp_array.push(arr_v2[i]); 
+                    otherPref_array.push(arr_v2[i]); 
+                }
+            }
+        }
+
+    } else if (addedItem_others !== undefined) {
+        console.log('This value is other side dishes...'); 
+
+        // Value -> '2:Gyoza'...
+        const arr_v3 = addedItem_others.split(':'); //-> 2, Gyoza or 1 , Gyoza
+        
+        let item_name = `${arr_v3[1]}`; 
+        let mainItem_v2 = `1:${arr_v3[1]}`; 
+        let mainItem = `${arr_v3[0]}:${arr_v3[1]}`;
+
+        temp_array.push(item_name);
         temp_price_array.push(mainItem_v2); 
         makePrice_array.push(mainItem); 
+            
+    } else if (addedItem_toppings !== undefined) {
+        console.log('This value is extra toppings'); 
 
-        // Make a new array for extra toppings if needed
-        if (item_length > 2) {
+        // Value -> '3:Ex(Side)', '2:Belly(Side)'
+        const arr_v4 = addedItem_toppings.split(':'); //-> 2, Belly, (Side)
 
-            // console.log("There is something extra orders or options"); 
+        let item_name = `+${arr_v4[0]}{${arr_v4[1]}(Side)`; 
+        let item_total_num = `${arr_v4[0]}:${arr_v4[1]}`; 
+        let loop_num = `1:${arr_v4[1]}`;
 
-            for (let k = 2; k < item_length; k++) {
+        temp_array.push(item_name);
+        temp_price_array.push(item_total_num); // 3:Egg 
+        makePrice_array.push(loop_num); // 1:Egg
 
-                // console.log(item_array[k]); 
-                if (item_array[k].includes('+') === true) {
+    } else if (addedItem_softdrinks !== undefined) {
+        console.log('This value is soft drinks'); 
 
-                    let char_text = item_array[k].substring(3);
-                    let number_item = item_array[k][1]; 
-                    let exTop_text = `${number_item}:${char_text}`; 
+        // Value -> '2:Coke'...
+        const arr_v5 = addedItem_softdrinks.split(':'); // -> 2. Coke
 
-                    let test_num = item_array[k][1] * total_num;
-                    let exTop_text_v2 = `${test_num}:${char_text}`;
+        let item_name = `+${arr_v5[0]}{${arr_v5[1]}`; 
+        let item_total_num = `${arr_v5[0]}:${arr_v5[1]}`; 
+        let loop_num = `1:${arr_v5[1]}`;
 
-                    // console.log(exTop_text); 
-                    temp_price_array.push(exTop_text); 
-                    makePrice_array.push(exTop_text_v2); 
-                }
+        temp_array.push(item_name);
+        temp_price_array.push(item_total_num); // 2:Coke 
+        makePrice_array.push(loop_num); // 1:Coke
 
-                temp_array.push(item_array[k]); 
-                otherPref_array.push(item_array[k]); 
-            }
-        }
+    } else if (addedItem_beers !== undefined) {
+        console.log('This value is beers'); 
+
+        // Value -> '2:Coke'...
+        const arr_v6 = addedItem_beers.split(':'); 
+
+        let item_name = `+${arr_v6[0]}{${arr_v6[1]}`; 
+        let item_total_num = `${arr_v6[0]}:${arr_v6[1]}`; 
+        let loop_num = `1:${arr_v6[1]}`;
+
+        temp_array.push(item_name);
+        temp_price_array.push(item_total_num); 
+        makePrice_array.push(loop_num); 
+
+    } else {
+        console.log('This is a drink...'); 
     }
 
-    // console.log("temp_array is: " + temp_array); 
-    // console.log("temp_price_array is: " + temp_price_array);
-    // console.log("otherPref_array is: " + otherPref_array);
-    // console.log("makePrice_array is: " + makePrice_array); 
+    // console.log('temp_array: ', temp_array); 
+    // console.log('temp_price_array: ', temp_price_array); 
+    // console.log('otherPref_array: ', otherPref_array); 
+    // console.log('makePrice_array: ', makePrice_array); 
 
-    // Trying to insert all added items to Table_Check db 
-    // for (let v = 0; v < makePrice_array.length; v++) {
-
-    //     let item_name_v2 = makePrice_array[v].split(':')[1]; 
-    //     let item_number_v2 = makePrice_array[v].split(':')[0]; 
-
-    //     // Insert some values into table check db
-    //     db.query(`select * from ${table_key}_Check where item_name = (?)`, (item_name_v2), (error, result) => {
-    //         if(error) {
-    //             console.log(error); 
-    //         }
-
-    //         if (result.length > 0) {
-
-    //             let update_num = result[0]['item_num'] + Number(item_number_v2); 
-    
-    //             // This is the item already exsited in db 
-    //             db.query(`UPDATE ${table_key}_Check SET item_num = (?) WHERE id = (?)`, [update_num, result[0]['id']], (error, test) => {
-    //                 if(error) {
-    //                     console.log(error); 
-    //                 }
-    //             })
-    
-    //         } else {
-    
-    //             // This is the first item to insert 
-    //             db.query(`insert into ${table_key}_Check (item_name, item_num) values (?, ?)`, [item_name_v2, item_number_v2], (error, test) => {
-    //                 if (error) {
-    //                     console.log(error);
-    //                 }
-    //             })
-    //         }
-    //     })
-    // } 
+    // return(res.send('This is a test...')); 
 
     let item_total = 0; 
+    let multiple_num = makePrice_array[0].split(':')[0]; 
+
+    // console.log('The number of main item is: ', multiple_num); 
 
     // Insert a total result into table db 
     for (let g = 0; g < temp_price_array.length; g++) {
@@ -150,13 +238,13 @@ exports.insertItem = (req, res) => {
     
                 // console.log("This is the end of this for loop"); 
     
-                if (total_num > 1) {
+                if (Number(multiple_num) > 1) {
 
                     if (otherPref_array.length > 0) {
 
                         console.log("This item is with some pref"); 
 
-                        for (let q = 0; q < total_num; q++) {
+                        for (let q = 0; q < Number(multiple_num); q++) {
                             let insert_sql = `insert into ${table_key}(full_order, main_item, other_pref, item_num, item_price) values(?, ?, ?, ?, ?)`; 
                             db.query(insert_sql, [temp_array.join(':'), temp_array[0], otherPref_array.join(':'), temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                                 if(error) {
@@ -169,7 +257,7 @@ exports.insertItem = (req, res) => {
 
                         console.log("This item is not with pref"); 
 
-                        for (let r = 0; r < total_num; r++) {
+                        for (let r = 0; r < Number(multiple_num); r++) {
                             let insert_sql = `insert into ${table_key}(full_order, main_item, item_num, item_price) values(?, ?, ?, ?)`; 
                             db.query(insert_sql, [temp_array.join(':'), temp_array[0], temp_price_array.join(','), item_total.toFixed(2)], (error) => {
                                 if(error){
@@ -236,5 +324,4 @@ exports.insertItem = (req, res) => {
             }
         }))
     }
-    
 }

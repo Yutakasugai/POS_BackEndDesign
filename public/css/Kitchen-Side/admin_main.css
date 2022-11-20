@@ -451,7 +451,93 @@ body {
     border-width: 2.5px;
     border-color: black;
 }
-#yes-btn {
+#yes-btn-night {
+    font-size: 1.1rem;
+    padding: 12px 35px;
+    height:50px;
+    background: lightgreen;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+}
+#yes-btn-lunch {
+    font-size: 1.1rem;
+    padding: 12px 35px;
+    height:50px;
+    background: lightgreen;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+/* Modal 2.1 */
+/* Confirm if you want to continue for night */
+.checkContinue-modal {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content-checkContinue {
+    background: #f4f4f4;
+    margin: 15% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0, 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 3px;
+    min-height: 300px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+}
+
+.close-btn-checkContinue {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.close-btn-checkContinue:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+.checkText-container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 12rem 3rem;
+}
+
+.checkText-container p {
+    align-self: center;
+    font-size: 1.7rem;
+}
+
+.yesno-btn-checkContinue {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+#no-btn-checkContinue {
+    font-size: 1.1rem;
+    padding: 12px 35px;
+    height:50px;
+    background: lightcoral;
+    border-radius: 5px;
+    border-width: 2.5px;
+    border-color: black;
+}
+
+#yes-btn-checkContinue {
     font-size: 1.1rem;
     padding: 12px 35px;
     height:50px;
@@ -679,6 +765,11 @@ body {
 .historyBtn-title h2 {
     margin-top: -10px;
 } */
+.historyBtn-textBox {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 20% 80%;
+}
 
 .historyBtn-title {
     background-color: #f4f4f4;
@@ -687,7 +778,6 @@ body {
     text-align: center;
     margin:auto;
     width: 100%;
-    
 }
 .historyBtn-title h1{
     font-size: 1.4rem;
@@ -697,7 +787,59 @@ body {
 }
 /* Histroy Modal Table */
 
-.table {
+.review-container{
+    display: flex;
+    justify-content: center;
+}
+.review-container table{
+    width: 95%;
+    height: 2.5rem;
+}
+.reviewBox-header {
+    height: 3.5rem;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    /* background-color: lightcoral; */
+}
+#tableNum-row{
+    width: 25%;
+}
+#togoPerson-row {
+    width: 18%;
+}
+.addedInfo-container{
+    height: 2.5rem;
+}
+
+
+/* .reviewBox-header {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.reviewBox-container th {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+#tableNum-row{
+    width: 23%;
+}
+
+#togoPerson-row {
+    width: 20%;
+}
+
+.addedInfo-container th{
+    height: 2rem;
+    font-size: 1.1rem;
+    background: lightcoral;
+} */
+
+
+
+
+/* .table {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -741,7 +883,7 @@ body {
 #rotate
 {
     display:none;
-}
+} */
 
 @media (orientation: portrait){
     body{

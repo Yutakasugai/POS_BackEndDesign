@@ -904,15 +904,127 @@ width: none; does not do anything as well */
 
 .tableNum-row{
     width: 20%;
-    background-color: lightsalmon;
+    /* background-color: lightsalmon; */
 }
 
 .order-row {
     font-size: 1rem;
     max-width: 70%;
-    word-wrap: break-word;
+    word-break: break-all;
     /* overflow-wrap: break-word; */
 }
+
+
+
+/* Done Items Btn Modal */
+.scrollable-orders-2{
+    flex: 1;
+    height: 90%;
+    overflow:auto;
+    overflow-y: scroll;
+    position:relative; 
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.orderBtn-modal-2 {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.modal-content-orderBtn-2 {
+    background: #f4f4f4;
+    margin: 5% auto;
+    width: 90%;
+    height: 90%;
+    position: relative;
+    border-radius: 5px;
+    /* min-height: 500px; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.close-btn-orderBtn-2 {
+    position: fixed;
+    left: 85%;
+    margin-top: 1%;
+    font-size: 2rem;
+    z-index: 30;
+}
+.close-btn-orderBtn-2:hover {
+    cursor: pointer;
+    color: var(--brightred);
+    transition: 0.2s ease-out;
+}
+
+
+/* Done Items Modal */
+.orderBtn-textBox-2 {
+    position: fixed;
+    text-align: center;
+    width: 90%;
+    height:80%;
+    margin-top: 22%;
+    font-size: 0.8rem;
+    z-index: 20;
+}
+.orderBtn-title-2 {
+    position: fixed;
+    text-align: center;
+    font-family: "Kaisei Tokumin", Sans-Serif;
+    background-color: lightgray;
+    width: 90%;
+    font-size: 0.8rem;
+    padding: 5px 0;
+    z-index: 20;
+}
+
+/* Order Modal Table */
+/* .review-container table{
+    width: 90%;
+    height: 90%;
+    margin-top: 1%;
+    z-index: 10;
+} */
+.review-table-2 {
+    width: 90%;
+    height: 90%;
+    margin-top: 1%;
+    z-index: 10;
+}
+
+.review-container-2{
+    /* width: 90%; */
+    display: flex;
+    justify-content: center;
+}
+
+.reviewBox-header-2 {
+    height: 3rem;
+    /* font-size: 1.1rem; */
+}
+
+.reviewBox-container-2 th {
+    height: 3rem;
+    /* font-size: 1.1rem; */
+}
+
+.tableNum-row-2 {
+    width: 20%;
+    /* background-color: lightsalmon; */
+}
+
+.order-row-2 {
+    font-size: 1rem;
+    max-width: 70%;
+    word-break: break-all;
+    /* overflow-wrap: break-word; */
+}
+
 
 @media (orientation: landscape){
     body{

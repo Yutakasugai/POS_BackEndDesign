@@ -1,23 +1,2083 @@
-// I will try this way first 
-        // <audio id="myAudio">
-        // <source src="horse.ogg" type="audio/ogg">
-        // <source src="horse.mp3" type="audio/mpeg">
-        // Your browser does not support the audio element.
-        // </audio>
+<!DOCTYPE html>
+<html>
+<head>
 
-        // <p>Click the buttons to play or pause the audio.</p>
+    {{!-- meta elemnts to prevent zoom in by double-click and fit in the screen of different devices --}}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no"/>
 
-        // <button onclick="playAudio()" type="button">Play Audio</button>
-        // <button onclick="pauseAudio()" type="button">Pause Audio</button> 
+    {{!-- Some extensions from outside --}}
+    {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 
-        // <script>
-        // var x = document.getElementById("myAudio"); 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
-        // function playAudio() { 
-        // x.play(); 
-        // } 
+    {{!-- Connect with css file to design --}}
+    <link rel="stylesheet" href="/css/Server-Side/addPage_main.css">
+    <link rel="stylesheet" href="/css/Server-Side/addPage_modal.css">
+    
+    <title>Server Add Page</title>
 
-        // function pauseAudio() { 
-        // x.pause(); 
-        // } 
-        // </script>
+</head>
+
+<body>
+<!-- header section at the top -->
+<div class="header_section">
+
+    <div class="header">
+
+        <div class="user_info">
+
+            <div class="user_name">
+                User Name: {{name}}
+            </div>
+
+            <div class="table_num">
+                Table: {{table_key}}
+            </div>
+
+            {{#if pickUp_time }}
+                <div class="customer_num">
+                    PickUp Time: {{pickUp_time}}
+                </div>
+            {{else}}
+                <div class="customer_num">
+                    Customer Number: {{c_number}}
+                </div>
+            {{/if}}
+
+        </div>
+
+        <div class="view_section">
+
+            {{!-- No view btn displayed for togo order --}}
+            {{#if noView_id }}
+                <div class="empty_box"></div>
+            {{else}}
+                <form action="/auth/user/viewPage" method="POST">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
+                    <input type="hidden" name="table_key" value="{{table_key}}">
+                    <input type="hidden" name="c_number" value="{{c_number}}">
+                    <input type="hidden" name="phone_key" value="{{phone_key}}">
+                    <button class="view-button">View</button>
+                </form>
+            {{/if}}
+            
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Wrapper Start -->
+<div id="wrapper">
+
+    <table  id="table_detail" align=center cellpadding=10>
+
+
+        <!-- Top Menu Row at the main -->
+        <tr id="top_row">
+            <th>
+                <div id="top_box">
+                    TOP MENU
+                </div>
+            </th>
+        </tr>
+
+    
+        <!-- Ramen Row at the main-->
+        <tr id="ramen_row" checkID_ramen="close">
+            <th colspan=4>
+                <div id="ramen_box">
+                    Ramen
+                </div>
+            </th>
+        </tr>
+
+        <!-- Miso Ramen -->
+        <tr id="row_miso" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Miso" id="misoModal">Miso Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Shoyu Ramen -->
+        <tr id="row_shoyu" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Shoyu" id="shoyuModal">Shoyu Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Shio Ramen -->
+        <tr id="row_shio" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Shio" id="shioModal">Shio Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Shrimp Ramen -->
+        <tr id="row_shrimp" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Shrimp" id="shrimpModal">Shrimp Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Hot Miso Ramen -->
+        <tr id="row_hotMiso" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Hot" id="hotMisoModal">Hot Miso Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Curry Ramen -->
+        <tr id="row_curry" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Curry" id="curryModal">Curry Ramen</button>
+            </td>
+        </tr>
+        
+
+        <!-- Vegetable Ramen -->
+        <tr id="row_vege" class="hidden_row" checkID_vege="close">
+            <td colspan=4>
+                <button class="modalButton" id="vegeModal" style="background: #ebebeb;">Vegetable Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Flabour Options for vegetable ramen -->
+            <!-- Vege-Shoyu Ramen -->
+            <tr id="vege_shoyu" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_shoyuModal">Shoyu Flavour</button>
+                </td>
+            </tr>
+
+            <!-- Vege-Shio Ramen -->
+            <tr id="vege_shio" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_shioModal">Shio Flavour</button>
+                </td>
+            </tr>
+
+            <!-- Vege-Miso Ramen -->
+            <tr id="vege_miso" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_misoModal">Miso Flavour</button>
+                </td>
+            </tr>
+
+            <!-- Vege-Hot Ramen -->
+            <tr id="vege_hot" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_hotModal">H-Miso Flavour</button>
+                </td>
+            </tr>
+
+            <!-- Vege-Tomato Ramen -->
+            <tr id="vege_tomato" class="hidden_row">
+                <td colspan=4>
+                    <button class="modalButton" id="vege_tomatoModal">Tomato Flavour</button>
+                </td>
+            </tr>
+
+
+        <!-- Tomato Ramen -->
+        <tr id="row_tomato" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Tomato" id="tomatoModal">Tomato Ramen</button>
+            </td>
+        </tr>
+
+        <!-- Bowl Soup -->
+        <tr id="row_soup" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="bowlSoupModal" disabled>Bowl Soup</button>
+            </td>
+        </tr>
+
+        <!-- Cold Ramen -->
+        <tr id="row_cold" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" name="ramen_btn" value="Cold" id="coldModal" disabled>Cold Ramen</button>
+            </td>
+        </tr>
+
+
+
+        <!-- Ramen Set-->
+        <tr id="set_row" checkID_set="close">
+            <th colspan=4>
+                <div id="set_box">
+                    Ramen SET
+                </div>
+            </th>
+        </tr>
+
+
+        <!-- Set A -->
+        <tr id="set_A_row" class="hidden_row" checkID_setA="close">
+            <th colspan=4>
+                <div class="simple_box2">SET A</div>
+            </th>
+        </tr>
+
+        <!-- Set A Miso Ramen -->
+        <tr id="row_misoSA" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="misoSA_Modal">Miso SET A</button>
+            </td>
+        </tr>
+
+        <!-- Set A Shoyu Ramen -->
+        <tr id="row_shoyuSA" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="shoyuSA_Modal">Shoyu SET A</button>
+            </td>
+        </tr>
+
+        <!-- Set A Shio Ramen -->
+        <tr id="row_shioSA" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="shioSA_Modal">Shio SET A</button>
+            </td>
+        </tr>
+
+
+        <!-- Set B -->
+        <tr id="set_B_row" class="hidden_row" checkID_setB="close">
+            <th colspan=4>
+                <div class="simple_box2">SET B</div>
+            </th>
+        </tr>
+
+        <!-- Set B Miso Ramen -->
+        <tr id="row_misoSB" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="misoSB_Modal">Miso SET B</button>
+            </td>
+        </tr>
+
+        <!-- Set B Shoyu Ramen -->
+        <tr id="row_shoyuSB" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="shoyuSB_Modal">Shoyu SET B</button>
+            </td>
+        </tr>
+
+        <!-- Set B Shio Ramen -->
+        <tr id="row_shioSB" class="hidden_row">
+            <td colspan=4>
+                <button class="modalButton" id="shioSB_Modal">Shio SET B</button>
+            </td>
+        </tr>
+
+
+        <!-- Side Dish-->
+        <tr id="side_dish_row" checkID_side="close">
+            <th colspan=4>
+                <div id="side_dish_box">Side Dish</div>    
+            </th>
+        </tr>
+
+        <tr id="row_side1" class="hidden_row">
+            <td colspan=4>
+                <button class="chashu_pref_button" id="chashu_p_modal">Chashu Plate</div>
+            </td>
+        </tr>
+        <tr id="row_side2" class="hidden_row">
+            <td colspan=4>
+                <button class="chashu_pref_button" id="chashu_b_modal">Chashu Burger</div>
+            </td>
+        </tr>
+        <tr id="row_side3" class="hidden_row">
+            <td colspan=4>
+                <button class="chashu_pref_button" id="chashu_d_modal">Chashu Don</div>
+            </td>
+        </tr>
+        <tr id="row_side4" class="hidden_row">
+            <td colspan=4>
+                <button class="chashu_pref_button" id="gOnion_modal">Green Onion Don</div>
+            </td>
+        </tr>
+        <tr id="row_side5" class="hidden_row">
+            <td colspan=4>
+                <button class="dishes_button" id="side_dishes_modal">Other Side Dishes</div>              
+            </td>
+        </tr>
+
+
+        <!-- Ramen topping-->
+        <tr id="topping_row">
+            <th colspan=4>
+                <button class="topping_modal_button" id="topping_yellow">
+                    Topping
+                </div>
+            </th>
+        </tr>
+
+
+        <!-- Drink and dessert row -->
+        <tr id="dri_des_row" checkID_drink="close">
+            <th colspan=4>
+                <div id="dri_des_box">Drinks</div>
+            </th>
+        </tr>
+
+        <tr id="soft_drink_row" class="hidden_row">
+            <th colspan=4>
+                <button class="modalButton" id="soft_dri_modal">Soft Drinks</button>
+            </th>
+        </tr>
+
+        <tr id="beer_row" class="hidden_row">
+            <th colspan=4>
+                <button class="modalButton" id="beer_modal">Beer</button>
+            </th>
+        </tr>
+
+    </table>
+
+    <!-- Modal for ramen preferences and toppings -->
+    <div class="modal_bg">
+        <div class="modal_content">
+
+            <!-- Using swiper to make a page for each section -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+
+
+                    <!-- modal slide 1 (Preferences) -->
+                    <div class="swiper-slide">
+
+                        <div class="pref-section-content">
+                            <div class="slide-header">
+                                
+                                <div class="slide-title">
+                                    Preferences
+                                </div>
+
+                                <button class="close_button" id="close_ramen_modal">&#x2715</button>
+
+                            </div>
+
+                            <div class="pref-section-body">
+
+                                <div class="slide-item" id="soup_container">
+
+                                        <div class="containerFor3items">
+
+                                            <div class="item-name" id="title-soup">Soup:</div>
+                                            
+                                            <div class="item-preference">
+                                                <input type="checkbox" name="pref_must" value="[R]" class="checkboxForPref" id="rich_soup">
+                                                <label for="rich_soup">Rich</label>
+                                            </div>
+
+                                            <div class="item-preference">
+                                                <input type="checkbox" name="pref_must" value="[L]" class="checkboxForPref" id="regular_soup">
+                                                <label for="regular_soup">Regular</label>
+                                            </div>
+
+                                        </div>
+                
+                                </div>
+    
+                                <div class="slide-item" id="chashu_container">
+                                    
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name" id="title-chashu">
+                                            <!-- Use this del element for shrimp and vege ramens -->
+                                            <del id="remove-id" style="text-decoration-color: red"></del>
+                                            <p id="text-box"></p>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_must" value="/[B]" class="checkboxForPref" id="chashu_belly_choice">
+                                            <label for="chashu_belly_choice">Belly</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_must" value="/[S]" class="checkboxForPref" id="chashu_shoulder_choice">
+                                            <label for="chashu_belly_shoulder">Shoulder</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+    
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name">Nodle:</div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Ex Hard)" class="checkboxForPref" id="noodles_ex_hard">
+                                            <label for="noodles_ex_hard">Ex Hard</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Hard)" class="checkboxForPref" id="noodles_hard">
+                                            <label for="noodles_hard">Hard</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name"></div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Soft)" class="checkboxForPref" id="noodles_soft">
+                                            <label for="noodles_soft">Soft</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Half Nodle)" class="checkboxForPref" id="noodles_half">
+                                            <label for="noodles_half">Half</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+    
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name">Salt:</div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(More Salty)" class="checkboxForPref" id="salty_soup">
+                                            <label for="salty_soup">More</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Less Salty)" class="checkboxForPref" id="less_salty_soup">
+                                            <label for="less_salty_soup">Less</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+    
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name">Oil:</div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(More Oily)" class="checkboxForPref" id="ex_oil">
+                                            <label for="ex_oil">More</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Less Oily)" class="checkboxForPref"  id="less_oil">
+                                            <label for="less_oil">Less</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div class="item-name" id="title-spicy">
+                                            <!-- Use this del element for shrimp and vege ramens -->
+                                            <del id="remove-id-spicy" style="text-decoration-color: red"></del>
+                                            <p id="text-box-spicy"></p>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(More Spicy)" class="checkboxForPref"  id="More_Spicy">
+                                            <label for="More_Spicy">More</label>
+                                        </div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Less Spicy)" class="checkboxForPref" id="Less_Spicy">
+                                            <label for="Less_Spicy">Less</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slide-item">
+                                    <div class="containerFor3items">
+
+                                        <div></div>
+
+                                        <div class="item-preference">
+                                            <input type="checkbox" name="pref_others" value="(Take Out)" class="checkboxForPref" id="for_takeout">
+                                            <label for="for_takeout">TakeOut</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="ramen_pref_footer">
+                                    
+                                    <div class="menuItem_multiplied">
+                                        <div class="item_counter">
+
+                                            <div class="item_button_wrapper">               
+                                                <button class="menu_item_decrease" id="toppingTop_decrease">-</button>  
+                                                <p class="item_count" id="toppingTop_counter">1</p>
+                                                <button class="menu_item_increase" id="toppingTop_increase">+</button>                
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Important! To add ramen items from this add btn -->
+                                    <div class="cancelOrAdd">
+
+                                        <button class="cancelButton" id="topping_cancel">Cancel</button>
+                                        
+                                        {{!-- Add btn to insert items in db --}}
+                                        <form action="/auth/user/insertItem" method="POST" id="form_ramenAdd" style="display: ;">
+                                            
+                                            {{!-- Basic Values Required to Pass --}}
+                                            <input type="hidden" name="userName" value="{{name}}">
+                                            <input type="hidden" name="date_key" value="{{Date}}">
+                                            <input type="hidden" name="time_key" value="{{Time}}">
+                                            <input type="hidden" name="table_key" value="{{table_key}}">
+                                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                            {{!-- Chech if the order is phone or togo order --}}
+                                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+
+                                            <!-- Input to keep the added items before going to db -->
+                                            <input type="hidden" name="added_item" id="added_item" value="">
+                                            <input type="hidden" name="total_num" id="total_num" value="">
+
+                                            <button class="addButton" id="ramen_addBtn">Add</button>
+
+                                        </form>
+                                        
+                                        {{!-- Edit Button Condition --}}
+                                        <form action="/auth/user/editItem" method="POST" id="form_ramenEdit" style="display: none;">
+                                        
+                                            <input type="hidden" name="userName" value="{{name}}">
+                                            <input type="hidden" name="date_key" value="{{Date}}">
+                                            <input type="hidden" name="time_key" value="{{Time}}">
+                                            <input type="hidden" name="table_key" value="{{table_key}}">
+                                            <input type="hidden" name="c_number" value="{{c_number}}">
+
+                                            {{!-- Chech if the order is phone or togo order --}}
+                                            <input type="hidden" name="togo_key" value="{{togo_key}}">
+                                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                                            
+                                            <!-- Input to keep the added items before going to db -->
+                                            <input type="hidden" name="edit_item" id="edit_item" value="">
+                                            <input type="hidden" name="edit_total_num" id="edit_total_num" value="">
+
+                                            {{!-- Pass the edit item id --}}
+                                            <input type="hidden" name="edit_key" id="edit_key" value="">
+                                            <button class="addButton" id="ramen_editBtn">Confirm</button>
+                                        
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- modal slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="addToppings-section-content">
+
+                            <div class="slide-header">
+                                <div class="slide-title">
+                                    Add Toppings
+                                </div>
+                                <button class="close_button" id="close_addToppings_modal">&#x2715</button>
+                            </div>
+
+                            <div class="addToppings-section-body">
+                                <div class="section-row">
+                                    <div class="left-item">
+
+                                        <div class="item-name2">Beans:</div>
+
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="beans_decrease">-</button> 
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Beans" id="beans_counter">0</h1>
+                                                <button class="topping_button_increase" id="beans_increase">+</button>               
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+
+                                        <div class="item-name2">Egg:</div>
+
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="eggs_decrease">-</button>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Egg" id="eggs_counter">0</h1>
+                                                <button class="topping_button_increase" id="eggs_increase">+</button>                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+                                    <div class="left-item">
+                                        <div class="item-name2">Belly:</div>
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="belly_decrease">-</button>  
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Belly" id="belly_counter">0</h1>
+                                                <button class="topping_button_increase" id="belly_increase">+</button>                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+                                        <div class="item-name2">Shoulder:</div>
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="shoulder_decrease">-</button>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Shoulder" id="shoulder_counter">0</h1>
+                                                <button class="topping_button_increase" id="shoulder_increase">+</button>                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+                                    <div class="left-item">
+                                        <div class="item-name2">S.Cake:</div>
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="sCake_decrease">-</button>  
+                                                <h1 class="topping_counter" name="addTop_count" addTop="S.Cakes" id="sCake_counter">0</h1>
+                                                <button class="topping_button_increase" id="sCake_increase">+</button>                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+                                        <div class="item-name2">Wakame:</div>
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="wakame_decrease">-</button> 
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Wakeme" id="wakame_counter">0</h1>
+                                                <button class="topping_button_increase" id="wakame_increase">+</button>                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+                                    <div class="left-item">
+
+                                        <div class="item-name2">Nori:</div>
+
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="nori_decrease">-</button> 
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Nori" id="nori_counter">0</h1>
+                                                <button class="topping_button_increase" id="nori_increase">+</button>                 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+
+                                        <div class="item-name2">G.Oninion:</div>
+
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="gOni_decrease">-</button>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="G.Onion" id="gOni_counter">0</h1>
+                                                <button class="topping_button_increase" id="gOni_increase">+</button>                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+                                    <div class="left-item">
+
+                                        <div class="item-name2">Cheese:</div>
+
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="cheese_decrease">-</button>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Cheese" id="cheese_counter">0</h1>
+                                                <button class="topping_button_increase" id="cheese_increase">+</button>                                           
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+
+                                        <div class="item-name2">Butter:</div>
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="butter_decrease">-</button> 
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Butter" id="butter_counter">0</h1>
+                                                <button class="topping_button_increase" id="butter_increase">+</button>                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+                                    <div class="left-item">
+
+                                        <div class="item-name2">Corn:</div>
+
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="corn_decrease">-</button> 
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Corn" id="corn_counter">0</h1>
+                                                <button class="topping_button_increase" id="corn_increase">+</button>                 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+
+                                        <div class="item-name2">Fish.C:</div>
+
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="fCake_decrease">-</button>     
+                                                <h1 class="topping_counter" name="addTop_count" addTop="F.Cakes" id="fCake_counter">0</h1>
+                                                <button class="topping_button_increase" id="fCake_increase">+</button>             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-row">
+
+                                    <div class="left-item">
+
+                                        <div class="item-name2">Bloccoli:</div>
+
+                                        <!-- Topping counter button -->
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="bloccoli_decrease">-</button>  
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Bloccoli" id="bloccoli_counter">0</h1>
+                                                <button class="topping_button_increase" id="bloccoli_increase">+</button>                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-item">
+
+                                        <div class="item-name2">Noodle:</div>
+
+                                        <div class="toppingCounter">
+                                            <div class="topping_button_wrapper">               
+                                                <button class="topping_button_decrease" id="exNoodles_decrease">-</button>
+                                                <h1 class="topping_counter" name="addTop_count" addTop="Ex" id="exNoodles_counter">0</h1>
+                                                <button class="topping_button_increase" id="exNoodles_increase">+</button>                  
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--modal slide 3-->
+                    <div class="swiper-slide">
+
+                        <!--Remove Toppings section-->
+                        <div class="rToppings-section-content">
+
+                            <div class="slide-header">
+
+                                <div class="slide-title">
+                                    Remove Toppings
+                                </div>
+                                <button class="close_button" id="close_removeItems_modal">&#x2715</button>
+
+                            </div>
+                            
+                            <div class="rToppings-section-body">
+
+                                <!-- 1, beans -->
+                                <div class="rToppings-slide-item">
+
+                                        <div class="rToppings-containerFor3items">
+
+                                            <div class="rToppings-title">Bean:</div>
+                                            
+                                            <div class="rToppings-item-preference">
+                                                <input type="checkbox" name="remove_check" value="(No Beans)" class="rToppings-checkboxForPref" id="remove_beans">
+                                                <label for="remove_beans" id="remove_label">Remove</label>
+                                            </div>
+
+                                            <div class="rToppings-item-preference">
+                                                <input type="checkbox" name="remove_check" value="(Beans Side)" class="rToppings-checkboxForPref" id="side_beans">
+                                                <label for="side_beans" id="remove_label">Side</label>
+                                            </div>
+
+                                        </div>
+                
+                                </div>
+                                
+                                <!-- 2, G.onion -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">G.Onion:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No G.Onion)" class="rToppings-checkboxForPref" id="remove_gonion">
+                                            <label for="remove_gonion" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(G.Onion Side)" class="rToppings-checkboxForPref" id="side_gonion">
+                                            <label for="side_gonion" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <!-- 3, Onion -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">Onion:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No Onion)" class="rToppings-checkboxForPref" id="remove_onion">
+                                            <label for="remove_gonion">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(Onion Side)" class="rToppings-checkboxForPref" id="side_onion">
+                                            <label for="side_gonion" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- 4, F.Cakes -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">F.Cake:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No F.Cake)" class="rToppings-checkboxForPref" id="remove_fcake">
+                                            <label for="remove_fcake" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(F.Cake Side)" class="rToppings-checkboxForPref" id="side_fcake">
+                                            <label for="side_fcake" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <!-- 5, Corn -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">Corn:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No Corn)" class="rToppings-checkboxForPref" id="remove_corn">
+                                            <label for="remove_corn" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(Corn Side)" class="rToppings-checkboxForPref"  id="side_corn">
+                                            <label for="side_corn" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- 7, Noodle -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">Ndle:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No Noodle)" class="rToppings-checkboxForPref" id="remove_noodle">
+                                            <label for="remove_noodle" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(Noodle Side)" class="rToppings-checkboxForPref"  id="side_noodle">
+                                            <label for="side_noodle" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- 8, Chashu -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">Chashu:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No Chashu)" class="rToppings-checkboxForPref" id="remove_chashu">
+                                            <label for="remove_chashu" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(Chashu Side)" class="rToppings-checkboxForPref"  id="side_chashu">
+                                            <label for="side_chashu" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- 11, All Veg -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">All Veg:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No Vege)" class="rToppings-checkboxForPref" id="remove_allveg">
+                                            <label for="remove_allveg" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(Vege Side)" class="rToppings-checkboxForPref"  id="side_allveg">
+                                            <label for="side_allveg" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- 12, All Top -->
+                                <div class="rToppings-slide-item">
+
+                                    <div class="rToppings-containerFor3items">
+
+                                        <div class="rToppings-title">All Top:</div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(No All-Top)" class="rToppings-checkboxForPref" id="remove_alltop">
+                                            <label for="remove_alltop" id="remove_label">Remove</label>
+                                        </div>
+
+                                        <div class="rToppings-item-preference">
+                                            <input type="checkbox" name="remove_check" value="(All-Top Side)" class="rToppings-checkboxForPref"  id="side_alltop">
+                                            <label for="side_alltop" id="remove_label">Side</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal for Chashu & Don -->
+    <div class="modal_bg_chashu">
+
+        <div class="modal_content_chashu">
+
+            <div class="chashu_modal_container">
+
+                <!-- Chashu Modal Title Line -->
+                <div class="chashu_header">
+                                    
+                    <div class="slide-title-chashu">Preferences</div>
+                    <button class="close_button-chashu" id="close_chashu_modal">&#x2715</button>
+
+                </div>
+
+                <!-- Chashu Modal Body Part -->
+                <div class="chashu-section-body">
+
+                    <!-- Chashu Option for only plate and burger -->
+                    <div class="slide-item-chashu">
+                        <div class="containerFor3items-chashu">
+
+                            <div class="item-name-chashu">
+                                <del id="check-text" style="text-decoration-color: red"></del>
+                                <p id="display-text"></p>
+                            </div>
+                            
+                            <div class="item-preference-chashu">
+                                <input type="checkbox" name="chashu_check" class="checkboxForPref-chashu" id="chashu_belly">
+                                <label for="chashu_belly">Belly</label>
+                            </div>
+
+                            <div class="item-preference-chashu">
+                                <input type="checkbox" name="chashu_check" class="checkboxForPref-chashu" id="chashu_shoulder">
+                                <label for="chashu_shoulder">Shoulder</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr id="chashu-section-line">
+
+                    <!-- All options can be removed or side -->
+                    <!-- The must items in the list (g.onion, lettuce, sesamine, sauce, b.flake, all top)-->
+                    <div class="rItems-section-body">
+
+                        <!-- Chashu Modal: 1, G.Onion -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">G.onion:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_gonion">
+                                    <label for="rItems_gonion">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_gonion">
+                                    <label for="sItems_gonion">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Chashu Modal: 2, sesamine -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">Sesame:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_sesame">
+                                    <label for="rItems_sesame">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_sesame">
+                                    <label for="sItems_sesame">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Chashu Modal: 3, lettuce -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">Lettuce:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_lettuce">
+                                    <label for="rItems_lettuce">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_lettuce">
+                                    <label for="sItems_lettuce">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Chashu Modal: 4, B.Flake -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">B.Flake:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_bflake">
+                                    <label for="rItems_bflake">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_bflake">
+                                    <label for="sItems_bflake">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Chashu Modal: 5, Sauce -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">Sauce:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_sauce">
+                                    <label for="rItems_sauce">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_sauce">
+                                    <label for="sItems_sauce">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Chashu Modal: 6, All Top -->
+                        <div class="rItems-chashu">
+                            <div class="rItems-containerFor3items">
+
+                                <div class="rItems-title">All Top:</div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref" id="rItems_alltop">
+                                    <label for="rItems_alltop">Remove</label>
+                                </div>
+
+                                <div class="rItems-preference">
+                                    <input type="checkbox" name="chashu_check" class="rItems-checkboxForPref"  id="sItems_alltop">
+                                    <label for="sItems_alltop">Side</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Multiplier on the chashu modal -->
+                    <div class="chashu_footer">
+
+                        <div class="menuItem_multiplied">
+                            <div class="item_counter">
+                                <div class="item_button_wrapper">               
+                                    <button class="menu_item_decrease" id="chashu_decrease">-</button> 
+                                    <p class="item_count" id="chashu_counter">1</p>
+                                    <button class="menu_item_increase" id="chashu_increase">+</button>                
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chashu-cancelOrAdd">
+                            <button class="cancelButton" id="chashu_cancel">Cancel</button>
+                            <button class="addButton" id="chashu_add">Add</button>
+                        </div>
+
+                    </div> 
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for Other side dishes -->      
+    <div class="modal_bg_dishes">
+
+        <div class="modal_content_dishes">
+
+            <!-- Title Box at the top -->
+            <div class="dishes_header">
+
+                <div class="slide-title">Other Dishes</div>
+                <button class="close_button" id="close_side_modal">&#x2715</button>
+            
+            </div>
+
+            <!-- Other side dishes modal -->
+            <div class="dishes_content">
+
+                <div class="section_item">
+
+                    <div class="section_item_name">Gyoza</div>
+                    
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="gyoza_decrease">-</button>  
+                            <div class="counter_section_item" id="gyoza_counter">0</div>
+                            <button class="button_increase" id="gyoza_increase">+</button>                
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">S.Ban</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="steamedBan_decrease">-</button>   
+                            <div class="counter_section_item" id="steamedBan_counter">0</div>
+                            <button class="button_increase" id="steamedBan_increase">+</button>             
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Kimchi (S)</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="kimchiS_decrease">-</button>
+                            <div class="counter_section_item" id="kimchiS_counter">0</div>
+                            <button class="button_increase" id="kimchiS_increase">+</button>                 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Kimchi (L)</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="kimchiL_decrease">-</button> 
+                            <div class="counter_section_item" id="kimchiL_counter">0</div>
+                            <button class="button_increase" id="kimchiL_increase">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Rice</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="rice_decrease">-</button>  
+                            <div class="counter_section_item" id="rice_counter">0</div>  
+                            <button class="button_increase" id="rice_increase">+</button>                
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Ice Cream</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="matcha_decrease">-</button>  
+                            <div class="counter_section_item" id="matcha_counter">0</div>
+                            <button class="button_increase" id="matcha_increase">+</button>               
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chashu_footer">
+
+                    <div class="chashu-cancelOrAdd">
+                        <button class="cancelButton" id="cancelBtn_other">Cancel</button>
+                        <button class="addButton" id="chashu_add">Add</button>
+                    </div>
+
+                </div> 
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for topping (directly from top menu) -->
+    <div class="modal_bg_toppings">
+
+        <div class="modal_content_toppings">
+
+            <!-- Ttile Line at the top -->
+            <div class="toppings_header">
+
+                <div class="slide-title">Extra Toppings</div>
+                <button class="close_button" id="close_toppings_modal">&#x2715</button>
+
+            </div>
+
+            <!-- Main Body Part -->
+            <div class="toppings-body">
+
+                <!-- <div class="toppings_box_container"> -->
+
+                <!-- Ex Toppings List from beans to noodle -->
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">Beans:</div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="beansTop_decrease">-</button>   
+                                <h1 class="topping_counter" name="exTopping_count" id="beansTop_counter">0</h1>
+                                <button class="topping_button_increase" id="beansTop_increase">+</button>                 
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">Egg:</div>
+
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper"> 
+
+                                <button class="topping_button_decrease" id="eggsTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="eggsTop_counter">0</h1>
+                                <button class="topping_button_increase" id="eggsTop_increase">+</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+                        <div class="toppings-item-name2">
+                            Belly:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="bellyTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="bellyTop_counter">0</h1>
+                                <button class="topping_button_increase" id="bellyTop_increase">+</button>
+                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            Shoulder:
+                        </div>
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="shoulderTop_decrease">-</button>
+                                <h1 class="topping_counter" name="exTopping_count" id="shoulderTop_counter">0</h1>
+                                <button class="topping_button_increase" id="shoulderTop_increase">+</button>
+                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">
+                            S.Cake:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="sCakeTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="sCakeTop_counter">0</h1>
+                                <button class="topping_button_increase" id="sCakeTop_increase">+</button>
+                                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            Wakame:
+                        </div>
+
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="wakameTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="wakameTop_counter">0</h1>
+                                <button class="topping_button_increase" id="wakameTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">
+                            Nori:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="noriTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="noriTop_counter">0</h1>
+                                <button class="topping_button_increase" id="noriTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            G.Oninion:
+                        </div>
+
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="gOniTop_decrease">-</button>  
+                                <h1 class="topping_counter" name="exTopping_count" id="gOniTop_counter">0</h1>
+                                <button class="topping_button_increase" id="gOniTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">
+                            Cheese:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="cheeseTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="cheeseTop_counter">0</h1>
+                                <button class="topping_button_increase" id="cheeseTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            Butter:
+                        </div>
+
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="butterTop_decrease">-</button> 
+                                <h1 class="topping_counter" name="exTopping_count" id="butterTop_counter">0</h1>
+                                <button class="topping_button_increase" id="butterTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">
+                            Corn:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="cornTop_decrease">-</button>    
+                                <h1 class="topping_counter" name="exTopping_count" id="cornTop_counter">0</h1>
+                                <button class="topping_button_increase" id="cornTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            Fish.C:
+                        </div>
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="fCakeTop_decrease">-</button>
+                                <h1 class="topping_counter" name="exTopping_count" id="fCakeTop_counter">0</h1>
+                                <button class="topping_button_increase" id="fCakeTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toppings-section-row">
+
+                    <div class="toppings-left-item">
+
+                        <div class="toppings-item-name2">
+                            Bloccoli:
+                        </div>
+
+                        <!-- Topping counter button -->
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="bloccoliTop_decrease">-</button>
+                                <h1 class="topping_counter" name="exTopping_count" id="bloccoliTop_counter">0</h1>
+                                <button class="topping_button_increase" id="bloccoliTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="toppings-right-item">
+
+                        <div class="toppings-item-name2">
+                            Noddle:
+                        </div>
+
+                        <div class="toppingCounter">
+                            <div class="topping_button_wrapper">               
+                                <button class="topping_button_decrease" id="exNoodlesTop_decrease">-</button>
+                                <h1 class="topping_counter" name="exTopping_count" id="exNoodlesTop_counter">0</h1>
+                                <button class="topping_button_increase" id="exNoodlesTop_increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cancel and Add Buttons -->
+                <div class="topping_footer">
+                    <div class="cancelOrAdd">
+                        <button class="cancelButton" id="cancelBtn_topping">Cancel</button>
+                        <button class="addButton" id="topping_add">Add</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+
+
+    <!-- Modal for Drinks -->
+    <div class="modal_bg_softDrink">
+
+        <div class="modal_content_softDrink">
+
+            <!-- Title Line at the top -->
+            <div class="softDrink_header">
+                
+                <div class="slide-title">Soft Drinks</div>
+                <button class="close_button" id="close_softDrink_modal">&#x2715</button>
+            
+            </div>
+
+            <!-- Main Body Part -->
+            <div class="softDrink_body">
+
+                <div class="section_item">
+
+                    <div class="section_item_name">Coka Cola</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="soft_coke_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="coke_decrease">-</button>  
+                            <div class="soft_drink_count" id="coke_counter">0</div>
+                            <!-- <h1 class="soft_drink_count" id="coke_counter">0</h1> -->
+                            <button class="button_increase" id="coke_increase">+</button>                
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Sprite</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="soft_sprite_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="sprite_decrease">-</button>  
+                            <div class="soft_drink_count" id="sprite_counter">0</div>
+                            <button class="button_increase" id="sprite_increase">+</button>
+                                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section_item">
+                    <div class="section_item_name">Iced Tea</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="soft_icedTea_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="icedTea_decrease">-</button>  
+                            <div class="soft_drink_count" id="icedTea_counter">0</div>
+                            <button class="button_increase" id="icedTea_increase">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cancel and Add Button on soft drink modal -->
+                <div class="softDrink_footer">
+                    <div class="cancelOrAdd">
+                        <button class="cancelButton" id="softDrink_cancel">Cancel</button>
+                        <button class="addButton" id="softDrink_add">Add</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Modal for Beers -->
+    <div class="modal_bg_beer">
+
+        <div class="modal_content_beer">
+
+            <!-- Title Line at the top -->
+            <div class="beer_header">
+
+                <div class="slide-title">Beers</div>
+                <button class="close_button" id="close_beer_modal">&#x2715</button>
+
+            </div>
+
+            <!-- Main Body Part -->
+            <div class="beer_body">
+
+                <div class="section_item">
+
+                    <div class="section_item_name">Asahi</div>
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="beer_asahi_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="asahi_decrease">-</button> 
+                            <div class="drink_beers_count" id="asahi_counter">0</div>
+                            <button class="button_increase" id="asahi_increase">+</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section_item">
+
+                    <div class="section_item_name">Sapporo</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="beer_sappporo_counter">
+
+                        <div class="button_wrapper">        
+
+                            <button class="button_decrease" id="sapporo_decrease">-</button> 
+                            <div class="drink_beers_count" id="sapporo_counter">0</div>
+                            <button class="button_increase" id="sapporo_increase">+</button>
+                                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="section_item">
+
+                    <div class="section_item_name">Kokanee</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="beer_kokanee_counter">
+                        <div class="button_wrapper">      
+
+                            <button class="button_decrease" id="kokanee_decrease">-</button>  
+                            <div class="drink_beers_count" id="kokanee_counter">0</div>
+                            <button class="button_increase" id="kokanee_increase">+</button>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cancel and Add Button on beers modal -->
+                <div class="beer_footer">
+                    <div class="cancelOrAdd">
+                        <button class="cancelButton" id="beer_cancel">Cancel</button>
+                        <button class="addButton" id="beer_add">Add</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for Bowl Soup -->
+    <div class="modal_bg_bowlSoup">
+
+        <div class="modal_content_bowlSoup">
+
+            <!-- Title Line at the top -->
+            <div class="bowlSoup_header">
+                
+                <div class="slide-title">Bowl Soup</div>
+                <button class="close_button" id="close_bowlSoup_modal">&#x2715</button>
+            
+            </div>
+
+            <!-- Main Body Part -->
+            <div class="bowlSoup_content">
+
+                <!-- Shio -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Shio</div>
+                    
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_Shio_decrease">-</button>  
+                            <div class="num_counter_bowlSoup" id="BS_Shio_counter">0</div>
+                            <button class="button_increase" id="BS_Shio_increase">+</button>                
+                        </div>
+                    </div>
+
+                </div>
+            
+
+                <!-- Shoyu -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Shoyu</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_Shoyu_decrease">-</button>   
+                            <div class="num_counter_bowlSoup" id="BS_Shoyu_counter">0</div>
+                            <button class="button_increase" id="BS_Shoyu_increase">+</button>             
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Miso -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Miso</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_Miso_decrease">-</button>
+                            <div class="num_counter_bowlSoup" id="BS_Miso_counter">0</div>
+                            <button class="button_increase" id="BS_Miso_increase">+</button>                 
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Hot Miso -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Hot Miso</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_hotMiso_decrease">-</button> 
+                            <div class="num_counter_bowlSoup" id="BS_hotMiso_counter">0</div>
+                            <button class="button_increase" id="BS_hotMiso_increase">+</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Curry -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Curry</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_Curry_decrease">-</button>  
+                            <div class="num_counter_bowlSoup" id="BS_Curry_counter">0</div>  
+                            <button class="button_increase" id="BS_Curry_increase">+</button>                
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tomato -->
+                <div class="section_item_bowlSoup">
+
+                    <div class="title_bowlSoup">Tomato</div>
+
+                    <!-- Section item counter button -->
+                    <div class="section_item_counter" id="side_item_counter">
+                        <div class="button_wrapper">               
+                            <button class="button_decrease" id="BS_Tomato_decrease">-</button>  
+                            <div class="num_counter_bowlSoup" id="BS_Tomato_counter">0</div>
+                            <button class="button_increase" id="BS_Tomato_increase">+</button>               
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- cancel and Add Button on Bowl Soup Modal -->
+                <div class="bowlSoup_footer">
+
+                    <div class="bowlSoup-cancelOrAdd">
+                        <button class="cancelButton" id="cancelBtn_bowlSoup">Cancel</button>
+                        <button class="addButton" id="chashu_add">Add</button>
+                    </div>
+
+                </div> 
+                
+            </div>
+        </div>
+    </div>  
+
+    <!-- Modal for Check Button -->
+    <div class="check-modal" id="checkBtn-modal">
+
+        <div class="check-content">
+
+            <div class ="check-title">
+                <h2>Submit Sheet</h2>
+            </div>
+
+            <span class="close-btn-checkBtn">&times;</span>
+
+            <div class="orders">
+                <div class="scrollable">
+
+                    {{#each items}}
+                        <input type="checkbox" class="check_box" value="{{id}}:{{main_item}}:{{other_pref}}" name="willCheck_item">
+                        <label class="check_item">{{main_item}}</label>
+                        <p id="other_pref">{{other_pref}}</p>
+                        <hr style="border-color: black;">
+                    {{/each}}
+                    
+                </div>
+            </div>
+
+            <div class="remove-submit-buttons">
+
+                <div class="remove">
+
+                    {{!-- Remove Btn on Submit Sheet--}}
+                    <form action="/auth/user/removeItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
+                        <input type="hidden" name="remove_key" id="remove_key" value="">
+                        <button id="remove-btn">Remove</button>
+                    </form>
+
+                </div> 
+
+                <div></div>
+
+                <div class="submit">
+
+                    {{#if ifPhone_id }}
+                        <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
+                        <input type="hidden" name="extraOrder_id" id="extraOrder_id" value="{{extraOrder_id}}">
+                        <button id="submit-btn" class="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button>
+                    {{else}}
+                        <form action="/auth/user/submitItem" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
+                            <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
+                            <input type="hidden" name="extraOrder_id" id="extraOrder_id" value="{{extraOrder_id}}">
+                            <button id="submit-btn" class="submit-btn" style="padding: 9px 60px;">Submit</button>
+                        </form>
+                    {{/if}}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    {{!-- Test input for togo key --}}
+    <input type="hidden" id="togo_key" value="{{togo_key}}">
+
+    <!-- Modal for Submit Button using Bootstrap -->
+    <div class="modal fade" id="pickupBtn-modal" tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <h2 class="modal-title w-100" id="pickup-title">Pick-Up Time</h2>
+                </div>
+
+                <div class="modal-body modal-body-centered">
+
+                    {{!-- Select Option Bar --}}
+                    <select name="pickup" id="time">
+                        <option value="10" style="font-size: 1.5rem;">10 Mins</option>
+                        <option value="15" style="font-size: 1.5rem;">15 Mins</option>
+                        <option value="20" style="font-size: 1.5rem;">20 Mins</option>
+                        <option value="30" style="font-size: 1.5rem;">30 Mins</option>
+                        <option value="45" style="font-size: 1.5rem;">45 Mins</option>
+                        <option value="60" style="font-size: 1.5rem;">60 Mins</option>
+                        <option value="90" style="font-size: 1.5rem;">90 Mins</option>
+                        <option value="120" style="font-size: 1.5rem;">120 Mins</option>
+                    </select>
+
+                </div>
+
+                <div class="modal-footer" id="cancel-next-buttons">
+
+                    <div class="container">
+
+                        <button type="button" id ="cancel-btn" class="btn btn-primary pull-left" data-bs-dismiss="modal">Cancel</button>
+                        
+                        <form action="/auth/user/submitItem" method="POST">
+                            <input type="hidden" name="userName" value="{{name}}">
+                            <input type="hidden" name="date_key" value="{{Date}}">
+                            <input type="hidden" name="time_key" value="{{Time}}">
+                            <input type="hidden" name="table_key" value="{{table_key}}">
+                            <input type="hidden" name="phone_key" value="{{phone_key}}">
+                            <input type="hidden" id="pickUp_time" name="pickUp_time" value="">
+                            <button id="next-btn">Next</button>
+                        </form>
+
+                    </div>
+        
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal for Edit Button -->
+    <div class="edit-modal" id="editBtn-modal">
+
+        <div class="edit-content">
+
+            <div class ="edit-title">
+                <h2>Edit Sheet</h2>
+            </div>
+
+            <span class="close-btn-editBtn">&times;</span>
+
+            <div class="edit-orders">
+                <div class="edit-scrollable">
+                    {{#each submit_items}}
+                        <input type="checkbox" class="check_box" value="{{id}}:{{kitchen_id}}:{{main_item}}:{{other_pref}}" name="willEdit_item">
+                        <label class="check_item">{{main_item}}</label>
+                        <p id="other_pref">{{other_pref}}</p>
+                        <hr style="border-color: black;">
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="edit-confirm-buttons">
+
+                <div class="edit">
+                    <button id="edit-btn">Edit</button>
+                </div>
+
+                <div></div>
+
+                <div class="remove">
+
+                    {{!-- Remove Btn on Edit Sheet --}}
+                    <form action="/auth/user/removeItem_edit" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="c_number" value="{{c_number}}">
+                        <input type="hidden" name="togo_key" value="{{togo_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
+                        <input type="hidden" name="remove_key_edit" id="remove_key_edit" value="">
+                        <button id="remove-btn-v2">Remove</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer_section">
+
+        <div class="footer">
+
+            <div class="check_section">
+                <button class="check_button" id="check-button">&#128466;&#65039;</button>
+            </div>
+            
+            <div class="edit_section">
+                <button class="edit_button" id="edit-button">&#9999;&#65039;</button>
+            </div>
+
+            {{!-- Home Button --}}
+            <div class="home_section">
+
+                <form action="/auth/user/addHome" method="POST">
+                    <input type="hidden" name="userName" value="{{name}}">
+                    <input type="hidden" name="date_key" value="{{Date}}">
+                    <input type="hidden" name="time_key" value="{{Time}}">
+                    <input type="hidden" name="table_key" id="table_key" value="{{table_key}}">
+                    <input type="hidden" name="togo_key" value="{{togo_key}}">
+                    <input type="hidden" name="phone_key" value="{{phone_key}}">
+                    <button class="home_button" id="home_button">&#127968;</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+<!-- Wrapper End -->
+</div>
+
+{{!-- Vanilla Js Script --}}
+<script type="text/javascript" src="/js/Server-Side/addPage_main.js"></script>
+<script type="text/javascript" src="/js/Server-Side/addPage_script.js"></script>
+<script type="text/javascript" src="/js/Server-Side/addPage_check&edit.js"></script>
+<script type="text/javascript" src="/ws/server_addPage.js"></script>
+
+</body>
+</html>

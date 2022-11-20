@@ -23,7 +23,7 @@ exports.phoneBox = (req, res) => {
 
     } else {
 
-        db.query(`select * from ${table_key} where order_status = 'submit' or order_status = 'unsubmit'`, (error, result) => {
+        db.query(`select * from ${table_key} where order_status = 'submit'`, (error, result) => {
             if (error) {
                 console.log(error); 
             }
@@ -68,6 +68,21 @@ exports.phoneBox = (req, res) => {
                                     console.log(error); 
                                 }
                             })
+                        })
+                    }
+                })
+
+                // Insert paid items to done_order db
+                db.query(`select * from ${table_key} where order_status = 'paid'`, (error, paid_items) => {
+                    if (error) {
+                        console.log(error); 
+                    }
+
+                    for (let i = 0; i < paid_items.length; i++) {
+                        db.query(`insert into done_order(table_id, item_name) values(?, ?)`, [table_key, paid_items[i]['full_order']], (error) => {
+                            if (error) {
+                                console.log(error); 
+                            }
                         })
                     }
                 })

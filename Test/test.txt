@@ -6,16 +6,38 @@ drop table if exists Table_1, Table_1_Check, Table_2, Table_2_Check, Table_3, Ta
 
 drop table if exists Togo_1, Togo_1_Check, Togo_2, Togo_2_Check, Togo_3, Togo_3_Check, Togo_4, Togo_4_Check, Phone_1, Phone_1_Check, Phone_2, Phone_2_Check, Phone_3, Phone_3_Check, Phone_4, Phone_4_Check;  
 
-CREATE TABLE IF NOT EXISTS table_check (table_id TEXT NOT NULL, table_status TEXT NOT NULL, num_customer TEXT); 
+CREATE TABLE IF NOT EXISTS table_check (table_id TEXT NOT NULL, table_status TEXT DEFAULT 'empty', pending_table TEXT DEFAULT 'False', num_customer TEXT DEFAULT 'None');
 
-INSERT INTO table_check(table_id, table_status) VALUES ('Table_1', 'empty'), ('Table_2', 'empty'), ('Table_3', 'empty'), ('Table_4', 'empty'), ('Table_5', 'empty'), ('Table_6', 'empty'), ('Table_7', 'empty'), ('Table_8', 'empty'), ('Togo_1', 'empty'), ('Togo_2', 'empty'), ('Togo_3', 'empty'), ('Togo_4', 'empty'), ('Phone_1', 'empty'), ('Phone_2', 'empty'), ('Phone_3', 'empty'), ('Phone_4', 'empty');
+CREATE TABLE IF NOT EXISTS done_order (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL); 
+
+INSERT INTO table_check(table_id) VALUES ('Table_1'), ('Table_2'), ('Table_3'), ('Table_4'), ('Table_5'), ('Table_6'), ('Table_7'), ('Table_8'); 
 
 CREATE TABLE IF NOT EXISTS Menu_List (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_price TEXT NOT NULL, gst_price TEXT NOT NULL, total_price TEXT NOT NULL, num_item TEXT DEFAULT "0");
 
-INSERT INTO Menu_List(item_name, item_price, gst_price, total_price, num_item) VALUES
-('Shio', '12.45', '0.62', '13.07'), ('Shoyu', '12.45', '0.62', '13.07'), ('Miso', '13.45', '0.67', '14.12'),
-('Belly', '2.45', '0.12', '2.57'), ('Shoulder', '2.45', '0.12', '2.57'), ('Beans', '1.50', '0.08', '1.58'),
-('Egg', '1.95', '0.10', '2.05'); 
+INSERT INTO Menu_List(category, item_name, item_price, gst_price, total_price, num_item) VALUES
+('Main', 'Shio', '12.45', '0.62', '13.07'), ('Main', 'Shoyu', '12.45', '0.62', '13.07'), 
+('Main', 'Miso', '13.45', '0.67', '14.12'), ('Main', 'Hot', '14.00', '0.70', '14.70'), 
+('Main', 'Curry', '14.45', '0.72', '15.17'), ('Main', 'Tomato', '14.00', '0.70', '14.70'), 
+('Main', 'Vege-Shio', '13.25', '0.66', '13.91'), ('Main', 'Vege-Shoyu', '13.25', '0.66', '13.91'), 
+('Main', 'Vege-Miso', '14.25', '0.71', '14.96'), ('Main', 'Vege-Hot', '14.50', '0.73', '15.23'), 
+('Main', 'Shrimp', '15.00', '0.75', '15.75'), ('Set', 'SetA-Shio', '16.45', '0.82', '17.27'), 
+('Set', 'SetA-Shoyu', '16.45', '0.82', '17.27'), ('Set', 'SetA-Miso', '16.45', '0.82', '17.27'), 
+('Set', 'SetB-Shio', '17.45', '0.87', '18.32'), ('Set', 'SetB-Shoyu', '17.45', '0.87', '18.32'), 
+('Set', 'SetB-Miso', '17.45', '0.87', '18.32'), ('Side', 'C.plate', '6.25', '0.31', '6.56'), 
+('Side', 'Gyoza', '5.00', '0.25', '5.25'), ('Side', 'C.Burger', '5.25', '0.26', '5.51'), 
+('Side', 'C.Don', '5.25', '0.26', '5.51'), ('Side', 'G.Don', '4.25', '0.21', '4.46'), 
+('Side', 'Kimchi[L]', '3.25', '0.16', '3.41'), ('Side', 'Kimchi[S]', '1.95', '0.10', '2.05'), 
+('Side', 'Rice', '1.95', '0.10', '2.05'), ('Side', 'S.Ban', '2.50', '0.13', '2.63'), 
+('Topping', 'Belly', '2.45', '0.12', '2.57'), ('Topping', 'Shoulder', '2.45', '0.12', '2.57'), 
+('Topping', 'F.Cake', '1.00', '0.05', '1.05'), ('Topping', 'Beans', '1.50', '0.08', '1.58'), 
+('Topping', 'Egg', '1.95', '0.10', '2.05'), ('Topping', 'Corn', '1.95', '0.10', '2.05'), 
+('Topping', 'Wakame', '2.25', '0.11', '2.36'), ('Topping', 'Cheese', '2.50', '0.13', '2.63'), 
+('Topping', 'S.Cake', '5.00', '0.25', '5.25'), ('Topping', 'Nori', '1.50', '0.08', '1.58'), 
+('Topping', 'Broccoli', '1.50', '0.08', '1.58'), ('Topping', 'G.Onion', '1.50', '0.08', '1.58'),  
+('Topping', 'Butter', '1.50', '0.08', '1.58'), ('Drink', 'Asahi', '5.95', '0.30', '6.25'), 
+('Drink', 'Sapporo', '5.95', '0.30', '6.25'), ('Drink', 'Kokanee', '5.45', '0.27', '5.72'), 
+('Drink', 'Coke', '1.95', '0.10', '2.05'), ('Drink', 'Sprite', '1.95', '0.10', '2.05'), 
+('Drink', 'Ice Tea', '1.95', '0.10', '2.05');
 
 drop table if exists updated_table, order_result, togo_phone, userLog, coming_order; 
 
@@ -36,3 +58,70 @@ UPDATE Menu_List SET num_item = '0';
 UPDATE admin SET admin_status = 'False'; 
 UPDATE table_check SET table_status = 'empty', pending_table = 'False', num_customer = '0'; 
 
+
+
+/* Histroy Modal Table */
+.review-container table{
+    width: 95%;
+    margin-top: 21%;
+    z-index: 10;
+}
+
+.review-container{
+    display: flex;
+    justify-content: center;
+}
+
+.reviewBox-header {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.reviewBox-container th {
+    height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+#tableNum-row{
+    width: 23%;
+}
+
+#togoPerson-row {
+    width: 20%;
+}
+
+.addedInfo-container th{
+    height: 2rem;
+    font-size: 1.1rem;
+    background: lightcoral;
+}
+
+
+
+
+<!-- Table -->
+            <div class="table">
+                <!-- Table Desc -->
+                <div class="table-desc">
+                    <table border cellspacing="0">
+                        <thead>
+                            <!-- Item Title -->
+                            <tr class="header">
+                                <th id="item-rows">Table Name</th>
+                                <th id="item-rows">EST</th>
+                                <th id="item-rows">Item Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Items Rows -->
+                            {{#each done_items}}
+                            <tr class="addedInfo-container">
+                                <th>{{table_name}}</th>
+                                <th>{{EST}}</th>
+                                <th>{{order_item}}</th>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
