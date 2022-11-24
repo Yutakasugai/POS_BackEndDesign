@@ -1,11 +1,11 @@
 const express = require("express");
 const path = require("path"); 
 
-const {db} = require('./db/db-set'); 
+// const {db} = require('./db/db-set'); 
 const {ws} = require('./server/main_ws'); 
 
 // Set up to activate a broeser working 
-const app = express()
+const app = express();
 
 // Define the current directory, and enable to interact with a public folder, which has css, js files and svg images
 const publicDirectory = path.join(__dirname, './public');
