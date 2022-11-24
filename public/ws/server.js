@@ -6,7 +6,8 @@ const username = document.getElementById("userName");
 
 const confirmBtn = document.getElementById('confirm-btn'); 
 
-const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!"); 

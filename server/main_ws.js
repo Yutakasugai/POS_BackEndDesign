@@ -6,7 +6,8 @@ const db = db_conn["db_conn"];
 
 dotenv.config({path : "./.env"}); 
 
-const wss = new WebSocket.Server({ port: process.env.WS_PORT })
+// const wss = new WebSocket.Server({ port: process.env.WS_PORT })
+const wss = new WebSocket.Server({ server: httpServer });
 
 wss.on("connection", function(ws){
     console.log("WebSocket is connected!")

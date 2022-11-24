@@ -12,7 +12,7 @@ const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory)); 
 
 app.set('view engine', 'hbs'); 
-app.set(db, "mysql"); 
+// app.set(db, "mysql"); 
 app.set(ws, "ws"); 
 
 app.use(express.urlencoded({extended:false})); 

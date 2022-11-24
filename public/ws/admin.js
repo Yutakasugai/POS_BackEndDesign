@@ -1,4 +1,7 @@
-const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
+
+// "wss://mouse-click-js.herokuapp.com"
 
 // Audio File
 // const kitchen_audio = new Audio('/Sound/Kitchen.mp3'); 
