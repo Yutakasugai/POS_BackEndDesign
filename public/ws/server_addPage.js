@@ -50,7 +50,8 @@ const remove_item = document.getElementById('remove_key_edit');
 const time_bar = document.getElementById('time'); 
 const ws_pickUp_time = document.getElementById('pickUp_time'); 
 
-const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!"); 
