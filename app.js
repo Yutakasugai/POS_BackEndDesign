@@ -27,7 +27,7 @@ app.use('/auth', require('./routes/auth'));
 
 // Create a HTTP server for this system
 // const httpServer = http.createServer(app);
-const wss = new Server({ app });
+const wss = new Server({ server: app });
 
 // WebSocket Main Console
 wss.on("connection", function(ws){
