@@ -19,8 +19,8 @@ exports.continueBtn = (req, res) => {
             }
 
             // Recreate above tables for Night
-            db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)`); 
-            db.query(`CREATE TABLE IF NOT EXISTS order_result (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, EST TEXT DEFAULT "None", order_item TEXT NOT NULL)`); 
+            db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name varchar(255) NOT NULL, table_id varchar(255) NOT NULL, EST varchar(255) DEFAULT "None", item_id varchar(255) NOT NULL)`); 
+            db.query(`CREATE TABLE IF NOT EXISTS order_result (id INT AUTO_INCREMENT PRIMARY KEY, table_name varchar(255) NOT NULL, EST varchar(255) DEFAULT "None", order_item varchar(255) NOT NULL)`); 
 
             // Back to adminMain page 
             return res.redirect(url.format({

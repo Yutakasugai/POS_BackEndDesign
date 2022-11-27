@@ -62,22 +62,22 @@ exports.admin = (req, res) => {
                         // console.log('This user is good to enter!');
         
                         // Create order_result db
-                        db.query(`CREATE TABLE IF NOT EXISTS order_result (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, EST TEXT DEFAULT "None", order_item TEXT NOT NULL)`); 
+                        db.query(`CREATE TABLE IF NOT EXISTS order_result (id INT AUTO_INCREMENT PRIMARY KEY, table_name VARCHAR(255) NOT NULL, EST VARCHAR(255) DEFAULT "None", order_item VARCHAR(255) NOT NULL)`); 
                         
                         // Create updated_table db
-                        db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name TEXT NOT NULL, table_id TEXT NOT NULL, EST TEXT DEFAULT "None", item_id TEXT NOT NULL)`); 
+                        db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name VARCHAR(255) NOT NULL, table_id VARCHAR(255) NOT NULL, EST VARCHAR(255) DEFAULT "None", item_id VARCHAR(255) NOT NULL)`); 
         
                         // Create togo_phone db
-                        db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status TEXT NOT NULL, table_id TEXT NOT NULL, table_status TEXT DEFAULT "empty", EST TEXT DEFAULT "None", num_customer TEXT DEFAULT "1")'); 
+                        db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status VARCHAR(255) NOT NULL, table_id VARCHAR(255) NOT NULL, table_status VARCHAR(255) DEFAULT "empty", EST VARCHAR(255) DEFAULT "None", num_customer VARCHAR(255) DEFAULT "1")'); 
         
                         // Create coming_order db 
-                        db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL, original_id TEXT NOT NULL, kitchen_id TEXT)')
+                        db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id VARCHAR(255) NOT NULL, item_name VARCHAR(255) NOT NULL, original_id VARCHAR(255) NOT NULL, kitchen_id VARCHAR(255))')
         
                         // Create customer_result db 
-                        db.query('CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, num_customer TEXT NOT NULL)'); 
+                        db.query('CREATE TABLE IF NOT EXISTS customer_result (id INT AUTO_INCREMENT PRIMARY KEY, table_id VARCHAR(255) NOT NULL, num_customer VARCHAR(255) NOT NULL)'); 
 
                         // Create done_order db
-                        db.query(`CREATE TABLE IF NOT EXISTS done_order (id INT AUTO_INCREMENT PRIMARY KEY, table_id TEXT NOT NULL, item_name TEXT NOT NULL)`); 
+                        db.query(`CREATE TABLE IF NOT EXISTS done_order (id INT AUTO_INCREMENT PRIMARY KEY, table_id VARCHAR(255) NOT NULL, item_name VARCHAR(255) NOT NULL)`); 
         
                         // Update the admin db 
                         db.query(`update admin set admin_status = 'True' where admin_name = (?)`, (admin_name), (error) => {

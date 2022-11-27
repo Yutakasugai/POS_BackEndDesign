@@ -18,6 +18,7 @@ function db_conn(){
 
 exports.db_conn = db_conn();
 
+
 // Connect with my localhost server 
 // const db = mysql.createConnection({
 //     host: process.env.DATABASE_HOST,
