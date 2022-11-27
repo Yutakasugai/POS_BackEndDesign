@@ -3,8 +3,8 @@ const table_num = document.getElementById('table_key');
 const ws_togo_key = document.getElementById('togo_key');
 const ws_phone_key = document.getElementById('phone_key'); 
 
-const ws = new WebSocket("ws://localhost:8080");
-// const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
+// const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!"); 
