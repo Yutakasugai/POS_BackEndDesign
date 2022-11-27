@@ -1,7 +1,9 @@
 const express = require("express");
 const path = require("path"); 
-const WebSocket = require("ws"); 
-const http = require("http");
+// const WebSocket = require("ws"); 
+// const http = require("http");
+
+const { Server } = require("ws");
 
 // const {db} = require('./db/db-set'); 
 // const {ws} = require('./server/main_ws'); 
@@ -24,8 +26,8 @@ app.use('/', require('./Pages/pages'));
 app.use('/auth', require('./routes/auth')); 
 
 // Create a HTTP server for this system
-const httpServer = http.createServer(app);
-const wss = new WebSocket.Server({ server: httpServer });
+// const httpServer = http.createServer(app);
+const wss = new Server({ app });
 
 // WebSocket Main Console
 wss.on("connection", function(ws){
