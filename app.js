@@ -16,8 +16,10 @@ const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory)); 
 
 app.set('view engine', 'hbs'); 
-// app.set(db, "mysql"); 
-// app.set(ws, "ws"); 
+
+// Get a connection from db file
+const db_conn = require('./db/db-conn'); 
+const db = db_conn["db_conn"]; 
 
 app.use(express.urlencoded({extended:false})); 
 app.use(express.json()); 
