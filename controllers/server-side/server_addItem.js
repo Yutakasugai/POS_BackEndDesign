@@ -23,10 +23,10 @@ exports.addItem = (req, res) => {
         if (result[0]["table_status"] === "empty") {
 
             // Create a new table in db for the table num 
-            db.query(`CREATE TABLE IF NOT EXISTS ${table_key} (id INT AUTO_INCREMENT PRIMARY KEY, full_order TEXT NOT NULL, main_item TEXT NOT NULL, other_pref TEXT, item_num TEXT NOT NULL, item_price TEXT NOT NULL, kitchen_id TEXT, order_status TEXT DEFAULT "unsubmit")`); 
+            db.query(`CREATE TABLE IF NOT EXISTS ${table_key} (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, full_order VARCHAR(255) NOT NULL, main_item VARCHAR(255) NOT NULL, other_pref VARCHAR(255), item_num VARCHAR(255) NOT NULL, item_price VARCHAR(255) NOT NULL, kitchen_id VARCHAR(255), order_status VARCHAR(255) DEFAULT "unsubmit")`); 
             
             // Create another table to keep each item 
-            db.query(`CREATE TABLE IF NOT EXISTS ${table_key}_Check (id INT AUTO_INCREMENT PRIMARY KEY, item_name TEXT NOT NULL, item_num INT NOT NULL)`); 
+            db.query(`CREATE TABLE IF NOT EXISTS ${table_key}_Check (id INT AUTO_INCREMENT PRIMARY KEY NOT NULL, item_name VARCHAR(255) NOT NULL, item_num INT NOT NULL)`); 
 
             // Insert customer number to table_check 
             db.query(`UPDATE table_check SET num_customer = ${c_num}, pending_table = 'True' WHERE table_id = (?)`, (table_key), (error) => {

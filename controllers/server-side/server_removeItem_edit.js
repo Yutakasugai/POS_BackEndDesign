@@ -11,8 +11,10 @@ exports.removeItem_edit = (req, res) => {
     // !! Important
     // show table query using the database name to find a prticular table from db 
     // If database gets a problem, you gotta change the name to the new database name
+
+    // Old One: SHOW TABLES WHERE tables_in_node_posDB LIKE '${table_key}'
     
-    db.query(`SHOW TABLES WHERE tables_in_node_posDB LIKE '${table_key}'`, (error, table_result) => {
+    db.query(`show tables where tables_in_heroku_719ef538f12f1bb like '${table_key}'`, (error, table_result) => {
         if (error) {
             console.log(error); 
         } 
