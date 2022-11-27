@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path"); 
-const ws = require("ws"); 
+const WebSocket = require("ws"); 
 const http = require("http");
 
 // const { Server } = require("ws");
@@ -27,7 +27,7 @@ app.use('/auth', require('./routes/auth'));
 
 // Create a HTTP server for this system
 const httpServer = http.createServer(app);
-const wss = new ws.Server({ server: httpServer });
+const wss = new WebSocket.Server({ server: httpServer });
 
 // WebSocket Main Console
 wss.on("connection", function(ws){
@@ -125,7 +125,7 @@ wss.on("connection", function(ws){
 // Define the port number which you are using 
 const port = process.env.PORT || 3000; 
 
-app.listen(port); 
+httpServer.listen(port); 
 console.log(`Server is listening on port ${port}`); 
 
 
