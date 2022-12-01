@@ -1,5 +1,5 @@
-// const ws = new WebSocket("ws://localhost:8080");
-const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
+const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 // "wss://mouse-click-js.herokuapp.com"
 
@@ -58,9 +58,13 @@ ws.addEventListener("message", ({data}) => {
 
     } else if (control_id[0] === 'display_newItems') {
 
+        console.log('display_newItems: admin-side passed, ', control_id[1]); 
+
         update_orderSheet(control_id[1], 'None'); 
 
     } else if (control_id[0] === 'display_editItems') {
+
+        console.log('display_editItems: admin-side passed, ', control_id[1]); 
 
         update_orderSheet(control_id[1], 'edit_key'); 
 

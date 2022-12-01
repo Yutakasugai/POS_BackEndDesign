@@ -207,15 +207,25 @@ ramen_addBtn.addEventListener('click', function(event){
 })
 
 
-
 //Side Dishes
 //Add Button Function
 const sides_addBtn = document.getElementById('chashu_add'); 
-const sides_button = document.querySelectorAll('.chashu_pref_button'); 
+// const sides_button = document.querySelectorAll('.chashu_pref_button'); 
+
+// I could capture main item name from this function
+$('button.chashu_pref_button').click(function(e) {
+  // console.log(e.currentTarget.value);
+  item_container.push(e.currentTarget.value)
+});
 
 sides_addBtn.addEventListener('click', function(event){
 
+  console.log('Side Dish Add Btn was Clicked!'); 
+  console.log(item_container); 
+
   if (item_container[0].includes("C.Don") === true){
+
+      console.log('1'); 
 
       // This is only one condition when the soup and chashu boxes are filled
       document.getElementById('chashu-bg').style.background = 'transparent'; 
@@ -243,6 +253,8 @@ sides_addBtn.addEventListener('click', function(event){
 
   } else if (item_container[0].includes("G.Don") === true){
 
+    console.log('2'); 
+
       // This is only one condition when the soup and chashu boxes are filled
       document.getElementById('chashu-bg').style.background = 'transparent'; 
 
@@ -269,6 +281,8 @@ sides_addBtn.addEventListener('click', function(event){
       item_input.setAttribute('value', item_container); 
 
   } else {
+
+    console.log('3'); 
 
     // check if the required options is chcked or not 
     if (document.getElementById("chashu_belly").checked === false && document.getElementById("chashu_shoulder").checked === false){   

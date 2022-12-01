@@ -50,8 +50,8 @@ const remove_item = document.getElementById('remove_key_edit');
 const time_bar = document.getElementById('time'); 
 const ws_pickUp_time = document.getElementById('pickUp_time'); 
 
-// const ws = new WebSocket("ws://localhost:8080");
-const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
+const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!"); 
@@ -71,26 +71,35 @@ homeBtn.onclick = () => {
     ws.send(SA_homeBtn); 
 }
 
-// Check Modal: Submit Button
-ws_submitBtn.onclick = () => {
-    // Define if it is phone or takeout order 
-    if (ws_togo_key.value === 'togo_key' || ws_extra_key.value === 'True') {
-        console.log("This order is by phone or takeout"); 
-        return; 
+// Check if the addPage is opend for Phone order or others
+// If it is a phone order, the id of a submit button is different 
+// Phone -> submit-btn-phone, Others -> submit-btn
+if (ws_submitBtn === null) {
+    console.log('This addPage is opned for phone order...'); 
 
-    } else {
-
-        let SA_submitBtn = `SA_submitBtn%${table_num.value}`; 
-        ws.send(SA_submitBtn); 
+    // Pick Up Modal: Next Button
+    ws_nextBtn.onclick = () => {
+        let time_value = time_bar.value; 
+        let SA_phoneBtn = `SA_phoneBtn%${table_num.value}#${time_value}`; 
+        console.log('SA_phoneBtn: ', SA_phoneBtn); 
+        ws.send(SA_phoneBtn); 
     }
-}
 
-// Pick Up Modal: Next Button
-ws_nextBtn.onclick = () => {
-    let time_value = time_bar.value; 
-    let SA_phoneBtn = `SA_phoneBtn%${table_num.value}#${time_value}`; 
-    // console.log(SA_phoneBtn); 
-    ws.send(SA_phoneBtn); 
+} else {
+    console.log('This addPage is opened for other orders...'); 
+
+    // Check Modal: Submit Button
+    ws_submitBtn.onclick = () => {
+        // Define if it is phone or takeout order 
+        if (ws_togo_key.value === 'togo_key' || ws_extra_key.value === 'True') {
+            console.log("This order is by takeout"); 
+            return; 
+
+        } else {
+            let SA_submitBtn = `SA_submitBtn%${table_num.value}`; 
+            ws.send(SA_submitBtn); 
+        }
+    }
 }
 
 // Remove Button on the Edit Sheet 

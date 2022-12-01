@@ -2132,7 +2132,8 @@
                         <input type="hidden" name="togo_key" id="togo_key" value="{{togo_key}}">
                         <input type="hidden" name="phone_key" id="phone_key" value="{{phone_key}}">
                         <input type="hidden" name="extraOrder_id" id="extraOrder_id" value="{{extraOrder_id}}">
-                        <button id="submit-btn" class="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button>
+                        {{!-- <button id="submit-btn" class="submit-btn" type="button" data-bs-toggle="modal" data-bs-target="#pickupBtn-modal" style="padding: 9px 60px;">Submit</button> --}}
+                        <button id="submit-btn-phone" class="submit-btn" style="padding: 9px 60px;">Submit</button>
                     {{else}}
                         <form action="/auth/user/submitItem" method="POST">
                             <input type="hidden" name="userName" value="{{name}}">
@@ -2156,54 +2157,45 @@
     {{!-- Test input for togo key --}}
     <input type="hidden" id="togo_key" value="{{togo_key}}">
 
-    <!-- Modal for Submit Button using Bootstrap -->
-    <div class="modal fade" id="pickupBtn-modal" tabindex="-1">
+    <!-- PickUp Time Modal For My Design (No Bootstrap) -->
+    <div class="pickUp-modal" id="pickUp-modal" style="display: none;">
 
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="pickUp-content">
 
-            <div class="modal-content">
-
-                <div class="modal-header text-center">
-                    <h2 class="modal-title w-100" id="pickup-title">Pick-Up Time</h2>
-                </div>
-
-                <div class="modal-body modal-body-centered">
-
-                    {{!-- Select Option Bar --}}
-                    <select name="pickup" id="time">
-                        <option value="10" style="font-size: 1.5rem;">10 Mins</option>
-                        <option value="15" style="font-size: 1.5rem;">15 Mins</option>
-                        <option value="20" style="font-size: 1.5rem;">20 Mins</option>
-                        <option value="30" style="font-size: 1.5rem;">30 Mins</option>
-                        <option value="45" style="font-size: 1.5rem;">45 Mins</option>
-                        <option value="60" style="font-size: 1.5rem;">60 Mins</option>
-                        <option value="90" style="font-size: 1.5rem;">90 Mins</option>
-                        <option value="120" style="font-size: 1.5rem;">120 Mins</option>
-                    </select>
-
-                </div>
-
-                <div class="modal-footer" id="cancel-next-buttons">
-
-                    <div class="container">
-
-                        <button type="button" id ="cancel-btn" class="btn btn-primary pull-left" data-bs-dismiss="modal">Cancel</button>
-                        
-                        <form action="/auth/user/submitItem" method="POST">
-                            <input type="hidden" name="userName" value="{{name}}">
-                            <input type="hidden" name="date_key" value="{{Date}}">
-                            <input type="hidden" name="time_key" value="{{Time}}">
-                            <input type="hidden" name="table_key" value="{{table_key}}">
-                            <input type="hidden" name="phone_key" value="{{phone_key}}">
-                            <input type="hidden" id="pickUp_time" name="pickUp_time" value="">
-                            <button id="next-btn">Next</button>
-                        </form>
-
-                    </div>
-        
-                </div>
-
+            <div class="modal-header text-center">
+                <h2 class="modal-title w-100" id="pickUp-title">Pick-Up Time</h2>
             </div>
+
+            <div class="pickUp-timeBar">
+                <select name="pickup" id="time" class="time-bar">
+                    <option value="10" style="font-size: 1.5rem;">10 Mins</option>
+                    <option value="15" style="font-size: 1.5rem;">15 Mins</option>
+                    <option value="20" style="font-size: 1.5rem;">20 Mins</option>
+                    <option value="30" style="font-size: 1.5rem;">30 Mins</option>
+                    <option value="45" style="font-size: 1.5rem;">45 Mins</option>
+                    <option value="60" style="font-size: 1.5rem;">60 Mins</option>
+                    <option value="90" style="font-size: 1.5rem;">90 Mins</option>
+                    <option value="120" style="font-size: 1.5rem;">120 Mins</option>
+                </select>
+            </div>
+
+            <div class="pickUp-footer">
+
+                <div class="next-cancel-container">
+                    <button type="button" id="cancel-btn">Cancel</button>
+
+                    <form action="/auth/user/submitItem" method="POST">
+                        <input type="hidden" name="userName" value="{{name}}">
+                        <input type="hidden" name="date_key" value="{{Date}}">
+                        <input type="hidden" name="time_key" value="{{Time}}">
+                        <input type="hidden" name="table_key" value="{{table_key}}">
+                        <input type="hidden" name="phone_key" value="{{phone_key}}">
+                        <input type="hidden" id="pickUp_time" name="pickUp_time" value="">
+                        <button id="next-btn">Next</button>
+                    </form>
+                </div>
+
+            </div>  
 
         </div>
 

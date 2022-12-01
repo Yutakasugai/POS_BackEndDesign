@@ -201,5 +201,23 @@ if (togo_key.value === 'togo_key') {
     submitBtn.style.padding = '9px 85px'; 
 } 
 
+// PickUp Time Modal (Test)
+const pickUpModal = document.getElementById('pickUp-modal'); 
+const pickUpCancel = document.getElementById('cancel-btn'); 
+const submitBtn_phone = document.getElementById('submit-btn-phone'); 
+
+if (submitBtn_phone === null) {
+    console.log('This addPage_check&edit: no phone order...'); 
+
+} else {
+    submitBtn_phone.onclick = () => {
+        pickUpModal.style.display = 'block'; 
+    }
+    
+    pickUpCancel.onclick = () => {
+        pickUpModal.style.display = 'none'; 
+    }
+}
+
 
 

@@ -68,7 +68,7 @@ exports.admin = (req, res) => {
                         db.query(`CREATE TABLE IF NOT EXISTS updated_table (id INT AUTO_INCREMENT PRIMARY KEY, table_name VARCHAR(255) NOT NULL, table_id VARCHAR(255) NOT NULL, EST VARCHAR(255) DEFAULT "None", item_id VARCHAR(255) NOT NULL)`); 
         
                         // Create togo_phone db
-                        db.query('CREATE TABLE IF NOT EXISTS togo_phone (order_status VARCHAR(255) NOT NULL, table_id VARCHAR(255) NOT NULL, table_status VARCHAR(255) DEFAULT "empty", EST VARCHAR(255) DEFAULT "None", num_customer VARCHAR(255) DEFAULT "1")'); 
+                        db.query('CREATE TABLE IF NOT EXISTS togo_phone (id INT AUTO_INCREMENT PRIMARY KEY, order_status VARCHAR(255) NOT NULL, table_id VARCHAR(255) NOT NULL, table_status VARCHAR(255) DEFAULT "empty", EST VARCHAR(255) DEFAULT "None", num_customer VARCHAR(255) DEFAULT "1")'); 
         
                         // Create coming_order db 
                         db.query('CREATE TABLE IF NOT EXISTS coming_order(id INT AUTO_INCREMENT PRIMARY KEY, table_id VARCHAR(255) NOT NULL, item_name VARCHAR(255) NOT NULL, original_id VARCHAR(255) NOT NULL, kitchen_id VARCHAR(255))')
