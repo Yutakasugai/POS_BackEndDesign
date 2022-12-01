@@ -4,8 +4,8 @@ const userList = document.getElementById('userList');
 const enterBtn = document.getElementById("enter-btn"); 
 const loginBtn = document.getElementById("login-btn");
 
-// const ws = new WebSocket("ws://localhost:8080");
-const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
+const ws = new WebSocket("ws://localhost:8080");
+// const ws = new WebSocket("wss://nodejs-pos-hakkaku.herokuapp.com");
 
 // const HOST = location.origin.replace(/^http/, 'ws'); 
 // const ws = new WebSocket(HOST);

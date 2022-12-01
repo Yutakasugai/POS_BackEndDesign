@@ -28,8 +28,10 @@ app.use('/', require('./Pages/pages'));
 app.use('/auth', require('./routes/auth')); 
 
 // Create a HTTP server for this system
-const httpServer = http.createServer(app);
-const wss = new WebSocket.Server({ server: httpServer });
+// const httpServer = http.createServer(app);
+// const wss = new WebSocket.Server({ server: httpServer });
+
+const wss = new WebSocket.Server({ port: 8080 })
 
 // WebSocket Main Console
 wss.on("connection", function(ws){
@@ -111,7 +113,7 @@ wss.on("connection", function(ws){
 
                 } else if (control_id[0] === 'SH_updateBtn') {
 
-                    console.log('%%You just entered update btn websocket controller'); 
+                    // console.log('%%You just entered update btn websocket controller'); 
 
                     ws_updateBtn(control_id[1], user); 
 
@@ -126,8 +128,9 @@ wss.on("connection", function(ws){
 
 // Define the port number which you are using 
 const port = process.env.PORT || 3000; 
+app.listen(port); 
 
-httpServer.listen(port); 
+// httpServer.listen(port); 
 console.log(`Server is listening on port ${port}`); 
 
 
@@ -967,17 +970,17 @@ function ws_editItems (key_values, user) {
         }
     }
 
-    console.log('newItem_arr_test: ' + newItem_arr_test); 
-    console.log('newItem_array: ' + newItem_array);
-    console.log('newItem_temp_array: ' + newItem_temp_array);
-    console.log('newItem_array_total: ' + newItem_array_total);
-    console.log('newItem_exTop: ' + newItem_exTop);
-    console.log('oldItem_array: ' + oldItem_array);
-    console.log('oldItem_temp_array: ' + oldItem_temp_array);
-    console.log('item_array_plus: ' + item_array_plus);
-    console.log('item_array_minus: ' + item_array_minus);
-    console.log('complete_array: ' + complete_array);
-    console.log('complete_temp_array: ' + complete_temp_array);
+    // console.log('newItem_arr_test: ' + newItem_arr_test); 
+    // console.log('newItem_array: ' + newItem_array);
+    // console.log('newItem_temp_array: ' + newItem_temp_array);
+    // console.log('newItem_array_total: ' + newItem_array_total);
+    // console.log('newItem_exTop: ' + newItem_exTop);
+    // console.log('oldItem_array: ' + oldItem_array);
+    // console.log('oldItem_temp_array: ' + oldItem_temp_array);
+    // console.log('item_array_plus: ' + item_array_plus);
+    // console.log('item_array_minus: ' + item_array_minus);
+    // console.log('complete_array: ' + complete_array);
+    // console.log('complete_temp_array: ' + complete_temp_array);
 
 
     // Table-Check 

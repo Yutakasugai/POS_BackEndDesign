@@ -184,23 +184,22 @@ body {
     flex:1;
     overflow:scroll;
     overflow-y: scroll; 
-
     margin-bottom:auto;
-    height:67vh;
+    height:65vh;
 }
 
 .box-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: auto;
-    height:100%;
+    height: 80%;
     bottom:0;
     justify-items: center;
     margin-top: 10px;
 }
 .order-box {
     width: 94%; 
-    height: 77vh;
+    height: 80vh;
     background-color: #fffdd0;
     border-width: 1.5px;
     border-style: solid;
