@@ -4,12 +4,20 @@ Start Date: 03/01/2022 - End Date: ...
 Team Name: Code Monsters
 Developer List: Yuta(Project Manager & Back-End Development), Koya(Front-End Development), Darian(Front-End Development)
 
+
+
 Develping Tools 
+
 Fronte-End: Html5, CSS3. modern JavaScript, JQuery
+
 Back-End: Node.Js, MySQL, WebSocket
+
 Deployment Tool: Heroku 
 
+
+
 System Description and Requiremnts
+
 - Designed for the Hakkaku Ramen restaurant (Burnaby, BC)
 
 - Designed two sides of people from server and kitchen to enable them to work closely and efficiently
@@ -26,8 +34,12 @@ System Description and Requiremnts
 - Stroed every data about sales into a ClearDB-MySQL 
     - Cleaned and Refreash a database every 10 days to prevent database from exceeding the capcity 
     
+    
+    
+    
 
 Project Notes: 
+
 1, MySql - test how the database is compatible with Node.js 
 
 2, Web Socket - test how web socket can be installed and imported to my coding and communicate among multiple users 
