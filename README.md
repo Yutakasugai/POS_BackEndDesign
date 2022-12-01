@@ -1,7 +1,9 @@
 Project Name: Web-Based POS System - Hakkaku Ramen
+
 Start Date: 03/01/2022 - End Date: ...
 
 Team Name: Code Monsters
+
 Developer List: Yuta(Project Manager & Back-End Development), Koya(Front-End Development), Darian(Front-End Development)
 
 
