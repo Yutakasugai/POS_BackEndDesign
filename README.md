@@ -1,3 +1,33 @@
+Project Name: Web-Based POS System - Hakkaku Ramen
+Start Date: 03/01/2022 - End Date: ...
+
+Team Name: Code Monsters
+Developer List: Yuta(Project Manager & Back-End Development), Koya(Front-End Development), Darian(Front-End Development)
+
+Develping Tools 
+Fronte-End: Html5, CSS3. modern JavaScript, JQuery
+Back-End: Node.Js, MySQL, WebSocket
+Deployment Tool: Heroku 
+
+System Description and Requiremnts
+- Designed for the Hakkaku Ramen restaurant (Burnaby, BC)
+
+- Designed two sides of people from server and kitchen to enable them to work closely and efficiently
+
+- Required people at the server side to use any types of mobile phones, and people at the kitchen to install tablets on the wall where ceffs easily can take a look. 
+
+- No problem if this system is used for more than two servers
+
+- Locked the system logs for servers not to mess a business or steal any data 
+    - Admin Side (On Tablet) can check the user (Servers) logs if they can enter on the inside of this system 
+    
+- Installed an auto-caluculated system to provide a total tips (one of the active servers have to fill some required values) 
+
+- Stroed every data about sales into a ClearDB-MySQL 
+    - Cleaned and Refreash a database every 10 days to prevent database from exceeding the capcity 
+    
+
+Project Notes: 
 1, MySql - test how the database is compatible with Node.js 
 
 2, Web Socket - test how web socket can be installed and imported to my coding and communicate among multiple users 
