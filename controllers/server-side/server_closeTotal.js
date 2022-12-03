@@ -24,11 +24,11 @@ exports.closeTotal = (req, res) => {
     let total_tips = (Number(total.toFixed(2)) + Number(debit_val)) - (Number(sale_val) + 54); 
 
 
-    console.log('total-debit: ', debit_val); 
-    console.log('total-sale', sale_val); 
-    console.log(input_values); 
-    console.log(total.toFixed(2)); 
-    console.log(total_tips.toFixed(2)); 
+    // console.log('total-debit: ', debit_val); 
+    // console.log('total-sale', sale_val); 
+    // console.log(input_values); 
+    // console.log(total.toFixed(2)); 
+    // console.log(total_tips.toFixed(2)); 
 
     // Insert Total Tips and Money Amount 
     db.query(`update final_result set cash_total = (?), debit_total = (?), tip_total = (?), cash_list = (?) where date_key = (?) and time_key = (?)`, [total.toFixed(2), debit_val, total_tips.toFixed(2), input_values, date_key, time_key], (error) => {

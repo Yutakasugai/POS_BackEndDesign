@@ -1,6 +1,6 @@
 const url = require("url");
-const db_conn = require("../../db/db-conn"); 
-const db = db_conn["db_conn"];
+// const db_conn = require("../../db/db-conn"); 
+// const db = db_conn["db_conn"];
 
 exports.updateTable = (req, res) => {
 
