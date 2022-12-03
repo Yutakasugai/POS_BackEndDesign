@@ -28,10 +28,10 @@ app.use('/', require('./Pages/pages'));
 app.use('/auth', require('./routes/auth')); 
 
 // Create a HTTP server for this system
-// const httpServer = http.createServer(app);
-// const wss = new WebSocket.Server({ server: httpServer });
+const httpServer = http.createServer(app);
+const wss = new WebSocket.Server({ server: httpServer });
 
-const wss = new WebSocket.Server({ port: 8080 })
+// const wss = new WebSocket.Server({ port: 8080 })
 
 // WebSocket Main Console
 wss.on("connection", function(ws){
