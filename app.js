@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path"); 
+const mysql = require("mysql"); 
 const WebSocket = require("ws"); 
 const http = require("http");
 
@@ -18,8 +19,16 @@ app.use(express.static(publicDirectory));
 app.set('view engine', 'hbs'); 
 
 // Get a connection from db file
-const db_conn = require('./db/db-conn'); 
-const db = db_conn["db_conn"]; 
+// const db_conn = require('./db/db-conn'); 
+// const db = db_conn["db_conn"]; 
+
+// Create a connectPool for mysql 
+const db = mysql.createPool({
+    host: 'us-cdbr-east-06.cleardb.net',
+    user: 'b2a454764cb73f', 
+    password: '6eb564fe',
+    database: 'heroku_719ef538f12f1bb'
+});
 
 app.use(express.urlencoded({extended:false})); 
 app.use(express.json()); 

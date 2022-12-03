@@ -7,6 +7,9 @@ const db_conn = require("../db/db-conn");
 const { table } = require("console");
 const db = db_conn["db_conn"];
 
+// console.log(db_conn); 
+// console.log(db);
+
 // Call the middleware functions from a different folder
 // const mw = require("../middlewares/server_home");
 // const mw_addItem = require("../middlewares/server_addItem");
